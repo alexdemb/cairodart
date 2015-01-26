@@ -3,7 +3,11 @@ include(bindings/bindings.pri)
 
 DART_API_INCLUDE = "$$(DART_SDK)/include"
 
-message(Dart SDK is: $$DART_API_INCLUDE)
-
 INCLUDEPATH += $$DART_API_INCLUDE
 
+TEMPLATE = lib
+VERSION = 0.1
+TARGET = cairodart
+CONFIG += shared
+CONFIG += c++11
+CONFIG -= qt

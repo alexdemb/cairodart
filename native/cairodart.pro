@@ -11,4 +11,4 @@ TARGET = cairodart
 CONFIG += shared
 CONFIG += c++11
 CONFIG -= qt
-
+DESTDIR += "$$PWD/../cairodart/lib/src"

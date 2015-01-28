@@ -12,7 +12,10 @@ Utils::Utils()
 
 void Utils::propagateError(const Dart_Handle& handle)
 {
-    Dart_PropagateError(handle);
+    if (Dart_IsError(handle))
+    {
+        Dart_PropagateError(handle);
+    }
 }
 
 void Utils::newError(const std::string& msg)

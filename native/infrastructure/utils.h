@@ -21,7 +21,10 @@ public:
     static bool isBoolean(const Dart_Handle& handle);
     static std::string toString(const Dart_Handle& handle);
     static double toDouble(const Dart_Handle& handle);
-    static bool toBoolean(const Dart_Handle& handke);
+    static bool toBoolean(const Dart_Handle& handle);
+    static int64_t toInteger(const Dart_Handle& handle);
+    static Dart_Handle getField(const Dart_Handle& handle, const std::string& fieldName);
+
 private:
     Utils();
 };

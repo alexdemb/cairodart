@@ -64,6 +64,20 @@ bool Utils::toBoolean(const Dart_Handle &handle)
     return val;
 }
 
+int64_t Utils::toInteger(const Dart_Handle& handle)
+{
+    int64_t val;
+    propagateError(Dart_IntegerToInt64(handle, &val));
+    return val;
+}
+
+Dart_Handle Utils::getField(const Dart_Handle& handle, const std::string& fieldName)
+{
+    Dart_Handle field = Dart_GetField(handle, Dart_NewStringFromCString(fieldName.c_str()));
+    propagateError(field);
+    return field;
+}
+
 } // infrastructure
 
 } // cairodart

@@ -1,9 +1,11 @@
-#include "cairodart.h"
-#include "infrastructure/infrastructure.h"
 #include <map>
 #include <cairo/cairo.h>
 #include <cstdint>
 
+#include "cairodart.h"
+#include "infrastructure/infrastructure.h"
+#include "surface.h"
+#include "imagesurface.h"
 
 using namespace cairodart::infrastructure;
 
@@ -43,27 +45,16 @@ void CairoDart::image_surface_create(Dart_NativeArguments args)
 {
     Arguments arg = args;
     Dart_Handle obj = arg.arg(0);
-    Dart_Handle formatHandle = arg.arg(1);
+    cairo_format_t format = Surface::cairoFormatFromHandle(arg.arg(1));
     int64_t width = arg.intArg(2);
     int64_t height = arg.intArg(3);
 
-    cairo_format_t format = getCairoFormatFromHandle(formatHandle);
-
-    cairo_surface_t* surface = cairo_image_surface_create(format, width, height);
-
-    // TODO: Dart_NewWeakPersistentHandle() should be used and callback for releasing surface should be assigned.
-
-    Dart_SetNativeInstanceField(obj, 0, (intptr_t) surface);
+    ImageSurface* surface = new ImageSurface(format, width, height);
+    Utils::setupBindingObject(obj, surface);
 
     Dart_SetReturnValue(args, Dart_Null());
 }
 
-cairo_format_t CairoDart::getCairoFormatFromHandle(const Dart_Handle& formatHandle)
-{
-    int64_t val = Utils::toInteger(Utils::getField(formatHandle, "value"));
-    cairo_format_t result = static_cast<cairo_format_t>(val);
-    return result;
-}
 
 
 } // bindings

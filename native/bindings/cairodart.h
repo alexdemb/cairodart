@@ -23,7 +23,7 @@ public:
 private:
     CairoDart();
 
-    static cairo_format_t getCairoFormatFromHandle(const Dart_Handle& formatHandle);
+    static cairo_format_t cairoFormatFromHandle(const Dart_Handle& formatHandle);
 };
 
 } // bindings

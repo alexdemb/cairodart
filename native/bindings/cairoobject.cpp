@@ -11,6 +11,10 @@ CairoObject::CairoObject()
 {
 }
 
+CairoObject::~CairoObject()
+{
+}
+
 } // bindings
 
 } // cairodart

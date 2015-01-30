@@ -11,6 +11,7 @@ class CairoObject
 {
 public:
     CairoObject();
+    virtual ~CairoObject();
 
     virtual void verify() const = 0;
 };

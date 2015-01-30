@@ -3,6 +3,7 @@
 
 #include <cairo/cairo.h>
 #include "dart_api.h"
+#include "cairoobject.h"
 
 namespace cairodart
 {
@@ -10,7 +11,7 @@ namespace cairodart
 namespace bindings
 {
 
-class Surface
+class Surface : public CairoObject
 {
 protected:
     cairo_surface_t* surface;

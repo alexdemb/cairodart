@@ -11,7 +11,6 @@ namespace bindings
 
 Surface::Surface()
 {
-    std::cout << "Object created" << std::endl;
 }
 
 Surface::~Surface()
@@ -21,7 +20,6 @@ Surface::~Surface()
         cairo_surface_destroy(this->surface);
         verify();
         this->surface = nullptr;
-        std::cout << "Object destroyed" << std::endl;
     }
 }
 

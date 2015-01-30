@@ -20,6 +20,8 @@ public:
 
     static void createContext(Dart_NativeArguments args);
     static void image_surface_create(Dart_NativeArguments args);
+    static void image_surface_get_width(Dart_NativeArguments args);
+    static void image_surface_get_height(Dart_NativeArguments args);
 private:
     CairoDart();
 

@@ -43,12 +43,12 @@ public:
     }
 
     template<typename T>
-    static T bindingObject(Dart_Handle& handle)
+    static T* bindingObject(Dart_Handle& handle)
     {
         intptr_t ptr;
         propagateError(Dart_GetNativeInstanceField(handle, 0, &ptr));
 
-        return static_cast<T>(ptr);
+        return (T*) ptr;
     }
 
     template<typename T>

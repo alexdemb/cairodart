@@ -14,6 +14,9 @@ class ImageSurface final : public Surface
 public:
     ImageSurface(cairo_format_t& format, int width, int height);
     virtual ~ImageSurface();
+
+    int width() const;
+    int height() const;
 };
 
 } // bindings

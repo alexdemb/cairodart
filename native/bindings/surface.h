@@ -20,6 +20,9 @@ public:
     virtual ~Surface();
 
     void verify() const;
+
+    void flush() const;
+    void finish() const;
 };
 
 } // bindings

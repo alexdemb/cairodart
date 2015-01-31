@@ -29,6 +29,18 @@ void Surface::verify() const
     Utils::verify(status);
 }
 
+void Surface::finish() const
+{
+    cairo_surface_finish(this->surface);
+    verify();
+}
+
+void Surface::flush() const
+{
+    cairo_surface_flush(this->surface);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

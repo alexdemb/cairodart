@@ -2,6 +2,16 @@ part of cairodart.base;
 
 abstract class Surface {
   
+  void finish();
+  void flush();
+  
+}
+
+abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
+  
+  void finish() native 'surface_finish';
+  void flush() native 'surface_flush';
+
 }
 
 abstract class ImageSurface implements Surface {
@@ -18,7 +28,7 @@ abstract class ImageSurface implements Surface {
 }
 
 
-class _ImageSurface extends NativeFieldWrapperClass2 implements ImageSurface {
+class _ImageSurface extends _Surface implements ImageSurface {
   
   Format _format;
   

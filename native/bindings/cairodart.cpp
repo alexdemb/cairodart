@@ -21,7 +21,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
-  { "create_cairo_format", CairoDart::create_cairo_format }
+  { "create_cairo_format", CairoDart::create_cairo_format },
+  { "format_stride_for_width", CairoDart::format_stride_for_width }
 };
 
 CairoDart::CairoDart()
@@ -42,6 +43,8 @@ void CairoDart::createContext(Dart_NativeArguments args)
     UNUSED(args) //temporary
 }
 
+// cairo_format_t
+
 void CairoDart::create_cairo_format(Dart_NativeArguments args)
 {
     Arguments arg = args;
@@ -55,6 +58,20 @@ void CairoDart::create_cairo_format(Dart_NativeArguments args)
 
     Dart_SetReturnValue(args, Dart_Null());
 }
+
+void CairoDart::format_stride_for_width(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    int width = arg.intArg(1);
+
+    Format* format = Utils::bindingObject<Format>(obj);
+    int stride = format->strideForWidth(width);
+
+    Dart_SetReturnValue(args, Dart_NewInteger(stride));
+}
+
+// cairo_surface_t
 
 void CairoDart::image_surface_create(Dart_NativeArguments args)
 {

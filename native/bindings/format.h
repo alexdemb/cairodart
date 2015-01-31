@@ -19,6 +19,7 @@ public:
     virtual ~Format();
 
     cairo_format_t format() const;
+    int strideForWidth(int width) const;
 };
 
 } // bindings

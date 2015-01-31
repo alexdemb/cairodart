@@ -18,7 +18,6 @@ protected:
     Surface();
 public:
     virtual ~Surface();
-    static cairo_format_t cairoFormatFromHandle(const Dart_Handle& formatHandle);
 
     void verify() const;
 };

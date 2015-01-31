@@ -1,7 +1,7 @@
 part of cairodart.base;
 
 
-class Format {
+class Format extends NativeFieldWrapperClass2 {
   static final Format CAIRO_FORMAT_INVALID = new Format._(-1);
   static final Format CAIRO_FORMAT_ARGB32 = new Format._(0);
   static final Format CAIRO_FORMAT_RGB24 = new Format._(1);
@@ -12,5 +12,9 @@ class Format {
   
   final int value;
   
-  Format._(this.value);
+  Format._(this.value) {
+    _createFormat(value);
+  }
+  
+  _createFormat(int value) native 'create_cairo_format';
 }

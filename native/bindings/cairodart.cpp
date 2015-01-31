@@ -20,10 +20,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "createContext", CairoDart::createContext },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
-  { "image_surface_get_height", CairoDart::image_surface_get_height }
+  { "image_surface_get_height", CairoDart::image_surface_get_height },
+  { "create_cairo_format", CairoDart::create_cairo_format }
 };
-
-
 
 CairoDart::CairoDart()
 {
@@ -43,13 +42,29 @@ void CairoDart::createContext(Dart_NativeArguments args)
     UNUSED(args) //temporary
 }
 
+void CairoDart::create_cairo_format(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    int val = arg.intArg(1);
+
+    cairo_format_t fmt = static_cast<cairo_format_t>(val);
+
+    Format* format = new Format(fmt);
+    Utils::setupBindingObject(obj, format);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
 void CairoDart::image_surface_create(Dart_NativeArguments args)
 {
     Arguments arg = args;
     Dart_Handle obj = arg.arg(0);
-    cairo_format_t format = Surface::cairoFormatFromHandle(arg.arg(1));
+    Dart_Handle formatHandle = arg.arg(1);
     int64_t width = arg.intArg(2);
     int64_t height = arg.intArg(3);
+
+    Format* format = Utils::bindingObject<Format>(formatHandle);
 
     ImageSurface* surface = new ImageSurface(format, width, height);
     Utils::setupBindingObject(obj, surface);

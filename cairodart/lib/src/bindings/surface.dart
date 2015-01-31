@@ -12,19 +12,24 @@ abstract class ImageSurface implements Surface {
   
   int get width;
   int get height;
+  Format get format;
   
 }
 
 
 class _ImageSurface extends NativeFieldWrapperClass2 implements ImageSurface {
   
+  Format _format;
+  
   _ImageSurface(Format format, int width, int height) {
     _createImageSurface(format, width, height);
+    _format = format;
   }
   
   void _createImageSurface(Format format, int width, int height) native 'image_surface_create';
   
   int get width native 'image_surface_get_width';
   int get height native 'image_surface_get_height';
+  Format get format => _format;
   
 }

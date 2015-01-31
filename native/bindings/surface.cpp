@@ -23,13 +23,6 @@ Surface::~Surface()
     }
 }
 
-cairo_format_t Surface::cairoFormatFromHandle(const Dart_Handle& formatHandle)
-{
-    int64_t val = Utils::toInteger(Utils::getField(formatHandle, "value"));
-    cairo_format_t result = static_cast<cairo_format_t>(val);
-    return result;
-}
-
 void Surface::verify() const
 {
     cairo_status_t status = cairo_surface_status(surface);

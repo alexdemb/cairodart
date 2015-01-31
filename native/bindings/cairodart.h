@@ -19,13 +19,16 @@ public:
     static Dart_NativeFunction resolve(std::string& name);
 
     static void createContext(Dart_NativeArguments args);
+
+    // cairo_surface_t
     static void image_surface_create(Dart_NativeArguments args);
     static void image_surface_get_width(Dart_NativeArguments args);
     static void image_surface_get_height(Dart_NativeArguments args);
+
+    // cairo_format_t
+    static void create_cairo_format(Dart_NativeArguments args);
 private:
     CairoDart();
-
-    static cairo_format_t cairoFormatFromHandle(const Dart_Handle& formatHandle);
 };
 
 } // bindings

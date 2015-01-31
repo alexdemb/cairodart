@@ -24,6 +24,8 @@ public:
     void flush() const;
     void finish() const;
     int content() const;
+    void markDirty() const;
+    void markDirtyRect(const int& x, const int& y, const int& width, const int& height) const;
 };
 
 } // bindings

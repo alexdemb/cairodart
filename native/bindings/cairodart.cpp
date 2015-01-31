@@ -28,7 +28,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "image_surface_get_stride", CairoDart::image_surface_get_stride },
   { "surface_finish", CairoDart::surface_finish },
   { "surface_flush", CairoDart::surface_flush },
-  { "surface_get_content", CairoDart::surface_get_content }
+  { "surface_get_content", CairoDart::surface_get_content },
+  { "surface_mark_dirty", CairoDart::surface_mark_dirty },
+  { "surface_mark_dirty_rectangle", CairoDart::surface_mark_dirty_rectangle }
 };
 
 CairoDart::CairoDart()
@@ -153,6 +155,26 @@ void CairoDart::surface_get_content(Dart_NativeArguments args)
     Surface* surface = Utils::thisFromArg<Surface>(args);
     int content = surface->content();
     Dart_SetReturnValue(args, Dart_NewInteger(content));
+}
+
+void CairoDart::surface_mark_dirty(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+    surface->markDirty();
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::surface_mark_dirty_rectangle(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+    Arguments arg = args;
+    int x = arg.intArg(1);
+    int y = arg.intArg(2);
+    int width = arg.intArg(3);
+    int height = arg.intArg(4);
+
+    surface->markDirtyRect(x, y, width, height);
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 } // bindings

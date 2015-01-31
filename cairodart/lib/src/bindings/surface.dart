@@ -4,6 +4,8 @@ abstract class Surface {
   
   void finish();
   void flush();
+  void markDirty();
+  void markDirtyRect(int x, int y, int width, int height);
   Content get content;
   
 }
@@ -16,6 +18,9 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
     int c = _getContent();
     return Content.valueOf(c);
   }
+  
+  void markDirty() native 'surface_mark_dirty';
+  void markDirtyRect(int x, int y, int width, int height) native 'surface_mark_dirty_rectangle';
   
   int _getContent() native 'surface_get_content';
   

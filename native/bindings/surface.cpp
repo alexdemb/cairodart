@@ -48,6 +48,18 @@ int Surface::content() const
     return static_cast<int>(content);
 }
 
+void Surface::markDirty() const
+{
+    cairo_surface_mark_dirty(this->surface);
+    verify();
+}
+
+void Surface::markDirtyRect(const int &x, const int &y, const int &width, const int &height) const
+{
+    cairo_surface_mark_dirty_rectangle(this->surface, x, y, width, height);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

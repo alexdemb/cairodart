@@ -41,6 +41,13 @@ void Surface::flush() const
     verify();
 }
 
+int Surface::content() const
+{
+    cairo_content_t content = cairo_surface_get_content(this->surface);
+    verify();
+    return static_cast<int>(content);
+}
+
 } // bindings
 
 } // cairodart

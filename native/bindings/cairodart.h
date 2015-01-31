@@ -27,6 +27,7 @@ public:
     static void image_surface_get_stride(Dart_NativeArguments args);
     static void surface_finish(Dart_NativeArguments args);
     static void surface_flush(Dart_NativeArguments args);
+    static void surface_get_content(Dart_NativeArguments args);
 
     // cairo_format_t
     static void create_cairo_format(Dart_NativeArguments args);

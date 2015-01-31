@@ -4,6 +4,7 @@ abstract class Surface {
   
   void finish();
   void flush();
+  Content get content;
   
 }
 
@@ -11,7 +12,13 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   
   void finish() native 'surface_finish';
   void flush() native 'surface_flush';
-
+  Content get content {
+    int c = _getContent();
+    return Content.valueOf(c);
+  }
+  
+  int _getContent() native 'surface_get_content';
+  
 }
 
 abstract class ImageSurface implements Surface {

@@ -23,6 +23,7 @@ public:
 
     void flush() const;
     void finish() const;
+    int content() const;
 };
 
 } // bindings

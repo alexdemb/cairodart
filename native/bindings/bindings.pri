@@ -3,7 +3,8 @@ HEADERS += \
     bindings/surface.h \
     bindings/imagesurface.h \
     bindings/cairoobject.h \
-    bindings/format.h
+    bindings/format.h \
+    bindings/content.h
 
 SOURCES += \
     bindings/cairodart.cpp \
@@ -11,4 +12,5 @@ SOURCES += \
     bindings/surface.cpp \
     bindings/imagesurface.cpp \
     bindings/cairoobject.cpp \
-    bindings/format.cpp
+    bindings/format.cpp \
+    bindings/content.cpp

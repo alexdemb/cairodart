@@ -29,6 +29,9 @@ public:
     // cairo_format_t
     static void create_cairo_format(Dart_NativeArguments args);
     static void format_stride_for_width(Dart_NativeArguments args);
+
+    // cairo_content_t
+    static void create_cairo_content(Dart_NativeArguments args);
 private:
     CairoDart();
 };

@@ -6,6 +6,7 @@
 #include "infrastructure/infrastructure.h"
 #include "surface.h"
 #include "imagesurface.h"
+#include "content.h"
 
 using namespace cairodart::infrastructure;
 
@@ -22,6 +23,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
   { "create_cairo_format", CairoDart::create_cairo_format },
+  { "create_cairo_content", CairoDart::create_cairo_content },
   { "format_stride_for_width", CairoDart::format_stride_for_width },
   { "image_surface_get_stride", CairoDart::image_surface_get_stride }
 };
@@ -69,6 +71,22 @@ void CairoDart::format_stride_for_width(Dart_NativeArguments args)
     int stride = format->strideForWidth(width);
 
     Dart_SetReturnValue(args, Dart_NewInteger(stride));
+}
+
+
+// cairo_content_t
+
+void CairoDart::create_cairo_content(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    int val = arg.intArg(1);
+
+    cairo_content_t cnt = static_cast<cairo_content_t>(val);
+    Content* content = new Content(cnt);
+    Utils::setupBindingObject(obj, content);
+
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 // cairo_surface_t

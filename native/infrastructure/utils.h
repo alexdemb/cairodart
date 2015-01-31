@@ -30,6 +30,14 @@ public:
     static void verify(cairo_status_t& status);
 
     template<typename T>
+    static T* thisFromArg(Dart_NativeArguments& args)
+    {
+        Dart_Handle handle = Dart_GetNativeArgument(args, 0);
+        propagateError(handle);
+        return bindingObject<T>(handle);
+    }
+
+    template<typename T>
     static void finalize(void* isolateCallbackData, Dart_WeakPersistentHandle weakHandle, void* peer)
     {
         UNUSED(isolateCallbackData);

@@ -63,10 +63,9 @@ void CairoDart::create_cairo_format(Dart_NativeArguments args)
 void CairoDart::format_stride_for_width(Dart_NativeArguments args)
 {
     Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
     int width = arg.intArg(1);
 
-    Format* format = Utils::bindingObject<Format>(obj);
+    Format* format = Utils::thisFromArg<Format>(args);
     int stride = format->strideForWidth(width);
 
     Dart_SetReturnValue(args, Dart_NewInteger(stride));
@@ -92,10 +91,7 @@ void CairoDart::image_surface_create(Dart_NativeArguments args)
 
 void CairoDart::image_surface_get_width(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-
-    ImageSurface* surface = Utils::bindingObject<ImageSurface>(obj);
+    ImageSurface* surface = Utils::thisFromArg<ImageSurface>(args);
     int width = surface->width();
 
     Dart_SetReturnValue(args, Dart_NewInteger(width));
@@ -103,10 +99,7 @@ void CairoDart::image_surface_get_width(Dart_NativeArguments args)
 
 void CairoDart::image_surface_get_height(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-
-    ImageSurface* surface = Utils::bindingObject<ImageSurface>(obj);
+    ImageSurface* surface = Utils::thisFromArg<ImageSurface>(args);
     int height = surface->height();
 
     Dart_SetReturnValue(args, Dart_NewInteger(height));
@@ -114,10 +107,7 @@ void CairoDart::image_surface_get_height(Dart_NativeArguments args)
 
 void CairoDart::image_surface_get_stride(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-
-    ImageSurface* surface = Utils::bindingObject<ImageSurface>(obj);
+    ImageSurface* surface = Utils::thisFromArg<ImageSurface>(args);
     int stride = surface->stride();
 
     Dart_SetReturnValue(args, Dart_NewInteger(stride));

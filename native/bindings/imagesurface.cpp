@@ -30,6 +30,13 @@ int ImageSurface::height() const
     return height;
 }
 
+int ImageSurface::stride() const
+{
+    int stride = cairo_image_surface_get_stride(this->surface);
+    verify();
+    return stride;
+}
+
 } // bindings
 
 } // cairodart

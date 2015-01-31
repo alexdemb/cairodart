@@ -18,6 +18,7 @@ public:
 
     int width() const;
     int height() const;
+    int stride() const;
 };
 
 } // bindings

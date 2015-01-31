@@ -24,6 +24,7 @@ public:
     static void image_surface_create(Dart_NativeArguments args);
     static void image_surface_get_width(Dart_NativeArguments args);
     static void image_surface_get_height(Dart_NativeArguments args);
+    static void image_surface_get_stride(Dart_NativeArguments args);
 
     // cairo_format_t
     static void create_cairo_format(Dart_NativeArguments args);

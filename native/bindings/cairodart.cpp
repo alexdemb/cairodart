@@ -32,7 +32,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "surface_mark_dirty", CairoDart::surface_mark_dirty },
   { "surface_mark_dirty_rectangle", CairoDart::surface_mark_dirty_rectangle },
   { "surface_get_device_offset", CairoDart::surface_get_device_offset },
-  { "surface_set_device_offset", CairoDart::surface_set_device_offset }
+  { "surface_set_device_offset", CairoDart::surface_set_device_offset },
+  { "surface_copy_page", CairoDart::surface_copy_page },
+  { "surface_show_page", CairoDart::surface_show_page }
 };
 
 CairoDart::CairoDart()
@@ -205,6 +207,24 @@ void CairoDart::surface_set_device_offset(Dart_NativeArguments args)
     Dart_SetReturnValue(args, Dart_Null());
 }
 
+
+void CairoDart::surface_copy_page(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+
+    surface->copyPage();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::surface_show_page(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+
+    surface->showPage();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
 
 } // bindings
 

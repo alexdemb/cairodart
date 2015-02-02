@@ -28,6 +28,8 @@ public:
     void markDirtyRect(const int& x, const int& y, const int& width, const int& height) const;
     void setDeviceOffset(const double& x, const double& y) const;
     void getDeviceOffset(double& x, double& y) const;
+    void copyPage() const;
+    void showPage() const;
 };
 
 } // bindings

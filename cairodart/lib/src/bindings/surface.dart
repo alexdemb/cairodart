@@ -6,6 +6,9 @@ abstract class Surface {
   void flush();
   void markDirty();
   void markDirtyRect(int x, int y, int width, int height);
+  void copyPage();
+  void showPage();
+  
   Content get content;
   Point get deviceOffset;
   void set deviceOffset(Point offset);
@@ -32,6 +35,10 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   }
   
   void _deviceOffset(double x, double y) native 'surface_set_device_offset';
+  
+  void copyPage() native 'surface_copy_page';
+  void showPage() native 'surface_show_page';
+  
   
 }
 

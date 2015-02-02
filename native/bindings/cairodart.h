@@ -32,6 +32,8 @@ public:
     static void surface_mark_dirty_rectangle(Dart_NativeArguments args);
     static void surface_get_device_offset(Dart_NativeArguments args);
     static void surface_set_device_offset(Dart_NativeArguments args);
+    static void surface_copy_page(Dart_NativeArguments args);
+    static void surface_show_page(Dart_NativeArguments args);
 
     // cairo_format_t
     static void create_cairo_format(Dart_NativeArguments args);

@@ -73,6 +73,18 @@ void Surface::getDeviceOffset(double& x, double& y) const
     verify();
 }
 
+void Surface::copyPage() const
+{
+    cairo_surface_copy_page(this->surface);
+    verify();
+}
+
+void Surface::showPage() const
+{
+    cairo_surface_show_page(this->surface);
+    verify();
+}
+
 
 } // bindings
 

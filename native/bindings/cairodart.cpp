@@ -30,7 +30,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "surface_flush", CairoDart::surface_flush },
   { "surface_get_content", CairoDart::surface_get_content },
   { "surface_mark_dirty", CairoDart::surface_mark_dirty },
-  { "surface_mark_dirty_rectangle", CairoDart::surface_mark_dirty_rectangle }
+  { "surface_mark_dirty_rectangle", CairoDart::surface_mark_dirty_rectangle },
+  { "surface_get_device_offset", CairoDart::surface_get_device_offset },
+  { "surface_set_device_offset", CairoDart::surface_set_device_offset }
 };
 
 CairoDart::CairoDart()
@@ -176,6 +178,33 @@ void CairoDart::surface_mark_dirty_rectangle(Dart_NativeArguments args)
     surface->markDirtyRect(x, y, width, height);
     Dart_SetReturnValue(args, Dart_Null());
 }
+
+void CairoDart::surface_get_device_offset(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+    double x;
+    double y;
+    surface->getDeviceOffset(x, y);
+
+    Dart_Handle params[2] { Dart_NewDouble(x), Dart_NewDouble(y) };
+    Dart_Handle obj = Utils::newObject("Point", "from", 2, params);
+
+    Dart_SetReturnValue(args, obj);
+}
+
+
+void CairoDart::surface_set_device_offset(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+    Arguments arg = args;
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+
+    surface->setDeviceOffset(x, y);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
 
 } // bindings
 

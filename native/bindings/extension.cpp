@@ -5,6 +5,22 @@
 using namespace cairodart::infrastructure;
 using namespace cairodart::bindings;
 
+static Dart_Handle CAIRODART_LIB;
+
+
+namespace cairodart
+{
+
+namespace infrastructure
+{
+    Dart_Handle getLibrary()
+    {
+        return CAIRODART_LIB;
+    }
+}
+
+}
+
 Dart_NativeFunction ResolveName(Dart_Handle name, int argc, bool* auto_setup_scope);
 
 DART_EXPORT Dart_Handle cairodart_Init(Dart_Handle parent_library)
@@ -16,6 +32,7 @@ DART_EXPORT Dart_Handle cairodart_Init(Dart_Handle parent_library)
     if (Dart_IsError(result_code))
         return result_code;
 
+    CAIRODART_LIB = Dart_NewPersistentHandle(parent_library);
     return Dart_Null();
 }
 

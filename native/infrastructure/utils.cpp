@@ -71,13 +71,6 @@ int64_t Utils::toInteger(const Dart_Handle& handle)
     return val;
 }
 
-Dart_Handle Utils::getField(const Dart_Handle& handle, const std::string& fieldName)
-{
-    Dart_Handle field = Dart_GetField(handle, Dart_NewStringFromCString(fieldName.c_str()));
-    propagateError(field);
-    return field;
-}
-
 void Utils::verify(cairo_status_t& status)
 {
     if (status != CAIRO_STATUS_SUCCESS)
@@ -88,7 +81,16 @@ void Utils::verify(cairo_status_t& status)
 }
 
 
-
+Dart_Handle Utils::newObject(const std::string& className, const std::string& constructor, int argc, Dart_Handle *args)
+{
+    Dart_Handle constructorName = constructor.empty() ? Dart_Null() : Dart_NewStringFromCString(constructor.c_str());
+    Dart_Handle clazz = Dart_NewStringFromCString(className.c_str());
+    Dart_Handle type = Dart_GetClass(cairodart::infrastructure::getLibrary(), clazz);
+    propagateError(type);
+    Dart_Handle obj = Dart_New(type, constructorName, argc, args);
+    propagateError(obj);
+    return obj;
+}
 
 } // infrastructure
 

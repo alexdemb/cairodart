@@ -5,6 +5,18 @@
 
 #define UNUSED(expr) (void)(expr);;
 
+namespace cairodart
+{
+
+namespace infrastructure
+{
+    Dart_Handle getLibrary();
+}
+
+}
+
+
+
 #include "utils.h"
 #include "arguments.h"
 

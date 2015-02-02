@@ -7,6 +7,8 @@ abstract class Surface {
   void markDirty();
   void markDirtyRect(int x, int y, int width, int height);
   Content get content;
+  Point get deviceOffset;
+  void set deviceOffset(Point offset);
   
 }
 
@@ -23,6 +25,13 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   void markDirtyRect(int x, int y, int width, int height) native 'surface_mark_dirty_rectangle';
   
   int _getContent() native 'surface_get_content';
+  
+  Point get deviceOffset native 'surface_get_device_offset';
+  void set deviceOffset(Point offset) {
+    _deviceOffset(offset.x, offset.y);
+  }
+  
+  void _deviceOffset(double x, double y) native 'surface_set_device_offset';
   
 }
 

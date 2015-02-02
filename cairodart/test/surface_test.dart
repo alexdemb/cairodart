@@ -7,6 +7,14 @@ runSurfaceTests() {
       Content content = surface.content;
       expect(content, equals(Content.CAIRO_CONTENT_COLOR_ALPHA));
     });
+    test('should correctly get/set device offset', () {
+      var surface = new ImageSurface(Format.CAIRO_FORMAT_ARGB32, 640, 480);
+      surface.deviceOffset = new Point.from(20.0, 25.0);
+      
+      Point offset = surface.deviceOffset;
+      expect(offset.x, equals(20.0));
+      expect(offset.y, equals(25.0));
+    });
   });
   group('Image Surface', () {
     test('should have correct value of width', () {

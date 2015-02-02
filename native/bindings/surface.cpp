@@ -60,6 +60,20 @@ void Surface::markDirtyRect(const int &x, const int &y, const int &width, const 
     verify();
 }
 
+void Surface::setDeviceOffset(const double& x, const double& y) const
+{
+    cairo_surface_set_device_offset(this->surface, x, y);
+    verify();
+}
+
+
+void Surface::getDeviceOffset(double& x, double& y) const
+{
+    cairo_surface_get_device_offset(this->surface, &x, &y);
+    verify();
+}
+
+
 } // bindings
 
 } // cairodart

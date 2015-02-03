@@ -34,7 +34,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "surface_get_device_offset", CairoDart::surface_get_device_offset },
   { "surface_set_device_offset", CairoDart::surface_set_device_offset },
   { "surface_copy_page", CairoDart::surface_copy_page },
-  { "surface_show_page", CairoDart::surface_show_page }
+  { "surface_show_page", CairoDart::surface_show_page },
+  { "surface_has_show_text_glyphs", CairoDart::surface_has_show_text_glyphs },
+  { "surface_supports_mime_type", CairoDart::surface_supports_mime_type }
 };
 
 CairoDart::CairoDart()
@@ -224,6 +226,25 @@ void CairoDart::surface_show_page(Dart_NativeArguments args)
     surface->showPage();
 
     Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::surface_supports_mime_type(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+    Arguments arg = args;
+    std::string mime = arg.stringArg(1);
+
+    bool supports = surface->supportsMimeType(mime.c_str());
+    Dart_SetReturnValue(args, Dart_NewBoolean(supports));
+}
+
+
+void CairoDart::surface_has_show_text_glyphs(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+
+    bool res = surface->hasShowTextGlyphs();
+    Dart_SetReturnValue(args, Dart_NewBoolean(res));
 }
 
 } // bindings

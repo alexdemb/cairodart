@@ -85,6 +85,20 @@ void Surface::showPage() const
     verify();
 }
 
+bool Surface::hasShowTextGlyphs() const
+{
+    cairo_bool_t res = cairo_surface_has_show_text_glyphs(this->surface);
+    verify();
+    return res != 0;
+}
+
+bool Surface::supportsMimeType(const char* mimeType) const
+{
+    cairo_bool_t res = cairo_surface_supports_mime_type(this->surface, mimeType);
+    verify();
+    return res != 0;
+}
+
 
 } // bindings
 

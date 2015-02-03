@@ -15,6 +15,15 @@ runSurfaceTests() {
       expect(offset.x, equals(20.0));
       expect(offset.y, equals(25.0));
     });
+    test('should not support wrong mime type', () {
+      var surface = new ImageSurface(Format.CAIRO_FORMAT_ARGB32, 640, 480);
+      bool supports = surface.supportsMimeType('wrong/mimetype');
+      expect(supports, isFalse);
+    });
+    test('should not support cairo_show_text_glyphs() operation', () {
+      var surface = new ImageSurface(Format.CAIRO_FORMAT_ARGB32, 640, 480);
+      expect(surface.hasShowTextGlyphs, isFalse);
+    });
   });
   group('Image Surface', () {
     test('should have correct value of width', () {

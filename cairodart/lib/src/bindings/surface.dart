@@ -8,11 +8,12 @@ abstract class Surface {
   void markDirtyRect(int x, int y, int width, int height);
   void copyPage();
   void showPage();
+  bool supportsMimeType(String mimeType);
   
   Content get content;
   Point get deviceOffset;
   void set deviceOffset(Point offset);
-  
+  bool get hasShowTextGlyphs;
 }
 
 abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
@@ -38,8 +39,8 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   
   void copyPage() native 'surface_copy_page';
   void showPage() native 'surface_show_page';
-  
-  
+  bool get hasShowTextGlyphs native 'surface_has_show_text_glyphs';
+  bool supportsMimeType(String mimeType) native 'surface_supports_mime_type';
 }
 
 abstract class ImageSurface implements Surface {

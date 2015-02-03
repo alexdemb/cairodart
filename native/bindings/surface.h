@@ -30,6 +30,8 @@ public:
     void getDeviceOffset(double& x, double& y) const;
     void copyPage() const;
     void showPage() const;
+    bool hasShowTextGlyphs() const;
+    bool supportsMimeType(const char* mimeType) const;
 };
 
 } // bindings

@@ -99,6 +99,13 @@ bool Surface::supportsMimeType(const char* mimeType) const
     return res != 0;
 }
 
+int Surface::surfaceType() const
+{
+    cairo_surface_type_t type = cairo_surface_get_type(this->surface);
+    verify();
+    return static_cast<int>(type);
+}
+
 
 } // bindings
 

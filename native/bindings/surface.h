@@ -32,6 +32,7 @@ public:
     void showPage() const;
     bool hasShowTextGlyphs() const;
     bool supportsMimeType(const char* mimeType) const;
+    int surfaceType() const;
 };
 
 } // bindings

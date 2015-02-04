@@ -8,3 +8,4 @@ part 'bindings/surface.dart';
 part 'bindings/format.dart';
 part 'bindings/content.dart';
 part 'bindings/point.dart';
+part 'bindings/surface_type.dart';

@@ -42,5 +42,9 @@ runSurfaceTests() {
        var surface = new ImageSurface(Format.CAIRO_FORMAT_ARGB32, 640, 480);
        expect(surface.stride, equals(2560));
     });
+    test('should have IMAGE surface type', () {
+      var surface = new ImageSurface(Format.CAIRO_FORMAT_ARGB32, 640, 480);
+      expect(surface.surfaceType, equals(SurfaceType.IMAGE));
+    });
   });
 }

@@ -7,6 +7,7 @@
 #include "surface.h"
 #include "imagesurface.h"
 #include "content.h"
+#include "surfacetype.h"
 
 using namespace cairodart::infrastructure;
 
@@ -24,6 +25,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "image_surface_get_height", CairoDart::image_surface_get_height },
   { "create_cairo_format", CairoDart::create_cairo_format },
   { "create_cairo_content", CairoDart::create_cairo_content },
+  { "create_cairo_surface_type", CairoDart::create_cairo_surface_type },
   { "format_stride_for_width", CairoDart::format_stride_for_width },
   { "image_surface_get_stride", CairoDart::image_surface_get_stride },
   { "surface_finish", CairoDart::surface_finish },
@@ -36,7 +38,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "surface_copy_page", CairoDart::surface_copy_page },
   { "surface_show_page", CairoDart::surface_show_page },
   { "surface_has_show_text_glyphs", CairoDart::surface_has_show_text_glyphs },
-  { "surface_supports_mime_type", CairoDart::surface_supports_mime_type }
+  { "surface_supports_mime_type", CairoDart::surface_supports_mime_type },
+  { "surface_get_type", CairoDart::surface_get_type }
 };
 
 CairoDart::CairoDart()
@@ -84,6 +87,21 @@ void CairoDart::format_stride_for_width(Dart_NativeArguments args)
     Dart_SetReturnValue(args, Dart_NewInteger(stride));
 }
 
+// cairo_surface_type_t
+
+void CairoDart::create_cairo_surface_type(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    int val = arg.intArg(1);
+
+    cairo_surface_type_t type = static_cast<cairo_surface_type_t>(val);
+
+    SurfaceType* st = new SurfaceType(type);
+    Utils::setupBindingObject<SurfaceType>(obj, st);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
 
 // cairo_content_t
 
@@ -245,6 +263,13 @@ void CairoDart::surface_has_show_text_glyphs(Dart_NativeArguments args)
 
     bool res = surface->hasShowTextGlyphs();
     Dart_SetReturnValue(args, Dart_NewBoolean(res));
+}
+
+void CairoDart::surface_get_type(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+    int type = surface->surfaceType();
+    Dart_SetReturnValue(args, Dart_NewInteger(type));
 }
 
 } // bindings

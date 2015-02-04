@@ -14,6 +14,7 @@ abstract class Surface {
   Point get deviceOffset;
   void set deviceOffset(Point offset);
   bool get hasShowTextGlyphs;
+  SurfaceType get surfaceType;
 }
 
 abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
@@ -25,10 +26,16 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
     return Content.valueOf(c);
   }
   
+  SurfaceType get surfaceType {
+    int type = _getSurfaceType();
+    return SurfaceType.valueOf(type);
+  }
+  
   void markDirty() native 'surface_mark_dirty';
   void markDirtyRect(int x, int y, int width, int height) native 'surface_mark_dirty_rectangle';
   
   int _getContent() native 'surface_get_content';
+  int _getSurfaceType() native 'surface_get_type';
   
   Point get deviceOffset native 'surface_get_device_offset';
   void set deviceOffset(Point offset) {

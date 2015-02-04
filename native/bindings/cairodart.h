@@ -36,6 +36,7 @@ public:
     static void surface_show_page(Dart_NativeArguments args);
     static void surface_supports_mime_type(Dart_NativeArguments args);
     static void surface_has_show_text_glyphs(Dart_NativeArguments args);
+    static void surface_get_type(Dart_NativeArguments args);
 
     // cairo_format_t
     static void create_cairo_format(Dart_NativeArguments args);
@@ -43,6 +44,9 @@ public:
 
     // cairo_content_t
     static void create_cairo_content(Dart_NativeArguments args);
+
+    // cairo_surface_type_t
+    static void create_cairo_surface_type(Dart_NativeArguments args);
 private:
     CairoDart();
 };

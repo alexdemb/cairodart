@@ -24,6 +24,13 @@ runSurfaceTests() {
       var surface = new ImageSurface(Format.CAIRO_FORMAT_ARGB32, 640, 480);
       expect(surface.hasShowTextGlyphs, isFalse);
     });
+    test('should correctly get/set fallback resolution', () {
+      var surface = new ImageSurface(Format.CAIRO_FORMAT_ARGB32, 640, 480);
+      surface.fallbackResolution = new Resolution(250.0, 120.0);
+      
+      expect(surface.fallbackResolution.xResolution, equals(250.0));
+      expect(surface.fallbackResolution.yResolution, equals(120.0));
+    });
   });
   group('Image Surface', () {
     test('should have correct value of width', () {

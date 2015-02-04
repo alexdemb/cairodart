@@ -15,6 +15,8 @@ abstract class Surface {
   void set deviceOffset(Point offset);
   bool get hasShowTextGlyphs;
   SurfaceType get surfaceType;
+  Resolution get fallbackResolution;
+  void set fallbackResolution(Resolution resolution);
 }
 
 abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
@@ -48,6 +50,14 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   void showPage() native 'surface_show_page';
   bool get hasShowTextGlyphs native 'surface_has_show_text_glyphs';
   bool supportsMimeType(String mimeType) native 'surface_supports_mime_type';
+  
+  Resolution get fallbackResolution native 'surface_get_fallback_resolution';
+  void set fallbackResolution(Resolution resolution) {
+    _fallbackResolution(resolution.xResolution, resolution.yResolution);
+  }
+  
+  void _fallbackResolution(double x, double y) native 'surface_set_fallback_resolution';
+  
 }
 
 abstract class ImageSurface implements Surface {

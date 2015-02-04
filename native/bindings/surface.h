@@ -33,6 +33,8 @@ public:
     bool hasShowTextGlyphs() const;
     bool supportsMimeType(const char* mimeType) const;
     int surfaceType() const;
+    void setFallbackResolution(const double& xRes, const double& yRes) const;
+    void getFallbackResolution(double& xRes, double& yRes) const;
 };
 
 } // bindings

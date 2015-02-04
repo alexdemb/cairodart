@@ -37,6 +37,8 @@ public:
     static void surface_supports_mime_type(Dart_NativeArguments args);
     static void surface_has_show_text_glyphs(Dart_NativeArguments args);
     static void surface_get_type(Dart_NativeArguments args);
+    static void surface_get_fallback_resolution(Dart_NativeArguments args);
+    static void surface_set_fallback_resolution(Dart_NativeArguments args);
 
     // cairo_format_t
     static void create_cairo_format(Dart_NativeArguments args);

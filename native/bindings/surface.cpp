@@ -106,6 +106,17 @@ int Surface::surfaceType() const
     return static_cast<int>(type);
 }
 
+void Surface::setFallbackResolution(const double& xRes, const double& yRes) const
+{
+    cairo_surface_set_fallback_resolution(this->surface, xRes, yRes);
+    verify();
+}
+
+void Surface::getFallbackResolution(double& xRes, double& yRes) const
+{
+    cairo_surface_get_fallback_resolution(this->surface, &xRes, &yRes);
+    verify();
+}
 
 } // bindings
 

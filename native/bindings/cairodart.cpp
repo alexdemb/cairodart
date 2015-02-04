@@ -39,7 +39,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "surface_show_page", CairoDart::surface_show_page },
   { "surface_has_show_text_glyphs", CairoDart::surface_has_show_text_glyphs },
   { "surface_supports_mime_type", CairoDart::surface_supports_mime_type },
-  { "surface_get_type", CairoDart::surface_get_type }
+  { "surface_get_type", CairoDart::surface_get_type },
+  { "surface_get_fallback_resolution", CairoDart::surface_get_fallback_resolution },
+  { "surface_set_fallback_resolution", CairoDart::surface_set_fallback_resolution }
 };
 
 CairoDart::CairoDart()
@@ -270,6 +272,33 @@ void CairoDart::surface_get_type(Dart_NativeArguments args)
     Surface* surface = Utils::thisFromArg<Surface>(args);
     int type = surface->surfaceType();
     Dart_SetReturnValue(args, Dart_NewInteger(type));
+}
+
+
+void CairoDart::surface_get_fallback_resolution(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+    double xRes;
+    double yRes;
+
+    surface->getFallbackResolution(xRes, yRes);
+
+    Dart_Handle resArgs[2] = { Dart_NewDouble(xRes), Dart_NewDouble(yRes) };
+    Dart_Handle resolutionObj = Utils::newObject("Resolution", "", 2, resArgs);
+
+    Dart_SetReturnValue(args, resolutionObj);
+}
+
+void CairoDart::surface_set_fallback_resolution(Dart_NativeArguments args)
+{
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+    Arguments arg = args;
+    double xRes = arg.doubleArg(1);
+    double yRes = arg.doubleArg(2);
+
+    surface->setFallbackResolution(xRes, yRes);
+
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 } // bindings

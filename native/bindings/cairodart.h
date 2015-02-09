@@ -19,6 +19,15 @@ public:
     static Dart_NativeFunction resolve(std::string& name);
 
     static void context_create(Dart_NativeArguments args);
+    static void save(Dart_NativeArguments args);
+    static void restore(Dart_NativeArguments args);
+    static void push_group(Dart_NativeArguments args);
+    static void push_group_with_content(Dart_NativeArguments args);
+    static void pop_group_to_source(Dart_NativeArguments args);
+    static void set_source_rgb(Dart_NativeArguments args);
+    static void set_source_rgba(Dart_NativeArguments args);
+    static void stroke(Dart_NativeArguments args);
+    static void paint(Dart_NativeArguments args);
 
     // cairo_surface_t
     static void image_surface_create(Dart_NativeArguments args);

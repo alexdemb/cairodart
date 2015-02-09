@@ -21,6 +21,15 @@ namespace bindings
 static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
 {
   { "context_create", CairoDart::context_create },
+  { "save", CairoDart::save },
+  { "restore", CairoDart::restore },
+  { "push_group", CairoDart::push_group },
+  { "push_group_with_content", CairoDart::push_group_with_content },
+  { "pop_group_to_source", CairoDart::pop_group_to_source },
+  { "set_source_rgb", CairoDart::set_source_rgb },
+  { "set_source_rgba", CairoDart::set_source_rgba },
+  { "stroke", CairoDart::stroke },
+  { "paint", CairoDart::paint },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -74,6 +83,96 @@ void CairoDart::context_create(Dart_NativeArguments args)
 
     Dart_SetReturnValue(args, Dart_Null());
 }
+
+
+void CairoDart::save(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->save();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::restore(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->restore();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::push_group(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->pushGroup();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::push_group_with_content(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle contentObj = arg.arg(1);
+    Content* content = Utils::bindingObject<Content>(contentObj);
+
+    Context* ctx = Utils::thisFromArg<Context>(args);
+
+    ctx->pushGroupWithContent(content);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pop_group_to_source(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->popGroupToSource();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::set_source_rgb(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double r = arg.doubleArg(1);
+    double g = arg.doubleArg(2);
+    double b = arg.doubleArg(3);
+
+    ctx->setSourceRgb(r, g, b);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::set_source_rgba(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double r = arg.doubleArg(1);
+    double g = arg.doubleArg(2);
+    double b = arg.doubleArg(3);
+    double a = arg.doubleArg(4);
+
+    ctx->setSourceRgba(r, g, b, a);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::stroke(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->stroke();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::paint(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->paint();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
 
 // cairo_format_t
 

@@ -5,7 +5,8 @@ HEADERS += \
     bindings/cairoobject.h \
     bindings/format.h \
     bindings/content.h \
-    bindings/surfacetype.h
+    bindings/surfacetype.h \
+    bindings/context.h
 
 SOURCES += \
     bindings/cairodart.cpp \
@@ -15,4 +16,5 @@ SOURCES += \
     bindings/cairoobject.cpp \
     bindings/format.cpp \
     bindings/content.cpp \
-    bindings/surfacetype.cpp
+    bindings/surfacetype.cpp \
+    bindings/context.cpp

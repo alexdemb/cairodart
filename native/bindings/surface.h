@@ -35,6 +35,7 @@ public:
     int surfaceType() const;
     void setFallbackResolution(const double& xRes, const double& yRes) const;
     void getFallbackResolution(double& xRes, double& yRes) const;
+    cairo_surface_t* getHandle() const;
 };
 
 } // bindings

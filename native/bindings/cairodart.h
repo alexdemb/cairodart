@@ -18,7 +18,7 @@ class CairoDart
 public:
     static Dart_NativeFunction resolve(std::string& name);
 
-    static void createContext(Dart_NativeArguments args);
+    static void context_create(Dart_NativeArguments args);
 
     // cairo_surface_t
     static void image_surface_create(Dart_NativeArguments args);

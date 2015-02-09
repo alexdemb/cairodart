@@ -8,6 +8,7 @@
 #include "imagesurface.h"
 #include "content.h"
 #include "surfacetype.h"
+#include "context.h"
 
 using namespace cairodart::infrastructure;
 
@@ -19,7 +20,7 @@ namespace bindings
 
 static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
 {
-  { "createContext", CairoDart::createContext },
+  { "context_create", CairoDart::context_create },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -57,9 +58,21 @@ Dart_NativeFunction CairoDart::resolve(std::string& name)
     return iter->second;
 }
 
-void CairoDart::createContext(Dart_NativeArguments args)
+// cairo_t
+
+void CairoDart::context_create(Dart_NativeArguments args)
 {
-    UNUSED(args) //temporary
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    Dart_Handle surfaceObj = arg.arg(1);
+
+    Surface* surface = Utils::bindingObject<Surface>(surfaceObj);
+
+    Context* ctx = new Context(surface);
+
+    Utils::setupBindingObject<Context>(obj, ctx);
+
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 // cairo_format_t

@@ -18,7 +18,6 @@ Surface::~Surface()
     if (this->surface)
     {
         cairo_surface_destroy(this->surface);
-        verify();
         this->surface = nullptr;
     }
 }
@@ -116,6 +115,11 @@ void Surface::getFallbackResolution(double& xRes, double& yRes) const
 {
     cairo_surface_get_fallback_resolution(this->surface, &xRes, &yRes);
     verify();
+}
+
+cairo_surface_t* Surface::getHandle() const
+{
+    return this->surface;
 }
 
 } // bindings

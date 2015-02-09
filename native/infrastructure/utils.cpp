@@ -76,7 +76,10 @@ void Utils::verify(cairo_status_t& status)
     if (status != CAIRO_STATUS_SUCCESS)
     {
         const char* message = cairo_status_to_string(status);
-        propagateError(Dart_NewApiError(message));
+        if (message)
+        {
+            propagateError(Dart_NewApiError(message));
+        }
     }
 }
 

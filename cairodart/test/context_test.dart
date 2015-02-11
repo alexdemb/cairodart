@@ -43,6 +43,11 @@ runContextTests() {
       Context ctx = new Context(new ImageSurface(Format.CAIRO_FORMAT_ARGB32, 640, 480));
       ctx.paint();
     });
+    test('should return correct target', () {
+      var surface = new ImageSurface(Format.CAIRO_FORMAT_ARGB32, 640, 480);
+      Context ctx = new Context(surface);
+      expect(ctx.target, surface);
+    });
   });
 }
 

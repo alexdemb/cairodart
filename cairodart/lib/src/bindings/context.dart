@@ -16,13 +16,16 @@ abstract class Context {
   void stroke();
   void paint();
   
+  Surface get target;
 }
 
 
 class _Context extends NativeFieldWrapperClass2 implements Context {
   
-  _Context(Surface surface) {
-    _create(surface);
+  Surface _surface;
+  
+  _Context(this._surface) {
+    _create(_surface);
   }
   
   void _create(Surface surface) native 'context_create';
@@ -45,4 +48,5 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   
   void paint() native 'paint';
   
+  Surface get target => _surface;
 }

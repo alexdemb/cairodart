@@ -10,3 +10,5 @@ part 'bindings/content.dart';
 part 'bindings/point.dart';
 part 'bindings/surface_type.dart';
 part 'bindings/resolution.dart';
+part 'bindings/pattern.dart';
+part 'bindings/color.dart';

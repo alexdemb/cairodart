@@ -49,6 +49,24 @@ public:
     static void surface_get_fallback_resolution(Dart_NativeArguments args);
     static void surface_set_fallback_resolution(Dart_NativeArguments args);
 
+    // cairo_pattern_t
+    static void pattern_create_rgb(Dart_NativeArguments args);
+    static void pattern_create_rgba(Dart_NativeArguments args);
+    static void pattern_create_for_surface(Dart_NativeArguments args);
+    static void pattern_create_linear(Dart_NativeArguments args);
+    static void pattern_create_radial(Dart_NativeArguments args);
+    static void pattern_create_mesh(Dart_NativeArguments args);
+    static void pattern_mesh_begin_patch(Dart_NativeArguments args);
+    static void pattern_mesh_end_patch(Dart_NativeArguments args);
+    static void pattern_mesh_move_to(Dart_NativeArguments args);
+    static void pattern_mesh_line_to(Dart_NativeArguments args);
+    static void pattern_mesh_curve_to(Dart_NativeArguments args);
+    static void pattern_mesh_get_control_point(Dart_NativeArguments args);
+    static void pattern_mesh_set_control_point(Dart_NativeArguments args);
+    static void pattern_mesh_get_corner_color(Dart_NativeArguments args);
+    static void pattern_mesh_set_corner_color(Dart_NativeArguments args);
+    static void pattern_mesh_get_patch_count(Dart_NativeArguments args);
+
     // cairo_format_t
     static void create_cairo_format(Dart_NativeArguments args);
     static void format_stride_for_width(Dart_NativeArguments args);

@@ -9,6 +9,8 @@
 #include "content.h"
 #include "surfacetype.h"
 #include "context.h"
+#include "pattern.h"
+#include "meshpattern.h"
 
 using namespace cairodart::infrastructure;
 
@@ -51,8 +53,26 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "surface_supports_mime_type", CairoDart::surface_supports_mime_type },
   { "surface_get_type", CairoDart::surface_get_type },
   { "surface_get_fallback_resolution", CairoDart::surface_get_fallback_resolution },
-  { "surface_set_fallback_resolution", CairoDart::surface_set_fallback_resolution }
+  { "surface_set_fallback_resolution", CairoDart::surface_set_fallback_resolution },
+  { "pattern_create_rgb", CairoDart::pattern_create_rgb },
+  { "pattern_create_rgba", CairoDart::pattern_create_rgba },
+  { "pattern_create_for_surface", CairoDart::pattern_create_for_surface },
+  { "pattern_create_linear", CairoDart::pattern_create_linear },
+  { "pattern_create_radial", CairoDart::pattern_create_radial },
+  { "pattern_create_mesh", CairoDart::pattern_create_mesh },
+  { "pattern_mesh_begin_patch", CairoDart::pattern_mesh_begin_patch },
+  { "pattern_mesh_end_patch", CairoDart::pattern_mesh_end_patch },
+  { "pattern_mesh_move_to", CairoDart::pattern_mesh_move_to },
+  { "pattern_mesh_line_to", CairoDart::pattern_mesh_line_to },
+  { "pattern_mesh_curve_to", CairoDart::pattern_mesh_curve_to },
+  { "pattern_mesh_get_control_point", CairoDart::pattern_mesh_get_control_point },
+  { "pattern_mesh_set_control_point", CairoDart::pattern_mesh_set_control_point },
+  { "pattern_mesh_get_corner_color", CairoDart::pattern_mesh_get_corner_color },
+  { "pattern_mesh_set_corner_color", CairoDart::pattern_mesh_set_corner_color },
+  { "pattern_mesh_get_patch_count", CairoDart::pattern_mesh_get_patch_count }
+
 };
+
 
 CairoDart::CairoDart()
 {
@@ -412,6 +432,223 @@ void CairoDart::surface_set_fallback_resolution(Dart_NativeArguments args)
 
     Dart_SetReturnValue(args, Dart_Null());
 }
+
+// cairo_pattern_t
+void CairoDart::pattern_create_rgb(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    double red = arg.doubleArg(1);
+    double green = arg.doubleArg(2);
+    double blue = arg.doubleArg(3);
+
+    Pattern* pattern = Pattern::createPatternForRgb(red, green, blue);
+    Utils::setupBindingObject<Pattern>(obj, pattern);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_create_rgba(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    double red = arg.doubleArg(1);
+    double green = arg.doubleArg(2);
+    double blue = arg.doubleArg(3);
+    double alpha = arg.doubleArg(4);
+
+    Pattern* pattern = Pattern::createPatternForRgba(red, green, blue, alpha);
+    Utils::setupBindingObject<Pattern>(obj, pattern);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_create_for_surface(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    Dart_Handle surfaceObj = arg.arg(1);
+
+    Surface* surface = Utils::bindingObject<Surface>(surfaceObj);
+
+    Pattern* pattern = Pattern::createForSurface(surface);
+    Utils::setupBindingObject<Pattern>(obj, pattern);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_create_linear(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    double x0 = arg.doubleArg(1);
+    double y0 = arg.doubleArg(2);
+    double x1 = arg.doubleArg(3);
+    double y1 = arg.doubleArg(4);
+
+    Pattern* pattern = Pattern::createLinear(x0, y0, x1, y1);
+    Utils::setupBindingObject<Pattern>(obj, pattern);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_create_radial(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    double cx0 = arg.doubleArg(1);
+    double cy0 = arg.doubleArg(2);
+    double radius0 = arg.doubleArg(3);
+    double cx1 = arg.doubleArg(4);
+    double cy1 = arg.doubleArg(5);
+    double radius1 = arg.doubleArg(6);
+
+    Pattern* pattern = Pattern::createRadial(cx0, cy0, radius0, cx1, cy1, radius1);
+    Utils::setupBindingObject<Pattern>(obj, pattern);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_create_mesh(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+
+    MeshPattern* pattern = Pattern::createMesh();
+    Utils::setupBindingObject<MeshPattern>(obj, pattern);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_mesh_begin_patch(Dart_NativeArguments args)
+{
+    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
+    pattern->beginPatch();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_mesh_end_patch(Dart_NativeArguments args)
+{
+    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
+    pattern->endPatch();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_mesh_move_to(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+
+    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
+    pattern->moveTo(x, y);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_mesh_line_to(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+
+    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
+    pattern->lineTo(x, y);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_mesh_curve_to(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double x1 = arg.doubleArg(1);
+    double y1 = arg.doubleArg(2);
+    double x2 = arg.doubleArg(3);
+    double y2 = arg.doubleArg(4);
+    double x3 = arg.doubleArg(5);
+    double y3 = arg.doubleArg(6);
+
+    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
+    pattern->curveTo(x1, y1, x2, y2, x3, y3);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_mesh_get_control_point(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    unsigned int patchNum = (unsigned int) arg.intArg(1);
+    unsigned int pointNum = (unsigned int) arg.intArg(2);
+
+    double x = 0;
+    double y = 0;
+
+    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
+    pattern->getControlPoint(patchNum, pointNum, &x, &y);
+
+    Dart_Handle pointArgs[2] = { Dart_NewDouble(x), Dart_NewDouble(y) };
+    Dart_Handle point = Utils::newObject("Point", "from", 2, pointArgs);
+
+    Dart_SetReturnValue(args, point);
+}
+
+void CairoDart::pattern_mesh_set_control_point(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    unsigned int pointNum = (unsigned int) arg.intArg(1);
+    double x = arg.doubleArg(2);
+    double y = arg.doubleArg(3);
+
+    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
+    pattern->setControlPoint(pointNum, x, y);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_mesh_get_corner_color(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    unsigned int patchNum = (unsigned int) arg.intArg(1);
+    unsigned int pointNum = (unsigned int) arg.intArg(2);
+    double red = 0;
+    double green = 0;
+    double blue = 0;
+    double alpha = 0;
+
+    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
+    pattern->getCornerColor(patchNum, pointNum, &red, &green, &blue, &alpha);
+
+    Dart_Handle colorArgs[4] = { Dart_NewDouble(red), Dart_NewDouble(green), Dart_NewDouble(blue), Dart_NewDouble(alpha) };
+    Dart_Handle color = Utils::newObject("Color", "rgba", 4, colorArgs);
+
+    Dart_SetReturnValue(args, color);
+}
+
+void CairoDart::pattern_mesh_set_corner_color(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    unsigned int pointNum = (unsigned int) arg.intArg(1);
+    double red = arg.doubleArg(2);
+    double green = arg.doubleArg(3);
+    double blue = arg.doubleArg(4);
+    double alpha = arg.doubleArg(5);
+
+    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
+    pattern->setCornerColor(pointNum, red, green, blue, alpha);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_mesh_get_patch_count(Dart_NativeArguments args)
+{
+    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
+    unsigned int patchCount = pattern->getPatchCount();
+
+    Dart_SetReturnValue(args, Dart_NewInteger(patchCount));
+}
+
 
 } // bindings
 

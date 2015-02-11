@@ -6,7 +6,9 @@ HEADERS += \
     bindings/format.h \
     bindings/content.h \
     bindings/surfacetype.h \
-    bindings/context.h
+    bindings/context.h \
+    bindings/pattern.h \
+    bindings/meshpattern.h
 
 SOURCES += \
     bindings/cairodart.cpp \
@@ -17,4 +19,6 @@ SOURCES += \
     bindings/format.cpp \
     bindings/content.cpp \
     bindings/surfacetype.cpp \
-    bindings/context.cpp
+    bindings/context.cpp \
+    bindings/pattern.cpp \
+    bindings/meshpattern.cpp

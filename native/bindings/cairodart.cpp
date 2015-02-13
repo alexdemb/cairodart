@@ -34,7 +34,6 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
-  { "create_cairo_surface_type", CairoDart::create_cairo_surface_type },
   { "format_stride_for_width", CairoDart::format_stride_for_width },
   { "image_surface_get_stride", CairoDart::image_surface_get_stride },
   { "surface_finish", CairoDart::surface_finish },
@@ -213,21 +212,6 @@ void CairoDart::format_stride_for_width(Dart_NativeArguments args)
     Dart_SetReturnValue(args, Dart_NewInteger(stride));
 }
 
-// cairo_surface_type_t
-
-void CairoDart::create_cairo_surface_type(Dart_NativeArguments args)
-{
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    int val = arg.intArg(1);
-
-    cairo_surface_type_t type = static_cast<cairo_surface_type_t>(val);
-
-    SurfaceType* st = new SurfaceType(type);
-    Utils::setupBindingObject<SurfaceType>(obj, st);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
 
 // cairo_surface_t
 

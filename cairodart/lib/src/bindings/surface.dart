@@ -30,7 +30,7 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   
   SurfaceType get surfaceType {
     int type = _getSurfaceType();
-    return SurfaceType.valueOf(type);
+    return new _SurfaceType(type);
   }
   
   void markDirty() native 'surface_mark_dirty';

@@ -134,6 +134,12 @@ void Pattern::setFilter(const cairo_filter_t& filter) const
     verify();
 }
 
+cairo_pattern_type_t Pattern::getPatternType() const
+{
+    cairo_pattern_type_t type = cairo_pattern_get_type(this->pattern);
+    verify();
+    return type;
+}
 
 } // bindings
 

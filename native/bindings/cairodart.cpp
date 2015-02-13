@@ -6,7 +6,6 @@
 #include "infrastructure/infrastructure.h"
 #include "surface.h"
 #include "imagesurface.h"
-#include "surfacetype.h"
 #include "context.h"
 #include "pattern.h"
 #include "meshpattern.h"
@@ -75,7 +74,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "pattern_get_extend", CairoDart::pattern_get_extend },
   { "pattern_set_extend", CairoDart::pattern_set_extend },
   { "pattern_get_filter", CairoDart::pattern_get_filter },
-  { "pattern_set_filter", CairoDart::pattern_set_filter }
+  { "pattern_set_filter", CairoDart::pattern_set_filter },
+  { "pattern_get_type", CairoDart::pattern_get_type }
 
 };
 
@@ -746,6 +746,14 @@ void CairoDart::pattern_set_filter(Dart_NativeArguments args)
     pattern->setFilter(static_cast<cairo_filter_t>(val));
 
     Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_get_type(Dart_NativeArguments args)
+{
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    cairo_pattern_type_t type = pattern->getPatternType();
+
+    Dart_SetReturnValue(args, Dart_NewInteger(static_cast<int>(type)));
 }
 
 } // bindings

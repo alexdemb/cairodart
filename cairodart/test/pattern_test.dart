@@ -74,6 +74,26 @@ runPatternTests() {
       
       expect(pattern.filter, equals(Filter.BEST));
     });
+    test('should have correct pattern type', () {
+      Pattern pattern = new Pattern.mesh();
+      expect(pattern.patternType, equals(PatternType.MESH));
+      
+      pattern = new Pattern.fromRgb(0.0, 0.0, 0.0);
+      expect(pattern.patternType, equals(PatternType.SOLID));
+      
+      pattern = new Pattern.fromRgba(0.0, 0.0, 0.0, 0.0);
+      expect(pattern.patternType, equals(PatternType.SOLID));
+      
+      pattern = new Pattern.linear(0.0, 0.0, 10.0, 10.0);
+      expect(pattern.patternType, equals(PatternType.LINEAR));
+      
+      pattern = new Pattern.radial(0.0, 0.0, 5.0, 10.0, 10.0, 10.0);
+      expect(pattern.patternType, equals(PatternType.RADIAL));
+      
+      Surface surface = new ImageSurface(Format.ARGB32, 10, 10);
+      pattern = new Pattern.forSurface(surface);
+      expect(pattern.patternType, equals(PatternType.SURFACE));
+    });
   });
   group('Mesh pattern', () {
     test('should be successfully created', () {

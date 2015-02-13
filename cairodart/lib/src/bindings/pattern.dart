@@ -29,6 +29,8 @@ abstract class Pattern {
   void set extend(Extend extend);
   Filter get filter;
   void set filter(Filter filter);
+  PatternType get patternType;
+  
 }
 
 abstract class MeshPattern {
@@ -112,6 +114,10 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   }
   
   void _setFilter(int value) native 'pattern_set_filter';
+  
+  PatternType get patternType => new _PatternType(_getPatternType());
+  
+  int _getPatternType() native 'pattern_get_type';
   
 }
 

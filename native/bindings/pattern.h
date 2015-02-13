@@ -41,6 +41,7 @@ public:
     void setExtend(const cairo_extend_t& extend) const;
     cairo_filter_t getFilter() const;
     void setFilter(const cairo_filter_t& filter) const;
+    cairo_pattern_type_t getPatternType() const;
 
 
 };

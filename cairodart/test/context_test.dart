@@ -20,7 +20,7 @@ runContextTests() {
     });
     test('should successfully perform push group with content', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.pushGroupWithContent(Content.CAIRO_CONTENT_COLOR_ALPHA);
+      ctx.pushGroupWithContent(Content.COLOR_ALPHA);
     });
     test('should successfully perform pop group to source', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));

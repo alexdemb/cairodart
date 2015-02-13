@@ -6,7 +6,6 @@
 #include "infrastructure/infrastructure.h"
 #include "surface.h"
 #include "imagesurface.h"
-#include "content.h"
 #include "surfacetype.h"
 #include "context.h"
 #include "pattern.h"
@@ -36,7 +35,6 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
   { "create_cairo_format", CairoDart::create_cairo_format },
-  { "create_cairo_content", CairoDart::create_cairo_content },
   { "create_cairo_surface_type", CairoDart::create_cairo_surface_type },
   { "format_stride_for_width", CairoDart::format_stride_for_width },
   { "image_surface_get_stride", CairoDart::image_surface_get_stride },
@@ -142,12 +140,11 @@ void CairoDart::push_group(Dart_NativeArguments args)
 void CairoDart::push_group_with_content(Dart_NativeArguments args)
 {
     Arguments arg = args;
-    Dart_Handle contentObj = arg.arg(1);
-    Content* content = Utils::bindingObject<Content>(contentObj);
+    int content = arg.intArg(1);
 
     Context* ctx = Utils::thisFromArg<Context>(args);
 
-    ctx->pushGroupWithContent(content);
+    ctx->pushGroupWithContent(static_cast<cairo_content_t>(content));
 
     Dart_SetReturnValue(args, Dart_Null());
 }
@@ -243,21 +240,6 @@ void CairoDart::create_cairo_surface_type(Dart_NativeArguments args)
 
     SurfaceType* st = new SurfaceType(type);
     Utils::setupBindingObject<SurfaceType>(obj, st);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-// cairo_content_t
-
-void CairoDart::create_cairo_content(Dart_NativeArguments args)
-{
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    int val = arg.intArg(1);
-
-    cairo_content_t cnt = static_cast<cairo_content_t>(val);
-    Content* content = new Content(cnt);
-    Utils::setupBindingObject(obj, content);
 
     Dart_SetReturnValue(args, Dart_Null());
 }

@@ -82,9 +82,6 @@ public:
     static void create_cairo_format(Dart_NativeArguments args);
     static void format_stride_for_width(Dart_NativeArguments args);
 
-    // cairo_content_t
-    static void create_cairo_content(Dart_NativeArguments args);
-
     // cairo_surface_type_t
     static void create_cairo_surface_type(Dart_NativeArguments args);
 private:

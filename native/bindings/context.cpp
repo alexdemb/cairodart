@@ -48,9 +48,9 @@ void Context::pushGroup() const
     verify();
 }
 
-void Context::pushGroupWithContent(const Content* c) const
+void Context::pushGroupWithContent(const cairo_content_t& c) const
 {
-    cairo_push_group_with_content(this->c, c->content());
+    cairo_push_group_with_content(this->c, c);
     verify();
 }
 

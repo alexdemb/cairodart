@@ -25,7 +25,7 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   void flush() native 'surface_flush';
   Content get content {
     int c = _getContent();
-    return Content.valueOf(c);
+    return new _Content(c);
   }
   
   SurfaceType get surfaceType {

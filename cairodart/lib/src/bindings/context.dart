@@ -36,7 +36,11 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   
   void pushGroup() native 'push_group';
   
-  void pushGroupWithContent(Content content) native 'push_group_with_content';
+  void pushGroupWithContent(Content content) {
+    _pushGroupWithContent(content.value);
+  }
+  
+  void _pushGroupWithContent(int value) native 'push_group_with_content';
   
   void popGroupToSource() native 'pop_group_to_source';
   

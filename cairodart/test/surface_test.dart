@@ -5,7 +5,7 @@ runSurfaceTests() {
     test('should have correct value of content', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);
       Content content = surface.content;
-      expect(content, equals(Content.CAIRO_CONTENT_COLOR_ALPHA));
+      expect(content, equals(Content.COLOR_ALPHA));
     });
     test('should correctly get/set device offset', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);

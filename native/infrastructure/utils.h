@@ -31,6 +31,7 @@ public:
     static Dart_Handle newObject(const std::string& className, const std::string& constructor, int argc, Dart_Handle* args);
     static Dart_Handle newPoint(const double& x, const double& y);
     static Dart_Handle newCircle(const double& x, const double& y, const double& radius);
+    static Dart_Handle newDistance(const double& dx, const double& dy);
     static Dart_Handle newList(int count, ...);
 
     template<typename T>

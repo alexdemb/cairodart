@@ -18,3 +18,5 @@ part 'bindings/circle.dart';
 part 'bindings/extend.dart';
 part 'bindings/filter.dart';
 part 'bindings/pattern_type.dart';
+part 'bindings/matrix.dart';
+part 'bindings/distance.dart';

@@ -18,6 +18,9 @@ class _Point implements Point {
   
   double get x => _x;
   double get y => _y;
+  
+  @override
+  operator==(Point other) => x == other.x && y == other.y;
 }
 
 

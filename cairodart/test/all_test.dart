@@ -9,6 +9,7 @@ part 'format_test.dart';
 part 'point_test.dart';
 part 'context_test.dart';
 part 'pattern_test.dart';
+part 'matrix_test.dart';
 
 main() {
   runFormatTests();
@@ -16,4 +17,5 @@ main() {
   runPointTests();
   runContextTests();
   runPatternTests();
+  runMatrixTests();
 }

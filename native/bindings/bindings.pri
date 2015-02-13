@@ -6,7 +6,8 @@ HEADERS += \
     bindings/format.h \
     bindings/context.h \
     bindings/pattern.h \
-    bindings/meshpattern.h
+    bindings/meshpattern.h \
+    bindings/matrix.h
 
 SOURCES += \
     bindings/cairodart.cpp \
@@ -17,4 +18,5 @@ SOURCES += \
     bindings/format.cpp \
     bindings/context.cpp \
     bindings/pattern.cpp \
-    bindings/meshpattern.cpp
+    bindings/meshpattern.cpp \
+    bindings/matrix.cpp

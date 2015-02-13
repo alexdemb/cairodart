@@ -82,6 +82,27 @@ public:
     // cairo_format_t
     static void format_stride_for_width(Dart_NativeArguments args);
 
+    // cairo_matrix_t
+    static void matrix_create(Dart_NativeArguments args);
+    static void matrix_xx(Dart_NativeArguments args);
+    static void matrix_yx(Dart_NativeArguments args);
+    static void matrix_xy(Dart_NativeArguments args);
+    static void matrix_yy(Dart_NativeArguments args);
+    static void matrix_x0(Dart_NativeArguments args);
+    static void matrix_y0(Dart_NativeArguments args);
+    static void matrix_init(Dart_NativeArguments args);
+    static void matrix_init_identity(Dart_NativeArguments args);
+    static void matrix_init_translate(Dart_NativeArguments args);
+    static void matrix_init_scale(Dart_NativeArguments args);
+    static void matrix_init_rotate(Dart_NativeArguments args);
+    static void matrix_translate(Dart_NativeArguments args);
+    static void matrix_scale(Dart_NativeArguments args);
+    static void matrix_rotate(Dart_NativeArguments args);
+    static void matrix_invert(Dart_NativeArguments args);
+    static void matrix_transform_point(Dart_NativeArguments args);
+    static void matrix_transform_distance(Dart_NativeArguments args);
+    static void matrix_multiply(Dart_NativeArguments args);
+
 private:
     CairoDart();
 };

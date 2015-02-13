@@ -107,6 +107,12 @@ Dart_Handle Utils::newCircle(const double& x, const double& y, const double& rad
     return newObject("Circle", "", 3, args);
 }
 
+Dart_Handle Utils::newDistance(const double& dx, const double& dy)
+{
+    Dart_Handle args[2] = { Dart_NewDouble(dx), Dart_NewDouble(dy) };
+    return newObject("Distance", "from", 2, args);
+}
+
 Dart_Handle Utils::newList(int count, ...)
 {
     Dart_Handle list = Dart_NewList(static_cast<intptr_t>(count));

@@ -37,6 +37,8 @@ public:
     void getColorStop(const int& index, double* offset, double* red, double* green, double* blue, double* alpha) const;
     void getLinearPoints(double* x0, double* y0, double* x1, double* y1) const;
     void getRadialCircles(double* cx0, double* cy0, double* r0, double* cx1, double* cy1, double* r1) const;
+    cairo_extend_t getExtend() const;
+    void setExtend(const cairo_extend_t& extend) const;
 
 };
 

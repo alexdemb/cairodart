@@ -58,6 +58,14 @@ runPatternTests() {
       expect(circles[0], (Circle c) => c.x == 10.0 && c.y == 15.0 && c.radius == 20.0);
       expect(circles[1], (Circle c) => c.x == 100.0 && c.y == 150.0 && c.radius == 30.0);
     });
+    test('should correctly get/set extend', () {
+      Pattern pattern = new Pattern.linear(10.0, 10.0, 20.0, 20.0);
+      expect(pattern.extend, equals(Extend.PAD));
+      
+      pattern.extend = Extend.REFLECT;
+      
+      expect(pattern.extend, equals(Extend.REFLECT));
+    });
   });
   group('Mesh pattern', () {
     test('should be successfully created', () {

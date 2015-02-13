@@ -72,6 +72,8 @@ public:
     static void pattern_get_color_stop_rgba(Dart_NativeArguments args);
     static void pattern_get_linear_points(Dart_NativeArguments args);
     static void pattern_get_radial_circles(Dart_NativeArguments args);
+    static void pattern_set_extend(Dart_NativeArguments args);
+    static void pattern_get_extend(Dart_NativeArguments args);
 
     // cairo_format_t
     static void create_cairo_format(Dart_NativeArguments args);

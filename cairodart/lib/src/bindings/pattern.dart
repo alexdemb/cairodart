@@ -25,6 +25,8 @@ abstract class Pattern {
   
   List<Point> get linearPoints;
   List<Circle> get radialCircles;
+  Extend get extend;
+  void set extend(Extend extend);
 }
 
 abstract class MeshPattern {
@@ -89,6 +91,15 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   
   List<Point> get linearPoints native 'pattern_get_linear_points';
   List<Circle> get radialCircles native 'pattern_get_radial_circles';
+  Extend get extend => new _Extend(_getExtendValue());
+      
+  int _getExtendValue() native 'pattern_get_extend';
+  
+  void set extend(Extend extend) {
+    _setExtendValue(extend.value);
+  }
+  
+  _setExtendValue(int value) native 'pattern_set_extend';
 }
 
 class _MeshPattern extends _Pattern implements MeshPattern {

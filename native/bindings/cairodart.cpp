@@ -75,7 +75,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "pattern_get_color_stop_count", CairoDart::pattern_get_color_stop_count },
   { "pattern_get_color_stop_rgba", CairoDart::pattern_get_color_stop_rgba },
   { "pattern_get_linear_points", CairoDart::pattern_get_linear_points },
-  { "pattern_get_radial_circles", CairoDart::pattern_get_radial_circles }
+  { "pattern_get_radial_circles", CairoDart::pattern_get_radial_circles },
+  { "pattern_get_extend", CairoDart::pattern_get_extend },
+  { "pattern_set_extend", CairoDart::pattern_set_extend }
 
 };
 
@@ -754,6 +756,26 @@ void CairoDart::pattern_get_radial_circles(Dart_NativeArguments args)
     Dart_SetReturnValue(args, res);
 }
 
+
+void CairoDart::pattern_get_extend(Dart_NativeArguments args)
+{
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+
+    cairo_extend_t extend = pattern->getExtend();
+    int val = static_cast<int>(extend);
+    Dart_SetReturnValue(args, Dart_NewInteger(val));
+}
+
+void CairoDart::pattern_set_extend(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    int val = arg.intArg(1);
+
+    pattern->setExtend(static_cast<cairo_extend_t>(val));
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
 
 } // bindings
 

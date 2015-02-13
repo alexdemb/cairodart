@@ -108,6 +108,20 @@ void Pattern::getRadialCircles(double* cx0, double* cy0, double* r0, double* cx1
     verify();
 }
 
+cairo_extend_t Pattern::getExtend() const
+{
+    cairo_extend_t extend = cairo_pattern_get_extend(this->pattern);
+    verify();
+    return extend;
+}
+
+void Pattern::setExtend(const cairo_extend_t& extend) const
+{
+    cairo_pattern_set_extend(this->pattern, extend);
+    verify();
+}
+
+
 
 } // bindings
 

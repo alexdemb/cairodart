@@ -9,7 +9,7 @@ runPatternTests() {
       Pattern pattern = new Pattern.fromRgba(200.0, 200.0, 200.0, 0.5);
     });
     test('should be successfully created for surface', () {
-      Surface surface = new ImageSurface(Format.CAIRO_FORMAT_ARGB32, 640, 480);
+      Surface surface = new ImageSurface(Format.ARGB32, 640, 480);
       Pattern pattern = new Pattern.forSurface(surface);
     });
     test('should be successfully created linear', () {

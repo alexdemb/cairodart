@@ -1,13 +1,13 @@
 part of cairodart.base;
 
 abstract class Format {
-  static final Format CAIRO_FORMAT_INVALID = new _Format(-1);
-  static final Format CAIRO_FORMAT_ARGB32 = new _Format(0);
-  static final Format CAIRO_FORMAT_RGB24 = new _Format(1);
-  static final Format CAIRO_FORMAT_A8 = new _Format(2);
-  static final Format CAIRO_FORMAT_A1 = new _Format(3);
-  static final Format CAIRO_FORMAT_RGB16_565 = new _Format(4);
-  static final Format CAIRO_FORMAT_RGB30 = new _Format(5);
+  static final Format INVALID = new _Format(-1);
+  static final Format ARGB32 = new _Format(0);
+  static final Format RGB24 = new _Format(1);
+  static final Format A8 = new _Format(2);
+  static final Format A1 = new _Format(3);
+  static final Format RGB16_565 = new _Format(4);
+  static final Format RGB30 = new _Format(5);
     
   int strideForWidth(int width);
 }

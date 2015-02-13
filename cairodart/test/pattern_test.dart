@@ -66,6 +66,14 @@ runPatternTests() {
       
       expect(pattern.extend, equals(Extend.REFLECT));
     });
+    test('should correctly get/set filter', () {
+      Pattern pattern = new Pattern.linear(10.0, 10.0, 20.0, 20.0);
+      expect(pattern.filter, equals(Filter.GOOD));
+      
+      pattern.filter = Filter.BEST;
+      
+      expect(pattern.filter, equals(Filter.BEST));
+    });
   });
   group('Mesh pattern', () {
     test('should be successfully created', () {

@@ -121,6 +121,18 @@ void Pattern::setExtend(const cairo_extend_t& extend) const
     verify();
 }
 
+cairo_filter_t Pattern::getFilter() const
+{
+    cairo_filter_t filter = cairo_pattern_get_filter(this->pattern);
+    verify();
+    return filter;
+}
+
+void Pattern::setFilter(const cairo_filter_t& filter) const
+{
+    cairo_pattern_set_filter(this->pattern, filter);
+    verify();
+}
 
 
 } // bindings

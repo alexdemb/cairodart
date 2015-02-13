@@ -77,7 +77,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "pattern_get_linear_points", CairoDart::pattern_get_linear_points },
   { "pattern_get_radial_circles", CairoDart::pattern_get_radial_circles },
   { "pattern_get_extend", CairoDart::pattern_get_extend },
-  { "pattern_set_extend", CairoDart::pattern_set_extend }
+  { "pattern_set_extend", CairoDart::pattern_set_extend },
+  { "pattern_get_filter", CairoDart::pattern_get_filter },
+  { "pattern_set_filter", CairoDart::pattern_set_filter }
 
 };
 
@@ -773,6 +775,26 @@ void CairoDart::pattern_set_extend(Dart_NativeArguments args)
     int val = arg.intArg(1);
 
     pattern->setExtend(static_cast<cairo_extend_t>(val));
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_get_filter(Dart_NativeArguments args)
+{
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+
+    cairo_filter_t filter = pattern->getFilter();
+    int val = static_cast<int>(filter);
+    Dart_SetReturnValue(args, Dart_NewInteger(val));
+}
+
+void CairoDart::pattern_set_filter(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    int val = arg.intArg(1);
+
+    pattern->setFilter(static_cast<cairo_filter_t>(val));
 
     Dart_SetReturnValue(args, Dart_Null());
 }

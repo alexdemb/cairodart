@@ -39,6 +39,9 @@ public:
     void getRadialCircles(double* cx0, double* cy0, double* r0, double* cx1, double* cy1, double* r1) const;
     cairo_extend_t getExtend() const;
     void setExtend(const cairo_extend_t& extend) const;
+    cairo_filter_t getFilter() const;
+    void setFilter(const cairo_filter_t& filter) const;
+
 
 };
 

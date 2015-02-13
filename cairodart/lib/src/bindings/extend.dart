@@ -17,7 +17,5 @@ class _Extend implements Extend {
   int get value => _val;
   
   @override 
-  operator==(Extend other) {
-    return value == other.value;
-  }
+  operator==(Extend other) => value == other.value;
 }

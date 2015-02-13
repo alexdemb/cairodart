@@ -27,6 +27,8 @@ abstract class Pattern {
   List<Circle> get radialCircles;
   Extend get extend;
   void set extend(Extend extend);
+  Filter get filter;
+  void set filter(Filter filter);
 }
 
 abstract class MeshPattern {
@@ -100,6 +102,17 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   }
   
   _setExtendValue(int value) native 'pattern_set_extend';
+  
+  Filter get filter => new _Filter(_getFilterValue());
+  
+  int _getFilterValue() native 'pattern_get_filter';
+  
+  void set filter(Filter filter) {
+    _setFilter(filter.value);
+  }
+  
+  void _setFilter(int value) native 'pattern_set_filter';
+  
 }
 
 class _MeshPattern extends _Pattern implements MeshPattern {

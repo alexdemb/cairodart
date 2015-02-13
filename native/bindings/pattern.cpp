@@ -71,6 +71,31 @@ MeshPattern* Pattern::createMesh()
     return new MeshPattern(p);
 }
 
+void Pattern::addColorStop(const double& offset, const double& red, const double& green, const double& blue) const
+{
+    cairo_pattern_add_color_stop_rgb(this->pattern, offset, red, green, blue);
+    verify();
+}
+
+void Pattern::addColorStop(const double& offset, const double& red, const double& green, const double& blue, const double& alpha) const
+{
+    cairo_pattern_add_color_stop_rgba(this->pattern, offset, red, green, blue, alpha);
+    verify();
+}
+
+int Pattern::colorStopCount() const
+{
+    int count;
+    cairo_pattern_get_color_stop_count(this->pattern, &count);
+    return count;
+}
+
+void Pattern::getColorStop(const int& index, double* offset, double* red, double* green, double* blue, double* alpha) const
+{
+    cairo_pattern_get_color_stop_rgba(this->pattern, index, offset, red, green, blue, alpha);
+    verify();
+}
+
 
 } // bindings
 

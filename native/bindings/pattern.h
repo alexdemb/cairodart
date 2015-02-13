@@ -30,6 +30,11 @@ public:
 
     virtual void verify() const;
     virtual ~Pattern();
+
+    void addColorStop(const double& offset, const double& red, const double& green, const double& blue) const;
+    void addColorStop(const double& offset, const double& red, const double& green, const double& blue, const double& alpha) const;
+    int colorStopCount() const;
+    void getColorStop(const int& index, double* offset, double* red, double* green, double* blue, double* alpha) const;
 };
 
 } // bindings

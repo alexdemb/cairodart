@@ -18,6 +18,10 @@ abstract class Pattern {
       new _Pattern.radial(cx0, cy0, radius0, cx1, cy1, radius1);
  
   factory Pattern.mesh() => new _MeshPattern();
+  
+  void addColorStop(ColorStop stop);
+  ColorStop colorStopAt(int index);
+  int get colorStopCount;
 }
 
 abstract class MeshPattern {
@@ -69,6 +73,16 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   _createForSurface(Surface surface) native 'pattern_create_for_surface';
   _createLinear(double x0, double y0, double x1, double y1) native 'pattern_create_linear';
   _createRadial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) native 'pattern_create_radial';
+  
+  
+  void addColorStop(ColorStop stop) {
+    _addColorStop(stop.offset, stop.color.red, stop.color.green, stop.color.blue, stop.color.alpha);
+  }
+  
+  _addColorStop(double offset, double red, double green, double blue, double alpha) native 'pattern_add_color_stop_rgba';
+  
+  ColorStop colorStopAt(int index) native 'pattern_get_color_stop_rgba';
+  int get colorStopCount native 'pattern_get_color_stop_count';
 }
 
 class _MeshPattern extends _Pattern implements MeshPattern {

@@ -18,6 +18,32 @@ runPatternTests() {
     test('should be successfully created radial', () {
       Pattern pattern = new Pattern.radial(10.0, 20.0, 5.0, 30.0, 40.0, 6.0);
     });
+    test('should correctly set/get color stop', () {
+      Pattern pattern = new Pattern.linear(0.0, 0.0, 800.0, 800.0);
+      pattern.addColorStop(new ColorStop(new Color.rgba(0.5, 0.6, 0.7, 0.5), 0.4));
+      
+      expect(pattern.colorStopCount, equals(1));
+      pattern.addColorStop(new ColorStop(new Color.rgba(0.6, 0.5, 0.4, 0.3), 0.2));
+      expect(pattern.colorStopCount, equals(2));
+      
+      expect(pattern.colorStopAt(1), (ColorStop stop) {
+        return stop.offset == 0.4 &&
+                stop.color.red == 0.5 &&
+                stop.color.green == 0.6 &&
+                stop.color.blue == 0.7 &&
+                stop.color.alpha == 0.5;
+      });
+      
+      
+      expect(pattern.colorStopAt(0), (ColorStop stop) {
+        return stop.offset == 0.2 &&
+                stop.color.red == 0.6 &&
+                stop.color.green == 0.5 &&
+                stop.color.blue == 0.4 &&
+                stop.color.alpha == 0.3;
+      });
+      
+    });
   });
   group('Mesh pattern', () {
     test('should be successfully created', () {

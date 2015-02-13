@@ -66,6 +66,10 @@ public:
     static void pattern_mesh_get_corner_color(Dart_NativeArguments args);
     static void pattern_mesh_set_corner_color(Dart_NativeArguments args);
     static void pattern_mesh_get_patch_count(Dart_NativeArguments args);
+    static void pattern_add_color_stop_rgb(Dart_NativeArguments args);
+    static void pattern_add_color_stop_rgba(Dart_NativeArguments args);
+    static void pattern_get_color_stop_count(Dart_NativeArguments args);
+    static void pattern_get_color_stop_rgba(Dart_NativeArguments args);
 
     // cairo_format_t
     static void create_cairo_format(Dart_NativeArguments args);

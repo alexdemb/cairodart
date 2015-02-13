@@ -69,7 +69,11 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "pattern_mesh_set_control_point", CairoDart::pattern_mesh_set_control_point },
   { "pattern_mesh_get_corner_color", CairoDart::pattern_mesh_get_corner_color },
   { "pattern_mesh_set_corner_color", CairoDart::pattern_mesh_set_corner_color },
-  { "pattern_mesh_get_patch_count", CairoDart::pattern_mesh_get_patch_count }
+  { "pattern_mesh_get_patch_count", CairoDart::pattern_mesh_get_patch_count },
+  { "pattern_add_color_stop_rgb", CairoDart::pattern_add_color_stop_rgb },
+  { "pattern_add_color_stop_rgba", CairoDart::pattern_add_color_stop_rgba },
+  { "pattern_get_color_stop_count", CairoDart::pattern_get_color_stop_count },
+  { "pattern_get_color_stop_rgba", CairoDart::pattern_get_color_stop_rgba }
 
 };
 
@@ -647,6 +651,69 @@ void CairoDart::pattern_mesh_get_patch_count(Dart_NativeArguments args)
     unsigned int patchCount = pattern->getPatchCount();
 
     Dart_SetReturnValue(args, Dart_NewInteger(patchCount));
+}
+
+void CairoDart::pattern_add_color_stop_rgb(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    double offset = arg.doubleArg(1);
+    double red = arg.doubleArg(2);
+    double green = arg.doubleArg(3);
+    double blue = arg.doubleArg(4);
+
+    pattern->addColorStop(offset, red, green, blue);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_add_color_stop_rgba(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    double offset = arg.doubleArg(1);
+    double red = arg.doubleArg(2);
+    double green = arg.doubleArg(3);
+    double blue = arg.doubleArg(4);
+    double alpha = arg.doubleArg(5);
+
+    pattern->addColorStop(offset, red, green, blue, alpha);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_get_color_stop_count(Dart_NativeArguments args)
+{
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    int count = pattern->colorStopCount();
+    Dart_SetReturnValue(args, Dart_NewInteger(count));
+}
+
+void CairoDart::pattern_get_color_stop_rgba(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    int index = arg.intArg(1);
+    double offset = 0.0;
+    double red = 0.0;
+    double green = 0.0;
+    double blue = 0.0;
+    double alpha = 0.0;
+
+    pattern->getColorStop(index, &offset, &red, &green, &blue, &alpha);
+
+    Dart_Handle colorArgs[4] = {
+      Dart_NewDouble(red),
+      Dart_NewDouble(green),
+      Dart_NewDouble(blue),
+      Dart_NewDouble(alpha)
+    };
+    Dart_Handle color = Utils::newObject("Color", "rgba", 4, colorArgs);
+
+    Dart_Handle colorStopArgs[2] = { color, Dart_NewDouble(offset) };
+    Dart_Handle colorStop = Utils::newObject("ColorStop", "", 2, colorStopArgs);
+
+    Dart_SetReturnValue(args, colorStop);
 }
 
 

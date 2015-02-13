@@ -73,7 +73,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "pattern_add_color_stop_rgb", CairoDart::pattern_add_color_stop_rgb },
   { "pattern_add_color_stop_rgba", CairoDart::pattern_add_color_stop_rgba },
   { "pattern_get_color_stop_count", CairoDart::pattern_get_color_stop_count },
-  { "pattern_get_color_stop_rgba", CairoDart::pattern_get_color_stop_rgba }
+  { "pattern_get_color_stop_rgba", CairoDart::pattern_get_color_stop_rgba },
+  { "pattern_get_linear_points", CairoDart::pattern_get_linear_points },
+  { "pattern_get_radial_circles", CairoDart::pattern_get_radial_circles }
 
 };
 
@@ -714,6 +716,42 @@ void CairoDart::pattern_get_color_stop_rgba(Dart_NativeArguments args)
     Dart_Handle colorStop = Utils::newObject("ColorStop", "", 2, colorStopArgs);
 
     Dart_SetReturnValue(args, colorStop);
+}
+
+void CairoDart::pattern_get_linear_points(Dart_NativeArguments args)
+{
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    double x0 = 0.0;
+    double y0 = 0.0;
+    double x1 = 0.0;
+    double y1 = 0.0;
+
+    pattern->getLinearPoints(&x0, &y0, &x1, &y1);
+
+    Dart_Handle point1 = Utils::newPoint(x0, y0);
+    Dart_Handle point2 = Utils::newPoint(x1, y1);
+    Dart_Handle res = Utils::newList(2, point1, point2);
+
+    Dart_SetReturnValue(args, res);
+}
+
+void CairoDart::pattern_get_radial_circles(Dart_NativeArguments args)
+{
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    double x0 = 0.0;
+    double y0 = 0.0;
+    double r0 = 0.0;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double r1 = 0.0;
+
+    pattern->getRadialCircles(&x0, &y0, &r0, &x1, &y1, &r1);
+
+    Dart_Handle circle1 = Utils::newCircle(x0, y0, r0);
+    Dart_Handle circle2 = Utils::newCircle(x1, y1, r1);
+    Dart_Handle res = Utils::newList(2, circle1, circle2);
+
+    Dart_SetReturnValue(args, res);
 }
 
 

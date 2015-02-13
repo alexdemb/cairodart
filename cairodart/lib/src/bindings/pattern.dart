@@ -22,6 +22,9 @@ abstract class Pattern {
   void addColorStop(ColorStop stop);
   ColorStop colorStopAt(int index);
   int get colorStopCount;
+  
+  List<Point> get linearPoints;
+  List<Circle> get radialCircles;
 }
 
 abstract class MeshPattern {
@@ -83,6 +86,9 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   
   ColorStop colorStopAt(int index) native 'pattern_get_color_stop_rgba';
   int get colorStopCount native 'pattern_get_color_stop_count';
+  
+  List<Point> get linearPoints native 'pattern_get_linear_points';
+  List<Circle> get radialCircles native 'pattern_get_radial_circles';
 }
 
 class _MeshPattern extends _Pattern implements MeshPattern {

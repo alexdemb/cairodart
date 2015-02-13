@@ -96,6 +96,18 @@ void Pattern::getColorStop(const int& index, double* offset, double* red, double
     verify();
 }
 
+void Pattern::getLinearPoints(double* x0, double* y0, double* x1, double* y1) const
+{
+    cairo_pattern_get_linear_points(this->pattern, x0, y0, x1, y1);
+    verify();
+}
+
+void Pattern::getRadialCircles(double* cx0, double* cy0, double* r0, double* cx1, double* cy1, double* r1) const
+{
+    cairo_pattern_get_radial_circles(this->pattern, cx0, cy0, r0, cx1, cy1, r1);
+    verify();
+}
+
 
 } // bindings
 

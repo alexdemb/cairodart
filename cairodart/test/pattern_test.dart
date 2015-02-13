@@ -44,6 +44,20 @@ runPatternTests() {
       });
       
     });
+    test('should correctly obtain linear points for linear pattern', () {
+      Pattern pattern = new Pattern.linear(10.0, 15.0, 100.0, 150.0);
+      List<Point> points = pattern.linearPoints;
+      
+      expect(points[0], (Point p) => p.x == 10.0 && p.y == 15.0);
+      expect(points[1], (Point p) => p.x == 100.0 && p.y == 150.0);
+    });
+    test('should correctly obtain radial circles for radial pattern', () {
+      Pattern pattern = new Pattern.radial(10.0, 15.0, 20.0, 100.0, 150.0, 30.0);
+      List<Circle> circles = pattern.radialCircles;
+      
+      expect(circles[0], (Circle c) => c.x == 10.0 && c.y == 15.0 && c.radius == 20.0);
+      expect(circles[1], (Circle c) => c.x == 100.0 && c.y == 150.0 && c.radius == 30.0);
+    });
   });
   group('Mesh pattern', () {
     test('should be successfully created', () {

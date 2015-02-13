@@ -95,6 +95,36 @@ Dart_Handle Utils::newObject(const std::string& className, const std::string& co
     return obj;
 }
 
+Dart_Handle Utils::newPoint(const double& x, const double& y)
+{
+    Dart_Handle args[2] = { Dart_NewDouble(x), Dart_NewDouble(y) };
+    return newObject("Point", "from", 2, args);
+}
+
+Dart_Handle Utils::newCircle(const double& x, const double& y, const double& radius)
+{
+    Dart_Handle args[3] = { Dart_NewDouble(x), Dart_NewDouble(y), Dart_NewDouble(radius) };
+    return newObject("Circle", "", 3, args);
+}
+
+Dart_Handle Utils::newList(int count, ...)
+{
+    Dart_Handle list = Dart_NewList(static_cast<intptr_t>(count));
+    std::va_list vl;
+    va_start(vl, count);
+
+    Dart_Handle val;
+
+    for (int i = 0; i < count; i++) {
+        val = va_arg(vl, Dart_Handle);
+        Dart_ListSetAt(list, i, val);
+    }
+
+    va_end(vl);
+    return list;
+}
+
+
 } // infrastructure
 
 } // cairodart

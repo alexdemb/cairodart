@@ -6,6 +6,7 @@
 #include <cairo/cairo.h>
 #include <cstdint>
 #include "infrastructure.h"
+#include <cstdarg>
 
 namespace cairodart
 {
@@ -28,6 +29,9 @@ public:
     static int64_t toInteger(const Dart_Handle& handle);
     static void verify(cairo_status_t& status);
     static Dart_Handle newObject(const std::string& className, const std::string& constructor, int argc, Dart_Handle* args);
+    static Dart_Handle newPoint(const double& x, const double& y);
+    static Dart_Handle newCircle(const double& x, const double& y, const double& radius);
+    static Dart_Handle newList(int count, ...);
 
     template<typename T>
     static T* thisFromArg(Dart_NativeArguments& args)

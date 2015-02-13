@@ -35,6 +35,9 @@ public:
     void addColorStop(const double& offset, const double& red, const double& green, const double& blue, const double& alpha) const;
     int colorStopCount() const;
     void getColorStop(const int& index, double* offset, double* red, double* green, double* blue, double* alpha) const;
+    void getLinearPoints(double* x0, double* y0, double* x1, double* y1) const;
+    void getRadialCircles(double* cx0, double* cy0, double* r0, double* cx1, double* cy1, double* r1) const;
+
 };
 
 } // bindings

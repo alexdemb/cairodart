@@ -14,3 +14,4 @@ part 'bindings/pattern.dart';
 part 'bindings/color.dart';
 part 'bindings/cairoexception.dart';
 part 'bindings/color_stop.dart';
+part 'bindings/circle.dart';

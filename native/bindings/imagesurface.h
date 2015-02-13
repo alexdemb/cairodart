@@ -13,7 +13,7 @@ namespace bindings
 class ImageSurface final : public Surface
 {
 public:
-    ImageSurface(Format* format, int width, int height);
+    ImageSurface(const cairo_format_t& format, int width, int height);
     virtual ~ImageSurface();
 
     int width() const;

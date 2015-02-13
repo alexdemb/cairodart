@@ -12,14 +12,8 @@ namespace bindings
 
 class Format final
 {
-private:
-    cairo_format_t f;
 public:
-    Format(cairo_format_t format);
-    virtual ~Format();
-
-    cairo_format_t format() const;
-    int strideForWidth(int width) const;
+    static int strideForWidth(const cairo_format_t& format, const int& width);
 };
 
 } // bindings

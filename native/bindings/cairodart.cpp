@@ -34,7 +34,6 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
-  { "create_cairo_format", CairoDart::create_cairo_format },
   { "create_cairo_surface_type", CairoDart::create_cairo_surface_type },
   { "format_stride_for_width", CairoDart::format_stride_for_width },
   { "image_surface_get_stride", CairoDart::image_surface_get_stride },
@@ -203,27 +202,13 @@ void CairoDart::paint(Dart_NativeArguments args)
 
 // cairo_format_t
 
-void CairoDart::create_cairo_format(Dart_NativeArguments args)
-{
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    int val = arg.intArg(1);
-
-    cairo_format_t fmt = static_cast<cairo_format_t>(val);
-
-    Format* format = new Format(fmt);
-    Utils::setupBindingObject(obj, format);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
 void CairoDart::format_stride_for_width(Dart_NativeArguments args)
 {
     Arguments arg = args;
-    int width = arg.intArg(1);
+    int format = arg.intArg(1);
+    int width = arg.intArg(2);
 
-    Format* format = Utils::thisFromArg<Format>(args);
-    int stride = format->strideForWidth(width);
+    int stride = Format::strideForWidth(static_cast<cairo_format_t>(format), width);
 
     Dart_SetReturnValue(args, Dart_NewInteger(stride));
 }
@@ -250,13 +235,11 @@ void CairoDart::image_surface_create(Dart_NativeArguments args)
 {
     Arguments arg = args;
     Dart_Handle obj = arg.arg(0);
-    Dart_Handle formatHandle = arg.arg(1);
+    int format = arg.intArg(1);
     int64_t width = arg.intArg(2);
     int64_t height = arg.intArg(3);
 
-    Format* format = Utils::bindingObject<Format>(formatHandle);
-
-    ImageSurface* surface = new ImageSurface(format, width, height);
+    ImageSurface* surface = new ImageSurface(static_cast<cairo_format_t>(format), width, height);
     Utils::setupBindingObject(obj, surface);
 
     Dart_SetReturnValue(args, Dart_Null());

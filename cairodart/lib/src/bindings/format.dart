@@ -10,17 +10,19 @@ abstract class Format {
   static final Format RGB30 = new _Format(5);
     
   int strideForWidth(int width);
+  int get value;
 }
 
 
 class _Format extends NativeFieldWrapperClass2 implements Format {
-  final int value;
+  int _val;
   
-  _Format(this.value) {
-    _createFormat(value);
-  }
+  _Format(this._val);
   
   _createFormat(int value) native 'create_cairo_format';
   
-  int strideForWidth(int width) native 'format_stride_for_width';
+  int strideForWidth(int width) => _strideForWidth(value, width); 
+  int _strideForWidth(int value, int width) native 'format_stride_for_width';
+  
+  int get value => _val;
 }

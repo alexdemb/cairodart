@@ -6,9 +6,9 @@ namespace cairodart
 namespace bindings
 {
 
-ImageSurface::ImageSurface(Format* format, int width, int height)
+ImageSurface::ImageSurface(const cairo_format_t& format, int width, int height)
 {
-    this->surface = cairo_image_surface_create(format->format(), width, height);
+    this->surface = cairo_image_surface_create(format, width, height);
     verify();
 }
 

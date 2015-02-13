@@ -6,22 +6,9 @@ namespace cairodart
 namespace bindings
 {
 
-Format::Format(cairo_format_t format) : f(format)
+int Format::strideForWidth(const cairo_format_t& format, const int& width)
 {
-}
-
-Format::~Format()
-{
-}
-
-cairo_format_t Format::format() const
-{
-    return f;
-}
-
-int Format::strideForWidth(int width) const
-{
-    return cairo_format_stride_for_width(format(), width);
+    return cairo_format_stride_for_width(format, width);
 }
 
 } // bindings

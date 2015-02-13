@@ -79,11 +79,11 @@ class _ImageSurface extends _Surface implements ImageSurface {
   Format _format;
   
   _ImageSurface(Format format, int width, int height) {
-    _createImageSurface(format, width, height);
+    _createImageSurface(format.value, width, height);
     _format = format;
   }
   
-  void _createImageSurface(Format format, int width, int height) native 'image_surface_create';
+  void _createImageSurface(int format, int width, int height) native 'image_surface_create';
   
   int get width native 'image_surface_get_width';
   int get height native 'image_surface_get_height';

@@ -76,10 +76,10 @@ void Utils::verify(cairo_status_t& status)
     if (status != CAIRO_STATUS_SUCCESS)
     {
         const char* message = cairo_status_to_string(status);
-        if (message)
-        {
-            propagateError(Dart_NewApiError(message));
-        }
+        Dart_Handle args[2] = { Dart_NewStringFromCString(message), Dart_NewInteger(static_cast<int>(status)) };
+        Dart_Handle ex = newObject("CairoException", "", 2, args);
+
+        Dart_ThrowException(ex);
     }
 }
 

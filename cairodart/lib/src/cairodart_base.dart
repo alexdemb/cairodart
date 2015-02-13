@@ -12,3 +12,4 @@ part 'bindings/surface_type.dart';
 part 'bindings/resolution.dart';
 part 'bindings/pattern.dart';
 part 'bindings/color.dart';
+part 'bindings/cairoexception.dart';

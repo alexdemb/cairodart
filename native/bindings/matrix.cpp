@@ -116,3 +116,7 @@ double Matrix::y0() const
 {
     return matrix->y0;
 }
+
+cairo_matrix_t* Matrix::getHandle() const {
+    return matrix;
+}

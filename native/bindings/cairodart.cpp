@@ -77,6 +77,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "pattern_get_filter", CairoDart::pattern_get_filter },
   { "pattern_set_filter", CairoDart::pattern_set_filter },
   { "pattern_get_type", CairoDart::pattern_get_type },
+  { "pattern_get_matrix", CairoDart::pattern_get_matrix },
+  { "pattern_set_matrix", CairoDart::pattern_set_matrix },
   { "matrix_create", CairoDart::matrix_create },
   { "matrix_xx", CairoDart::matrix_xx },
   { "matrix_yx", CairoDart::matrix_yx },
@@ -773,6 +775,26 @@ void CairoDart::pattern_get_type(Dart_NativeArguments args)
     cairo_pattern_type_t type = pattern->getPatternType();
 
     Dart_SetReturnValue(args, Dart_NewInteger(static_cast<int>(type)));
+}
+
+void CairoDart::pattern_get_matrix(Dart_NativeArguments args)
+{
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    Matrix* matrix = pattern->getMatrix();
+    Dart_Handle matrixObj = Utils::newObject("_Matrix", "internal", 0, NULL);
+    Utils::setupBindingObject<Matrix>(matrixObj, matrix);
+    Dart_SetReturnValue(args, matrixObj);
+}
+
+void CairoDart::pattern_set_matrix(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    Dart_Handle matrixObj = arg.arg(1);
+    Matrix* matrix = Utils::bindingObject<Matrix>(matrixObj);
+    pattern->setMatrix(matrix);
+
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 // cairo_matrix_t

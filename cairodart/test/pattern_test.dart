@@ -94,6 +94,11 @@ runPatternTests() {
       pattern = new Pattern.forSurface(surface);
       expect(pattern.patternType, equals(PatternType.SURFACE));
     });
+    test('should correctly get/set matrix', () {
+      Pattern pattern = new Pattern.linear(10.0, 10.0, 15.0, 15.0);
+      pattern.matrix = new Matrix(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
+      expect(pattern.matrix, (Matrix m) => m.xx == 1.0 && m.yx == 2.0 && m.xy == 3.0 && m.yy == 4.0 && m.x0 == 5.0 && m.y0 == 6.0);
+    });
   });
   group('Mesh pattern', () {
     test('should be successfully created', () {

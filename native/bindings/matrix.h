@@ -24,6 +24,7 @@ public:
     static Matrix* multiply(const Matrix* m1, const Matrix* m2);
     void getTransformDistance(double* dx, double* dy) const;
     void getTransformPoint(double* x, double* y) const;
+    cairo_matrix_t* getHandle() const;
 
     double xx() const;
     double yx() const;

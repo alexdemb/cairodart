@@ -77,6 +77,8 @@ public:
     static void pattern_set_filter(Dart_NativeArguments args);
     static void pattern_get_filter(Dart_NativeArguments args);
     static void pattern_get_type(Dart_NativeArguments args);
+    static void pattern_get_matrix(Dart_NativeArguments args);
+    static void pattern_set_matrix(Dart_NativeArguments args);
 
 
     // cairo_format_t

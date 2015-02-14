@@ -30,6 +30,8 @@ abstract class Pattern {
   Filter get filter;
   void set filter(Filter filter);
   PatternType get patternType;
+  Matrix get matrix;
+  void set matrix(Matrix matrix);
   
 }
 
@@ -118,6 +120,10 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   PatternType get patternType => new _PatternType(_getPatternType());
   
   int _getPatternType() native 'pattern_get_type';
+  
+  Matrix get matrix native 'pattern_get_matrix';
+  void set matrix(Matrix matrix) native 'pattern_set_matrix';
+    
   
 }
 

@@ -105,6 +105,10 @@ public:
     static void matrix_transform_distance(Dart_NativeArguments args);
     static void matrix_multiply(Dart_NativeArguments args);
 
+    // cairo_region_t
+    static void region_create(Dart_NativeArguments args);
+    static void region_create_rectangle(Dart_NativeArguments args);
+
 private:
     CairoDart();
 };

@@ -10,6 +10,7 @@
 #include "pattern.h"
 #include "meshpattern.h"
 #include "matrix.h"
+#include "region.h"
 
 using namespace cairodart::infrastructure;
 
@@ -97,7 +98,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "matrix_invert", CairoDart::matrix_invert },
   { "matrix_transform_point", CairoDart::matrix_transform_point },
   { "matrix_transform_distance", CairoDart::matrix_transform_distance },
-  { "matrix_multiply", CairoDart::matrix_multiply }
+  { "matrix_multiply", CairoDart::matrix_multiply },
+  { "region_create", CairoDart::region_create },
+  { "region_create_rectangle", CairoDart::region_create_rectangle }
 
 };
 
@@ -990,6 +993,45 @@ void CairoDart::matrix_multiply(Dart_NativeArguments args)
     Utils::setupBindingObject<Matrix>(resultObj, result);
 
     Dart_SetReturnValue(args, resultObj);
+}
+
+// cairo_region_t
+
+void CairoDart::region_create(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+
+    cairo_region_t* reg = cairo_region_create();
+    Region* region = new Region(reg);
+
+    Utils::setupBindingObject<Region>(obj, region);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::region_create_rectangle(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    int x = arg.intArg(1);
+    int y = arg.intArg(2);
+    int width = arg.intArg(3);
+    int height = arg.intArg(4);
+
+    cairo_rectangle_int_t rect;
+    rect.x = x;
+    rect.y = y;
+    rect.width = width;
+    rect.height = height;
+
+    cairo_region_t* reg = cairo_region_create_rectangle(&rect);
+
+    Region* region = new Region(reg);
+
+    Utils::setupBindingObject<Region>(obj, region);
+
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 } // bindings

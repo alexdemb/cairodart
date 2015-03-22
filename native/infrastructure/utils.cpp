@@ -130,6 +130,22 @@ Dart_Handle Utils::newList(int count, ...)
     return list;
 }
 
+int Utils::listLength(const Dart_Handle& list)
+{
+    intptr_t length = 0;
+    Dart_Handle res = Dart_ListLength(list, &length);
+    propagateError(res);
+    return static_cast<int>(length);
+}
+
+int Utils::intAt(const Dart_Handle &list, const int &pos)
+{
+    intptr_t i = static_cast<intptr_t>(pos);
+    Dart_Handle res = Dart_ListGetAt(list, i);
+    propagateError(res);
+    int64_t conv = toInteger(res);
+    return static_cast<int>(conv);
+}
 
 } // infrastructure
 

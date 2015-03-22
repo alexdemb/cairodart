@@ -21,3 +21,4 @@ part 'bindings/pattern_type.dart';
 part 'bindings/matrix.dart';
 part 'bindings/distance.dart';
 part 'bindings/region.dart';
+part 'bindings/rectangle.dart';

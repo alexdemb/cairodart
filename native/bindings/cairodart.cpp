@@ -1,6 +1,7 @@
 #include <map>
 #include <cairo/cairo.h>
 #include <cstdint>
+#include <vector>
 
 #include "cairodart.h"
 #include "infrastructure/infrastructure.h"
@@ -100,7 +101,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "matrix_transform_distance", CairoDart::matrix_transform_distance },
   { "matrix_multiply", CairoDart::matrix_multiply },
   { "region_create", CairoDart::region_create },
-  { "region_create_rectangle", CairoDart::region_create_rectangle }
+  { "region_create_rectangle", CairoDart::region_create_rectangle },
+  { "region_create_rectangles", CairoDart::region_create_rectangles }
 
 };
 
@@ -1033,6 +1035,36 @@ void CairoDart::region_create_rectangle(Dart_NativeArguments args)
 
     Dart_SetReturnValue(args, Dart_Null());
 }
+
+void CairoDart::region_create_rectangles(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle obj = arg.arg(0);
+    Dart_Handle areas = arg.arg(1);
+
+    int length = Utils::listLength(areas);
+
+    std::vector<cairo_rectangle_int_t> rectangles;
+
+    for (int i = 0; i < length; i += 4)
+    {
+        cairo_rectangle_int_t rect;
+        rect.x = Utils::intAt(areas, i);
+        rect.y = Utils::intAt(areas, i + 1);
+        rect.width = Utils::intAt(areas, i + 2);
+        rect.height = Utils::intAt(areas, i + 3);
+        rectangles.push_back(rect);
+    }
+
+    cairo_region_t* reg = cairo_region_create_rectangles(&rectangles[0], rectangles.size());
+
+    Region* region = new Region(reg);
+
+    Utils::setupBindingObject<Region>(obj, region);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
 
 } // bindings
 

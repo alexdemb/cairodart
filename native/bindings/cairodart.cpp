@@ -107,7 +107,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "region_get_extents", CairoDart::region_get_extents },
   { "region_get_num_rectangles", CairoDart::region_get_num_rectangles },
   { "region_get_rectangle", CairoDart::region_get_rectangle },
-  { "region_is_empty", CairoDart::region_is_empty }
+  { "region_is_empty", CairoDart::region_is_empty },
+  { "region_contains_point", CairoDart::region_contains_point }
 
 };
 
@@ -1111,6 +1112,16 @@ void CairoDart::region_is_empty(Dart_NativeArguments args)
     Region* region = Utils::thisFromArg<Region>(args);
     bool isEmpty = region->isEmpty();
     Dart_SetReturnValue(args, Dart_NewBoolean(isEmpty));
+}
+
+void CairoDart::region_contains_point(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    int x = arg.intArg(1);
+    int y = arg.intArg(2);
+    bool res = region->containsPoint(x, y);
+    Dart_SetReturnValue(args, Dart_NewBoolean(res));
 }
 
 } // bindings

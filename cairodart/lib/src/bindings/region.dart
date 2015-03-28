@@ -13,6 +13,8 @@ abstract class Region {
   int get countOfRectangles;
   Rectangle rectangleAt(int nth);
   bool get isEmpty;
+  bool containsPoint(Point point);
+  bool containsPointWithCoords(int x, int y);
 }
 
 class _Region extends NativeFieldWrapperClass2 implements Region {
@@ -55,4 +57,8 @@ class _Region extends NativeFieldWrapperClass2 implements Region {
   Rectangle rectangleAt(int nth) native 'region_get_rectangle';
   
   bool get isEmpty native 'region_is_empty';
+  
+  bool containsPoint(Point point) => containsPointWithCoords(point.x.toInt(), point.y.toInt());
+  
+  bool containsPointWithCoords(int x, int y) native 'region_contains_point';
 }

@@ -68,6 +68,13 @@ bool Region::isEmpty() const
     return res != 0;
 }
 
+bool Region::containsPoint(const int &x, const int &y) const
+{
+    cairo_bool_t res = cairo_region_contains_point(this->r, x, y);
+    verify();
+    return res != 0;
+}
+
 } // bindings
 
 } // cairodart

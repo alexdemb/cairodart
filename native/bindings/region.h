@@ -25,6 +25,7 @@ public:
     int getNumRectangles() const;
     cairo_rectangle_int_t getRectangle(const int& nth) const;
     bool isEmpty() const;
+    bool containsPoint(const int& x, const int& y) const;
 private:
     cairo_region_t* r;
 };

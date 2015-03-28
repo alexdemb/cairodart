@@ -69,5 +69,25 @@ runRegionTests() {
       Region region = new Region.fromRectangle(rect);
       expect(region.isEmpty, isFalse);
     });
+    test('should contain point within one of rectangles in region', () {
+      Rectangle rect = new Rectangle(10, 10, 100, 100);
+      Region region = new Region.fromRectangle(rect);
+      expect(region.containsPointWithCoords(12, 12), isTrue);
+    });
+    test('should not contain point outside of rectangle in region', () {
+      Rectangle rect = new Rectangle(10, 10, 100, 100);
+      Region region = new Region.fromRectangle(rect);
+      expect(region.containsPointWithCoords(5, 5), isFalse);
+    });
+    test('should contain point within one of rectangles in region when Point is used', () {
+       Rectangle rect = new Rectangle(10, 10, 100, 100);
+       Region region = new Region.fromRectangle(rect);
+       expect(region.containsPoint(new Point.from(12.0, 12.0)), isTrue);
+    });
+    test('should not contain point outside of rectangle in region when Point is used', () {
+       Rectangle rect = new Rectangle(10, 10, 100, 100);
+       Region region = new Region.fromRectangle(rect);
+       expect(region.containsPoint(new Point.from(5.0, 5.0)), isFalse);
+    });
  });
 }

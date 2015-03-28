@@ -42,7 +42,15 @@ cairo_rectangle_int_t Region::getExtents() const
 {
     cairo_rectangle_int_t extents;
     cairo_region_get_extents(this->r, &extents);
+    verify();
     return extents;
+}
+
+int Region::getNumRectangles() const
+{
+    int num = cairo_region_num_rectangles(this->r);
+    verify();
+    return num;
 }
 
 } // bindings

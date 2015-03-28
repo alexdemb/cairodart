@@ -10,6 +10,7 @@ abstract class Region {
   
   Region copy();
   Rectangle getExtents();
+  int get countOfRectangles;
 }
 
 class _Region extends NativeFieldWrapperClass2 implements Region {
@@ -46,4 +47,6 @@ class _Region extends NativeFieldWrapperClass2 implements Region {
   Region copy() native 'region_copy';
   
   Rectangle getExtents() native 'region_get_extents';
+  
+  int get countOfRectangles native 'region_get_num_rectangles';
 }

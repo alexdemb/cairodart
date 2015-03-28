@@ -104,7 +104,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "region_create_rectangle", CairoDart::region_create_rectangle },
   { "region_create_rectangles", CairoDart::region_create_rectangles },
   { "region_copy", CairoDart::region_copy },
-  { "region_get_extents", CairoDart::region_get_extents }
+  { "region_get_extents", CairoDart::region_get_extents },
+  { "region_get_num_rectangles", CairoDart::region_get_num_rectangles }
 
 };
 
@@ -1093,6 +1094,13 @@ void CairoDart::region_get_extents(Dart_NativeArguments args)
 
     Dart_Handle rect = Utils::newObject("Rectangle", "", COUNT_OF_PARAMS, parameters);
     Dart_SetReturnValue(args, rect);
+}
+
+void CairoDart::region_get_num_rectangles(Dart_NativeArguments args)
+{
+    Region* region = Utils::thisFromArg<Region>(args);
+    int num = region->getNumRectangles();
+    Dart_SetReturnValue(args, Dart_NewInteger(num));
 }
 
 } // bindings

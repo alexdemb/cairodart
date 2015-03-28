@@ -33,5 +33,22 @@ runRegionTests() {
       Rectangle res = region.getExtents();
       expect(res, equals(ext));
     });
+    test('should correctly return number of rectangles for one rectangle', () {
+      Rectangle ext = new Rectangle(10, 20, 100, 200);
+      Region region = new Region.fromRectangle(ext);
+      expect(region.countOfRectangles, equals(1));
+    });
+    test('should correctly return number of rectangles for 2 not intersected rectangles', () {
+      Rectangle ext1 = new Rectangle(10, 20, 30, 40);
+      Rectangle ext2 = new Rectangle(100, 200, 150, 250);
+      Region region = new Region.fromRectangles([ext1, ext2]);
+      expect(region.countOfRectangles, equals(2));
+    });
+    test('should correctly return number of rectangles for 2 intersected rectangles', () {
+      Rectangle ext1 = new Rectangle(10, 20, 30, 40);
+      Rectangle ext2 = new Rectangle(25, 35, 150, 250);
+      Region region = new Region.fromRectangles([ext1, ext2]);
+      expect(region.countOfRectangles, equals(3));
+    });
   });
 }

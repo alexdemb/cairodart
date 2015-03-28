@@ -24,6 +24,7 @@ public:
     cairo_rectangle_int_t getExtents() const;
     int getNumRectangles() const;
     cairo_rectangle_int_t getRectangle(const int& nth) const;
+    bool isEmpty() const;
 private:
     cairo_region_t* r;
 };

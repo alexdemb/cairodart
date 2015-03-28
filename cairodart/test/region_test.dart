@@ -60,5 +60,14 @@ runRegionTests() {
       expect(res1, equals(ext1));
       expect(res2, equals(ext2));
     });
+    test('should be empty if there is no rectangles', () {
+      Region region = new Region();
+      expect(region.isEmpty, isTrue);
+    });
+    test('should not be empty if there are rectangles', () {
+      Rectangle rect = new Rectangle(10, 10, 100, 100);
+      Region region = new Region.fromRectangle(rect);
+      expect(region.isEmpty, isFalse);
+    });
  });
 }

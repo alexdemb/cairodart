@@ -61,6 +61,13 @@ cairo_rectangle_int_t Region::getRectangle(const int &nth) const
     return rect;
 }
 
+bool Region::isEmpty() const
+{
+    cairo_bool_t res = cairo_region_is_empty(this->r);
+    verify();
+    return res != 0;
+}
+
 } // bindings
 
 } // cairodart

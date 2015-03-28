@@ -107,5 +107,18 @@ runRegionTests() {
       Rectangle smaller = new Rectangle(1, 1, 12, 12);
       expect(region.containsRectangle(smaller), equals(RegionOverlap.OVERLAP_PART));
     });
+    test('should be equal to another region with the same rectangle(s)', () {
+      Rectangle rect = new Rectangle(10, 10, 100, 100);
+      Region region1 = new Region.fromRectangle(rect);
+      Region region2 = new Region.fromRectangle(rect);
+      expect(region1, equals(region2));
+    });
+    test('should not be equal to another region with another rectangle(s)', () {
+      Rectangle rect1 = new Rectangle(10, 10, 100, 100);
+      Rectangle rect2 = new Rectangle(15, 15, 150, 150);
+      Region region1 = new Region.fromRectangle(rect1);
+      Region region2 = new Region.fromRectangle(rect2);
+      expect(region1 == region2, isFalse);      
+    });
  });
 }

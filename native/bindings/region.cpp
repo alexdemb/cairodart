@@ -87,6 +87,13 @@ cairo_region_overlap_t Region::containsRectangle(const int &x, const int &y, con
     return overlap;
 }
 
+bool Region::operator==(const Region& other) const
+{
+    cairo_bool_t equal = cairo_region_equal(this->r, other.r);
+    verify();
+    return equal != 0;
+}
+
 } // bindings
 
 } // cairodart

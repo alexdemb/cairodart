@@ -53,6 +53,14 @@ int Region::getNumRectangles() const
     return num;
 }
 
+cairo_rectangle_int_t Region::getRectangle(const int &nth) const
+{
+    cairo_rectangle_int_t rect;
+    cairo_region_get_rectangle(this->r, nth, &rect);
+    verify();
+    return rect;
+}
+
 } // bindings
 
 } // cairodart

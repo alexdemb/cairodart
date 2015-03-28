@@ -50,5 +50,15 @@ runRegionTests() {
       Region region = new Region.fromRectangles([ext1, ext2]);
       expect(region.countOfRectangles, equals(3));
     });
-  });
+    test('should correctly return rectangles', () {
+      Rectangle ext1 = new Rectangle(10, 20, 30, 40);
+      Rectangle ext2 = new Rectangle(100, 200, 150, 250);
+      Region region = new Region.fromRectangles([ext1, ext2]);
+      Rectangle res1 = region.rectangleAt(0);
+      Rectangle res2 = region.rectangleAt(1);
+      
+      expect(res1, equals(ext1));
+      expect(res2, equals(ext2));
+    });
+ });
 }

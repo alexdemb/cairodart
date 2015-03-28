@@ -23,6 +23,7 @@ public:
     Region* copy() const;
     cairo_rectangle_int_t getExtents() const;
     int getNumRectangles() const;
+    cairo_rectangle_int_t getRectangle(const int& nth) const;
 private:
     cairo_region_t* r;
 };

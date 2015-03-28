@@ -6,6 +6,9 @@ abstract class Region {
   factory Region.fromArea(int x, int y, int width, int height) => new _Region.fromArea(x, y, width, height);
   factory Region.fromRectangle(Rectangle rect) => new _Region.fromRectangle(rect);
   factory Region.fromRectangles(List<Rectangle> rectangles) => new _Region.fromRectangles(rectangles);
+  factory Region._internal() => new _Region._internal();
+  
+  Region copy();
 }
 
 class _Region extends NativeFieldWrapperClass2 implements Region {
@@ -31,10 +34,13 @@ class _Region extends NativeFieldWrapperClass2 implements Region {
     _createRectangles(areas);    
   }
   
+  _Region._internal() {}
+  
   void _create() native 'region_create';
   
   void _createRectangle(int x, int y, int width, int height) native 'region_create_rectangle';
   
   void _createRectangles(List<int> areas) native 'region_create_rectangles';
   
+  Region copy() native 'region_copy';
 }

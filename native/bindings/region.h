@@ -19,6 +19,8 @@ public:
     ~Region();
 
     void verify() const;
+
+    Region* copy() const;
 private:
     cairo_region_t* r;
 };

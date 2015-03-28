@@ -22,5 +22,10 @@ runRegionTests() {
       Region region = new Region.fromRectangles([rect, rect2]);
       expect(region, isNotNull);
     });
+    test('should be successfully copied from another region', () {
+      Region region = new Region();
+      Region copy = region.copy();
+      expect(copy, isNotNull);
+    });
   });
 }

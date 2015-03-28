@@ -31,6 +31,13 @@ void Region::verify() const
     Utils::verify(status);
 }
 
+Region* Region::copy() const
+{
+    cairo_region_t* copy = cairo_region_copy(this->r);
+    verify();
+    return new Region(copy);
+}
+
 
 } // bindings
 

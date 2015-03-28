@@ -108,7 +108,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "region_get_num_rectangles", CairoDart::region_get_num_rectangles },
   { "region_get_rectangle", CairoDart::region_get_rectangle },
   { "region_is_empty", CairoDart::region_is_empty },
-  { "region_contains_point", CairoDart::region_contains_point }
+  { "region_contains_point", CairoDart::region_contains_point },
+  { "region_contains_rectangle", CairoDart::region_contains_rectangle }
 
 };
 
@@ -1123,6 +1124,22 @@ void CairoDart::region_contains_point(Dart_NativeArguments args)
     bool res = region->containsPoint(x, y);
     Dart_SetReturnValue(args, Dart_NewBoolean(res));
 }
+
+void CairoDart::region_contains_rectangle(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    int x = arg.intArg(1);
+    int y = arg.intArg(2);
+    int width = arg.intArg(3);
+    int height = arg.intArg(4);
+    cairo_region_overlap_t overlap = region->containsRectangle(x, y, width, height);
+
+    Dart_Handle overlapArgs[] = { Dart_NewInteger(static_cast<int>(overlap)) };
+    Dart_Handle overlapObj = Utils::newObject("_RegionOverlap", "", 1, overlapArgs);
+    Dart_SetReturnValue(args, overlapObj);
+}
+
 
 } // bindings
 

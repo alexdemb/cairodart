@@ -22,3 +22,4 @@ part 'bindings/matrix.dart';
 part 'bindings/distance.dart';
 part 'bindings/region.dart';
 part 'bindings/rectangle.dart';
+part 'bindings/region_overlap.dart';

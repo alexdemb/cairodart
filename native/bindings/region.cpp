@@ -75,6 +75,18 @@ bool Region::containsPoint(const int &x, const int &y) const
     return res != 0;
 }
 
+cairo_region_overlap_t Region::containsRectangle(const int &x, const int &y, const int &width, const int &height) const
+{
+    cairo_rectangle_int_t rect;
+    rect.x = x;
+    rect.y = y;
+    rect.width = width;
+    rect.height = height;
+    cairo_region_overlap_t overlap = cairo_region_contains_rectangle(this->r, &rect);
+    verify();
+    return overlap;
+}
+
 } // bindings
 
 } // cairodart

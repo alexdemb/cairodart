@@ -26,6 +26,7 @@ public:
     cairo_rectangle_int_t getRectangle(const int& nth) const;
     bool isEmpty() const;
     bool containsPoint(const int& x, const int& y) const;
+    cairo_region_overlap_t containsRectangle(const int& x, const int& y, const int& width, const int& height) const;
 private:
     cairo_region_t* r;
 };

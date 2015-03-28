@@ -80,14 +80,32 @@ runRegionTests() {
       expect(region.containsPointWithCoords(5, 5), isFalse);
     });
     test('should contain point within one of rectangles in region when Point is used', () {
-       Rectangle rect = new Rectangle(10, 10, 100, 100);
-       Region region = new Region.fromRectangle(rect);
-       expect(region.containsPoint(new Point.from(12.0, 12.0)), isTrue);
+      Rectangle rect = new Rectangle(10, 10, 100, 100);
+      Region region = new Region.fromRectangle(rect);
+      expect(region.containsPoint(new Point.from(12.0, 12.0)), isTrue);
     });
     test('should not contain point outside of rectangle in region when Point is used', () {
-       Rectangle rect = new Rectangle(10, 10, 100, 100);
-       Region region = new Region.fromRectangle(rect);
-       expect(region.containsPoint(new Point.from(5.0, 5.0)), isFalse);
+      Rectangle rect = new Rectangle(10, 10, 100, 100);
+      Region region = new Region.fromRectangle(rect);
+      expect(region.containsPoint(new Point.from(5.0, 5.0)), isFalse);
+    });
+    test('should contain smaller rectangle in larger', () {
+      Rectangle rect = new Rectangle(10, 10, 100, 100);
+      Region region = new Region.fromRectangle(rect);
+      Rectangle smaller = new Rectangle(15, 15, 80, 80);
+      expect(region.containsRectangle(smaller), equals(RegionOverlap.OVERLAP_IN));
+    });
+    test('should not contain smaller rectangle in larger', () {
+      Rectangle rect = new Rectangle(10, 10, 100, 100);
+      Region region = new Region.fromRectangle(rect);
+      Rectangle smaller = new Rectangle(1, 1, 5, 5);
+      expect(region.containsRectangle(smaller), equals(RegionOverlap.OVERLAP_OUT));
+    });
+    test('should overlap with smaller rectangle', () {
+      Rectangle rect = new Rectangle(10, 10, 100, 100);
+      Region region = new Region.fromRectangle(rect);
+      Rectangle smaller = new Rectangle(1, 1, 12, 12);
+      expect(region.containsRectangle(smaller), equals(RegionOverlap.OVERLAP_PART));
     });
  });
 }

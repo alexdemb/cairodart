@@ -21,6 +21,7 @@ public:
     void verify() const;
 
     Region* copy() const;
+    cairo_rectangle_int_t getExtents() const;
 private:
     cairo_region_t* r;
 };

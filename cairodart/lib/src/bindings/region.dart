@@ -9,6 +9,7 @@ abstract class Region {
   factory Region._internal() => new _Region._internal();
   
   Region copy();
+  Rectangle getExtents();
 }
 
 class _Region extends NativeFieldWrapperClass2 implements Region {
@@ -43,4 +44,6 @@ class _Region extends NativeFieldWrapperClass2 implements Region {
   void _createRectangles(List<int> areas) native 'region_create_rectangles';
   
   Region copy() native 'region_copy';
+  
+  Rectangle getExtents() native 'region_get_extents';
 }

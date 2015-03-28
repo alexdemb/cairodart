@@ -27,5 +27,11 @@ runRegionTests() {
       Region copy = region.copy();
       expect(copy, isNotNull);
     });
+    test('should correctly return extents', () {
+      Rectangle ext = new Rectangle(10, 20, 100, 200);
+      Region region = new Region.fromRectangle(ext);
+      Rectangle res = region.getExtents();
+      expect(res, equals(ext));
+    });
   });
 }

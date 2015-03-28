@@ -110,6 +110,7 @@ public:
     static void region_create_rectangle(Dart_NativeArguments args);
     static void region_create_rectangles(Dart_NativeArguments args);
     static void region_copy(Dart_NativeArguments args);
+    static void region_get_extents(Dart_NativeArguments args);
 
 private:
     CairoDart();

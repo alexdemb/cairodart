@@ -38,6 +38,12 @@ Region* Region::copy() const
     return new Region(copy);
 }
 
+cairo_rectangle_int_t Region::getExtents() const
+{
+    cairo_rectangle_int_t extents;
+    cairo_region_get_extents(this->r, &extents);
+    return extents;
+}
 
 } // bindings
 

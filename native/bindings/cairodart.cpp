@@ -112,7 +112,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "region_contains_rectangle", CairoDart::region_contains_rectangle },
   { "region_equal", CairoDart::region_equal },
   { "region_translate", CairoDart::region_translate },
-  { "region_intersect", CairoDart::region_intersect }
+  { "region_intersect", CairoDart::region_intersect },
+  { "region_intersect_rectangle", CairoDart::region_intersect_rectangle }
 
 };
 
@@ -1173,6 +1174,19 @@ void CairoDart::region_intersect(Dart_NativeArguments args)
     Region* other = Utils::bindingObject<Region>(otherObj);
 
     region->intersect(other);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::region_intersect_rectangle(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    int x = arg.intArg(1);
+    int y = arg.intArg(2);
+    int width = arg.intArg(3);
+    int height = arg.intArg(4);
+
+    region->intersectRectangle(x, y, width, height);
     Dart_SetReturnValue(args, Dart_Null());
 }
 

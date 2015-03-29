@@ -143,5 +143,22 @@ runRegionTests() {
       Rectangle result = region.rectangleAt(0);
       expect(result, equals(new Rectangle(5, 5, 5, 5)));
     });
+    test('should successfully intersect with rectangle', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+      Rectangle otherRect = new Rectangle(5, 5, 10, 10);
+      
+      region.intersectRectangle(otherRect);
+      Rectangle result = region.rectangleAt(0);
+      expect(result, equals(new Rectangle(5, 5, 5, 5)));
+    });
+    test('should successfully intersect with rectangle by coords', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+      region.intersectRectangleWithCoords(5, 5, 10, 10);
+      Rectangle result = region.rectangleAt(0);
+      expect(result, equals(new Rectangle(5, 5, 5, 5)));
+    });
+    
  });
 }

@@ -20,6 +20,8 @@ abstract class Region {
   void translate(int dx, int dy);
   void translateToDistance(Distance dist);
   void intersect(Region other);
+  void intersectRectangle(Rectangle rect);
+  void intersectRectangleWithCoords(int x, int y, int width, int height);
 }
 
 class _Region extends NativeFieldWrapperClass2 implements Region {
@@ -76,6 +78,10 @@ class _Region extends NativeFieldWrapperClass2 implements Region {
   void translateToDistance(Distance dist) => translate(dist.dx.toInt(), dist.dy.toInt());
   
   void intersect(Region other) native 'region_intersect';
+  
+  void intersectRectangle(Rectangle rect) => intersectRectangleWithCoords(rect.x, rect.y, rect.width, rect.height);
+  
+  void intersectRectangleWithCoords(int x, int y, int width, int height) native 'region_intersect_rectangle';
   
   @override
   operator==(Region other) native 'region_equal';

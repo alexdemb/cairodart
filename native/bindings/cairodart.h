@@ -119,6 +119,7 @@ public:
     static void region_equal(Dart_NativeArguments args);
     static void region_translate(Dart_NativeArguments args);
     static void region_intersect(Dart_NativeArguments args);
+    static void region_intersect_rectangle(Dart_NativeArguments args);
 
 private:
     CairoDart();

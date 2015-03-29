@@ -106,6 +106,17 @@ void Region::intersect(Region *other) const
     verify();
 }
 
+void Region::intersectRectangle(const int &x, const int &y, const int &width, const int &height) const
+{
+    cairo_rectangle_int_t rect;
+    rect.x = x;
+    rect.y = y;
+    rect.width = width;
+    rect.height = height;
+    cairo_region_intersect_rectangle(this->r, &rect);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

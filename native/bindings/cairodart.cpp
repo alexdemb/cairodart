@@ -113,7 +113,13 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "region_equal", CairoDart::region_equal },
   { "region_translate", CairoDart::region_translate },
   { "region_intersect", CairoDart::region_intersect },
-  { "region_intersect_rectangle", CairoDart::region_intersect_rectangle }
+  { "region_intersect_rectangle", CairoDart::region_intersect_rectangle },
+  { "region_subtract", CairoDart::region_subtract },
+  { "region_subtract_rectangle", CairoDart::region_subtract_rectangle },
+  { "region_union", CairoDart::region_union },
+  { "region_union_rectangle", CairoDart::region_union_rectangle },
+  { "region_xor", CairoDart::region_xor },
+  { "region_xor_rectangle", CairoDart::region_xor_rectangle }
 
 };
 
@@ -1189,6 +1195,79 @@ void CairoDart::region_intersect_rectangle(Dart_NativeArguments args)
     region->intersectRectangle(x, y, width, height);
     Dart_SetReturnValue(args, Dart_Null());
 }
+
+void CairoDart::region_subtract(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    Dart_Handle otherObj = arg.arg(1);
+    Region* other = Utils::bindingObject<Region>(otherObj);
+
+    region->subtract(other);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::region_subtract_rectangle(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    int x = arg.intArg(1);
+    int y = arg.intArg(2);
+    int width = arg.intArg(3);
+    int height = arg.intArg(4);
+
+    region->subtractRectangle(x, y, width, height);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::region_union(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    Dart_Handle otherObj = arg.arg(1);
+    Region* other = Utils::bindingObject<Region>(otherObj);
+
+    region->doUnion(other);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::region_union_rectangle(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    int x = arg.intArg(1);
+    int y = arg.intArg(2);
+    int width = arg.intArg(3);
+    int height = arg.intArg(4);
+
+    region->unionRectangle(x, y, width, height);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::region_xor(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    Dart_Handle otherObj = arg.arg(1);
+    Region* other = Utils::bindingObject<Region>(otherObj);
+
+    region->doXor(other);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::region_xor_rectangle(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    int x = arg.intArg(1);
+    int y = arg.intArg(2);
+    int width = arg.intArg(3);
+    int height = arg.intArg(4);
+
+    region->xorRectangle(x, y, width, height);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
 
 } // bindings
 

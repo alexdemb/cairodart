@@ -159,6 +159,87 @@ runRegionTests() {
       Rectangle result = region.rectangleAt(0);
       expect(result, equals(new Rectangle(5, 5, 5, 5)));
     });
+    test('should successfully subtract other region', () {
+      Rectangle rect1 = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect1);
+      Rectangle rect2 = new Rectangle(5, 0, 10, 10);
+      Region other = new Region.fromRectangle(rect2);
+      
+      region.subtract(other);
+      Rectangle subtracted = region.rectangleAt(0);
+      expect(subtracted, equals(new Rectangle(0, 0, 5, 10)));
+    });
+    test('should successfully subtract a rectangle', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+      Rectangle other = new Rectangle(5, 0, 10, 10);
+      
+      region.subtractRectangle(other);
+      Rectangle subtracted = region.rectangleAt(0);
+      expect(subtracted, equals(new Rectangle(0, 0, 5, 10)));
+    });
+    test('should successfully subtract a rectangle by coords', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+      
+      region.subtractRectangleWithCoords(5, 0, 10, 10);
+      Rectangle subtracted = region.rectangleAt(0);
+      expect(subtracted, equals(new Rectangle(0, 0, 5, 10)));
+    });
+    test('should successfully union with other region', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+      Rectangle otherRect = new Rectangle(10, 0, 10, 10);
+      Region other = new Region.fromRectangle(otherRect);
+      
+      region.union(other);
+      Rectangle union = region.rectangleAt(0);
+      expect(union, equals(new Rectangle(0, 0, 20, 10)));
+    });
+    test('should successfully union with a rectangle', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+      Rectangle other = new Rectangle(10, 0, 10, 10);
+      
+      region.unionRectangle(other);
+      Rectangle union = region.rectangleAt(0);
+      expect(union, equals(new Rectangle(0, 0, 20, 10)));
+    });
+    test('should successfully union with a rectangle by coords', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+
+      region.unionRectangleWithCoords(10, 0, 10, 10);
+      Rectangle union = region.rectangleAt(0);
+      expect(union, equals(new Rectangle(0, 0, 20, 10)));
+    });
+    test('should successfully XOR with other region', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+      Rectangle otherRect = new Rectangle(5, 0, 10, 10);
+      Region other = new Region.fromRectangle(otherRect);
+      
+      region.xor(other);
+      Rectangle xor = region.rectangleAt(0);
+      expect(xor, equals(new Rectangle(0, 0, 5, 10)));
+    });
+    test('should successfully XOR with a rectangle', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+      Rectangle other = new Rectangle(5, 0, 10, 10);
+      
+      region.xorRectangle(other);
+      Rectangle xor = region.rectangleAt(0);
+      expect(xor, equals(new Rectangle(0, 0, 5, 10)));
+    });
+    test('should successfully XOR with a rectangle by coords', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+
+      region.xorRectangleWithCoords(5, 0, 10, 10);
+      Rectangle xor = region.rectangleAt(0);
+      expect(xor, equals(new Rectangle(0, 0, 5, 10)));
+    });
     
  });
 }

@@ -117,6 +117,59 @@ void Region::intersectRectangle(const int &x, const int &y, const int &width, co
     verify();
 }
 
+void Region::subtract(Region *other) const
+{
+    cairo_region_subtract(this->r, other->r);
+    verify();
+}
+
+void Region::subtractRectangle(const int &x, const int &y, const int &width, const int &height) const
+{
+    cairo_rectangle_int_t rect;
+    rect.x = x;
+    rect.y = y;
+    rect.width = width;
+    rect.height = height;
+    cairo_region_subtract_rectangle(this->r, &rect);
+    verify();
+}
+
+
+void Region::doUnion(Region *other) const
+{
+    cairo_region_union(this->r, other->r);
+    verify();
+}
+
+void Region::unionRectangle(const int &x, const int &y, const int &width, const int &height) const
+{
+    cairo_rectangle_int_t rect;
+    rect.x = x;
+    rect.y = y;
+    rect.width = width;
+    rect.height = height;
+    cairo_region_union_rectangle(this->r, &rect);
+    verify();
+}
+
+void Region::doXor(Region *other) const
+{
+    cairo_region_xor(this->r, other->r);
+    verify();
+}
+
+void Region::xorRectangle(const int &x, const int &y, const int &width, const int &height) const
+{
+    cairo_rectangle_int_t rect;
+    rect.x = x;
+    rect.y = y;
+    rect.width = width;
+    rect.height = height;
+    cairo_region_xor_rectangle(this->r, &rect);
+    verify();
+}
+
+
 } // bindings
 
 } // cairodart

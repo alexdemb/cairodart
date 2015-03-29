@@ -30,6 +30,12 @@ public:
     void translate(const int& dx, const int& dy) const;
     void intersect(Region* other) const;
     void intersectRectangle(const int& x, const int& y, const int& width, const int& height) const;
+    void subtract(Region* other) const;
+    void subtractRectangle(const int& x, const int& y, const int& width, const int& height) const;
+    void doUnion(Region* other) const;
+    void unionRectangle(const int& x, const int& y, const int& width, const int& height) const;
+    void doXor(Region* other) const;
+    void xorRectangle(const int& x, const int& y, const int& width, const int& height) const;
 
     bool operator==(const Region& other) const;
 private:

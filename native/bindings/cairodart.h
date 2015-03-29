@@ -120,6 +120,12 @@ public:
     static void region_translate(Dart_NativeArguments args);
     static void region_intersect(Dart_NativeArguments args);
     static void region_intersect_rectangle(Dart_NativeArguments args);
+    static void region_subtract(Dart_NativeArguments args);
+    static void region_subtract_rectangle(Dart_NativeArguments args);
+    static void region_union(Dart_NativeArguments args);
+    static void region_union_rectangle(Dart_NativeArguments args);
+    static void region_xor(Dart_NativeArguments args);
+    static void region_xor_rectangle(Dart_NativeArguments args);
 
 private:
     CairoDart();

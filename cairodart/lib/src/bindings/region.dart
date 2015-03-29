@@ -20,8 +20,17 @@ abstract class Region {
   void translate(int dx, int dy);
   void translateToDistance(Distance dist);
   void intersect(Region other);
+  void subtract(Region other);
+  void union(Region other);
+  void xor(Region other);
   void intersectRectangle(Rectangle rect);
   void intersectRectangleWithCoords(int x, int y, int width, int height);
+  void subtractRectangle(Rectangle rect);
+  void subtractRectangleWithCoords(int x, int y, int width, int height);
+  void unionRectangle(Rectangle rect);
+  void unionRectangleWithCoords(int x, int y, int width, int height);
+  void xorRectangle(Rectangle rect);
+  void xorRectangleWithCoords(int x, int y, int width, int height);
 }
 
 class _Region extends NativeFieldWrapperClass2 implements Region {
@@ -79,9 +88,28 @@ class _Region extends NativeFieldWrapperClass2 implements Region {
   
   void intersect(Region other) native 'region_intersect';
   
+  void subtract(Region other) native 'region_subtract';
+  
+  void union(Region other) native 'region_union';
+  
+  void xor(Region other) native 'region_xor';
+  
   void intersectRectangle(Rectangle rect) => intersectRectangleWithCoords(rect.x, rect.y, rect.width, rect.height);
   
   void intersectRectangleWithCoords(int x, int y, int width, int height) native 'region_intersect_rectangle';
+  
+  void subtractRectangle(Rectangle rect) => subtractRectangleWithCoords(rect.x.toInt(),  rect.y.toInt(), rect.width.toInt(), rect.height.toInt());
+  
+  void subtractRectangleWithCoords(int x, int y, int width, int height) native 'region_subtract_rectangle';
+  
+  void unionRectangle(Rectangle rect) => unionRectangleWithCoords(rect.x.toInt(),  rect.y.toInt(), rect.width.toInt(), rect.height.toInt());
+  
+  void unionRectangleWithCoords(int x, int y, int width, int height) native 'region_union_rectangle';
+  
+  void xorRectangle(Rectangle rect) => xorRectangleWithCoords(rect.x.toInt(),  rect.y.toInt(), rect.width.toInt(), rect.height.toInt());
+  
+  void xorRectangleWithCoords(int x, int y, int width, int height) native 'region_xor_rectangle';
+  
   
   @override
   operator==(Region other) native 'region_equal';

@@ -94,6 +94,12 @@ bool Region::operator==(const Region& other) const
     return equal != 0;
 }
 
+void Region::translate(const int &dx, const int &dy) const
+{
+    cairo_region_translate(this->r, dx, dy);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

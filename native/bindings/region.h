@@ -27,6 +27,7 @@ public:
     bool isEmpty() const;
     bool containsPoint(const int& x, const int& y) const;
     cairo_region_overlap_t containsRectangle(const int& x, const int& y, const int& width, const int& height) const;
+    void translate(const int& dx, const int& dy) const;
 
     bool operator==(const Region& other) const;
 private:

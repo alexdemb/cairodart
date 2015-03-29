@@ -117,6 +117,7 @@ public:
     static void region_contains_point(Dart_NativeArguments args);
     static void region_contains_rectangle(Dart_NativeArguments args);
     static void region_equal(Dart_NativeArguments args);
+    static void region_translate(Dart_NativeArguments args);
 
 private:
     CairoDart();

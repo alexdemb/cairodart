@@ -17,6 +17,8 @@ abstract class Region {
   bool containsPointWithCoords(int x, int y);
   RegionOverlap containsRectangle(Rectangle rect);
   RegionOverlap containsRectangleWithCoords(int x, int y, int width, int height);
+  void translate(int dx, int dy);
+  void translateToDistance(Distance dist);
 }
 
 class _Region extends NativeFieldWrapperClass2 implements Region {
@@ -67,6 +69,10 @@ class _Region extends NativeFieldWrapperClass2 implements Region {
   RegionOverlap containsRectangle(Rectangle rect) => containsRectangleWithCoords(rect.x, rect.y, rect.width, rect.height);
   
   RegionOverlap containsRectangleWithCoords(int x, int y, int width, int height) native 'region_contains_rectangle';
+  
+  void translate(int dx, int dy) native 'region_translate';
+  
+  void translateToDistance(Distance dist) => translate(dist.dx.toInt(), dist.dy.toInt());
   
   @override
   operator==(Region other) native 'region_equal';

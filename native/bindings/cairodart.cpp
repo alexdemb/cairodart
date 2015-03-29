@@ -110,7 +110,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "region_is_empty", CairoDart::region_is_empty },
   { "region_contains_point", CairoDart::region_contains_point },
   { "region_contains_rectangle", CairoDart::region_contains_rectangle },
-  { "region_equal", CairoDart::region_equal }
+  { "region_equal", CairoDart::region_equal },
+  { "region_translate", CairoDart::region_translate }
 
 };
 
@@ -1149,6 +1150,18 @@ void CairoDart::region_equal(Dart_NativeArguments args)
     Region* other = Utils::bindingObject<Region>(otherObj);
     bool equal = *region == *other;
     Dart_SetReturnValue(args, Dart_NewBoolean(equal));
+}
+
+void CairoDart::region_translate(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    int dx = arg.intArg(1);
+    int dy = arg.intArg(2);
+
+    region->translate(dx, dy);
+
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 } // bindings

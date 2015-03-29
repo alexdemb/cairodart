@@ -120,5 +120,19 @@ runRegionTests() {
       Region region2 = new Region.fromRectangle(rect2);
       expect(region1 == region2, isFalse);      
     });
+    test('should be successfully translated using translate() method', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+      region.translate(5, 5);
+      Rectangle resultRect = region.rectangleAt(0);
+      expect(resultRect, equals(new Rectangle(5, 5, 10, 10)));
+    });
+    test('should be successfully translated using translateToDistance() method', () {
+      Rectangle rect = new Rectangle(0, 0, 10, 10);
+      Region region = new Region.fromRectangle(rect);
+      region.translateToDistance(new Distance.from(5.0, 5.0));
+      Rectangle resultRect = region.rectangleAt(0);
+      expect(resultRect, equals(new Rectangle(5, 5, 10, 10)));      
+    });
  });
 }

@@ -19,6 +19,7 @@ abstract class Region {
   RegionOverlap containsRectangleWithCoords(int x, int y, int width, int height);
   void translate(int dx, int dy);
   void translateToDistance(Distance dist);
+  void intersect(Region other);
 }
 
 class _Region extends NativeFieldWrapperClass2 implements Region {
@@ -73,6 +74,8 @@ class _Region extends NativeFieldWrapperClass2 implements Region {
   void translate(int dx, int dy) native 'region_translate';
   
   void translateToDistance(Distance dist) => translate(dist.dx.toInt(), dist.dy.toInt());
+  
+  void intersect(Region other) native 'region_intersect';
   
   @override
   operator==(Region other) native 'region_equal';

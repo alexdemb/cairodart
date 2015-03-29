@@ -100,6 +100,12 @@ void Region::translate(const int &dx, const int &dy) const
     verify();
 }
 
+void Region::intersect(Region *other) const
+{
+    cairo_region_intersect(this->r, other->r);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

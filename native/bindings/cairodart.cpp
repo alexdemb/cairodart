@@ -111,7 +111,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "region_contains_point", CairoDart::region_contains_point },
   { "region_contains_rectangle", CairoDart::region_contains_rectangle },
   { "region_equal", CairoDart::region_equal },
-  { "region_translate", CairoDart::region_translate }
+  { "region_translate", CairoDart::region_translate },
+  { "region_intersect", CairoDart::region_intersect }
 
 };
 
@@ -1161,6 +1162,17 @@ void CairoDart::region_translate(Dart_NativeArguments args)
 
     region->translate(dx, dy);
 
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::region_intersect(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Region* region = Utils::thisFromArg<Region>(args);
+    Dart_Handle otherObj = arg.arg(1);
+    Region* other = Utils::bindingObject<Region>(otherObj);
+
+    region->intersect(other);
     Dart_SetReturnValue(args, Dart_Null());
 }
 

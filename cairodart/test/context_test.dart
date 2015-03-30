@@ -48,6 +48,17 @@ runContextTests() {
       Context ctx = new Context(surface);
       expect(ctx.target, surface);
     });
+    test('should correctly get/set line cap', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      ctx.lineCap = LineCap.BUTT;
+      expect(ctx.lineCap, equals(LineCap.BUTT));
+      
+      ctx.lineCap = LineCap.ROUND;
+      expect(ctx.lineCap, equals(LineCap.ROUND));
+      
+      ctx.lineCap = LineCap.SQUARE;
+      expect(ctx.lineCap, equals(LineCap.SQUARE));
+    });
   });
 }
 

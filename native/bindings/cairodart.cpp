@@ -33,6 +33,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "set_source_rgba", CairoDart::set_source_rgba },
   { "stroke", CairoDart::stroke },
   { "paint", CairoDart::paint },
+  { "set_line_cap", CairoDart::set_line_cap },
+  { "get_line_cap", CairoDart::get_line_cap },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -241,6 +243,27 @@ void CairoDart::paint(Dart_NativeArguments args)
     Dart_SetReturnValue(args, Dart_Null());
 }
 
+
+void CairoDart::set_line_cap(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    cairo_line_cap_t cap = static_cast<cairo_line_cap_t>(arg.intArg(1));
+    ctx->setLineCap(cap);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::get_line_cap(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    cairo_line_cap_t cap = ctx->getLineCap();
+    int c = static_cast<int>(cap);
+
+    Dart_Handle capArgs[1] = { Dart_NewInteger(c) };
+    Dart_Handle capObj = Utils::newObject("_LineCap", "", 1, capArgs);
+    Dart_SetReturnValue(args, capObj);
+}
 
 // cairo_format_t
 

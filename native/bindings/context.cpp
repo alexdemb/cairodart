@@ -84,6 +84,18 @@ void Context::paint() const
     verify();
 }
 
+void Context::setLineCap(const cairo_line_cap_t &cap) const
+{
+    cairo_set_line_cap(this->c, cap);
+    verify();
+}
+
+cairo_line_cap_t Context::getLineCap() const
+{
+    cairo_line_cap_t cap = cairo_get_line_cap(this->c);
+    verify();
+    return cap;
+}
 
 } // bindings
 

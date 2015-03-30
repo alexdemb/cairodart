@@ -16,6 +16,8 @@ abstract class Context {
   void stroke();
   void paint();
   
+  LineCap lineCap;
+  
   Surface get target;
 }
 
@@ -53,4 +55,10 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void paint() native 'paint';
   
   Surface get target => _surface;
+  
+  LineCap get lineCap native 'get_line_cap';
+  
+  void set lineCap(LineCap cap) => _setLineCap(cap.value);
+  
+  void _setLineCap(int value) native 'set_line_cap';
 }

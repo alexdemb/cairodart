@@ -23,3 +23,4 @@ part 'bindings/distance.dart';
 part 'bindings/region.dart';
 part 'bindings/rectangle.dart';
 part 'bindings/region_overlap.dart';
+part 'bindings/line_cap.dart';

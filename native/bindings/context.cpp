@@ -123,6 +123,19 @@ double Context::getLineWidth() const
     return width;
 }
 
+void Context::setMiterLimit(const double &limit) const
+{
+    cairo_set_miter_limit(this->c, limit);
+    verify();
+}
+
+double Context::getMiterLimit() const
+{
+    double limit = cairo_get_miter_limit(this->c);
+    verify();
+    return limit;
+}
+
 } // bindings
 
 } // cairodart

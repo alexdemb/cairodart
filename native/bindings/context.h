@@ -36,6 +36,8 @@ public:
     cairo_line_join_t getLineJoin() const;
     void setLineWidth(const double& width) const;
     double getLineWidth() const;
+    void setMiterLimit(const double& limit) const;
+    double getMiterLimit() const;
 };
 
 } // bindings

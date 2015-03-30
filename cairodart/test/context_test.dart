@@ -75,6 +75,11 @@ runContextTests() {
       ctx.lineWidth = 3.0;
       expect(ctx.lineWidth, equals(3.0));
     });
+    test('should correctly get/set miter limit', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      ctx.miterLimit = 20.0;
+      expect(ctx.miterLimit, equals(20.0));
+    });
   });
 }
 

@@ -19,6 +19,7 @@ abstract class Context {
   LineCap lineCap;
   LineJoin lineJoin;
   double lineWidth;
+  double miterLimit;
   
   Surface get target;
 }
@@ -73,4 +74,8 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   double get lineWidth native 'get_line_width';
   
   void set lineWidth(double width) native 'set_line_width';
+  
+  double get miterLimit native 'get_miter_limit';
+  
+  void set miterLimit(double limit) native 'set_miter_limit';
 }

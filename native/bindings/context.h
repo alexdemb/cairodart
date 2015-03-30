@@ -32,6 +32,8 @@ public:
     void paint() const;
     void setLineCap(const cairo_line_cap_t& cap) const;
     cairo_line_cap_t getLineCap() const;
+    void setLineJoin(const cairo_line_join_t& join) const;
+    cairo_line_join_t getLineJoin() const;
 };
 
 } // bindings

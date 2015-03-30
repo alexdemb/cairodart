@@ -17,6 +17,7 @@ abstract class Context {
   void paint();
   
   LineCap lineCap;
+  LineJoin lineJoin;
   
   Surface get target;
 }
@@ -61,4 +62,10 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void set lineCap(LineCap cap) => _setLineCap(cap.value);
   
   void _setLineCap(int value) native 'set_line_cap';
+  
+  LineJoin get lineJoin native 'get_line_join';
+  
+  void set lineJoin(LineJoin join) => _setLineJoin(join.value);
+  
+  void _setLineJoin(int value) native 'set_line_join';
 }

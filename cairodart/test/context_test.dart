@@ -59,6 +59,17 @@ runContextTests() {
       ctx.lineCap = LineCap.SQUARE;
       expect(ctx.lineCap, equals(LineCap.SQUARE));
     });
+    test('should correctly get/set line join', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      ctx.lineJoin = LineJoin.MITER;
+      expect(ctx.lineJoin, equals(LineJoin.MITER));
+      
+      ctx.lineJoin = LineJoin.ROUND;
+      expect(ctx.lineJoin, equals(LineJoin.ROUND));
+      
+      ctx.lineJoin = LineJoin.BEVEL;
+      expect(ctx.lineJoin, equals(LineJoin.BEVEL));
+    });
   });
 }
 

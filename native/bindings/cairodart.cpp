@@ -35,6 +35,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "paint", CairoDart::paint },
   { "set_line_cap", CairoDart::set_line_cap },
   { "get_line_cap", CairoDart::get_line_cap },
+  { "set_line_join", CairoDart::set_line_join },
+  { "get_line_join", CairoDart::get_line_join },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -263,6 +265,26 @@ void CairoDart::get_line_cap(Dart_NativeArguments args)
     Dart_Handle capArgs[1] = { Dart_NewInteger(c) };
     Dart_Handle capObj = Utils::newObject("_LineCap", "", 1, capArgs);
     Dart_SetReturnValue(args, capObj);
+}
+
+void CairoDart::set_line_join(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->setLineJoin(static_cast<cairo_line_join_t>(arg.intArg(1)));
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::get_line_join(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    cairo_line_join_t join = ctx->getLineJoin();
+
+    int j = static_cast<int>(join);
+
+    Dart_Handle joinArgs[1] = { Dart_NewInteger(j) };
+    Dart_Handle joinObj = Utils::newObject("_LineJoin", "", 1, joinArgs);
+    Dart_SetReturnValue(args, joinObj);
 }
 
 // cairo_format_t

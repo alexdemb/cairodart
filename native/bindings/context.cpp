@@ -97,6 +97,19 @@ cairo_line_cap_t Context::getLineCap() const
     return cap;
 }
 
+void Context::setLineJoin(const cairo_line_join_t &join) const
+{
+   cairo_set_line_join(this->c, join);
+   verify();
+}
+
+cairo_line_join_t Context::getLineJoin() const
+{
+   cairo_line_join_t join = cairo_get_line_join(this->c);
+   verify();
+   return join;
+}
+
 } // bindings
 
 } // cairodart

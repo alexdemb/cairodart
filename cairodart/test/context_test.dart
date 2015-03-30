@@ -70,6 +70,11 @@ runContextTests() {
       ctx.lineJoin = LineJoin.BEVEL;
       expect(ctx.lineJoin, equals(LineJoin.BEVEL));
     });
+    test('should correctly get/set line width', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      ctx.lineWidth = 3.0;
+      expect(ctx.lineWidth, equals(3.0));
+    });
   });
 }
 

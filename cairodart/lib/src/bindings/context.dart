@@ -18,6 +18,7 @@ abstract class Context {
   
   LineCap lineCap;
   LineJoin lineJoin;
+  double lineWidth;
   
   Surface get target;
 }
@@ -68,4 +69,8 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void set lineJoin(LineJoin join) => _setLineJoin(join.value);
   
   void _setLineJoin(int value) native 'set_line_join';
+  
+  double get lineWidth native 'get_line_width';
+  
+  void set lineWidth(double width) native 'set_line_width';
 }

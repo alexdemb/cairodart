@@ -34,6 +34,8 @@ public:
     cairo_line_cap_t getLineCap() const;
     void setLineJoin(const cairo_line_join_t& join) const;
     cairo_line_join_t getLineJoin() const;
+    void setLineWidth(const double& width) const;
+    double getLineWidth() const;
 };
 
 } // bindings

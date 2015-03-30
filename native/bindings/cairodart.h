@@ -32,6 +32,8 @@ public:
     static void get_line_cap(Dart_NativeArguments args);
     static void set_line_join(Dart_NativeArguments args);
     static void get_line_join(Dart_NativeArguments args);
+    static void set_line_width(Dart_NativeArguments args);
+    static void get_line_width(Dart_NativeArguments args);
 
 
     // cairo_surface_t

@@ -37,6 +37,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "get_line_cap", CairoDart::get_line_cap },
   { "set_line_join", CairoDart::set_line_join },
   { "get_line_join", CairoDart::get_line_join },
+  { "set_line_width", CairoDart::set_line_width },
+  { "get_line_width", CairoDart::get_line_width },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -286,6 +288,22 @@ void CairoDart::get_line_join(Dart_NativeArguments args)
     Dart_Handle joinObj = Utils::newObject("_LineJoin", "", 1, joinArgs);
     Dart_SetReturnValue(args, joinObj);
 }
+
+void CairoDart::set_line_width(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->setLineWidth(arg.doubleArg(1));
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::get_line_width(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double width = ctx->getLineWidth();
+    Dart_SetReturnValue(args, Dart_NewDouble(width));
+}
+
 
 // cairo_format_t
 

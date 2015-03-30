@@ -110,6 +110,19 @@ cairo_line_join_t Context::getLineJoin() const
    return join;
 }
 
+void Context::setLineWidth(const double &width) const
+{
+    cairo_set_line_width(this->c, width);
+    verify();
+}
+
+double Context::getLineWidth() const
+{
+    double width = cairo_get_line_width(this->c);
+    verify();
+    return width;
+}
+
 } // bindings
 
 } // cairodart

@@ -40,6 +40,8 @@ public:
     double getMiterLimit() const;
     cairo_operator_t getOperator() const;
     void setOperator(const cairo_operator_t& op) const;
+    cairo_fill_rule_t getFillRule() const;
+    void setFillRule(const cairo_fill_rule_t& rule) const;
 };
 
 } // bindings

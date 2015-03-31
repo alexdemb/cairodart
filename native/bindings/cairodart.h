@@ -38,6 +38,8 @@ public:
     static void get_miter_limit(Dart_NativeArguments args);
     static void set_operator(Dart_NativeArguments args);
     static void get_operator(Dart_NativeArguments args);
+    static void set_fill_rule(Dart_NativeArguments args);
+    static void get_fill_rule(Dart_NativeArguments args);
 
 
     // cairo_surface_t

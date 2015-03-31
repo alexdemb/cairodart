@@ -43,6 +43,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "get_miter_limit", CairoDart::get_miter_limit },
   { "set_operator", CairoDart::set_operator },
   { "get_operator", CairoDart::get_operator },
+  { "set_fill_rule", CairoDart::set_fill_rule },
+  { "get_fill_rule", CairoDart::get_fill_rule },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -342,6 +344,24 @@ void CairoDart::get_operator(Dart_NativeArguments args)
     Dart_SetReturnValue(args, opObj);
 }
 
+void CairoDart::set_fill_rule(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    cairo_fill_rule_t rule = static_cast<cairo_fill_rule_t>(arg.intArg(1));
+    ctx->setFillRule(rule);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::get_fill_rule(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    int rule = static_cast<int>(ctx->getFillRule());
+
+    Dart_Handle ruleArgs[1] = { Dart_NewInteger(rule) };
+    Dart_Handle ruleObj = Utils::newObject("_FillRule", "", 1, ruleArgs);
+    Dart_SetReturnValue(args, ruleObj);
+}
 
 // cairo_format_t
 

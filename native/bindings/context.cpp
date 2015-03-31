@@ -149,6 +149,19 @@ cairo_operator_t Context::getOperator() const
     return op;
 }
 
+void Context::setFillRule(const cairo_fill_rule_t &rule) const
+{
+    cairo_set_fill_rule(this->c, rule);
+    verify();
+}
+
+cairo_fill_rule_t Context::getFillRule() const
+{
+    cairo_fill_rule_t rule = cairo_get_fill_rule(this->c);
+    verify();
+    return rule;
+}
+
 
 } // bindings
 

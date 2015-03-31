@@ -170,6 +170,15 @@ runContextTests() {
       ctx.operator = Operator.XOR;
       expect(ctx.operator, equals(Operator.XOR));
     });
+    test('should successfully get/set fill rule', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.fillRule = FillRule.WINDING;
+      expect(ctx.fillRule, equals(FillRule.WINDING));
+      
+      ctx.fillRule = FillRule.EVEN_ODD;
+      expect(ctx.fillRule, equals(FillRule.EVEN_ODD));      
+    });
   });
 }
 

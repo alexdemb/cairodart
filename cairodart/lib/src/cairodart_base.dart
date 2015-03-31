@@ -25,4 +25,4 @@ part 'bindings/rectangle.dart';
 part 'bindings/region_overlap.dart';
 part 'bindings/line_cap.dart';
 part 'bindings/line_join.dart';
-
+part 'bindings/operator.dart';

@@ -38,6 +38,8 @@ public:
     double getLineWidth() const;
     void setMiterLimit(const double& limit) const;
     double getMiterLimit() const;
+    cairo_operator_t getOperator() const;
+    void setOperator(const cairo_operator_t& op) const;
 };
 
 } // bindings

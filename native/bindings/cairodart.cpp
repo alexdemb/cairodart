@@ -41,6 +41,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "get_line_width", CairoDart::get_line_width },
   { "set_miter_limit", CairoDart::set_miter_limit },
   { "get_miter_limit", CairoDart::get_miter_limit },
+  { "set_operator", CairoDart::set_operator },
+  { "get_operator", CairoDart::get_operator },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -319,6 +321,25 @@ void CairoDart::get_miter_limit(Dart_NativeArguments args)
     Context* ctx = Utils::thisFromArg<Context>(args);
     double limit = ctx->getMiterLimit();
     Dart_SetReturnValue(args, Dart_NewDouble(limit));
+}
+
+void CairoDart::set_operator(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    cairo_operator_t op = static_cast<cairo_operator_t>(arg.intArg(1));
+    ctx->setOperator(op);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::get_operator(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    int op = static_cast<int>(ctx->getOperator());
+
+    Dart_Handle opArgs[1] = { Dart_NewInteger(op) };
+    Dart_Handle opObj = Utils::newObject("_Operator", "", 1, opArgs);
+    Dart_SetReturnValue(args, opObj);
 }
 
 

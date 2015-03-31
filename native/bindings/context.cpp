@@ -136,6 +136,20 @@ double Context::getMiterLimit() const
     return limit;
 }
 
+void Context::setOperator(const cairo_operator_t &op) const
+{
+    cairo_set_operator(this->c, op);
+    verify();
+}
+
+cairo_operator_t Context::getOperator() const
+{
+    cairo_operator_t op = cairo_get_operator(this->c);
+    verify();
+    return op;
+}
+
+
 } // bindings
 
 } // cairodart

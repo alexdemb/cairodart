@@ -21,6 +21,8 @@ abstract class Context {
   double lineWidth;
   double miterLimit;
   
+  Operator operator;
+  
   Surface get target;
 }
 
@@ -78,4 +80,10 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   double get miterLimit native 'get_miter_limit';
   
   void set miterLimit(double limit) native 'set_miter_limit';
+  
+  Operator get operator native 'get_operator';
+  
+  void set operator(Operator op) => _setOperator(op.value);
+  
+  void _setOperator(int val) native 'set_operator';
 }

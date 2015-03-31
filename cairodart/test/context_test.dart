@@ -80,6 +80,96 @@ runContextTests() {
       ctx.miterLimit = 20.0;
       expect(ctx.miterLimit, equals(20.0));
     });
+    test('should correctly get/set operator', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.operator = Operator.ADD;
+      expect(ctx.operator, equals(Operator.ADD));
+      
+      ctx.operator = Operator.ATOP;
+      expect(ctx.operator, equals(Operator.ATOP));
+            
+      ctx.operator = Operator.CLEAR;
+      expect(ctx.operator, equals(Operator.CLEAR));
+
+      ctx.operator = Operator.COLOR_BURN;
+      expect(ctx.operator, equals(Operator.COLOR_BURN));
+
+      ctx.operator = Operator.COLOR_DODGE;
+      expect(ctx.operator, equals(Operator.COLOR_DODGE));
+
+      ctx.operator = Operator.DARKEN;
+      expect(ctx.operator, equals(Operator.DARKEN));
+
+      ctx.operator = Operator.DEST;
+      expect(ctx.operator, equals(Operator.DEST));
+
+      ctx.operator = Operator.DEST_ATOP;
+      expect(ctx.operator, equals(Operator.DEST_ATOP));
+
+      ctx.operator = Operator.DEST_IN;
+      expect(ctx.operator, equals(Operator.DEST_IN));
+
+      ctx.operator = Operator.DEST_OUT;
+      expect(ctx.operator, equals(Operator.DEST_OUT));
+
+      ctx.operator = Operator.DEST_OVER;
+      expect(ctx.operator, equals(Operator.DEST_OVER));
+
+      ctx.operator = Operator.DIFFERENCE;
+      expect(ctx.operator, equals(Operator.DIFFERENCE));
+
+      ctx.operator = Operator.EXCLUSION;
+      expect(ctx.operator, equals(Operator.EXCLUSION));
+
+      ctx.operator = Operator.HARD_LIGHT;
+      expect(ctx.operator, equals(Operator.HARD_LIGHT));
+
+      ctx.operator = Operator.HSL_COLOR;
+      expect(ctx.operator, equals(Operator.HSL_COLOR));
+
+      ctx.operator = Operator.HSL_HUE;
+      expect(ctx.operator, equals(Operator.HSL_HUE));
+
+      ctx.operator = Operator.HSL_LUMINOSITY;
+      expect(ctx.operator, equals(Operator.HSL_LUMINOSITY));
+
+      ctx.operator = Operator.HSL_SATURATION;
+      expect(ctx.operator, equals(Operator.HSL_SATURATION));
+
+      ctx.operator = Operator.IN;
+      expect(ctx.operator, equals(Operator.IN));
+
+      ctx.operator = Operator.LIGHTEN;
+      expect(ctx.operator, equals(Operator.LIGHTEN));
+
+      ctx.operator = Operator.MULTIPLY;
+      expect(ctx.operator, equals(Operator.MULTIPLY));
+
+      ctx.operator = Operator.OUT;
+      expect(ctx.operator, equals(Operator.OUT));
+
+      ctx.operator = Operator.OVER;
+      expect(ctx.operator, equals(Operator.OVER));
+
+      ctx.operator = Operator.OVERLAY;
+      expect(ctx.operator, equals(Operator.OVERLAY));
+      
+      ctx.operator = Operator.SATURATE;
+      expect(ctx.operator, equals(Operator.SATURATE));
+      
+      ctx.operator = Operator.SCREEN;
+      expect(ctx.operator, equals(Operator.SCREEN));
+
+      ctx.operator = Operator.SOFT_LIGHT;
+      expect(ctx.operator, equals(Operator.SOFT_LIGHT));
+      
+      ctx.operator = Operator.SOURCE;
+      expect(ctx.operator, equals(Operator.SOURCE));
+    
+      ctx.operator = Operator.XOR;
+      expect(ctx.operator, equals(Operator.XOR));
+    });
   });
 }
 

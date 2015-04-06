@@ -179,6 +179,15 @@ runContextTests() {
       ctx.fillRule = FillRule.EVEN_ODD;
       expect(ctx.fillRule, equals(FillRule.EVEN_ODD));      
     });
+    test('should correctly determine if current path contains current point', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      expect(ctx.hasCurrentPoint, isFalse);
+      
+      ctx.moveTo(200.0, 200.0);
+      
+      expect(ctx.hasCurrentPoint, isTrue);
+    });
   });
 }
 

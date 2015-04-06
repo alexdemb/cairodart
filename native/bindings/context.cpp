@@ -162,6 +162,18 @@ cairo_fill_rule_t Context::getFillRule() const
     return rule;
 }
 
+bool Context::hasCurrentPoint() const
+{
+    cairo_bool_t res = cairo_has_current_point(this->c);
+    verify();
+    return res != 0;
+}
+
+void Context::moveTo(const double &x, const double &y) const
+{
+    cairo_move_to(this->c, x, y);
+    verify();
+}
 
 } // bindings
 

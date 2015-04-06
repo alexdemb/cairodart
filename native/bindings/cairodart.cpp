@@ -45,6 +45,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "get_operator", CairoDart::get_operator },
   { "set_fill_rule", CairoDart::set_fill_rule },
   { "get_fill_rule", CairoDart::get_fill_rule },
+  { "has_current_point", CairoDart::has_current_point },
+  { "move_to", CairoDart::move_to },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -361,6 +363,24 @@ void CairoDart::get_fill_rule(Dart_NativeArguments args)
     Dart_Handle ruleArgs[1] = { Dart_NewInteger(rule) };
     Dart_Handle ruleObj = Utils::newObject("_FillRule", "", 1, ruleArgs);
     Dart_SetReturnValue(args, ruleObj);
+}
+
+void CairoDart::has_current_point(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    bool hasPoint = ctx->hasCurrentPoint();
+    Dart_SetReturnValue(args, Dart_NewBoolean(hasPoint));
+}
+
+void CairoDart::move_to(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->moveTo(x, y);
+
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 // cairo_format_t

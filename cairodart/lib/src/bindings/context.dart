@@ -15,6 +15,8 @@ abstract class Context {
   void setSourceRgba(double red, double green, double blue, double alpha);
   void stroke();
   void paint();
+  void moveTo(double x, double y);
+  void moveToPoint(Point p);
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -25,6 +27,8 @@ abstract class Context {
   FillRule fillRule;
   
   Surface get target;
+  
+  bool get hasCurrentPoint;
 }
 
 
@@ -93,4 +97,10 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void set fillRule(FillRule rule) => _setFillRule(rule.value);
   
   void _setFillRule(int val) native 'set_fill_rule';
+  
+  bool get hasCurrentPoint native 'has_current_point';
+  
+  void moveTo(double x, double y) native 'move_to';
+  
+  void moveToPoint(Point p) => moveTo(p.x, p.y);
 }

@@ -40,6 +40,8 @@ public:
     static void get_operator(Dart_NativeArguments args);
     static void set_fill_rule(Dart_NativeArguments args);
     static void get_fill_rule(Dart_NativeArguments args);
+    static void has_current_point(Dart_NativeArguments args);
+    static void move_to(Dart_NativeArguments args);
 
 
     // cairo_surface_t

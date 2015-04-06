@@ -44,6 +44,7 @@ public:
     static void move_to(Dart_NativeArguments args);
     static void line_to(Dart_NativeArguments args);
     static void rectangle(Dart_NativeArguments args);
+    static void get_current_point(Dart_NativeArguments args);
 
 
     // cairo_surface_t

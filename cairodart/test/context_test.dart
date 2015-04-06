@@ -225,7 +225,14 @@ runContextTests() {
       ctx.lineToPoint(new Point.from(10.0, 30.0));
               
       expect(ctx.hasCurrentPoint, isTrue);
-    });    
+    });
+    test('should correctly return current point', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+            
+      ctx.moveTo(10.0, 10.0);
+      
+      expect(ctx.currentPoint, equals(new Point.from(10.0, 10.0)));
+    });
   });
 }
 

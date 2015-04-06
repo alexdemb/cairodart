@@ -187,6 +187,12 @@ void Context::rectangle(const double &x, const double &y, const double& width, c
     verify();
 }
 
+void Context::getCurrentPoint(double *x, double *y) const
+{
+    cairo_get_current_point(this->c, x, y);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

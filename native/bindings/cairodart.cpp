@@ -49,6 +49,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "move_to", CairoDart::move_to },
   { "line_to", CairoDart::line_to },
   { "rectangle", CairoDart::rectangle },
+  { "get_current_point", CairoDart::get_current_point },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -407,6 +408,17 @@ void CairoDart::rectangle(Dart_NativeArguments args)
     ctx->rectangle(x, y, w, h);
 
     Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::get_current_point(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double x;
+    double y;
+    ctx->getCurrentPoint(&x, &y);
+
+    Dart_Handle point = Utils::newPoint(x, y);
+    Dart_SetReturnValue(args, point);
 }
 
 // cairo_format_t

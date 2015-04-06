@@ -46,6 +46,7 @@ public:
     void moveTo(const double& x, const double& y) const;
     void lineTo(const double& x, const double& y) const;
     void rectangle(const double& x, const double& y, const double& width, const double& height) const;
+    void getCurrentPoint(double* x, double* y) const;
 };
 
 } // bindings

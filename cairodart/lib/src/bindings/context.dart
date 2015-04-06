@@ -33,6 +33,7 @@ abstract class Context {
   Surface get target;
   
   bool get hasCurrentPoint;
+  Point get currentPoint;
 }
 
 
@@ -115,4 +116,6 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void rectangleByCoords(double x, double y, double width, double height) native 'rectangle';
   
   void rectangle(Rectangle rect) => rectangleByCoords(rect.x.toDouble(), rect.y.toDouble(), rect.width.toDouble(), rect.height.toDouble());
+  
+  Point get currentPoint native 'get_current_point';
 }

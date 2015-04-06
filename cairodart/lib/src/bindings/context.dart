@@ -17,6 +17,10 @@ abstract class Context {
   void paint();
   void moveTo(double x, double y);
   void moveToPoint(Point p);
+  void lineTo(double x, double y);
+  void lineToPoint(Point p);
+  void rectangleByCoords(double x, double y, double width, double height);
+  void rectangle(Rectangle rect);
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -103,4 +107,12 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void moveTo(double x, double y) native 'move_to';
   
   void moveToPoint(Point p) => moveTo(p.x, p.y);
+  
+  void lineTo(double x, double y) native 'line_to';
+  
+  void lineToPoint(Point p) => lineTo(p.x, p.y);
+  
+  void rectangleByCoords(double x, double y, double width, double height) native 'rectangle';
+  
+  void rectangle(Rectangle rect) => rectangleByCoords(rect.x.toDouble(), rect.y.toDouble(), rect.width.toDouble(), rect.height.toDouble());
 }

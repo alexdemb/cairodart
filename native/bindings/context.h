@@ -44,6 +44,8 @@ public:
     void setFillRule(const cairo_fill_rule_t& rule) const;
     bool hasCurrentPoint() const;
     void moveTo(const double& x, const double& y) const;
+    void lineTo(const double& x, const double& y) const;
+    void rectangle(const double& x, const double& y, const double& width, const double& height) const;
 };
 
 } // bindings

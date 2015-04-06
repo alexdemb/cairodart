@@ -188,6 +188,44 @@ runContextTests() {
       
       expect(ctx.hasCurrentPoint, isTrue);
     });
+    test('should correctly add rectengular path', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+            
+      ctx.rectangleByCoords(10.0, 10.0, 20.0, 20.0);
+      
+      ctx.moveTo(12.0, 12.0);
+      
+      expect(ctx.hasCurrentPoint, isTrue);
+    });
+    test('should correctly add rectengular path for rectangle', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+            
+      ctx.rectangle(new Rectangle(10, 10, 20, 20));
+      
+      ctx.moveTo(12.0, 12.0);
+      
+      expect(ctx.hasCurrentPoint, isTrue);
+    });
+    test('should correctly build path using lineTo', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+                
+      ctx.moveTo(10.0, 10.0);
+      ctx.lineTo(30.0, 10.0);
+      ctx.lineTo(30.0, 30.0);
+      ctx.lineTo(10.0, 30.0);
+          
+      expect(ctx.hasCurrentPoint, isTrue);
+    });
+    test('should correctly build path using lineToPoint', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+                    
+      ctx.moveTo(10.0, 10.0);
+      ctx.lineToPoint(new Point.from(30.0, 10.0));
+      ctx.lineToPoint(new Point.from(30.0, 30.0));
+      ctx.lineToPoint(new Point.from(10.0, 30.0));
+              
+      expect(ctx.hasCurrentPoint, isTrue);
+    });    
   });
 }
 

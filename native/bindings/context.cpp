@@ -175,6 +175,18 @@ void Context::moveTo(const double &x, const double &y) const
     verify();
 }
 
+void Context::lineTo(const double &x, const double &y) const
+{
+    cairo_line_to(this->c, x, y);
+    verify();
+}
+
+void Context::rectangle(const double &x, const double &y, const double& width, const double& height) const
+{
+    cairo_rectangle(this->c, x, y, width, height);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

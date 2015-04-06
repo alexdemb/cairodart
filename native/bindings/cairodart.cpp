@@ -47,6 +47,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "get_fill_rule", CairoDart::get_fill_rule },
   { "has_current_point", CairoDart::has_current_point },
   { "move_to", CairoDart::move_to },
+  { "line_to", CairoDart::line_to },
+  { "rectangle", CairoDart::rectangle },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -379,6 +381,30 @@ void CairoDart::move_to(Dart_NativeArguments args)
     double y = arg.doubleArg(2);
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->moveTo(x, y);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::line_to(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->lineTo(x, y);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::rectangle(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+    double w = arg.doubleArg(3);
+    double h = arg.doubleArg(4);
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->rectangle(x, y, w, h);
 
     Dart_SetReturnValue(args, Dart_Null());
 }

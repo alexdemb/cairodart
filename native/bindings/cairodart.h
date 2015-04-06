@@ -45,6 +45,10 @@ public:
     static void line_to(Dart_NativeArguments args);
     static void rectangle(Dart_NativeArguments args);
     static void get_current_point(Dart_NativeArguments args);
+    static void new_path(Dart_NativeArguments args);
+    static void new_sub_path(Dart_NativeArguments args);
+    static void close_path(Dart_NativeArguments args);
+
 
 
     // cairo_surface_t

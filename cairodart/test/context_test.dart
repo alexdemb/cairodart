@@ -233,6 +233,26 @@ runContextTests() {
       
       expect(ctx.currentPoint, equals(new Point.from(10.0, 10.0)));
     });
+    test('should successfully create and close path and subpath', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+            
+      ctx.moveTo(10.0, 10.0);
+      
+      ctx.newPath();
+      
+      expect(ctx.hasCurrentPoint, isFalse);
+      
+      ctx.closePath();
+      
+      ctx.moveTo(12.0, 12.0);
+      
+      ctx.newSubpath();
+
+      expect(ctx.hasCurrentPoint, isFalse);
+
+      ctx.closePath();
+      
+    });
   });
 }
 

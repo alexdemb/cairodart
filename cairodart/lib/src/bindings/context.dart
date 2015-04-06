@@ -21,6 +21,9 @@ abstract class Context {
   void lineToPoint(Point p);
   void rectangleByCoords(double x, double y, double width, double height);
   void rectangle(Rectangle rect);
+  void newPath();
+  void newSubpath();
+  void closePath();
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -118,4 +121,10 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void rectangle(Rectangle rect) => rectangleByCoords(rect.x.toDouble(), rect.y.toDouble(), rect.width.toDouble(), rect.height.toDouble());
   
   Point get currentPoint native 'get_current_point';
+  
+  void newPath() native 'new_path';
+  
+  void newSubpath() native 'new_sub_path';
+  
+  void closePath() native 'close_path';
 }

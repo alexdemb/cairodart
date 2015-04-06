@@ -193,6 +193,25 @@ void Context::getCurrentPoint(double *x, double *y) const
     verify();
 }
 
+void Context::newPath() const
+{
+    cairo_new_path(this->c);
+    verify();
+}
+
+void Context::newSubpath() const
+{
+    cairo_new_sub_path(this->c);
+    verify();
+}
+
+void Context::closePath() const
+{
+    cairo_close_path(this->c);
+    verify();
+}
+
+
 } // bindings
 
 } // cairodart

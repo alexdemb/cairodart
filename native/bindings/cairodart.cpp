@@ -50,6 +50,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "line_to", CairoDart::line_to },
   { "rectangle", CairoDart::rectangle },
   { "get_current_point", CairoDart::get_current_point },
+  { "new_path", CairoDart::new_path },
+  { "new_sub_path", CairoDart::new_sub_path },
+  { "close_path", CairoDart::close_path },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -419,6 +422,27 @@ void CairoDart::get_current_point(Dart_NativeArguments args)
 
     Dart_Handle point = Utils::newPoint(x, y);
     Dart_SetReturnValue(args, point);
+}
+
+void CairoDart::new_path(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->newPath();
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::new_sub_path(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->newSubpath();
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::close_path(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->closePath();
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 // cairo_format_t

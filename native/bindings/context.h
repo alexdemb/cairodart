@@ -52,7 +52,7 @@ public:
     void closePath() const;
     void arc(const double& xc, const double& yc, const double& radius, const double& angle1, const double& angle2) const;
     void negativeArc(const double& xc, const double& yc, const double& radius, const double& angle1, const double& angle2) const;
-
+    void curveTo(const double& x1, const double& y1, const double& x2, const double& y2, const double& x3, const double& y3) const;
 };
 
 } // bindings

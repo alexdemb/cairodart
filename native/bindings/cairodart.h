@@ -50,7 +50,7 @@ public:
     static void close_path(Dart_NativeArguments args);
     static void arc(Dart_NativeArguments args);
     static void arc_negative(Dart_NativeArguments args);
-
+    static void curve_to(Dart_NativeArguments args);
 
 
     // cairo_surface_t

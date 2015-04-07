@@ -263,6 +263,11 @@ runContextTests() {
                 
       ctx.negativeArc(2.0, 3.0, 10.0, 10.0, 10.0);
     });
+    test('should successfully add curve to points', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.curveTo(10.0, 10.0, 20.0, 20.0, 30.0, 30.0);
+    });
   });
 }
 

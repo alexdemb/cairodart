@@ -55,6 +55,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "close_path", CairoDart::close_path },
   { "arc", CairoDart::arc },
   { "arc_negative", CairoDart::arc_negative },
+  { "curve_to", CairoDart::curve_to },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -473,6 +474,22 @@ void CairoDart::arc_negative(Dart_NativeArguments args)
 
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->negativeArc(xc, yc, radius, angle1, angle2);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::curve_to(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double x1 = arg.doubleArg(1);
+    double y1 = arg.doubleArg(2);
+    double x2 = arg.doubleArg(3);
+    double y2 = arg.doubleArg(4);
+    double x3 = arg.doubleArg(5);
+    double y3 = arg.doubleArg(6);
+
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->curveTo(x1, y1, x2, y2, x3, y3);
 
     Dart_SetReturnValue(args, Dart_Null());
 }

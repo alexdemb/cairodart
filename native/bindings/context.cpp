@@ -223,6 +223,12 @@ void Context::negativeArc(const double &xc, const double &yc, const double &radi
     verify();
 }
 
+void Context::curveTo(const double &x1, const double &y1, const double &x2, const double &y2, const double &x3, const double &y3) const
+{
+    cairo_curve_to(this->c, x1, y1, x2, y2, x3, y3);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

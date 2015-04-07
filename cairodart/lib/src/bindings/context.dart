@@ -26,6 +26,7 @@ abstract class Context {
   void closePath();
   void arc(double xc, double yc, double radius, double angle1, double angle2);
   void negativeArc(double xc, double yc, double radius, double angle1, double angle2);
+  void curveTo(double x1, double y1, double x2, double y2, double x3, double y3);
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -134,4 +135,5 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   
   void negativeArc(double xc, double yc, double radius, double angle1, double angle2) native 'arc_negative';
     
+  void curveTo(double x1, double y1, double x2, double y2, double x3, double y3) native 'curve_to';
 }

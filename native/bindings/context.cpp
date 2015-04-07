@@ -229,6 +229,24 @@ void Context::curveTo(const double &x1, const double &y1, const double &x2, cons
     verify();
 }
 
+void Context::relCurveTo(const double &x1, const double &y1, const double &x2, const double &y2, const double &x3, const double &y3) const
+{
+    cairo_rel_curve_to(this->c, x1, y1, x2, y2, x3, y3);
+    verify();
+}
+
+void Context::relLineTo(const double &x, const double &y) const
+{
+    cairo_rel_line_to(this->c, x, y);
+    verify();
+}
+
+void Context::relMoveTo(const double &x, const double &y) const
+{
+    cairo_rel_move_to(this->c, x, y);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

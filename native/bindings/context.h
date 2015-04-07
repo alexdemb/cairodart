@@ -44,7 +44,9 @@ public:
     void setFillRule(const cairo_fill_rule_t& rule) const;
     bool hasCurrentPoint() const;
     void moveTo(const double& x, const double& y) const;
+    void relMoveTo(const double& x, const double& y) const;
     void lineTo(const double& x, const double& y) const;
+    void relLineTo(const double& x, const double& y) const;
     void rectangle(const double& x, const double& y, const double& width, const double& height) const;
     void getCurrentPoint(double* x, double* y) const;
     void newPath() const;
@@ -53,6 +55,7 @@ public:
     void arc(const double& xc, const double& yc, const double& radius, const double& angle1, const double& angle2) const;
     void negativeArc(const double& xc, const double& yc, const double& radius, const double& angle1, const double& angle2) const;
     void curveTo(const double& x1, const double& y1, const double& x2, const double& y2, const double& x3, const double& y3) const;
+    void relCurveTo(const double& x1, const double& y1, const double& x2, const double& y2, const double& x3, const double& y3) const;
 };
 
 } // bindings

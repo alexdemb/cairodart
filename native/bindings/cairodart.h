@@ -51,6 +51,9 @@ public:
     static void arc(Dart_NativeArguments args);
     static void arc_negative(Dart_NativeArguments args);
     static void curve_to(Dart_NativeArguments args);
+    static void rel_move_to(Dart_NativeArguments args);
+    static void rel_line_to(Dart_NativeArguments args);
+    static void rel_curve_to(Dart_NativeArguments args);
 
 
     // cairo_surface_t

@@ -56,6 +56,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "arc", CairoDart::arc },
   { "arc_negative", CairoDart::arc_negative },
   { "curve_to", CairoDart::curve_to },
+  { "rel_curve_to", CairoDart::rel_curve_to },
+  { "rel_line_to", CairoDart::rel_line_to },
+  { "rel_move_to", CairoDart::rel_move_to },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -490,6 +493,44 @@ void CairoDart::curve_to(Dart_NativeArguments args)
 
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->curveTo(x1, y1, x2, y2, x3, y3);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::rel_line_to(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->relLineTo(x, y);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::rel_move_to(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->relMoveTo(x, y);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::rel_curve_to(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double x1 = arg.doubleArg(1);
+    double y1 = arg.doubleArg(2);
+    double x2 = arg.doubleArg(3);
+    double y2 = arg.doubleArg(4);
+    double x3 = arg.doubleArg(5);
+    double y3 = arg.doubleArg(6);
+
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->relCurveTo(x1, y1, x2, y2, x3, y3);
 
     Dart_SetReturnValue(args, Dart_Null());
 }

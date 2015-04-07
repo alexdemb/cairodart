@@ -256,18 +256,70 @@ runContextTests() {
     test('should successfully add arc to path', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
             
-      ctx.arc(2.0, 3.0, 10.0, 10.0, 10.0);
+      ctx.arc(10.0, 10.0, 3.0, 30.0, 30.0);
+      
+      expect(ctx.currentPoint, equals(new Point.from(10.4609375, 7.03515625)));
     });
     test('should successfully add negative arc to path', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
                 
-      ctx.negativeArc(2.0, 3.0, 10.0, 10.0, 10.0);
+      ctx.negativeArc(10.0, 10.0, 3.0, 30.0, 30.0);
+            
+      expect(ctx.currentPoint, equals(new Point.from(10.4609375, 7.03515625)));
     });
     test('should successfully add curve to points', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       
       ctx.curveTo(10.0, 10.0, 20.0, 20.0, 30.0, 30.0);
+      
+      expect(ctx.currentPoint, new Point.from(30.0, 30.0));
     });
+    test('should successfully add curve to points relative to current', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.moveTo(10.0, 10.0);
+      
+      ctx.relativeCurveTo(10.0, 10.0, 20.0, 20.0, 30.0, 30.0);
+      
+      expect(ctx.currentPoint, new Point.from(40.0, 40.0));
+    });
+    test('should correctly move from current point', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.moveTo(10.0, 10.0);
+      
+      ctx.relativeMoveTo(20.0, 20.0);
+      
+      expect(ctx.currentPoint, equals(new Point.from(30.0, 30.0)));
+    });
+    test('should correctly move from current point to another', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.moveTo(10.0, 10.0);
+      
+      ctx.relativeMoveToPoint(new Point.from(20.0, 20.0));
+      
+      expect(ctx.currentPoint, equals(new Point.from(30.0, 30.0)));
+    });
+    test('should correctly add line from current point', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.moveTo(10.0, 10.0);
+      
+      ctx.relativeLineTo(20.0, 20.0);
+      
+      expect(ctx.currentPoint, equals(new Point.from(30.0, 30.0)));
+    });
+    test('should correctly add line from current point to another', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.moveTo(10.0, 10.0);
+      
+      ctx.relativeLineToPoint(new Point.from(20.0, 20.0));
+      
+      expect(ctx.currentPoint, equals(new Point.from(30.0, 30.0)));
+    });
+    
   });
 }
 

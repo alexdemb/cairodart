@@ -16,9 +16,13 @@ abstract class Context {
   void stroke();
   void paint();
   void moveTo(double x, double y);
+  void relativeMoveTo(double x, double y);
   void moveToPoint(Point p);
+  void relativeMoveToPoint(Point p);
   void lineTo(double x, double y);
+  void relativeLineTo(double x, double y);
   void lineToPoint(Point p);
+  void relativeLineToPoint(Point p);
   void rectangleByCoords(double x, double y, double width, double height);
   void rectangle(Rectangle rect);
   void newPath();
@@ -27,6 +31,7 @@ abstract class Context {
   void arc(double xc, double yc, double radius, double angle1, double angle2);
   void negativeArc(double xc, double yc, double radius, double angle1, double angle2);
   void curveTo(double x1, double y1, double x2, double y2, double x3, double y3);
+  void relativeCurveTo(double x1, double y1, double x2, double y2, double x3, double y3);
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -136,4 +141,14 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void negativeArc(double xc, double yc, double radius, double angle1, double angle2) native 'arc_negative';
     
   void curveTo(double x1, double y1, double x2, double y2, double x3, double y3) native 'curve_to';
+  
+  void relativeCurveTo(double x1, double y1, double x2, double y2, double x3, double y3) native 'rel_curve_to';
+  
+  void relativeMoveTo(double x, double y) native 'rel_move_to';
+  
+  void relativeMoveToPoint(Point p) => relativeMoveTo(p.x, p.y);
+  
+  void relativeLineTo(double x, double y) native 'rel_line_to';
+  
+  void relativeLineToPoint(Point p) => relativeLineTo(p.x, p.y);
 }

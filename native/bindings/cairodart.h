@@ -54,6 +54,7 @@ public:
     static void rel_move_to(Dart_NativeArguments args);
     static void rel_line_to(Dart_NativeArguments args);
     static void rel_curve_to(Dart_NativeArguments args);
+    static void text_path(Dart_NativeArguments args);
 
 
     // cairo_surface_t

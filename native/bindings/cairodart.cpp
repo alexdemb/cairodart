@@ -59,6 +59,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "rel_curve_to", CairoDart::rel_curve_to },
   { "rel_line_to", CairoDart::rel_line_to },
   { "rel_move_to", CairoDart::rel_move_to },
+  { "text_path", CairoDart::text_path },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -531,6 +532,17 @@ void CairoDart::rel_curve_to(Dart_NativeArguments args)
 
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->relCurveTo(x1, y1, x2, y2, x3, y3);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::text_path(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    std::string text = arg.stringArg(1);
+
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->textPath(text.c_str());
 
     Dart_SetReturnValue(args, Dart_Null());
 }

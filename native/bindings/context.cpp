@@ -247,6 +247,12 @@ void Context::relMoveTo(const double &x, const double &y) const
     verify();
 }
 
+void Context::textPath(const char *text) const
+{
+    cairo_text_path(this->c, text);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

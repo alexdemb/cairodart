@@ -211,6 +211,17 @@ void Context::closePath() const
     verify();
 }
 
+void Context::arc(const double &xc, const double &yc, const double &radius, const double &angle1, const double &angle2) const
+{
+    cairo_arc(this->c, xc, yc, radius, angle1, angle2);
+    verify();
+}
+
+void Context::negativeArc(const double &xc, const double &yc, const double &radius, const double &angle1, const double &angle2) const
+{
+    cairo_arc_negative(this->c, xc, yc, radius, angle1, angle2);
+    verify();
+}
 
 } // bindings
 

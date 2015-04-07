@@ -253,6 +253,16 @@ runContextTests() {
       ctx.closePath();
       
     });
+    test('should successfully add arc to path', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+            
+      ctx.arc(2.0, 3.0, 10.0, 10.0, 10.0);
+    });
+    test('should successfully add negative arc to path', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+                
+      ctx.negativeArc(2.0, 3.0, 10.0, 10.0, 10.0);
+    });
   });
 }
 

@@ -50,6 +50,9 @@ public:
     void newPath() const;
     void newSubpath() const;
     void closePath() const;
+    void arc(const double& xc, const double& yc, const double& radius, const double& angle1, const double& angle2) const;
+    void negativeArc(const double& xc, const double& yc, const double& radius, const double& angle1, const double& angle2) const;
+
 };
 
 } // bindings

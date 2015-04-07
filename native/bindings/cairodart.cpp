@@ -53,6 +53,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "new_path", CairoDart::new_path },
   { "new_sub_path", CairoDart::new_sub_path },
   { "close_path", CairoDart::close_path },
+  { "arc", CairoDart::arc },
+  { "arc_negative", CairoDart::arc_negative },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -442,6 +444,36 @@ void CairoDart::close_path(Dart_NativeArguments args)
 {
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->closePath();
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::arc(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double xc = arg.doubleArg(1);
+    double yc = arg.doubleArg(2);
+    double radius = arg.doubleArg(3);
+    double angle1 = arg.doubleArg(4);
+    double angle2 = arg.doubleArg(5);
+
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->arc(xc, yc, radius, angle1, angle2);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::arc_negative(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    double xc = arg.doubleArg(1);
+    double yc = arg.doubleArg(2);
+    double radius = arg.doubleArg(3);
+    double angle1 = arg.doubleArg(4);
+    double angle2 = arg.doubleArg(5);
+
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->negativeArc(xc, yc, radius, angle1, angle2);
+
     Dart_SetReturnValue(args, Dart_Null());
 }
 

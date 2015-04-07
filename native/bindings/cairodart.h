@@ -48,6 +48,8 @@ public:
     static void new_path(Dart_NativeArguments args);
     static void new_sub_path(Dart_NativeArguments args);
     static void close_path(Dart_NativeArguments args);
+    static void arc(Dart_NativeArguments args);
+    static void arc_negative(Dart_NativeArguments args);
 
 
 

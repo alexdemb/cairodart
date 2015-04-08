@@ -327,7 +327,21 @@ runContextTests() {
       // 6 pixels for capital letter and 5 pixels for lowercase
       expect(ctx.currentPoint, equals(new Point.from(21.0, 0.0)));
     });
-    
+    test('should return empty rectangle as an path extents', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      var extents = ctx.pathExtents;
+      expect(extents, equals(new Rectangle(0, 0, 0, 0)));
+    });
+    test('should return correct path extents', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.moveTo(20.0, 20.0);
+      ctx.lineTo(40.0, 40.0);
+      
+      var extents = ctx.pathExtents;
+      expect(extents, equals(new Rectangle(20, 20, 60, 60)));
+    });
   });
 }
 

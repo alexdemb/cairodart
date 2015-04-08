@@ -46,6 +46,7 @@ abstract class Context {
   
   bool get hasCurrentPoint;
   Point get currentPoint;
+  Rectangle get pathExtents;
 }
 
 
@@ -154,4 +155,6 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void relativeLineToPoint(Point p) => relativeLineTo(p.x, p.y);
   
   void textPath(String text) native 'text_path';
+  
+  Rectangle get pathExtents native 'path_extents';
 }

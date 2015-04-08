@@ -2,22 +2,22 @@ part of cairodart.base;
 
 abstract class Rectangle {
   
-  int x;
-  int y;
-  int width;
-  int height;
+  num x;
+  num y;
+  num width;
+  num height;
   
-  factory Rectangle(int x, int y, int width, int height) => new _Rectangle(x, y, width, height);
+  factory Rectangle(num x, num y, num width, num height) => new _Rectangle(x, y, width, height);
   
 }
 
 
 class _Rectangle implements Rectangle {
   
-  int x;
-  int y;
-  int width;
-  int height;
+  num x;
+  num y;
+  num width;
+  num height;
   
   _Rectangle(this.x, this.y, this.width, this.height);
   

@@ -60,6 +60,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "rel_line_to", CairoDart::rel_line_to },
   { "rel_move_to", CairoDart::rel_move_to },
   { "text_path", CairoDart::text_path },
+  { "path_extents", CairoDart::path_extents },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -545,6 +546,16 @@ void CairoDart::text_path(Dart_NativeArguments args)
     ctx->textPath(text.c_str());
 
     Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::path_extents(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double x1, y1, x2, y2 = 0.0D;
+    ctx->pathExtents(&x1, &y1, &x2, &y2);
+
+    Dart_Handle rect = Utils::newRectangle(x1, y1, x1 + x2, y1 + y2);
+    Dart_SetReturnValue(args, rect);
 }
 
 // cairo_format_t

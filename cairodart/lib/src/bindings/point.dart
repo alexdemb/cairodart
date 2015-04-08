@@ -3,21 +3,21 @@ part of cairodart.base;
 abstract class Point {
   
   factory Point() => new _Point(0.0, 0.0);
-  factory Point.from(double x, double y) => new _Point(x, y);
+  factory Point.from(num x, num y) => new _Point(x, y);
     
-  double get x;
-  double get y;
+  num get x;
+  num get y;
 }
 
 class _Point implements Point {
   
-  double _x;
-  double _y;
+  num _x;
+  num _y;
   
   _Point(this._x, this._y);
   
-  double get x => _x;
-  double get y => _y;
+  num get x => _x;
+  num get y => _y;
   
   @override
   operator==(Point other) => x == other.x && y == other.y;

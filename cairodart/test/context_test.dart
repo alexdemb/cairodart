@@ -319,14 +319,6 @@ runContextTests() {
       
       expect(ctx.currentPoint, equals(new Point.from(30.0, 30.0)));
     });
-    test('should correctly add text path', () {
-      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-            
-      ctx.textPath("Text");
-      
-      // 6 pixels for capital letter and 5 pixels for lowercase
-      expect(ctx.currentPoint, equals(new Point.from(21.0, 0.0)));
-    });
     test('should return empty rectangle as an path extents', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       

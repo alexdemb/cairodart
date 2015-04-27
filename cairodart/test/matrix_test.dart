@@ -61,8 +61,8 @@ runMatrixTests() {
       matrix.initRotate(3.141592653589793);
       
       expect(matrix.xx, equals(-1.0));
-      expect(matrix.yx, equals(1.2246467991473532e-16));
-      expect(matrix.xy, equals(-1.2246467991473532e-16));
+      expect(matrix.yx, closeTo(1.22e-16, 1e-15));
+      expect(matrix.xy, closeTo(-1.22e-16, 1e-15));
       expect(matrix.yy, equals(-1.0));
       expect(matrix.x0, equals(0.0));
       expect(matrix.y0, equals(0.0));
@@ -96,10 +96,10 @@ runMatrixTests() {
       
       matrix.rotate(2.0);
       
-      expect(matrix.xx, equals(2.3117454439299028));
-      expect(matrix.yx, equals(2.804896034208442));
-      expect(matrix.xy, equals(-2.1577379364671088));
-      expect(matrix.yy, equals(-3.4831821998399333));
+      expect(matrix.xx, closeTo(2.311745, 0.00001));
+      expect(matrix.yx, closeTo(2.80489, 0.00001));
+      expect(matrix.xy, closeTo(-2.157737, 0.00001));
+      expect(matrix.yy, closeTo(-3.483182, 0.00001));
       expect(matrix.x0, equals(5.0));
       expect(matrix.y0, equals(6.0));
     });    

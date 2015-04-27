@@ -21,6 +21,9 @@ class _Point implements Point {
   
   @override
   operator==(Point other) => x == other.x && y == other.y;
+  
+  @override
+  String toString() => "($x, $y)";
 }
 
 

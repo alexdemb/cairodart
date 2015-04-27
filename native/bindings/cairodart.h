@@ -77,6 +77,8 @@ public:
     static void surface_get_type(Dart_NativeArguments args);
     static void surface_get_fallback_resolution(Dart_NativeArguments args);
     static void surface_set_fallback_resolution(Dart_NativeArguments args);
+    static void image_surface_create_from_png(Dart_NativeArguments args);
+    static void surface_write_to_png(Dart_NativeArguments args);
 
     // cairo_pattern_t
     static void pattern_create_rgb(Dart_NativeArguments args);

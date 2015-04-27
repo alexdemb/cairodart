@@ -91,3 +91,28 @@ class _ImageSurface extends _Surface implements ImageSurface {
   Format get format => _format;
   
 }
+
+abstract class PngSurface implements Surface {
+  
+  factory PngSurface(String fileName) => new _PngSurface(fileName);
+  
+  void write();
+  void writeTo(String fileName);
+  
+}
+
+class _PngSurface extends _Surface implements PngSurface {
+  
+  String _fileName;
+  
+  _PngSurface(this._fileName) {
+    _createPngSurface(_fileName);
+  }
+  
+  void _createPngSurface(String fileName) native 'image_surface_create_from_png';
+  
+  void write() => writeTo(this._fileName);
+  
+  void writeTo(String fileName) native 'surface_write_to_png';
+  
+}

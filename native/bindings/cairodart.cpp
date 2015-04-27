@@ -7,6 +7,7 @@
 #include "infrastructure/infrastructure.h"
 #include "surface.h"
 #include "imagesurface.h"
+#include "pngsurface.h"
 #include "context.h"
 #include "pattern.h"
 #include "meshpattern.h"
@@ -80,6 +81,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "surface_get_type", CairoDart::surface_get_type },
   { "surface_get_fallback_resolution", CairoDart::surface_get_fallback_resolution },
   { "surface_set_fallback_resolution", CairoDart::surface_set_fallback_resolution },
+  { "image_surface_create_from_png", CairoDart::image_surface_create_from_png },
+  { "surface_write_to_png", CairoDart::surface_write_to_png },
   { "pattern_create_rgb", CairoDart::pattern_create_rgb },
   { "pattern_create_rgba", CairoDart::pattern_create_rgba },
   { "pattern_create_for_surface", CairoDart::pattern_create_for_surface },
@@ -747,6 +750,30 @@ void CairoDart::surface_set_fallback_resolution(Dart_NativeArguments args)
     double yRes = arg.doubleArg(2);
 
     surface->setFallbackResolution(xRes, yRes);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::image_surface_create_from_png(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle surfaceObj = arg.arg(0);
+    std::string fileName = arg.stringArg(1);
+
+    PngSurface* surface = new PngSurface(fileName.c_str());
+
+    Utils::setupBindingObject<PngSurface>(surfaceObj, surface);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::surface_write_to_png(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    PngSurface* surface = Utils::thisFromArg<PngSurface>(args);
+    std::string fileName = arg.stringArg(1);
+
+    surface->writeTo(fileName.c_str());
 
     Dart_SetReturnValue(args, Dart_Null());
 }

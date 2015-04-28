@@ -62,6 +62,8 @@ public:
     void setAntialias(cairo_antialias_t& antialias) const;
     double getTolerance() const;
     void setTolerance(double& tolerance) const;
+    void clip() const;
+    void clipPreserve() const;
 };
 
 } // bindings

@@ -286,6 +286,19 @@ void Context::setTolerance(double &tolerance) const
     verify();
 }
 
+void Context::clip() const
+{
+    cairo_clip(this->c);
+    verify();
+}
+
+void Context::clipPreserve() const
+{
+    cairo_clip_preserve(this->c);
+    verify();
+}
+
+
 } // bindings
 
 } // cairodart

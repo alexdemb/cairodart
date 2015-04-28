@@ -33,6 +33,8 @@ abstract class Context {
   void curveTo(double x1, double y1, double x2, double y2, double x3, double y3);
   void relativeCurveTo(double x1, double y1, double x2, double y2, double x3, double y3);
   void textPath(String text);
+  void clip();
+  void clipPreserve();
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -169,4 +171,9 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   double get tolerance native 'get_tolerance';
   
   void set tolerance(double tolerance) native 'set_tolerance';
+  
+  void clip() native 'clip';
+  
+  void clipPreserve() native 'clip_preserve';
+  
 }

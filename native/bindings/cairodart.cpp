@@ -66,6 +66,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "set_antialias", CairoDart::set_antialias },
   { "get_tolerance", CairoDart::get_tolerance },
   { "set_tolerance", CairoDart::set_tolerance },
+  { "clip", CairoDart::clip },
+  { "clip_preserve", CairoDart::clip_preserve },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -600,6 +602,20 @@ void CairoDart::set_tolerance(Dart_NativeArguments args)
     Context* ctx = Utils::thisFromArg<Context>(args);
     double tolerance = arg.doubleArg(1);
     ctx->setTolerance(tolerance);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::clip(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->clip();
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::clip_preserve(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    ctx->clipPreserve();
     Dart_SetReturnValue(args, Dart_Null());
 }
 

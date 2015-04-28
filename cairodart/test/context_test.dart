@@ -346,6 +346,21 @@ runContextTests() {
       ctx.tolerance = 2.1;
       expect(ctx.tolerance, equals(2.1));
     });
+    test('should successfully clip', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.moveTo(10.0, 10.0);
+      ctx.clip();
+      expect(ctx.currentPoint, isNot(equals(new Point.from(10.0, 10.0))));
+    });
+    test('should successfully clip and preserve path', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.moveTo(10.0, 10.0);
+      ctx.clipPreserve();
+      expect(ctx.currentPoint, equals(new Point.from(10.0, 10.0)));
+    });
+    
   });
 }
 

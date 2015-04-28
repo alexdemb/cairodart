@@ -334,6 +334,12 @@ runContextTests() {
       var extents = ctx.pathExtents;
       expect(extents, equals(new Rectangle(20, 20, 60, 60)));
     });
+    test('should correctly get/set antialias', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.antialias = Antialias.GRAY;
+      expect(ctx.antialias, equals(Antialias.GRAY));
+    });
   });
 }
 

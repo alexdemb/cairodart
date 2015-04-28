@@ -41,6 +41,7 @@ abstract class Context {
   
   Operator operator;
   FillRule fillRule;
+  Antialias antialias;
   
   Surface get target;
   
@@ -115,6 +116,12 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void set fillRule(FillRule rule) => _setFillRule(rule.value);
   
   void _setFillRule(int val) native 'set_fill_rule';
+  
+  Antialias get antialias native 'get_antialias';
+  
+  void set antialias(Antialias antialias) => _setAntialias(antialias.value);
+  
+  void _setAntialias(int val) native 'set_antialias';
   
   bool get hasCurrentPoint native 'has_current_point';
   

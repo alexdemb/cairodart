@@ -56,6 +56,8 @@ public:
     static void rel_curve_to(Dart_NativeArguments args);
     static void text_path(Dart_NativeArguments args);
     static void path_extents(Dart_NativeArguments args);
+    static void get_antialias(Dart_NativeArguments args);
+    static void set_antialias(Dart_NativeArguments args);
 
 
     // cairo_surface_t

@@ -27,4 +27,4 @@ part 'bindings/line_cap.dart';
 part 'bindings/line_join.dart';
 part 'bindings/operator.dart';
 part 'bindings/fill_rule.dart';
-
+part 'bindings/antialias.dart';

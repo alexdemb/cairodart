@@ -62,6 +62,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "rel_move_to", CairoDart::rel_move_to },
   { "text_path", CairoDart::text_path },
   { "path_extents", CairoDart::path_extents },
+  { "get_antialias", CairoDart::get_antialias },
+  { "set_antialias", CairoDart::set_antialias },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -559,6 +561,28 @@ void CairoDart::path_extents(Dart_NativeArguments args)
 
     Dart_Handle rect = Utils::newRectangle(x1, y1, x1 + x2, y1 + y2);
     Dart_SetReturnValue(args, rect);
+}
+
+void CairoDart::get_antialias(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    cairo_antialias_t antialias = ctx->getAntialias();
+    int val = static_cast<int>(antialias);
+
+    Dart_Handle antialiasArgs[1] = { Dart_NewInteger(val) };
+    Dart_Handle result = Utils::newObject("_Antialias", "", 1, antialiasArgs);
+
+    Dart_SetReturnValue(args, result);
+}
+
+void CairoDart::set_antialias(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    cairo_antialias_t antialias = static_cast<cairo_antialias_t>(arg.intArg(1));
+
+    ctx->setAntialias(antialias);
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 // cairo_format_t

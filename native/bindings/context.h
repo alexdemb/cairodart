@@ -58,6 +58,8 @@ public:
     void relCurveTo(const double& x1, const double& y1, const double& x2, const double& y2, const double& x3, const double& y3) const;
     void textPath(const char* text) const;
     void pathExtents(double* x1, double* y1, double* x2, double* y2) const;
+    cairo_antialias_t getAntialias() const;
+    void setAntialias(cairo_antialias_t& antialias) const;
 };
 
 } // bindings

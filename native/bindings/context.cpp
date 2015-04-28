@@ -259,6 +259,20 @@ void Context::pathExtents(double *x1, double *y1, double *x2, double *y2) const
     verify();
 }
 
+cairo_antialias_t Context::getAntialias() const
+{
+    cairo_antialias_t antialias = cairo_get_antialias(this->c);
+    verify();
+    return antialias;
+}
+
+
+void Context::setAntialias(cairo_antialias_t &antialias) const
+{
+    cairo_set_antialias(this->c, antialias);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

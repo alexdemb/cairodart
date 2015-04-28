@@ -64,6 +64,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "path_extents", CairoDart::path_extents },
   { "get_antialias", CairoDart::get_antialias },
   { "set_antialias", CairoDart::set_antialias },
+  { "get_tolerance", CairoDart::get_tolerance },
+  { "set_tolerance", CairoDart::set_tolerance },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -582,6 +584,22 @@ void CairoDart::set_antialias(Dart_NativeArguments args)
     cairo_antialias_t antialias = static_cast<cairo_antialias_t>(arg.intArg(1));
 
     ctx->setAntialias(antialias);
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::get_tolerance(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double tolerance = ctx->getTolerance();
+    Dart_SetReturnValue(args, Dart_NewDouble(tolerance));
+}
+
+void CairoDart::set_tolerance(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double tolerance = arg.doubleArg(1);
+    ctx->setTolerance(tolerance);
     Dart_SetReturnValue(args, Dart_Null());
 }
 

@@ -48,6 +48,7 @@ abstract class Context {
   bool get hasCurrentPoint;
   Point get currentPoint;
   Rectangle get pathExtents;
+  double tolerance;
 }
 
 
@@ -164,4 +165,8 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void textPath(String text) native 'text_path';
   
   Rectangle get pathExtents native 'path_extents';
+  
+  double get tolerance native 'get_tolerance';
+  
+  void set tolerance(double tolerance) native 'set_tolerance';
 }

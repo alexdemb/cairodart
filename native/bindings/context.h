@@ -60,6 +60,8 @@ public:
     void pathExtents(double* x1, double* y1, double* x2, double* y2) const;
     cairo_antialias_t getAntialias() const;
     void setAntialias(cairo_antialias_t& antialias) const;
+    double getTolerance() const;
+    void setTolerance(double& tolerance) const;
 };
 
 } // bindings

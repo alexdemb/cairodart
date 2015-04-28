@@ -273,6 +273,19 @@ void Context::setAntialias(cairo_antialias_t &antialias) const
     verify();
 }
 
+double Context::getTolerance() const
+{
+    double tolerance = cairo_get_tolerance(this->c);
+    verify();
+    return tolerance;
+}
+
+void Context::setTolerance(double &tolerance) const
+{
+    cairo_set_tolerance(this->c, tolerance);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

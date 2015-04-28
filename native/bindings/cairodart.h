@@ -58,6 +58,8 @@ public:
     static void path_extents(Dart_NativeArguments args);
     static void get_antialias(Dart_NativeArguments args);
     static void set_antialias(Dart_NativeArguments args);
+    static void get_tolerance(Dart_NativeArguments args);
+    static void set_tolerance(Dart_NativeArguments args);
 
 
     // cairo_surface_t

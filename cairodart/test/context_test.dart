@@ -340,6 +340,12 @@ runContextTests() {
       ctx.antialias = Antialias.GRAY;
       expect(ctx.antialias, equals(Antialias.GRAY));
     });
+    test('should correctly get/set tolerance', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      
+      ctx.tolerance = 2.1;
+      expect(ctx.tolerance, equals(2.1));
+    });
   });
 }
 

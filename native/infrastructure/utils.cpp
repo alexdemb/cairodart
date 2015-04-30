@@ -162,6 +162,21 @@ Dart_Handle Utils::newRectangle(const int &x, const int &y, const int &width, co
     return rect;
 }
 
+Dart_Handle Utils::newRectangle(const double &x, const double &y, const double &width, const double &height)
+{
+    const int COUNT_OF_PARAMS = 4;
+    Dart_Handle parameters[COUNT_OF_PARAMS] =
+    {
+        Dart_NewDouble(x),
+        Dart_NewDouble(y),
+        Dart_NewDouble(width),
+        Dart_NewDouble(height)
+    };
+
+    Dart_Handle rect = Utils::newObject("Rectangle", "", COUNT_OF_PARAMS, parameters);
+    return rect;
+}
+
 } // infrastructure
 
 } // cairodart

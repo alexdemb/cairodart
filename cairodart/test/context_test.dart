@@ -400,6 +400,19 @@ runContextTests() {
       expect(ctx.inClip(50, 50), isTrue);
       expect(ctx.inClip(51, 50), isTrue);
     });
+    test('should successully determine clip extents', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+      
+      ctx.moveTo(0.0, 0.0);
+      ctx.lineTo(50.0, 60.0);
+      ctx.lineTo(0.0, 50.0);
+      ctx.lineTo(0.0, 0.0);      
+      ctx.clipPreserve();
+      
+      expect(ctx.clipExtents, new Rectangle(0, 0, 50, 60));
+      
+    });
+
     
   });
 }

@@ -38,6 +38,7 @@ abstract class Context {
   bool inClip(num x, num y);
   bool pointInClip(Point p);
   void resetClip();
+  Rectangle get clipExtents;
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -186,5 +187,7 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   bool _inClip(double x, double y) native 'in_clip';
   
   void resetClip() native 'reset_clip';
+  
+  Rectangle get clipExtents native 'clip_extents';
   
 }

@@ -312,6 +312,12 @@ void Context::resetClip() const
 }
 
 
+void Context::clipExtents(double *x1, double *y1, double *x2, double *y2) const
+{
+    cairo_clip_extents(this->c, x1, y1, x2, y2);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

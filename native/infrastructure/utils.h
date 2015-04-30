@@ -34,6 +34,7 @@ public:
     static Dart_Handle newDistance(const double& dx, const double& dy);
     static Dart_Handle newList(int count, ...);
     static Dart_Handle newRectangle(const int& x, const int& y, const int& width, const int& height);
+    static Dart_Handle newRectangle(const double& x, const double& y, const double& width, const double& height);
     static int listLength(const Dart_Handle& list);
     static int intAt(const Dart_Handle& list, const int& pos);
 

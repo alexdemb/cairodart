@@ -66,6 +66,7 @@ public:
     void clipPreserve() const;
     bool inClip(const double& x, const double& y) const;
     void resetClip() const;
+    void clipExtents(double* x1, double* y1, double* x2, double* y2) const;
 };
 
 } // bindings

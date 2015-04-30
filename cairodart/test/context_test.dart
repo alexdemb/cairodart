@@ -360,6 +360,32 @@ runContextTests() {
       ctx.clipPreserve();
       expect(ctx.currentPoint, equals(new Point.from(10.0, 10.0)));
     });
+    test('should correctly determine if point is in clip', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+      
+      ctx.moveTo(0.0, 0.0);
+      ctx.lineTo(100.0, 100.0);
+      ctx.lineTo(0.0, 100.0);
+      ctx.lineTo(0.0, 0.0);      
+      ctx.clipPreserve();
+      
+      expect(ctx.inClip(49, 50), isTrue);
+      expect(ctx.inClip(50, 50), isTrue);
+      expect(ctx.inClip(51, 50), isFalse);
+    });
+    test('should correctly determine if point is in clip when Point class is used', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+          
+      ctx.moveTo(0.0, 0.0);
+      ctx.lineTo(100.0, 100.0);
+      ctx.lineTo(0.0, 100.0);
+      ctx.lineTo(0.0, 0.0);      
+      ctx.clipPreserve();
+          
+      expect(ctx.pointInClip(new Point.from(49, 50)), isTrue);
+      expect(ctx.pointInClip(new Point.from(50, 50)), isTrue);
+      expect(ctx.pointInClip(new Point.from(51, 50)), isFalse);
+    });
     
   });
 }

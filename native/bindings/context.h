@@ -64,6 +64,7 @@ public:
     void setTolerance(double& tolerance) const;
     void clip() const;
     void clipPreserve() const;
+    bool inClip(const double& x, const double& y) const;
 };
 
 } // bindings

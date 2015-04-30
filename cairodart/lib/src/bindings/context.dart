@@ -35,6 +35,8 @@ abstract class Context {
   void textPath(String text);
   void clip();
   void clipPreserve();
+  bool inClip(num x, num y);
+  bool pointInClip(Point p);
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -175,5 +177,11 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void clip() native 'clip';
   
   void clipPreserve() native 'clip_preserve';
+  
+  bool inClip(num x, num y) => _inClip(x.toDouble(), y.toDouble());
+
+  bool pointInClip(Point p) => inClip(p.x.toDouble(), p.y.toDouble());
+  
+  bool _inClip(double x, double y) native 'in_clip';
   
 }

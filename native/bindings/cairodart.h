@@ -62,6 +62,7 @@ public:
     static void set_tolerance(Dart_NativeArguments args);
     static void clip(Dart_NativeArguments args);
     static void clip_preserve(Dart_NativeArguments args);
+    static void in_clip(Dart_NativeArguments args);
 
 
     // cairo_surface_t

@@ -68,6 +68,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "set_tolerance", CairoDart::set_tolerance },
   { "clip", CairoDart::clip },
   { "clip_preserve", CairoDart::clip_preserve },
+  { "in_clip", CairoDart::in_clip },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -617,6 +618,17 @@ void CairoDart::clip_preserve(Dart_NativeArguments args)
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->clipPreserve();
     Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::in_clip(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+
+    bool result = ctx->inClip(x, y);
+    Dart_SetReturnValue(args, Dart_NewBoolean(result));
 }
 
 // cairo_format_t

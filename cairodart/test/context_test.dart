@@ -386,6 +386,20 @@ runContextTests() {
       expect(ctx.pointInClip(new Point.from(50, 50)), isTrue);
       expect(ctx.pointInClip(new Point.from(51, 50)), isFalse);
     });
+    test('should successully reset clip', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+      
+      ctx.moveTo(0.0, 0.0);
+      ctx.lineTo(100.0, 100.0);
+      ctx.lineTo(0.0, 100.0);
+      ctx.lineTo(0.0, 0.0);      
+      ctx.clipPreserve();
+      ctx.resetClip();
+      
+      expect(ctx.inClip(49, 50), isTrue);
+      expect(ctx.inClip(50, 50), isTrue);
+      expect(ctx.inClip(51, 50), isTrue);
+    });
     
   });
 }

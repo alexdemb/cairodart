@@ -301,7 +301,14 @@ void Context::clipPreserve() const
 bool Context::inClip(const double &x, const double &y) const
 {
     cairo_bool_t inClip = cairo_in_clip(this->c, x, y);
+    verify();
     return inClip != 0;
+}
+
+void Context::resetClip() const
+{
+    cairo_reset_clip(this->c);
+    verify();
 }
 
 

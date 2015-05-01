@@ -73,6 +73,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "clip_extents", CairoDart::clip_extents },
   { "fill", CairoDart::fill },
   { "fill_preserve", CairoDart::fill_preserve },
+  { "fill_extents", CairoDart::fill_extents },
+  { "in_fill", CairoDart::in_fill },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -670,6 +672,33 @@ void CairoDart::fill_preserve(Dart_NativeArguments args)
     ctx->fillPreserve();
     Dart_SetReturnValue(args, Dart_Null());
 }
+
+void CairoDart::fill_extents(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double x1, y1, x2, y2;
+
+    ctx->fillExtents(&x1, &y1, &x2, &y2);
+
+    double width = x2 - x1;
+    double height = y2 - y1;
+
+    Dart_Handle rect = Utils::newRectangle(x1, y1, width, height);
+
+    Dart_SetReturnValue(args, rect);
+}
+
+void CairoDart::in_fill(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+
+    bool result = ctx->inFill(x, y);
+    Dart_SetReturnValue(args, Dart_NewBoolean(result));
+}
+
 
 // cairo_format_t
 

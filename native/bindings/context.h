@@ -69,6 +69,8 @@ public:
     void clipExtents(double* x1, double* y1, double* x2, double* y2) const;
     void fill() const;
     void fillPreserve() const;
+    bool inFill(const double& x, const double& y) const;
+    void fillExtents(double* x1, double* y1, double* x2, double* y2) const;
 };
 
 } // bindings

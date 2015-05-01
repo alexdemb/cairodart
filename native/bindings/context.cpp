@@ -331,6 +331,20 @@ void Context::fillPreserve() const
 }
 
 
+void Context::fillExtents(double *x1, double *y1, double *x2, double *y2) const
+{
+    cairo_fill_extents(this->c, x1, y1, x2, y2);
+    verify();
+}
+
+bool Context::inFill(const double &x, const double &y) const
+{
+    cairo_bool_t inClip = cairo_in_fill(this->c, x, y);
+    verify();
+    return inClip != 0;
+}
+
+
 } // bindings
 
 } // cairodart

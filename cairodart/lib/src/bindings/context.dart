@@ -196,4 +196,12 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   
   void fillPreserve() native 'fill_preserve';
   
+  Rectangle get fillExtents native 'fill_extents';
+  
+  bool inFill(num x, num y) => _inFill(x.toDouble(), y.toDouble());
+  
+  bool pointInFill(Point p) => inFill(p.x.toDouble(), p.y.toDouble());
+  
+  bool _inFill(double x, double y) native 'in_fill';
+  
 }

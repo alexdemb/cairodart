@@ -67,7 +67,8 @@ public:
     static void clip_extents(Dart_NativeArguments args);
     static void fill(Dart_NativeArguments args);
     static void fill_preserve(Dart_NativeArguments args);
-
+    static void fill_extents(Dart_NativeArguments args);
+    static void in_fill(Dart_NativeArguments args);
 
     // cairo_surface_t
     static void image_surface_create(Dart_NativeArguments args);

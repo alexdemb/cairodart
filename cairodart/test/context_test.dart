@@ -426,6 +426,43 @@ runContextTests() {
       ctx.fillPreserve();
       expect(ctx.currentPoint, equals(new Point.from(10.0, 10.0)));
     });
+    test('should successully determine fill extents', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+          
+      ctx.moveTo(0.0, 0.0);
+      ctx.lineTo(50.0, 60.0);
+      ctx.lineTo(0.0, 50.0);
+      ctx.lineTo(0.0, 0.0);      
+      ctx.fillPreserve();
+          
+      expect(ctx.fillExtents, new Rectangle(0, 0, 50, 60));
+    });    
+    test('should correctly determine if point is in fill', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+          
+      ctx.moveTo(0.0, 0.0);
+      ctx.lineTo(100.0, 100.0);
+      ctx.lineTo(0.0, 100.0);
+      ctx.lineTo(0.0, 0.0);      
+      ctx.fillPreserve();
+          
+      expect(ctx.inFill(49, 50), isTrue);
+      expect(ctx.inFill(50, 50), isTrue);
+      expect(ctx.inFill(51, 50), isFalse);
+    });
+    test('should correctly determine if point is in fill when Point class is used', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+              
+      ctx.moveTo(0.0, 0.0);
+      ctx.lineTo(100.0, 100.0);
+      ctx.lineTo(0.0, 100.0);
+      ctx.lineTo(0.0, 0.0);      
+      ctx.fillPreserve();
+              
+      expect(ctx.pointInFill(new Point.from(49, 50)), isTrue);
+      expect(ctx.pointInFill(new Point.from(50, 50)), isTrue);
+      expect(ctx.pointInFill(new Point.from(51, 50)), isFalse);
+    });    
     
   });
 }

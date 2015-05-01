@@ -318,6 +318,19 @@ void Context::clipExtents(double *x1, double *y1, double *x2, double *y2) const
     verify();
 }
 
+void Context::fill() const
+{
+    cairo_fill(this->c);
+    verify();
+}
+
+void Context::fillPreserve() const
+{
+    cairo_fill_preserve(this->c);
+    verify();
+}
+
+
 } // bindings
 
 } // cairodart

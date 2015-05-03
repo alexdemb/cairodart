@@ -34,6 +34,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "set_source_rgba", CairoDart::set_source_rgba },
   { "stroke", CairoDart::stroke },
   { "stroke_preserve", CairoDart::stroke_preserve },
+  { "in_stroke", CairoDart::in_stroke },
   { "paint", CairoDart::paint },
   { "set_line_cap", CairoDart::set_line_cap },
   { "get_line_cap", CairoDart::get_line_cap },
@@ -284,6 +285,18 @@ void CairoDart::stroke_preserve(Dart_NativeArguments args)
     ctx->strokePreserve();
 
     Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::in_stroke(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    double x = arg.doubleArg(1);
+    double y = arg.doubleArg(2);
+
+    bool res = ctx->inStroke(x, y);
+
+    Dart_SetReturnValue(args, Dart_NewBoolean(res));
 }
 
 void CairoDart::paint(Dart_NativeArguments args)

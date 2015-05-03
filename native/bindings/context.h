@@ -30,6 +30,7 @@ public:
     void setSourceRgba(double& red, double& green, double& blue, double& alpha) const;
     void stroke() const;
     void strokePreserve() const;
+    bool inStroke(const double& x, const double& y) const;
     void paint() const;
     void setLineCap(const cairo_line_cap_t& cap) const;
     cairo_line_cap_t getLineCap() const;

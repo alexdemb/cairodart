@@ -15,6 +15,8 @@ abstract class Context {
   void setSourceRgba(double red, double green, double blue, double alpha);
   void stroke();
   void strokePreserve();
+  bool inStroke(num x, num y);
+  bool pointInStroke(Point p);  
   void paint();
   void moveTo(double x, double y);
   void relativeMoveTo(double x, double y);
@@ -92,6 +94,12 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void stroke() native 'stroke';
   
   void strokePreserve() native 'stroke_preserve';
+  
+  bool inStroke(num x, num y) => _inStroke(x.toDouble(), y.toDouble());
+
+  bool pointInStroke(Point p) => inStroke(p.x.toDouble(), p.y.toDouble());
+    
+  bool _inStroke(double x, double y) native 'in_stroke';  
   
   void paint() native 'paint';
   

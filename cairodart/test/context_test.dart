@@ -47,6 +47,30 @@ runContextTests() {
       ctx.strokePreserve();
       expect(ctx.currentPoint, equals(new Point.from(20, 20)));
     });
+    test('should correctly determine if point is in stroke', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      ctx.lineWidth = 1.0;
+      ctx.moveTo(0.0, 0.0);
+      ctx.lineTo(100.0, 100.0);
+      ctx.strokePreserve();
+
+      expect(ctx.inStroke(49, 50), isFalse);
+      expect(ctx.inStroke(50, 50), isTrue);
+      expect(ctx.inStroke(51, 50), isFalse);
+    });
+    test('should correctly determine if point is in stroke when Point class is used', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      ctx.lineWidth = 1.0;
+      ctx.moveTo(0.0, 0.0);
+      ctx.lineTo(100.0, 100.0);
+      ctx.strokePreserve();
+
+      expect(ctx.pointInStroke(new Point.from(49, 50)), isFalse);
+      expect(ctx.pointInStroke(new Point.from(50, 50)), isTrue);
+      expect(ctx.pointInStroke(new Point.from(51, 50)), isFalse);
+    });
     test('should successfully paint', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       ctx.paint();
@@ -60,10 +84,10 @@ runContextTests() {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       ctx.lineCap = LineCap.BUTT;
       expect(ctx.lineCap, equals(LineCap.BUTT));
-      
+
       ctx.lineCap = LineCap.ROUND;
       expect(ctx.lineCap, equals(LineCap.ROUND));
-      
+
       ctx.lineCap = LineCap.SQUARE;
       expect(ctx.lineCap, equals(LineCap.SQUARE));
     });
@@ -71,10 +95,10 @@ runContextTests() {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       ctx.lineJoin = LineJoin.MITER;
       expect(ctx.lineJoin, equals(LineJoin.MITER));
-      
+
       ctx.lineJoin = LineJoin.ROUND;
       expect(ctx.lineJoin, equals(LineJoin.ROUND));
-      
+
       ctx.lineJoin = LineJoin.BEVEL;
       expect(ctx.lineJoin, equals(LineJoin.BEVEL));
     });
@@ -90,13 +114,13 @@ runContextTests() {
     });
     test('should correctly get/set operator', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.operator = Operator.ADD;
       expect(ctx.operator, equals(Operator.ADD));
-      
+
       ctx.operator = Operator.ATOP;
       expect(ctx.operator, equals(Operator.ATOP));
-            
+
       ctx.operator = Operator.CLEAR;
       expect(ctx.operator, equals(Operator.CLEAR));
 
@@ -162,316 +186,315 @@ runContextTests() {
 
       ctx.operator = Operator.OVERLAY;
       expect(ctx.operator, equals(Operator.OVERLAY));
-      
+
       ctx.operator = Operator.SATURATE;
       expect(ctx.operator, equals(Operator.SATURATE));
-      
+
       ctx.operator = Operator.SCREEN;
       expect(ctx.operator, equals(Operator.SCREEN));
 
       ctx.operator = Operator.SOFT_LIGHT;
       expect(ctx.operator, equals(Operator.SOFT_LIGHT));
-      
+
       ctx.operator = Operator.SOURCE;
       expect(ctx.operator, equals(Operator.SOURCE));
-    
+
       ctx.operator = Operator.XOR;
       expect(ctx.operator, equals(Operator.XOR));
     });
     test('should successfully get/set fill rule', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.fillRule = FillRule.WINDING;
       expect(ctx.fillRule, equals(FillRule.WINDING));
-      
+
       ctx.fillRule = FillRule.EVEN_ODD;
-      expect(ctx.fillRule, equals(FillRule.EVEN_ODD));      
+      expect(ctx.fillRule, equals(FillRule.EVEN_ODD));
     });
     test('should correctly determine if current path contains current point', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       expect(ctx.hasCurrentPoint, isFalse);
-      
+
       ctx.moveTo(200.0, 200.0);
-      
+
       expect(ctx.hasCurrentPoint, isTrue);
     });
     test('should correctly add rectengular path', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-            
+
       ctx.rectangleByCoords(10.0, 10.0, 20.0, 20.0);
-      
+
       ctx.moveTo(12.0, 12.0);
-      
+
       expect(ctx.hasCurrentPoint, isTrue);
     });
     test('should correctly add rectengular path for rectangle', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-            
+
       ctx.rectangle(new Rectangle(10, 10, 20, 20));
-      
+
       ctx.moveTo(12.0, 12.0);
-      
+
       expect(ctx.hasCurrentPoint, isTrue);
     });
     test('should correctly build path using lineTo', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-                
+
       ctx.moveTo(10.0, 10.0);
       ctx.lineTo(30.0, 10.0);
       ctx.lineTo(30.0, 30.0);
       ctx.lineTo(10.0, 30.0);
-          
+
       expect(ctx.hasCurrentPoint, isTrue);
     });
     test('should correctly build path using lineToPoint', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-                    
+
       ctx.moveTo(10.0, 10.0);
       ctx.lineToPoint(new Point.from(30.0, 10.0));
       ctx.lineToPoint(new Point.from(30.0, 30.0));
       ctx.lineToPoint(new Point.from(10.0, 30.0));
-              
+
       expect(ctx.hasCurrentPoint, isTrue);
     });
     test('should correctly return current point', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-            
+
       ctx.moveTo(10.0, 10.0);
-      
+
       expect(ctx.currentPoint, equals(new Point.from(10.0, 10.0)));
     });
     test('should successfully create and close path and subpath', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-            
+
       ctx.moveTo(10.0, 10.0);
-      
+
       ctx.newPath();
-      
+
       expect(ctx.hasCurrentPoint, isFalse);
-      
+
       ctx.closePath();
-      
+
       ctx.moveTo(12.0, 12.0);
-      
+
       ctx.newSubpath();
 
       expect(ctx.hasCurrentPoint, isFalse);
 
       ctx.closePath();
-      
+
     });
     test('should successfully add arc to path', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-            
+
       ctx.arc(10.0, 10.0, 3.0, 30.0, 30.0);
-      
+
       expect(ctx.currentPoint, equals(new Point.from(10.4609375, 7.03515625)));
     });
     test('should successfully add negative arc to path', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-                
+
       ctx.negativeArc(10.0, 10.0, 3.0, 30.0, 30.0);
-            
+
       expect(ctx.currentPoint, equals(new Point.from(10.4609375, 7.03515625)));
     });
     test('should successfully add curve to points', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.curveTo(10.0, 10.0, 20.0, 20.0, 30.0, 30.0);
-      
+
       expect(ctx.currentPoint, new Point.from(30.0, 30.0));
     });
     test('should successfully add curve to points relative to current', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.moveTo(10.0, 10.0);
-      
+
       ctx.relativeCurveTo(10.0, 10.0, 20.0, 20.0, 30.0, 30.0);
-      
+
       expect(ctx.currentPoint, new Point.from(40.0, 40.0));
     });
     test('should correctly move from current point', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.moveTo(10.0, 10.0);
-      
+
       ctx.relativeMoveTo(20.0, 20.0);
-      
+
       expect(ctx.currentPoint, equals(new Point.from(30.0, 30.0)));
     });
     test('should correctly move from current point to another', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.moveTo(10.0, 10.0);
-      
+
       ctx.relativeMoveToPoint(new Point.from(20.0, 20.0));
-      
+
       expect(ctx.currentPoint, equals(new Point.from(30.0, 30.0)));
     });
     test('should correctly add line from current point', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.moveTo(10.0, 10.0);
-      
+
       ctx.relativeLineTo(20.0, 20.0);
-      
+
       expect(ctx.currentPoint, equals(new Point.from(30.0, 30.0)));
     });
     test('should correctly add line from current point to another', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.moveTo(10.0, 10.0);
-      
+
       ctx.relativeLineToPoint(new Point.from(20.0, 20.0));
-      
+
       expect(ctx.currentPoint, equals(new Point.from(30.0, 30.0)));
     });
     test('should return empty rectangle as an path extents', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       var extents = ctx.pathExtents;
       expect(extents, equals(new Rectangle(0, 0, 0, 0)));
     });
     test('should return correct path extents', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.moveTo(20.0, 20.0);
       ctx.lineTo(40.0, 40.0);
-      
+
       var extents = ctx.pathExtents;
       expect(extents, equals(new Rectangle(20, 20, 60, 60)));
     });
     test('should correctly get/set antialias', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.antialias = Antialias.GRAY;
       expect(ctx.antialias, equals(Antialias.GRAY));
     });
     test('should correctly get/set tolerance', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.tolerance = 2.1;
       expect(ctx.tolerance, equals(2.1));
     });
     test('should successfully clip', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.moveTo(10.0, 10.0);
       ctx.clip();
       expect(ctx.currentPoint, isNot(equals(new Point.from(10.0, 10.0))));
     });
     test('should successfully clip and preserve path', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      
+
       ctx.moveTo(10.0, 10.0);
       ctx.clipPreserve();
       expect(ctx.currentPoint, equals(new Point.from(10.0, 10.0)));
     });
     test('should correctly determine if point is in clip', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-      
+
       ctx.moveTo(0.0, 0.0);
       ctx.lineTo(100.0, 100.0);
       ctx.lineTo(0.0, 100.0);
-      ctx.lineTo(0.0, 0.0);      
+      ctx.lineTo(0.0, 0.0);
       ctx.clipPreserve();
-      
+
       expect(ctx.inClip(49, 50), isTrue);
       expect(ctx.inClip(50, 50), isTrue);
       expect(ctx.inClip(51, 50), isFalse);
     });
     test('should correctly determine if point is in clip when Point class is used', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-          
+
       ctx.moveTo(0.0, 0.0);
       ctx.lineTo(100.0, 100.0);
       ctx.lineTo(0.0, 100.0);
-      ctx.lineTo(0.0, 0.0);      
+      ctx.lineTo(0.0, 0.0);
       ctx.clipPreserve();
-          
+
       expect(ctx.pointInClip(new Point.from(49, 50)), isTrue);
       expect(ctx.pointInClip(new Point.from(50, 50)), isTrue);
       expect(ctx.pointInClip(new Point.from(51, 50)), isFalse);
     });
     test('should successully reset clip', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-      
+
       ctx.moveTo(0.0, 0.0);
       ctx.lineTo(100.0, 100.0);
       ctx.lineTo(0.0, 100.0);
-      ctx.lineTo(0.0, 0.0);      
+      ctx.lineTo(0.0, 0.0);
       ctx.clipPreserve();
       ctx.resetClip();
-      
+
       expect(ctx.inClip(49, 50), isTrue);
       expect(ctx.inClip(50, 50), isTrue);
       expect(ctx.inClip(51, 50), isTrue);
     });
     test('should successully determine clip extents', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-      
+
       ctx.moveTo(0.0, 0.0);
       ctx.lineTo(50.0, 60.0);
       ctx.lineTo(0.0, 50.0);
-      ctx.lineTo(0.0, 0.0);      
+      ctx.lineTo(0.0, 0.0);
       ctx.clipPreserve();
-      
+
       expect(ctx.clipExtents, new Rectangle(0, 0, 50, 60));
-      
+
     });
     test('should successfully clip', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-         
+
       ctx.moveTo(10.0, 10.0);
       ctx.fill();
       expect(ctx.currentPoint, isNot(equals(new Point.from(10.0, 10.0))));
     });
     test('should successfully clip and preserve path', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-         
+
       ctx.moveTo(10.0, 10.0);
       ctx.fillPreserve();
       expect(ctx.currentPoint, equals(new Point.from(10.0, 10.0)));
     });
     test('should successully determine fill extents', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-          
+
       ctx.moveTo(0.0, 0.0);
       ctx.lineTo(50.0, 60.0);
       ctx.lineTo(0.0, 50.0);
-      ctx.lineTo(0.0, 0.0);      
+      ctx.lineTo(0.0, 0.0);
       ctx.fillPreserve();
-          
+
       expect(ctx.fillExtents, new Rectangle(0, 0, 50, 60));
-    });    
+    });
     test('should correctly determine if point is in fill', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-          
+
       ctx.moveTo(0.0, 0.0);
       ctx.lineTo(100.0, 100.0);
       ctx.lineTo(0.0, 100.0);
-      ctx.lineTo(0.0, 0.0);      
+      ctx.lineTo(0.0, 0.0);
       ctx.fillPreserve();
-          
+
       expect(ctx.inFill(49, 50), isTrue);
       expect(ctx.inFill(50, 50), isTrue);
       expect(ctx.inFill(51, 50), isFalse);
     });
     test('should correctly determine if point is in fill when Point class is used', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-              
+
       ctx.moveTo(0.0, 0.0);
       ctx.lineTo(100.0, 100.0);
       ctx.lineTo(0.0, 100.0);
-      ctx.lineTo(0.0, 0.0);      
+      ctx.lineTo(0.0, 0.0);
       ctx.fillPreserve();
-              
+
       expect(ctx.pointInFill(new Point.from(49, 50)), isTrue);
       expect(ctx.pointInFill(new Point.from(50, 50)), isTrue);
       expect(ctx.pointInFill(new Point.from(51, 50)), isFalse);
-    });    
-    
+    });
+
   });
 }
-

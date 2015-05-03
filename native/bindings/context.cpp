@@ -84,6 +84,13 @@ void Context::strokePreserve() const
     verify();
 }
 
+bool Context::inStroke(const double &x, const double &y) const
+{
+    cairo_bool_t res = cairo_in_stroke(this->c, x, y);
+    verify();
+    return res != 0;
+}
+
 void Context::paint() const
 {
     cairo_paint(this->c);

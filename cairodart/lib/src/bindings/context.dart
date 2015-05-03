@@ -16,7 +16,8 @@ abstract class Context {
   void stroke();
   void strokePreserve();
   bool inStroke(num x, num y);
-  bool pointInStroke(Point p);  
+  bool pointInStroke(Point p);
+  Rectangle get strokeExtents;
   void paint();
   void moveTo(double x, double y);
   void relativeMoveTo(double x, double y);
@@ -100,6 +101,8 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   bool pointInStroke(Point p) => inStroke(p.x.toDouble(), p.y.toDouble());
     
   bool _inStroke(double x, double y) native 'in_stroke';  
+  
+  Rectangle get strokeExtents native 'stroke_extents';
   
   void paint() native 'paint';
   

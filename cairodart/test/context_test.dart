@@ -71,6 +71,26 @@ runContextTests() {
       expect(ctx.pointInStroke(new Point.from(50, 50)), isTrue);
       expect(ctx.pointInStroke(new Point.from(51, 50)), isFalse);
     });
+    test('should successully determine stroke extents', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      ctx.lineWidth = 0.5;
+      
+      
+      ctx.moveTo(1.0, 0.0);
+      ctx.lineTo(50.0, 0.0);
+      ctx.lineTo(50.0, 50.0);
+      ctx.lineTo(0.0, 50.0);
+      ctx.lineTo(0.0, 0.0);
+      ctx.strokePreserve();
+
+      var expectedRect = new Rectangle(-0.25, -0.25, 50.5, 50.5);
+      var actual = ctx.strokeExtents;
+      expect(actual.x, closeTo(expectedRect.x, 0.01));
+      expect(actual.y, closeTo(expectedRect.y, 0.01));
+      expect(actual.width, closeTo(expectedRect.width, 0.01));
+      expect(actual.height, closeTo(expectedRect.height, 0.01));
+    });    
     test('should successfully paint', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       ctx.paint();

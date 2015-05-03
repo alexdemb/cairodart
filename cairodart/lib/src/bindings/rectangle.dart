@@ -24,4 +24,6 @@ class _Rectangle implements Rectangle {
   @override
   operator==(Rectangle other) => x == other.x && y == other.y && width == other.width && height == other.height;
   
+  @override
+  String toString() => '[x: $x, y: $y, width: $width, height: $height]';
 }

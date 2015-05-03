@@ -31,6 +31,7 @@ public:
     void stroke() const;
     void strokePreserve() const;
     bool inStroke(const double& x, const double& y) const;
+    void strokeExtents(double* x1, double* y1, double* x2, double* y2) const;
     void paint() const;
     void setLineCap(const cairo_line_cap_t& cap) const;
     cairo_line_cap_t getLineCap() const;

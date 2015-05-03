@@ -91,6 +91,13 @@ bool Context::inStroke(const double &x, const double &y) const
     return res != 0;
 }
 
+void Context::strokeExtents(double *x1, double *y1, double *x2, double *y2) const
+{
+    cairo_stroke_extents(this->c, x1, y1, x2, y2);
+    verify();
+}
+
+
 void Context::paint() const
 {
     cairo_paint(this->c);

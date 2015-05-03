@@ -27,6 +27,7 @@ public:
     static void set_source_rgb(Dart_NativeArguments args);
     static void set_source_rgba(Dart_NativeArguments args);
     static void stroke(Dart_NativeArguments args);
+    static void stroke_preserve(Dart_NativeArguments args);
     static void paint(Dart_NativeArguments args);
     static void set_line_cap(Dart_NativeArguments args);
     static void get_line_cap(Dart_NativeArguments args);

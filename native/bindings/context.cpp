@@ -78,6 +78,12 @@ void Context::stroke() const
     verify();
 }
 
+void Context::strokePreserve() const
+{
+    cairo_stroke_preserve(this->c);
+    verify();
+}
+
 void Context::paint() const
 {
     cairo_paint(this->c);

@@ -37,7 +37,15 @@ runContextTests() {
     });
     test('should successfully stroke', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      ctx.lineTo(20.0, 20.0);
       ctx.stroke();
+      expect(ctx.currentPoint, equals(new Point()));
+    });
+    test('should successfully stroke and preserve path', () {
+      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      ctx.lineTo(20.0, 20.0);
+      ctx.strokePreserve();
+      expect(ctx.currentPoint, equals(new Point.from(20, 20)));
     });
     test('should successfully paint', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));

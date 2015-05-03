@@ -29,6 +29,7 @@ public:
     void setSourceRgb(double& red, double& green, double& blue) const;
     void setSourceRgba(double& red, double& green, double& blue, double& alpha) const;
     void stroke() const;
+    void strokePreserve() const;
     void paint() const;
     void setLineCap(const cairo_line_cap_t& cap) const;
     cairo_line_cap_t getLineCap() const;

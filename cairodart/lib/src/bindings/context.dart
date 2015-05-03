@@ -14,6 +14,7 @@ abstract class Context {
   void setSourceRgb(double red, double green, double blue);
   void setSourceRgba(double red, double green, double blue, double alpha);
   void stroke();
+  void strokePreserve();
   void paint();
   void moveTo(double x, double y);
   void relativeMoveTo(double x, double y);
@@ -89,6 +90,8 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void setSourceRgba(double red, double green, double blue, double alpha) native 'set_source_rgba';
   
   void stroke() native 'stroke';
+  
+  void strokePreserve() native 'stroke_preserve';
   
   void paint() native 'paint';
   

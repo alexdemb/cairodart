@@ -33,8 +33,10 @@ public:
     static Dart_Handle newCircle(const double& x, const double& y, const double& radius);
     static Dart_Handle newDistance(const double& dx, const double& dy);
     static Dart_Handle newList(int count, ...);
+    static Dart_Handle newEmptyList(int count);
     static Dart_Handle newRectangle(const int& x, const int& y, const int& width, const int& height);
     static Dart_Handle newRectangle(const double& x, const double& y, const double& width, const double& height);
+    static Dart_Handle newRectangleList(const Dart_Handle& context, const cairo_rectangle_list_t* list);
     static int listLength(const Dart_Handle& list);
     static int intAt(const Dart_Handle& list, const int& pos);
 
@@ -59,6 +61,13 @@ public:
         }
     }
 
+    static void doNothingCallback(void* isolateCallbackData, Dart_WeakPersistentHandle weakHandle, void* peer)
+    {
+        UNUSED(isolateCallbackData);
+        UNUSED(weakHandle);
+        UNUSED(peer);
+    }
+
     template<typename T>
     static T* bindingObject(Dart_Handle& handle)
     {
@@ -69,11 +78,18 @@ public:
     }
 
     template<typename T>
-    static void setupBindingObject(Dart_Handle& handle, T* obj)
+    static void setupBindingObject(Dart_Handle& handle, T* obj, bool performFinalize = true)
     {
         intptr_t ptr = (intptr_t) obj;
         propagateError(Dart_SetNativeInstanceField(handle, 0, ptr));
-        Dart_NewWeakPersistentHandle(handle, (void*)ptr, 0, finalize<T>);
+        if (performFinalize)
+        {
+            Dart_NewWeakPersistentHandle(handle, (void*)ptr, 0, finalize<T>);
+        }
+        else
+        {
+            Dart_NewWeakPersistentHandle(handle, (void*)ptr, 0, doNothingCallback);
+        }
     }
 private:
     Utils();

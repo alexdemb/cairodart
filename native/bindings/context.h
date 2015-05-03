@@ -74,6 +74,8 @@ public:
     void fillPreserve() const;
     bool inFill(const double& x, const double& y) const;
     void fillExtents(double* x1, double* y1, double* x2, double* y2) const;
+    cairo_rectangle_list_t* copyClipRectangleList() const;
+    void destroyRectangleList(cairo_rectangle_list_t* list) const;
 };
 
 } // bindings

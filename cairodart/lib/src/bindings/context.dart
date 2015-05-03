@@ -45,6 +45,7 @@ abstract class Context {
   Rectangle get clipExtents;
   void fill();
   void fillPreserve();
+  RectangleList copyClipRectangleList();
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -217,5 +218,9 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   bool pointInFill(Point p) => inFill(p.x.toDouble(), p.y.toDouble());
   
   bool _inFill(double x, double y) native 'in_fill';
+  
+  RectangleList copyClipRectangleList() native 'copy_clip_rectangle_list';
+  
+  void _destroyRectangleList(RectangleList rectList) native 'rectangle_list_destroy';
   
 }

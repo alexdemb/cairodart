@@ -364,6 +364,18 @@ bool Context::inFill(const double &x, const double &y) const
     return inClip != 0;
 }
 
+cairo_rectangle_list_t* Context::copyClipRectangleList() const
+{
+    cairo_rectangle_list_t* list = cairo_copy_clip_rectangle_list(this->c);
+    verify();
+    return list;
+}
+
+void Context::destroyRectangleList(cairo_rectangle_list_t *list) const
+{
+    cairo_rectangle_list_destroy(list);
+    verify();
+}
 
 } // bindings
 

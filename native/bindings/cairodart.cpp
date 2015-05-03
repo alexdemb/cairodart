@@ -78,6 +78,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "fill_preserve", CairoDart::fill_preserve },
   { "fill_extents", CairoDart::fill_extents },
   { "in_fill", CairoDart::in_fill },
+  { "copy_clip_rectangle_list", CairoDart::copy_clip_rectangle_list },
+  { "rectangle_list_destroy", CairoDart::rectangle_list_destroy },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -737,6 +739,32 @@ void CairoDart::in_fill(Dart_NativeArguments args)
     Dart_SetReturnValue(args, Dart_NewBoolean(result));
 }
 
+
+void CairoDart::copy_clip_rectangle_list(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Dart_Handle context = arg.arg(0);
+    Context* ctx = Utils::thisFromArg<Context>(args);
+
+    cairo_rectangle_list_t* rectList = ctx->copyClipRectangleList();
+
+    Dart_Handle result = Utils::newRectangleList(context, rectList);
+    Utils::setupBindingObject<cairo_rectangle_list_t>(result, rectList, false);
+
+    Dart_SetReturnValue(args, result);
+}
+
+void CairoDart::rectangle_list_destroy(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    Dart_Handle rectList = arg.arg(1);
+
+    cairo_rectangle_list_t* list = Utils::bindingObject<cairo_rectangle_list_t>(rectList);
+    ctx->destroyRectangleList(list);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
 
 // cairo_format_t
 

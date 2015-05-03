@@ -113,6 +113,11 @@ Dart_Handle Utils::newDistance(const double& dx, const double& dy)
     return newObject("Distance", "from", 2, args);
 }
 
+Dart_Handle Utils::newEmptyList(int count)
+{
+    return Dart_NewList(static_cast<intptr_t>(count));
+}
+
 Dart_Handle Utils::newList(int count, ...)
 {
     Dart_Handle list = Dart_NewList(static_cast<intptr_t>(count));
@@ -175,6 +180,28 @@ Dart_Handle Utils::newRectangle(const double &x, const double &y, const double &
 
     Dart_Handle rect = Utils::newObject("Rectangle", "", COUNT_OF_PARAMS, parameters);
     return rect;
+}
+
+Dart_Handle Utils::newRectangleList(const Dart_Handle& context, const cairo_rectangle_list_t* list)
+{
+    const int COUNT = list->num_rectangles;
+    Dart_Handle rectsList = newEmptyList(COUNT);
+
+    for (int i = 0; i < COUNT; i++)
+    {
+        Dart_Handle rect = newRectangle(
+                    list->rectangles[i].x,
+                    list->rectangles[i].y,
+                    list->rectangles[i].width,
+                    list->rectangles[i].height);
+
+        Dart_ListSetAt(rectsList, i, rect);
+    }
+
+    Dart_Handle ctorArgs[] = { context, Dart_NewInteger(static_cast<int>(list->status)), rectsList };
+    Dart_Handle result = newObject("_RectangleList", "", 3, ctorArgs);
+
+    return result;
 }
 
 } // infrastructure

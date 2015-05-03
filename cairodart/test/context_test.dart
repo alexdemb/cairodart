@@ -515,6 +515,24 @@ runContextTests() {
       expect(ctx.pointInFill(new Point.from(50, 50)), isTrue);
       expect(ctx.pointInFill(new Point.from(51, 50)), isFalse);
     });
+    test('should correctly return the current clip region as a list of rectangles in user coordinates', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+      
+      ctx.moveTo(0.0, 0.0);
+      ctx.rectangle(new Rectangle(0, 0, 20, 20));
+      ctx.rectangle(new Rectangle(10, 10, 20, 20));
+      ctx.clip();
+      
+      RectangleList rectList = ctx.copyClipRectangleList();
+      expect(rectList.status, equals(CairoStatus.SUCCESS));
+      expect(rectList.rectangles.length, equals(3));
+      
+      expect(rectList.rectangles[0], equals(new Rectangle(0, 0, 20, 10)));
+      expect(rectList.rectangles[1], equals(new Rectangle(0, 10, 30, 10)));
+      expect(rectList.rectangles[2], equals(new Rectangle(10, 20, 20, 10)));
+      
+      rectList.destroy();
+    });
 
   });
 }

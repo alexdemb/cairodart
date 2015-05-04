@@ -407,6 +407,24 @@ void Context::showPage() const
     verify();
 }
 
+void Context::getDash(double *dashes, double *offset) const
+{
+    cairo_get_dash(this->c, dashes, offset);
+    verify();
+}
+
+void Context::setDash(const double *dashes, const int &num, const double &offset) const
+{
+    cairo_set_dash(this->c, dashes, num, offset);
+    verify();
+}
+
+int Context::getDashCount() const
+{
+    int count = cairo_get_dash_count(this->c);
+    return count;
+}
+
 } // bindings
 
 } // cairodart

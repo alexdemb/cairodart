@@ -79,6 +79,9 @@ public:
     static void paint_with_alpha(Dart_NativeArguments args);
     static void show_page(Dart_NativeArguments args);
     static void copy_page(Dart_NativeArguments args);
+    static void set_dash(Dart_NativeArguments args);
+    static void get_dash(Dart_NativeArguments args);
+    static void get_dash_count(Dart_NativeArguments args);
 
     // cairo_surface_t
     static void image_surface_create(Dart_NativeArguments args);

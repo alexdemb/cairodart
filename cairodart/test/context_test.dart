@@ -561,5 +561,14 @@ runContextTests() {
       
       // TODO: Implement correct assertions.
     });
+    test('should successfully get/set dash', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+      var dash = new Dash([1.1, 1.5], 0.2);
+      ctx.dash = dash;
+      
+      int count = ctx.dashCount;
+      expect(count, equals(2));
+      expect(ctx.dash, equals(dash));
+    });
   });
 }

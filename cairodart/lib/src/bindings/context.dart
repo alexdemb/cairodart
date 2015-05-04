@@ -67,6 +67,8 @@ abstract class Context {
   Point get currentPoint;
   Rectangle get pathExtents;
   double tolerance;
+  Dash dash;
+  int get dashCount;
 }
 
 
@@ -239,4 +241,12 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void showPage() native 'show_page';
   
   void copyPage() native 'copy_page';
+  
+  Dash get dash native 'get_dash';
+  
+  void set dash(Dash dash) => _setDash(dash.dashes, dash.offset);
+  
+  void _setDash(List<double> dashes, double offset) native 'set_dash';
+  
+  int get dashCount native 'get_dash_count';
 }

@@ -39,6 +39,7 @@ public:
     static Dart_Handle newRectangleList(const Dart_Handle& context, const cairo_rectangle_list_t* list);
     static int listLength(const Dart_Handle& list);
     static int intAt(const Dart_Handle& list, const int& pos);
+    static double doubleAt(const Dart_Handle& list, const int& pos);
 
     template<typename T>
     static T* thisFromArg(Dart_NativeArguments& args)

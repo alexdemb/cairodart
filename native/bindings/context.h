@@ -82,6 +82,9 @@ public:
     void paintWithAlpha(const double& alpha) const;
     void copyPage() const;
     void showPage() const;
+    void getDash(double* dashes, double* offset) const;
+    void setDash(const double* dashes, const int& num, const double& offset) const;
+    int getDashCount() const;
 };
 
 } // bindings

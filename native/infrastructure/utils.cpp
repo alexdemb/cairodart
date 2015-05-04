@@ -152,6 +152,15 @@ int Utils::intAt(const Dart_Handle &list, const int &pos)
     return static_cast<int>(conv);
 }
 
+double Utils::doubleAt(const Dart_Handle &list, const int &pos)
+{
+    intptr_t i = static_cast<intptr_t>(pos);
+    Dart_Handle res = Dart_ListGetAt(list, i);
+    propagateError(res);
+    double conv = toDouble(res);
+    return static_cast<double>(conv);
+}
+
 Dart_Handle Utils::newRectangle(const int &x, const int &y, const int &width, const int &height)
 {
     const int COUNT_OF_PARAMS = 4;

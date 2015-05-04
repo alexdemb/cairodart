@@ -85,6 +85,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "paint_with_alpha", CairoDart::paint_with_alpha },
   { "show_page", CairoDart::show_page },
   { "copy_page", CairoDart::copy_page },
+  { "get_dash", CairoDart::get_dash },
+  { "set_dash", CairoDart::set_dash },
+  { "get_dash_count", CairoDart::get_dash_count },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -824,6 +827,57 @@ void CairoDart::copy_page(Dart_NativeArguments args)
     ctx->copyPage();
 
     Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::set_dash(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    Dart_Handle dashesList = arg.arg(1);
+    double offset = arg.doubleArg(2);
+
+    int num = Utils::listLength(dashesList);
+
+    double dashes[num];
+    for (int i = 0; i < num; i++)
+    {
+       dashes[i] = Utils::doubleAt(dashesList, i);
+    }
+
+    ctx->setDash(dashes, num, offset);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::get_dash(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    int count = ctx->getDashCount();
+    double dashes[count];
+    double offset = 0.0D;
+
+    ctx->getDash(dashes, &offset);
+
+
+    Dart_Handle dashesHandle = Utils::newList(count);
+    for (int i = 0; i < count; i++)
+    {
+        Dart_ListSetAt(dashesHandle, i, Dart_NewDouble(dashes[i]));
+    }
+
+    Dart_Handle offsetHandle = Dart_NewDouble(offset);
+
+    Dart_Handle ctorArgs[2] = { dashesHandle, offsetHandle };
+    Dart_Handle dash = Utils::newObject("_Dash", "", 2, ctorArgs);
+
+    Dart_SetReturnValue(args, dash);
+}
+
+void CairoDart::get_dash_count(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    int count = ctx->getDashCount();
+    Dart_SetReturnValue(args, Dart_NewInteger(count));
 }
 
 // cairo_format_t

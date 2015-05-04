@@ -29,3 +29,4 @@ part 'bindings/operator.dart';
 part 'bindings/fill_rule.dart';
 part 'bindings/antialias.dart';
 part 'bindings/rectangle_list.dart';
+part 'bindings/dash.dart';

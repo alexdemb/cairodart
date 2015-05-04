@@ -554,6 +554,12 @@ runContextTests() {
       
       // TODO: Implement correct assertions.
     });
-
+    test('should successfully copy and show pages', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+      ctx.copyPage();
+      ctx.showPage();
+      
+      // TODO: Implement correct assertions.
+    });
   });
 }

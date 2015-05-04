@@ -395,6 +395,18 @@ void Context::paintWithAlpha(const double &alpha) const
     verify();
 }
 
+void Context::copyPage() const
+{
+    cairo_copy_page(this->c);
+    verify();
+}
+
+void Context::showPage() const
+{
+    cairo_show_page(this->c);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

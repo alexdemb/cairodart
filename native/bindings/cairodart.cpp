@@ -83,6 +83,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "mask", CairoDart::mask },
   { "mask_surface", CairoDart::mask_surface },
   { "paint_with_alpha", CairoDart::paint_with_alpha },
+  { "show_page", CairoDart::show_page },
+  { "copy_page", CairoDart::copy_page },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -802,6 +804,24 @@ void CairoDart::paint_with_alpha(Dart_NativeArguments args)
     double alpha = arg.doubleArg(1);
 
     ctx->paintWithAlpha(alpha);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::show_page(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+
+    ctx->showPage();
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::copy_page(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+
+    ctx->copyPage();
 
     Dart_SetReturnValue(args, Dart_Null());
 }

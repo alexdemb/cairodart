@@ -77,6 +77,8 @@ public:
     static void mask(Dart_NativeArguments args);
     static void mask_surface(Dart_NativeArguments args);
     static void paint_with_alpha(Dart_NativeArguments args);
+    static void show_page(Dart_NativeArguments args);
+    static void copy_page(Dart_NativeArguments args);
 
     // cairo_surface_t
     static void image_surface_create(Dart_NativeArguments args);

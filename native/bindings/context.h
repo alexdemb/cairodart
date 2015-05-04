@@ -80,6 +80,8 @@ public:
     void mask(Pattern* pattern) const;
     void maskSurface(const Surface* surface, const double& x, const double& y) const;
     void paintWithAlpha(const double& alpha) const;
+    void copyPage() const;
+    void showPage() const;
 };
 
 } // bindings

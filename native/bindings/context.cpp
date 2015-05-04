@@ -389,6 +389,12 @@ void Context::maskSurface(const Surface *surface, const double &x, const double 
     verify();
 }
 
+void Context::paintWithAlpha(const double &alpha) const
+{
+    cairo_paint_with_alpha(this->c, alpha);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

@@ -19,6 +19,7 @@ abstract class Context {
   bool pointInStroke(Point p);
   Rectangle get strokeExtents;
   void paint();
+  void paintWithAlpha(double alpha);
   void moveTo(double x, double y);
   void relativeMoveTo(double x, double y);
   void moveToPoint(Point p);
@@ -229,5 +230,7 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   
   void maskSurface(Surface surface, Point point) => _maskSurface(surface, point.x.toDouble(), point.y.toDouble());
   
-  void _maskSurface(Surface surface, double x, double y) native 'mask_surface'; 
+  void _maskSurface(Surface surface, double x, double y) native 'mask_surface';
+  
+  void paintWithAlpha(double alpha) native 'paint_with_alpha';
 }

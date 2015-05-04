@@ -79,6 +79,7 @@ public:
     void destroyRectangleList(cairo_rectangle_list_t* list) const;
     void mask(Pattern* pattern) const;
     void maskSurface(const Surface* surface, const double& x, const double& y) const;
+    void paintWithAlpha(const double& alpha) const;
 };
 
 } // bindings

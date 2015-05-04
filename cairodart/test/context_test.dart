@@ -95,6 +95,10 @@ runContextTests() {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       ctx.paint();
     });
+    test('should successfully paint with alpha', () {
+      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      ctx.paintWithAlpha(0.5);
+    });    
     test('should return correct target', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);
       Context ctx = new Context(surface);

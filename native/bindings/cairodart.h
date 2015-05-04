@@ -76,6 +76,7 @@ public:
     static void rectangle_list_destroy(Dart_NativeArguments args);
     static void mask(Dart_NativeArguments args);
     static void mask_surface(Dart_NativeArguments args);
+    static void paint_with_alpha(Dart_NativeArguments args);
 
     // cairo_surface_t
     static void image_surface_create(Dart_NativeArguments args);

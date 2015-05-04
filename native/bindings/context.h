@@ -3,6 +3,7 @@
 
 #include "cairoobject.h"
 #include "surface.h"
+#include "pattern.h"
 #include <cairo/cairo.h>
 
 namespace cairodart
@@ -76,6 +77,8 @@ public:
     void fillExtents(double* x1, double* y1, double* x2, double* y2) const;
     cairo_rectangle_list_t* copyClipRectangleList() const;
     void destroyRectangleList(cairo_rectangle_list_t* list) const;
+    void mask(Pattern* pattern) const;
+    void maskSurface(const Surface* surface, const double& x, const double& y) const;
 };
 
 } // bindings

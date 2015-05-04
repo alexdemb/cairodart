@@ -80,6 +80,8 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "in_fill", CairoDart::in_fill },
   { "copy_clip_rectangle_list", CairoDart::copy_clip_rectangle_list },
   { "rectangle_list_destroy", CairoDart::rectangle_list_destroy },
+  { "mask", CairoDart::mask },
+  { "mask_surface", CairoDart::mask_surface },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -762,6 +764,32 @@ void CairoDart::rectangle_list_destroy(Dart_NativeArguments args)
 
     cairo_rectangle_list_t* list = Utils::bindingObject<cairo_rectangle_list_t>(rectList);
     ctx->destroyRectangleList(list);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::mask(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    Dart_Handle patternArg = arg.arg(1);
+    Pattern* pattern = Utils::bindingObject<Pattern>(patternArg);
+
+    ctx->mask(pattern);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::mask_surface(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    Dart_Handle surfaceArg = arg.arg(1);
+    double x = arg.doubleArg(2);
+    double y = arg.doubleArg(3);
+    Surface* surface = Utils::bindingObject<Surface>(surfaceArg);
+
+    ctx->maskSurface(surface, x, y);
 
     Dart_SetReturnValue(args, Dart_Null());
 }

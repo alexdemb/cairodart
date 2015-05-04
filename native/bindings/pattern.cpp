@@ -155,6 +155,11 @@ Matrix* Pattern::getMatrix() const
     return new Matrix(matrix);
 }
 
+cairo_pattern_t* Pattern::getHandle() const
+{
+    return this->pattern;
+}
+
 } // bindings
 
 } // cairodart

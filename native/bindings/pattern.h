@@ -45,6 +45,7 @@ public:
     cairo_pattern_type_t getPatternType() const;
     void setMatrix(const Matrix* matrix) const;
     Matrix* getMatrix() const;
+    cairo_pattern_t* getHandle() const;
 
 
 };

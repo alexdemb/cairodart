@@ -46,6 +46,8 @@ abstract class Context {
   void fill();
   void fillPreserve();
   RectangleList copyClipRectangleList();
+  void mask(Pattern pattern);
+  void maskSurface(Surface surface, Point point);
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -223,4 +225,9 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   
   void _destroyRectangleList(RectangleList rectList) native 'rectangle_list_destroy';
   
+  void mask(Pattern pattern) native 'mask';
+  
+  void maskSurface(Surface surface, Point point) => _maskSurface(surface, point.x.toDouble(), point.y.toDouble());
+  
+  void _maskSurface(Surface surface, double x, double y) native 'mask_surface'; 
 }

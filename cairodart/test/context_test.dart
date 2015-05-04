@@ -533,6 +533,23 @@ runContextTests() {
       
       rectList.destroy();
     });
+    test('should correctly add mask', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+      Pattern pattern = new Pattern.mesh();
+      
+      ctx.mask(pattern); 
+      
+      // TODO: Implement correct assertions.
+    });
+    test('should correctly add surface mask', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+      Surface surface = new ImageSurface(Format.ARGB32, 30, 40);
+      Point p = new Point.from(10, 10);
+      
+      ctx.maskSurface(surface, p);
+      
+      // TODO: Implement correct assertions.
+    });
 
   });
 }

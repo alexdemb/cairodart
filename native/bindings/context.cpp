@@ -377,6 +377,18 @@ void Context::destroyRectangleList(cairo_rectangle_list_t *list) const
     verify();
 }
 
+void Context::mask(Pattern *pattern) const
+{
+    cairo_mask(this->c, pattern->getHandle());
+    verify();
+}
+
+void Context::maskSurface(const Surface *surface, const double &x, const double &y) const
+{
+    cairo_mask_surface(this->c, surface->getHandle(), x, y);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

@@ -447,6 +447,12 @@ Pattern* Context::getSource() const
     return pattern;
 }
 
+void Context::setSourceSurface(const Surface *surface, const double& x, const double &y) const
+{
+    cairo_set_source_surface(this->c, surface->getHandle(), x, y);
+    verify();
+}
+
 } // bindings
 
 } // cairodart

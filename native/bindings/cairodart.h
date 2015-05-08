@@ -85,6 +85,7 @@ public:
     static void set_dash(Dart_NativeArguments args);
     static void get_dash(Dart_NativeArguments args);
     static void get_dash_count(Dart_NativeArguments args);
+    static void set_source_surface(Dart_NativeArguments args);
 
     // cairo_surface_t
     static void image_surface_create(Dart_NativeArguments args);

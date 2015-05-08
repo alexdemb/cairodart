@@ -52,6 +52,7 @@ abstract class Context {
   void maskSurface(Surface surface, Point point);
   void showPage();
   void copyPage();
+  void setSourceSurface(Surface surface, double x, double y);
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -257,4 +258,6 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   Pattern get source native 'get_source';
   
   void set source(Pattern pattern) native 'set_source';
+  
+  void setSourceSurface(Surface surface, double x, double y) native 'set_source_surface';
 }

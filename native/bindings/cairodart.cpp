@@ -91,6 +91,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "get_dash", CairoDart::get_dash },
   { "set_dash", CairoDart::set_dash },
   { "get_dash_count", CairoDart::get_dash_count },
+  { "set_source_surface", CairoDart::set_source_surface },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -924,6 +925,20 @@ void CairoDart::get_source(Dart_NativeArguments args)
     Utils::setupBindingObject<Pattern>(patternObj, pattern, false);
 
     Dart_SetReturnValue(args, patternObj);
+}
+
+void CairoDart::set_source_surface(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    Dart_Handle surfaceObj = arg.arg(1);
+    double x = arg.doubleArg(2);
+    double y = arg.doubleArg(3);
+    Surface* surface = Utils::bindingObject<Surface>(surfaceObj);
+
+    ctx->setSourceSurface(surface, x, y);
+
+    Dart_SetReturnValue(args, Dart_Null());
 }
 
 // cairo_format_t

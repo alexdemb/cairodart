@@ -574,5 +574,12 @@ runContextTests() {
       expect(count, equals(2));
       expect(ctx.dash, equals(dash));
     });
+    test('should correctly set source surface', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+      ctx.setSourceSurface(new ImageSurface(Format.ARGB32, 50, 50), 50.0, 50.0);
+      
+      Pattern p = ctx.source;
+      expect(p, isNotNull);
+    });
   });
 }

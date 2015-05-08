@@ -1,5 +1,8 @@
 #include "utils.h"
 
+
+using namespace cairodart::bindings;
+
 namespace cairodart
 {
 
@@ -211,6 +214,20 @@ Dart_Handle Utils::newRectangleList(const Dart_Handle& context, const cairo_rect
     Dart_Handle result = newObject("_RectangleList", "", 3, ctorArgs);
 
     return result;
+}
+
+Dart_Handle Utils::newPattern(const Pattern *pattern)
+{
+    Dart_Handle patternObj;
+    if (CAIRO_PATTERN_TYPE_MESH == pattern->getPatternType())
+    {
+        patternObj = Utils::newObject("_MeshPattern", "", 0, NULL);
+    }
+    else
+    {
+        patternObj = Utils::newObject("_Pattern", "", 0, NULL);
+    }
+    return patternObj;
 }
 
 } // infrastructure

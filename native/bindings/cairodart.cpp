@@ -30,6 +30,9 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "push_group", CairoDart::push_group },
   { "push_group_with_content", CairoDart::push_group_with_content },
   { "pop_group_to_source", CairoDart::pop_group_to_source },
+  { "pop_group", CairoDart::pop_group },
+  { "set_source", CairoDart::set_source },
+  { "get_source", CairoDart::get_source },
   { "set_source_rgb", CairoDart::set_source_rgb },
   { "set_source_rgba", CairoDart::set_source_rgba },
   { "stroke", CairoDart::stroke },
@@ -138,6 +141,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "pattern_get_type", CairoDart::pattern_get_type },
   { "pattern_get_matrix", CairoDart::pattern_get_matrix },
   { "pattern_set_matrix", CairoDart::pattern_set_matrix },
+  { "pattern_equals", CairoDart::pattern_equals },
   { "matrix_create", CairoDart::matrix_create },
   { "matrix_xx", CairoDart::matrix_xx },
   { "matrix_yx", CairoDart::matrix_yx },
@@ -880,6 +884,48 @@ void CairoDart::get_dash_count(Dart_NativeArguments args)
     Dart_SetReturnValue(args, Dart_NewInteger(count));
 }
 
+void CairoDart::pop_group(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    Pattern* pattern = ctx->popGroup();
+
+    Dart_Handle patternObj = Utils::newPattern(pattern);
+
+    Utils::setupBindingObject<Pattern>(patternObj, pattern);
+    Dart_SetReturnValue(args, patternObj);
+}
+
+void CairoDart::set_source(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    Dart_Handle patternObj = arg.arg(1);
+    Pattern* pattern = Utils::bindingObject<Pattern>(patternObj);
+
+    ctx->setSource(pattern);
+
+    Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::get_source(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+
+    Pattern* pattern = ctx->getSource();
+
+    if (pattern == nullptr)
+    {
+        Dart_SetReturnValue(args, Dart_Null());
+        return;
+    }
+
+    Dart_Handle patternObj = Utils::newPattern(pattern);
+    Utils::setupBindingObject<Pattern>(patternObj, pattern, false);
+
+    Dart_SetReturnValue(args, patternObj);
+}
+
 // cairo_format_t
 
 void CairoDart::format_stride_for_width(Dart_NativeArguments args)
@@ -1479,6 +1525,17 @@ void CairoDart::pattern_set_matrix(Dart_NativeArguments args)
     pattern->setMatrix(matrix);
 
     Dart_SetReturnValue(args, Dart_Null());
+}
+
+void CairoDart::pattern_equals(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
+    Dart_Handle otherObj = arg.arg(1);
+    Pattern* otherPattern = Utils::bindingObject<Pattern>(otherObj);
+
+    bool equals = *pattern == *otherPattern;
+    Dart_SetReturnValue(args, Dart_NewBoolean(equals));
 }
 
 // cairo_matrix_t

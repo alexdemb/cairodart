@@ -5,26 +5,30 @@ runContextTests() {
     test('should be successfully created from ImageSurface', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
     });
-    test('should successfully perform saving', () {
-      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.save();
-    });
-    test('should successfully perform restoring', () {
+    test('should successfully perform saving/restoring', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       ctx.save();
       ctx.restore();
     });
-    test('should successfully perform push group', () {
+    test('should successfully get/set source', () {
+      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      Pattern p = new Pattern.fromRgb(25.0, 25.0, 25.0);
+      Pattern other = new Pattern.mesh();
+      
+      ctx.source = p;
+      
+      expect(ctx.source, equals(p));
+      expect(ctx.source, isNot(equals(other)));      
+    });
+    test('should successfully perform push/pop group', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       ctx.pushGroup();
+      Pattern p = ctx.popGroup();
+      expect(p, isNotNull);
     });
-    test('should successfully perform push group with content', () {
+    test('should successfully perform push group with content/pop group', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       ctx.pushGroupWithContent(Content.COLOR_ALPHA);
-    });
-    test('should successfully perform pop group to source', () {
-      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.pushGroup();
       ctx.popGroupToSource();
     });
     test('should successfully set RGB', () {

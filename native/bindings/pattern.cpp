@@ -160,6 +160,11 @@ cairo_pattern_t* Pattern::getHandle() const
     return this->pattern;
 }
 
+bool Pattern::operator ==(const Pattern& other)
+{
+    return this->getHandle() == other.getHandle();
+}
+
 } // bindings
 
 } // cairodart

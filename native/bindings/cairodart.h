@@ -24,6 +24,9 @@ public:
     static void push_group(Dart_NativeArguments args);
     static void push_group_with_content(Dart_NativeArguments args);
     static void pop_group_to_source(Dart_NativeArguments args);
+    static void pop_group(Dart_NativeArguments args);
+    static void set_source(Dart_NativeArguments args);
+    static void get_source(Dart_NativeArguments args);
     static void set_source_rgb(Dart_NativeArguments args);
     static void set_source_rgba(Dart_NativeArguments args);
     static void stroke(Dart_NativeArguments args);
@@ -135,7 +138,7 @@ public:
     static void pattern_get_type(Dart_NativeArguments args);
     static void pattern_get_matrix(Dart_NativeArguments args);
     static void pattern_set_matrix(Dart_NativeArguments args);
-
+    static void pattern_equals(Dart_NativeArguments args);
 
     // cairo_format_t
     static void format_stride_for_width(Dart_NativeArguments args);

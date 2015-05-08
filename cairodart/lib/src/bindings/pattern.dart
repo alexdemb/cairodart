@@ -33,9 +33,10 @@ abstract class Pattern {
   Matrix get matrix;
   void set matrix(Matrix matrix);
   
+  operator==(Pattern pattern);
 }
 
-abstract class MeshPattern {
+abstract class MeshPattern implements Pattern {
   
   factory MeshPattern() => new _MeshPattern();
   
@@ -124,7 +125,8 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   Matrix get matrix native 'pattern_get_matrix';
   void set matrix(Matrix matrix) native 'pattern_set_matrix';
     
-  
+  @override
+  operator==(Pattern pattern) native 'pattern_equals';
 }
 
 class _MeshPattern extends _Pattern implements MeshPattern {

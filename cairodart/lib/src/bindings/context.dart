@@ -11,6 +11,7 @@ abstract class Context {
   void pushGroup();
   void pushGroupWithContent(Content content);
   void popGroupToSource();
+  Pattern popGroup();
   void setSourceRgb(double red, double green, double blue);
   void setSourceRgba(double red, double green, double blue, double alpha);
   void stroke();
@@ -62,6 +63,7 @@ abstract class Context {
   Antialias antialias;
   
   Surface get target;
+  Pattern source;
   
   bool get hasCurrentPoint;
   Point get currentPoint;
@@ -249,4 +251,10 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void _setDash(List<double> dashes, double offset) native 'set_dash';
   
   int get dashCount native 'get_dash_count';
+  
+  Pattern popGroup() native 'pop_group';
+  
+  Pattern get source native 'get_source';
+  
+  void set source(Pattern pattern) native 'set_source';
 }

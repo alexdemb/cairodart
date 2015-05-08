@@ -425,6 +425,28 @@ int Context::getDashCount() const
     return count;
 }
 
+Pattern* Context::popGroup() const
+{
+    cairo_pattern_t* p = cairo_pop_group(this->c);
+    verify();
+    Pattern* pattern = new Pattern(p);
+    return pattern;
+}
+
+void Context::setSource(const Pattern *pattern) const
+{
+    cairo_set_source(this->c, pattern->getHandle());
+    verify();
+}
+
+Pattern* Context::getSource() const
+{
+    cairo_pattern_t* p = cairo_get_source(this->c);
+    verify();
+    Pattern* pattern = new Pattern(p);
+    return pattern;
+}
+
 } // bindings
 
 } // cairodart

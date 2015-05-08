@@ -20,8 +20,9 @@ class Pattern : public CairoObject
 {
 protected:
     cairo_pattern_t* pattern;
-    Pattern(cairo_pattern_t* pattern);
+
 public:
+    Pattern(cairo_pattern_t* pattern);
     static Pattern* createPatternForRgb(const double& red, const double& green, const double& blue);
     static Pattern* createPatternForRgba(const double& red, const double& green, const double& blue, const double& alpha);
     static Pattern* createForSurface(const Surface* surface);
@@ -46,6 +47,8 @@ public:
     void setMatrix(const Matrix* matrix) const;
     Matrix* getMatrix() const;
     cairo_pattern_t* getHandle() const;
+
+    bool operator==(const Pattern& other);
 
 
 };

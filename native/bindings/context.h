@@ -27,6 +27,9 @@ public:
     void pushGroup() const;
     void pushGroupWithContent(const cairo_content_t& c) const;
     void popGroupToSource() const;
+    Pattern* popGroup() const;
+    void setSource(const Pattern* pattern) const;
+    Pattern* getSource() const;
     void setSourceRgb(double& red, double& green, double& blue) const;
     void setSourceRgba(double& red, double& green, double& blue, double& alpha) const;
     void stroke() const;

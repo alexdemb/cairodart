@@ -17,6 +17,7 @@ protected:
     cairo_surface_t* surface;
     Surface();
 public:
+    Surface(cairo_surface_t* surface);
     virtual ~Surface();
 
     void verify() const;
@@ -36,6 +37,8 @@ public:
     void setFallbackResolution(const double& xRes, const double& yRes) const;
     void getFallbackResolution(double& xRes, double& yRes) const;
     cairo_surface_t* getHandle() const;
+
+    bool operator==(const Surface& other);
 };
 
 } // bindings

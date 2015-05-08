@@ -86,6 +86,7 @@ public:
     static void get_dash(Dart_NativeArguments args);
     static void get_dash_count(Dart_NativeArguments args);
     static void set_source_surface(Dart_NativeArguments args);
+    static void get_group_target(Dart_NativeArguments args);
 
     // cairo_surface_t
     static void image_surface_create(Dart_NativeArguments args);
@@ -108,6 +109,7 @@ public:
     static void surface_set_fallback_resolution(Dart_NativeArguments args);
     static void image_surface_create_from_png(Dart_NativeArguments args);
     static void surface_write_to_png(Dart_NativeArguments args);
+    static void surfaces_equals(Dart_NativeArguments args);
 
     // cairo_pattern_t
     static void pattern_create_rgb(Dart_NativeArguments args);

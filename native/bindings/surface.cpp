@@ -13,6 +13,10 @@ Surface::Surface()
 {
 }
 
+Surface::Surface(cairo_surface_t* surface) : surface(surface)
+{
+}
+
 Surface::~Surface()
 {
     if (this->surface)
@@ -20,6 +24,11 @@ Surface::~Surface()
         cairo_surface_destroy(this->surface);
         this->surface = nullptr;
     }
+}
+
+bool Surface::operator ==(const Surface& other)
+{
+    return other.getHandle() == getHandle();
 }
 
 void Surface::verify() const

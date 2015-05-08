@@ -227,7 +227,25 @@ Dart_Handle Utils::newPattern(const Pattern *pattern)
     {
         patternObj = Utils::newObject("_Pattern", "", 0, NULL);
     }
+
     return patternObj;
+}
+
+Dart_Handle Utils::newSurface(const Surface *surface)
+{
+    Dart_Handle surfaceObj;
+
+    switch (surface->surfaceType())
+    {
+    case CAIRO_SURFACE_TYPE_IMAGE:
+        surfaceObj = Utils::newObject("_ImageSurface", "internal", 0, NULL);
+        break;
+    default:
+        surfaceObj = Utils::newObject("_Surface", "", 0, NULL);
+        break;
+    }
+
+    return surfaceObj;
 }
 
 } // infrastructure

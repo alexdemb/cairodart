@@ -72,6 +72,7 @@ abstract class Context {
   double tolerance;
   Dash dash;
   int get dashCount;
+  Surface get groupTarget;
 }
 
 
@@ -260,4 +261,6 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void set source(Pattern pattern) native 'set_source';
   
   void setSourceSurface(Surface surface, double x, double y) native 'set_source_surface';
+  
+  Surface get groupTarget native 'get_group_target';
 }

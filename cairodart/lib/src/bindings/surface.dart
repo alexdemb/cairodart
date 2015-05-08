@@ -17,6 +17,8 @@ abstract class Surface {
   SurfaceType get surfaceType;
   Resolution get fallbackResolution;
   void set fallbackResolution(Resolution resolution);
+  
+  operator==(Surface other);
 }
 
 abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
@@ -58,6 +60,7 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   
   void _fallbackResolution(double x, double y) native 'surface_set_fallback_resolution';
   
+  operator==(Surface other) native 'surfaces_equals';
 }
 
 abstract class ImageSurface implements Surface {
@@ -82,6 +85,8 @@ class _ImageSurface extends _Surface implements ImageSurface {
     _createImageSurface(format.value, width, height);
     _format = format;
   }
+  
+  _ImageSurface.internal(){}
   
   void _createImageSurface(int format, int width, int height) native 'image_surface_create';
   

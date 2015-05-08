@@ -92,6 +92,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "set_dash", CairoDart::set_dash },
   { "get_dash_count", CairoDart::get_dash_count },
   { "set_source_surface", CairoDart::set_source_surface },
+  { "get_group_target", CairoDart::get_group_target },
   { "image_surface_create", CairoDart::image_surface_create },
   { "image_surface_get_width", CairoDart::image_surface_get_width },
   { "image_surface_get_height", CairoDart::image_surface_get_height },
@@ -111,6 +112,7 @@ static std::map<std::string, Dart_NativeFunction> FUNCTIONS_MAP =
   { "surface_get_type", CairoDart::surface_get_type },
   { "surface_get_fallback_resolution", CairoDart::surface_get_fallback_resolution },
   { "surface_set_fallback_resolution", CairoDart::surface_set_fallback_resolution },
+  { "surfaces_equals", CairoDart::surfaces_equals },
   { "image_surface_create_from_png", CairoDart::image_surface_create_from_png },
   { "surface_write_to_png", CairoDart::surface_write_to_png },
   { "pattern_create_rgb", CairoDart::pattern_create_rgb },
@@ -941,6 +943,18 @@ void CairoDart::set_source_surface(Dart_NativeArguments args)
     Dart_SetReturnValue(args, Dart_Null());
 }
 
+void CairoDart::get_group_target(Dart_NativeArguments args)
+{
+    Context* ctx = Utils::thisFromArg<Context>(args);
+    Surface* surface = ctx->getGroupTarget();
+    Dart_Handle res = Utils::newSurface(surface);
+
+    Utils::setupBindingObject<Surface>(res, surface, false);
+
+    Dart_SetReturnValue(args, res);
+}
+
+
 // cairo_format_t
 
 void CairoDart::format_stride_for_width(Dart_NativeArguments args)
@@ -1157,6 +1171,18 @@ void CairoDart::surface_write_to_png(Dart_NativeArguments args)
 
     Dart_SetReturnValue(args, Dart_Null());
 }
+
+void CairoDart::surfaces_equals(Dart_NativeArguments args)
+{
+    Arguments arg = args;
+    Surface* surface = Utils::thisFromArg<Surface>(args);
+    Dart_Handle otherObj = arg.arg(1);
+    Surface* other = Utils::bindingObject<Surface>(otherObj);
+
+    bool equals = *surface == *other;
+    Dart_SetReturnValue(args, Dart_NewBoolean(equals));
+}
+
 
 // cairo_pattern_t
 void CairoDart::pattern_create_rgb(Dart_NativeArguments args)

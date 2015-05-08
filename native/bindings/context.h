@@ -89,6 +89,7 @@ public:
     void setDash(const double* dashes, const int& num, const double& offset) const;
     int getDashCount() const;
     void setSourceSurface(const Surface* surface, const double& x, const double& y) const;
+    Surface* getGroupTarget() const;
 };
 
 } // bindings

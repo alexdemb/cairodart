@@ -453,6 +453,14 @@ void Context::setSourceSurface(const Surface *surface, const double& x, const do
     verify();
 }
 
+Surface* Context::getGroupTarget() const
+{
+    cairo_surface_t* s = cairo_get_group_target(this->c);
+    verify();
+    Surface* surface = new Surface(s);
+    return surface;
+}
+
 } // bindings
 
 } // cairodart

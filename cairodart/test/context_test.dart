@@ -581,5 +581,11 @@ runContextTests() {
       Pattern p = ctx.source;
       expect(p, isNotNull);
     });
+    test('should correctly get initial surface as group target', () {
+      var original = new ImageSurface(Format.ARGB32, 100, 100);
+      var ctx = new Context(original);
+      
+      expect(ctx.groupTarget, equals(original));
+    });
   });
 }

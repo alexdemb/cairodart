@@ -8,7 +8,8 @@ HEADERS += \
     bindings/pattern.h \
     bindings/meshpattern.h \
     bindings/matrix.h \
-    bindings/region.h
+    bindings/region.h \
+    bindings/fontface.h
 
 SOURCES += \
     bindings/cairodart.cpp \
@@ -21,4 +22,5 @@ SOURCES += \
     bindings/pattern.cpp \
     bindings/meshpattern.cpp \
     bindings/matrix.cpp \
-    bindings/region.cpp
+    bindings/region.cpp \
+    bindings/fontface.cpp

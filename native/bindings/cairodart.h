@@ -189,6 +189,9 @@ public:
     static void region_xor(Dart_NativeArguments args);
     static void region_xor_rectangle(Dart_NativeArguments args);
 
+    // cairo_font_face_t
+    static void font_face_get_type(Dart_NativeArguments args);
+
 private:
     CairoDart();
 };

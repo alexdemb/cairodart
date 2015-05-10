@@ -12,6 +12,7 @@
 #include "meshpattern.h"
 #include "matrix.h"
 #include "region.h"
+#include "fontface.h"
 
 using namespace cairodart::infrastructure;
 
@@ -2027,6 +2028,18 @@ void CairoDart::region_xor_rectangle(Dart_NativeArguments args)
     Dart_SetReturnValue(args, Dart_Null());
 }
 
+// cairo_font_face_t
+void CairoDart::font_face_get_type(Dart_NativeArguments args)
+{
+    FontFace* fontFace = Utils::thisFromArg<FontFace>(args);
+
+    cairo_font_type_t type = fontFace->getType();
+
+    Dart_Handle ctorArg[1] = { Dart_NewInteger(static_cast<int>(type)) };
+    Dart_Handle fontType = Utils::newObject("_FontType", "", 1, ctorArg);
+
+    Dart_SetReturnValue(args, fontType);
+}
 
 } // bindings
 

@@ -30,3 +30,5 @@ part 'bindings/fill_rule.dart';
 part 'bindings/antialias.dart';
 part 'bindings/rectangle_list.dart';
 part 'bindings/dash.dart';
+part 'bindings/font_type.dart';
+part 'bindings/font_face.dart';

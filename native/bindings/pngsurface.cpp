@@ -1,12 +1,22 @@
 #include "pngsurface.h"
 
 #include <cairo/cairo.h>
+#include "infrastructure/infrastructure.h"
+
+using namespace cairodart::infrastructure;
 
 namespace cairodart
 {
 
 namespace bindings
 {
+
+PngSurface* PngSurface::create(const char *fileName)
+{
+    PngSurface* surface = new PngSurface(fileName);
+    BindingObjectCache::getInstance()->add(surface->getHandle(), surface);
+    return surface;
+}
 
 PngSurface::PngSurface(const char* fileName)
 {

@@ -12,6 +12,8 @@ namespace bindings
 class PngSurface : public Surface
 {
 public:
+    static PngSurface* create(const char* fileName);
+
     PngSurface(const char* fileName);
     ~PngSurface();
 

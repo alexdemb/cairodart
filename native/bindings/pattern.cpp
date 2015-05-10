@@ -13,6 +13,28 @@ namespace cairodart
 namespace bindings
 {
 
+Pattern* Pattern::create(cairo_pattern_t *p)
+{
+    Pattern* pattern = new Pattern(p);
+    BindingObjectCache::getInstance()->add(p, pattern);
+    return pattern;
+}
+
+Pattern* Pattern::getOrCreate(cairo_pattern_t *p)
+{
+    Pattern* pattern = nullptr;
+    if (BindingObjectCache::getInstance()->has(p))
+    {
+        pattern = (Pattern*) BindingObjectCache::getInstance()->get(p);
+    }
+    else
+    {
+        pattern = Pattern::create(p);
+    }
+
+    return pattern;
+}
+
 Pattern::Pattern(cairo_pattern_t* pattern)
 {
     this->pattern = pattern;
@@ -39,37 +61,37 @@ void Pattern::verify() const
 Pattern* Pattern::createPatternForRgb(const double& red, const double& green, const double& blue)
 {
     cairo_pattern_t* p = cairo_pattern_create_rgb(red, green, blue);
-    return new Pattern(p);
+    return create(p);
 }
 
 Pattern* Pattern::createPatternForRgba(const double& red, const double& green, const double& blue, const double& alpha)
 {
     cairo_pattern_t* p = cairo_pattern_create_rgba(red, green, blue, alpha);
-    return new Pattern(p);
+    return create(p);
 }
 
 Pattern* Pattern::createForSurface(const Surface* surface)
 {
     cairo_pattern_t* p = cairo_pattern_create_for_surface(surface->getHandle());
-    return new Pattern(p);
+    return create(p);
 }
 
 Pattern* Pattern::createLinear(const double& x0, const double& y0, const double& x1, const double& y1)
 {
     cairo_pattern_t* p = cairo_pattern_create_linear(x0, y0, x1, y1);
-    return new Pattern(p);
+    return create(p);
 }
 
 Pattern* Pattern::createRadial(const double& cx0, const double& cy0, const double& radius0, const double& cx1, const double& cy1, const double& radius1)
 {
     cairo_pattern_t* p = cairo_pattern_create_radial(cx0, cy0, radius0, cx1, cy1, radius1);
-    return new Pattern(p);
+    return create(p);
 }
 
 MeshPattern* Pattern::createMesh()
 {
     cairo_pattern_t* p = cairo_pattern_create_mesh();
-    return new MeshPattern(p);
+    return MeshPattern::createMesh(p);
 }
 
 void Pattern::addColorStop(const double& offset, const double& red, const double& green, const double& blue) const

@@ -1,4 +1,7 @@
 #include "meshpattern.h"
+#include "infrastructure/infrastructure.h"
+
+using namespace cairodart::infrastructure;
 
 namespace cairodart
 {
@@ -6,6 +9,12 @@ namespace cairodart
 namespace bindings
 {
 
+MeshPattern* MeshPattern::createMesh(cairo_pattern_t *p)
+{
+    MeshPattern* mp = new MeshPattern(p);
+    BindingObjectCache::getInstance()->add(p, mp);
+    return mp;
+}
 
 MeshPattern::MeshPattern(cairo_pattern_t* p) : Pattern(p)
 {

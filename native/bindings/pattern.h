@@ -22,6 +22,8 @@ protected:
     cairo_pattern_t* pattern;
 
 public:
+    static Pattern* getOrCreate(cairo_pattern_t* p);
+    static Pattern* create(cairo_pattern_t* p);
     Pattern(cairo_pattern_t* pattern);
     static Pattern* createPatternForRgb(const double& red, const double& green, const double& blue);
     static Pattern* createPatternForRgba(const double& red, const double& green, const double& blue, const double& alpha);

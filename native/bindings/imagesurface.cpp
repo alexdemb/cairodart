@@ -1,10 +1,20 @@
 #include "imagesurface.h"
+#include "infrastructure/infrastructure.h"
+
+using namespace cairodart::infrastructure;
 
 namespace cairodart
 {
 
 namespace bindings
 {
+
+ImageSurface* ImageSurface::create(const cairo_format_t &format, int width, int height)
+{
+    ImageSurface* surface = new ImageSurface(format, width, height);
+    BindingObjectCache::getInstance()->add(surface->getHandle(), surface);
+    return surface;
+}
 
 ImageSurface::ImageSurface(const cairo_format_t& format, int width, int height)
 {

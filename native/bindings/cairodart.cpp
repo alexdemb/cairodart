@@ -210,7 +210,7 @@ void CairoDart::context_create(Dart_NativeArguments args)
 
     Surface* surface = Utils::bindingObject<Surface>(surfaceObj);
 
-    Context* ctx = new Context(surface);
+    Context* ctx = Context::create(surface);
 
     Utils::setupBindingObject<Context>(obj, ctx);
 
@@ -979,7 +979,7 @@ void CairoDart::image_surface_create(Dart_NativeArguments args)
     int64_t width = arg.intArg(2);
     int64_t height = arg.intArg(3);
 
-    ImageSurface* surface = new ImageSurface(static_cast<cairo_format_t>(format), width, height);
+    ImageSurface* surface = ImageSurface::create(static_cast<cairo_format_t>(format), width, height);
     Utils::setupBindingObject(obj, surface);
 
     Dart_SetReturnValue(args, Dart_Null());
@@ -1154,7 +1154,7 @@ void CairoDart::image_surface_create_from_png(Dart_NativeArguments args)
     Dart_Handle surfaceObj = arg.arg(0);
     std::string fileName = arg.stringArg(1);
 
-    PngSurface* surface = new PngSurface(fileName.c_str());
+    PngSurface* surface = PngSurface::create(fileName.c_str());
 
     Utils::setupBindingObject<PngSurface>(surfaceObj, surface);
 
@@ -1782,7 +1782,7 @@ void CairoDart::region_create(Dart_NativeArguments args)
     Dart_Handle obj = arg.arg(0);
 
     cairo_region_t* reg = cairo_region_create();
-    Region* region = new Region(reg);
+    Region* region = Region::create(reg);
 
     Utils::setupBindingObject<Region>(obj, region);
 
@@ -1806,7 +1806,7 @@ void CairoDart::region_create_rectangle(Dart_NativeArguments args)
 
     cairo_region_t* reg = cairo_region_create_rectangle(&rect);
 
-    Region* region = new Region(reg);
+    Region* region = Region::create(reg);
 
     Utils::setupBindingObject<Region>(obj, region);
 
@@ -1835,7 +1835,7 @@ void CairoDart::region_create_rectangles(Dart_NativeArguments args)
 
     cairo_region_t* reg = cairo_region_create_rectangles(&rectangles[0], rectangles.size());
 
-    Region* region = new Region(reg);
+    Region* region = Region::create(reg);
 
     Utils::setupBindingObject<Region>(obj, region);
 

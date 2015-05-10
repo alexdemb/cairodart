@@ -11,10 +11,11 @@ namespace cairodart
 namespace bindings
 {
 
-
 class Region : public CairoObject
 {
 public:
+    static Region* create(cairo_region_t* r);
+
     Region(cairo_region_t* r);
     ~Region();
 

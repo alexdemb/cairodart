@@ -9,6 +9,7 @@
 #include <cstdarg>
 #include "bindings/pattern.h"
 #include "bindings/meshpattern.h"
+#include "bindingobjectcache.h"
 
 using namespace cairodart::bindings;
 

@@ -16,8 +16,9 @@ class Surface : public CairoObject
 protected:
     cairo_surface_t* surface;
     Surface();
-public:
     Surface(cairo_surface_t* surface);
+public:
+
     virtual ~Surface();
 
     void verify() const;

@@ -16,9 +16,14 @@ class Context : public CairoObject
 {
 private:
     cairo_t* c;
+
 public:
-    Context(Surface* c);
+    static Context* create(const Surface* surface);
+    Context(const Surface* c);
+
     virtual ~Context();
+
+    const cairo_t* getHandle() const;
 
     void verify() const;
 

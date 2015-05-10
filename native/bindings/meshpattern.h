@@ -12,6 +12,8 @@ namespace bindings
 class MeshPattern : public Pattern
 {
 public:
+    static MeshPattern* createMesh(cairo_pattern_t* p);
+
     MeshPattern(cairo_pattern_t* p);
 
     virtual ~MeshPattern();

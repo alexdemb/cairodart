@@ -10,6 +10,13 @@ namespace cairodart
 namespace bindings
 {
 
+Region* Region::create(cairo_region_t *r)
+{
+    Region* region = new Region(r);
+    BindingObjectCache::getInstance()->add(r, region);
+    return region;
+}
+
 
 Region::Region(cairo_region_t* r)
 {
@@ -35,7 +42,7 @@ Region* Region::copy() const
 {
     cairo_region_t* copy = cairo_region_copy(this->r);
     verify();
-    return new Region(copy);
+    return Region::create(copy);
 }
 
 cairo_rectangle_int_t Region::getExtents() const

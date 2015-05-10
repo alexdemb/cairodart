@@ -9,7 +9,14 @@ namespace cairodart
 namespace bindings
 {
 
-Context::Context(Surface* surface)
+Context* Context::create(const Surface* surface)
+{
+    Context* ctx = new Context(surface);
+    BindingObjectCache::getInstance()->add(ctx->getHandle(), ctx);
+    return ctx;
+}
+
+Context::Context(const Surface* surface)
 {
     cairo_t* handle = cairo_create(surface->getHandle());
     this->c = handle;
@@ -429,7 +436,7 @@ Pattern* Context::popGroup() const
 {
     cairo_pattern_t* p = cairo_pop_group(this->c);
     verify();
-    Pattern* pattern = new Pattern(p);
+    Pattern* pattern = Pattern::getOrCreate(p);
     return pattern;
 }
 
@@ -443,7 +450,7 @@ Pattern* Context::getSource() const
 {
     cairo_pattern_t* p = cairo_get_source(this->c);
     verify();
-    Pattern* pattern = new Pattern(p);
+    Pattern* pattern = Pattern::getOrCreate(p);
     return pattern;
 }
 
@@ -457,8 +464,13 @@ Surface* Context::getGroupTarget() const
 {
     cairo_surface_t* s = cairo_get_group_target(this->c);
     verify();
-    Surface* surface = new Surface(s);
+    Surface* surface = (Surface*) BindingObjectCache::getInstance()->get(s);
     return surface;
+}
+
+const cairo_t* Context::getHandle() const
+{
+    return c;
 }
 
 } // bindings

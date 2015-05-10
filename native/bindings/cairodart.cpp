@@ -7,7 +7,6 @@
 #include "infrastructure/infrastructure.h"
 #include "surface.h"
 #include "imagesurface.h"
-#include "pngsurface.h"
 #include "context.h"
 #include "pattern.h"
 #include "meshpattern.h"
@@ -1154,9 +1153,9 @@ void CairoDart::image_surface_create_from_png(Dart_NativeArguments args)
     Dart_Handle surfaceObj = arg.arg(0);
     std::string fileName = arg.stringArg(1);
 
-    PngSurface* surface = PngSurface::create(fileName.c_str());
+    ImageSurface* surface = ImageSurface::create(fileName.c_str());
 
-    Utils::setupBindingObject<PngSurface>(surfaceObj, surface);
+    Utils::setupBindingObject<ImageSurface>(surfaceObj, surface);
 
     Dart_SetReturnValue(args, Dart_Null());
 }
@@ -1164,7 +1163,7 @@ void CairoDart::image_surface_create_from_png(Dart_NativeArguments args)
 void CairoDart::surface_write_to_png(Dart_NativeArguments args)
 {
     Arguments arg = args;
-    PngSurface* surface = Utils::thisFromArg<PngSurface>(args);
+    ImageSurface* surface = Utils::thisFromArg<ImageSurface>(args);
     std::string fileName = arg.stringArg(1);
 
     surface->writeTo(fileName.c_str());

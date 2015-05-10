@@ -65,14 +65,18 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
 
 abstract class ImageSurface implements Surface {
   
-  factory ImageSurface(Format format, int width, int height) {
-    return new _ImageSurface(format, width, height);
-  }
+  factory ImageSurface(Format format, int width, int height) => new _ImageSurface(format, width, height);
+  
+  
+  factory ImageSurface.fromPng(String fileName) => new _ImageSurface.fromPng(fileName);
   
   int get width;
   int get height;
   int get stride;
   Format get format;
+  
+  void write();
+  void writeTo(String fileName);
   
 }
 
@@ -95,29 +99,17 @@ class _ImageSurface extends _Surface implements ImageSurface {
   int get stride native 'image_surface_get_stride';
   Format get format => _format;
   
-}
-
-abstract class PngSurface implements Surface {
-  
-  factory PngSurface(String fileName) => new _PngSurface(fileName);
-  
-  void write();
-  void writeTo(String fileName);
-  
-}
-
-class _PngSurface extends _Surface implements PngSurface {
-  
   String _fileName;
-  
-  _PngSurface(this._fileName) {
+    
+  _ImageSurface.fromPng(this._fileName) {
     _createPngSurface(_fileName);
   }
-  
+    
   void _createPngSurface(String fileName) native 'image_surface_create_from_png';
-  
+    
   void write() => writeTo(this._fileName);
-  
+    
   void writeTo(String fileName) native 'surface_write_to_png';
   
 }
+

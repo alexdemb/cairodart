@@ -1,6 +1,7 @@
 #include "dart_api.h"
 #include "cairodart.h"
 #include "infrastructure/infrastructure.h"
+#include "library.h"
 
 using namespace cairodart::infrastructure;
 using namespace cairodart::bindings;
@@ -33,6 +34,7 @@ DART_EXPORT Dart_Handle cairodart_Init(Dart_Handle parent_library)
         return result_code;
 
     CAIRODART_LIB = Dart_NewPersistentHandle(parent_library);
+    library_set(CAIRODART_LIB);
     return Dart_Null();
 }
 

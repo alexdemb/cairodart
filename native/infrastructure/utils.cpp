@@ -1,5 +1,5 @@
 #include "utils.h"
-
+#include "../library.h"
 
 using namespace cairodart::bindings;
 
@@ -91,7 +91,7 @@ Dart_Handle Utils::newObject(const std::string& className, const std::string& co
 {
     Dart_Handle constructorName = constructor.empty() ? Dart_Null() : Dart_NewStringFromCString(constructor.c_str());
     Dart_Handle clazz = Dart_NewStringFromCString(className.c_str());
-    Dart_Handle type = Dart_GetClass(cairodart::infrastructure::getLibrary(), clazz);
+    Dart_Handle type = Dart_GetClass(library_get(), clazz);
     propagateError(type);
     Dart_Handle obj = Dart_New(type, constructorName, argc, args);
     propagateError(obj);

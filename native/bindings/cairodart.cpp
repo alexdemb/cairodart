@@ -191,7 +191,7 @@ Dart_NativeFunction resolve(const char* name)
 {
     const int SIZE = sizeof(FUNCTIONS_MAP) / sizeof(DartFunctionMap);
     for (int i = 0; i < SIZE; i++) {
-        if (strcmp(name, FUNCTIONS_MAP[i].name))
+        if (strcmp(name, FUNCTIONS_MAP[i].name) == 0)
             return FUNCTIONS_MAP[i].fun;
     }
     return NULL;

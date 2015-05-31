@@ -10,6 +10,7 @@
 #include "bindings/pattern.h"
 #include "bindings/meshpattern.h"
 #include "bindingobjectcache.h"
+#include "../argument.h"
 
 using namespace cairodart::bindings;
 

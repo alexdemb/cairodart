@@ -1,6 +1,15 @@
 #include "fontface.h"
 #include "infrastructure/infrastructure.h"
 
+using namespace cairodart::infrastructure;
+
+namespace cairodart
+{
+
+
+namespace bindings
+{
+
 FontFace* FontFace::create(cairo_font_face_t *handle)
 {
     FontFace* face = new FontFace(handle);
@@ -34,4 +43,8 @@ void FontFace::verify() const
 {
     cairo_status_t status = cairo_font_face_status(fontFace);
     Utils::verify(status);
+}
+
+}
+
 }

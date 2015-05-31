@@ -3,6 +3,8 @@
 
 #include "dart_api.h"
 
+#define UNUSED(expr) (void)(expr);;
+
 Dart_Handle arg_get(Dart_NativeArguments* args, int index);
 
 int arg_get_int(Dart_NativeArguments* args, int index);

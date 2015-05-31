@@ -13,7 +13,6 @@ HEADERS += \
 
 SOURCES += \
     bindings/cairodart.cpp \
-    bindings/extension.cpp \
     bindings/surface.cpp \
     bindings/imagesurface.cpp \
     bindings/cairoobject.cpp \
@@ -23,4 +22,4 @@ SOURCES += \
     bindings/meshpattern.cpp \
     bindings/matrix.cpp \
     bindings/region.cpp \
-    bindings/fontface.cpp
+    bindings/fontface.cpp \

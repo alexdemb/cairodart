@@ -22,4 +22,5 @@ HEADERS += \
 SOURCES += \
     argument.c \
     error.c \
-    library.c
+    library.c \
+    extension.c

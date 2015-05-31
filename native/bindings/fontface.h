@@ -2,6 +2,14 @@
 #define FONTFACE_H
 
 #include "cairodart.h"
+#include "cairoobject.h"
+#include <cairo/cairo.h>
+
+namespace cairodart
+{
+
+namespace bindings
+{
 
 class FontFace : public CairoObject
 {
@@ -20,5 +28,9 @@ public:
 
 
 };
+
+}
+
+}
 
 #endif // FONTFACE_H

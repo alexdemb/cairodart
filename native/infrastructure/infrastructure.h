@@ -18,7 +18,6 @@ namespace infrastructure
 
 
 #include "utils.h"
-#include "arguments.h"
 #include "bindingobjectcache.h"
 
 #endif // INFRASTRUCTURE_H

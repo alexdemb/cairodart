@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <vector>
 
+#include "argument.h"
 #include "cairodart.h"
 #include "infrastructure/infrastructure.h"
 #include "surface.h"
@@ -204,9 +205,8 @@ Dart_NativeFunction CairoDart::resolve(std::string& name)
 
 void CairoDart::context_create(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    Dart_Handle surfaceObj = arg.arg(1);
+    Dart_Handle obj = arg_get(&args, 0);
+    Dart_Handle surfaceObj = arg_get(&args, 1);
 
     Surface* surface = Utils::bindingObject<Surface>(surfaceObj);
 
@@ -244,8 +244,7 @@ void CairoDart::push_group(Dart_NativeArguments args)
 
 void CairoDart::push_group_with_content(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    int content = arg.intArg(1);
+    int content = arg_get_int(&args, 1);
 
     Context* ctx = Utils::thisFromArg<Context>(args);
 
@@ -264,11 +263,10 @@ void CairoDart::pop_group_to_source(Dart_NativeArguments args)
 
 void CairoDart::set_source_rgb(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    double r = arg.doubleArg(1);
-    double g = arg.doubleArg(2);
-    double b = arg.doubleArg(3);
+    double r = arg_get_double(&args, 1);
+    double g = arg_get_double(&args, 2);
+    double b = arg_get_double(&args, 3);
 
     ctx->setSourceRgb(r, g, b);
 
@@ -277,12 +275,11 @@ void CairoDart::set_source_rgb(Dart_NativeArguments args)
 
 void CairoDart::set_source_rgba(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    double r = arg.doubleArg(1);
-    double g = arg.doubleArg(2);
-    double b = arg.doubleArg(3);
-    double a = arg.doubleArg(4);
+    double r = arg_get_double(&args, 1);
+    double g = arg_get_double(&args, 2);
+    double b = arg_get_double(&args, 3);
+    double a = arg_get_double(&args, 4);
 
     ctx->setSourceRgba(r, g, b, a);
 
@@ -307,10 +304,9 @@ void CairoDart::stroke_preserve(Dart_NativeArguments args)
 
 void CairoDart::in_stroke(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
 
     bool res = ctx->inStroke(x, y);
 
@@ -343,9 +339,8 @@ void CairoDart::paint(Dart_NativeArguments args)
 
 void CairoDart::set_line_cap(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    cairo_line_cap_t cap = static_cast<cairo_line_cap_t>(arg.intArg(1));
+    cairo_line_cap_t cap = static_cast<cairo_line_cap_t>(arg_get_int(&args, 1));
     ctx->setLineCap(cap);
 
     Dart_SetReturnValue(args, Dart_Null());
@@ -364,9 +359,8 @@ void CairoDart::get_line_cap(Dart_NativeArguments args)
 
 void CairoDart::set_line_join(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    ctx->setLineJoin(static_cast<cairo_line_join_t>(arg.intArg(1)));
+    ctx->setLineJoin(static_cast<cairo_line_join_t>(arg_get_int(&args, 1)));
     Dart_SetReturnValue(args, Dart_Null());
 }
 
@@ -384,9 +378,8 @@ void CairoDart::get_line_join(Dart_NativeArguments args)
 
 void CairoDart::set_line_width(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    ctx->setLineWidth(arg.doubleArg(1));
+    ctx->setLineWidth(arg_get_double(&args, 1));
     Dart_SetReturnValue(args, Dart_Null());
 }
 
@@ -399,9 +392,8 @@ void CairoDart::get_line_width(Dart_NativeArguments args)
 
 void CairoDart::set_miter_limit(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    ctx->setMiterLimit(arg.doubleArg(1));
+    ctx->setMiterLimit(arg_get_double(&args, 1));
     Dart_SetReturnValue(args, Dart_Null());
 }
 
@@ -414,9 +406,8 @@ void CairoDart::get_miter_limit(Dart_NativeArguments args)
 
 void CairoDart::set_operator(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    cairo_operator_t op = static_cast<cairo_operator_t>(arg.intArg(1));
+    cairo_operator_t op = static_cast<cairo_operator_t>(arg_get_int(&args, 1));
     ctx->setOperator(op);
     Dart_SetReturnValue(args, Dart_Null());
 }
@@ -433,9 +424,8 @@ void CairoDart::get_operator(Dart_NativeArguments args)
 
 void CairoDart::set_fill_rule(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    cairo_fill_rule_t rule = static_cast<cairo_fill_rule_t>(arg.intArg(1));
+    cairo_fill_rule_t rule = static_cast<cairo_fill_rule_t>(arg_get_int(&args, 1));
     ctx->setFillRule(rule);
     Dart_SetReturnValue(args, Dart_Null());
 }
@@ -459,9 +449,8 @@ void CairoDart::has_current_point(Dart_NativeArguments args)
 
 void CairoDart::move_to(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->moveTo(x, y);
 
@@ -470,9 +459,8 @@ void CairoDart::move_to(Dart_NativeArguments args)
 
 void CairoDart::line_to(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->lineTo(x, y);
 
@@ -481,11 +469,10 @@ void CairoDart::line_to(Dart_NativeArguments args)
 
 void CairoDart::rectangle(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
-    double w = arg.doubleArg(3);
-    double h = arg.doubleArg(4);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
+    double w = arg_get_double(&args, 3);
+    double h = arg_get_double(&args, 4);
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->rectangle(x, y, w, h);
 
@@ -526,12 +513,11 @@ void CairoDart::close_path(Dart_NativeArguments args)
 
 void CairoDart::arc(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double xc = arg.doubleArg(1);
-    double yc = arg.doubleArg(2);
-    double radius = arg.doubleArg(3);
-    double angle1 = arg.doubleArg(4);
-    double angle2 = arg.doubleArg(5);
+    double xc = arg_get_double(&args, 1);
+    double yc = arg_get_double(&args, 2);
+    double radius = arg_get_double(&args, 3);
+    double angle1 = arg_get_double(&args, 4);
+    double angle2 = arg_get_double(&args, 5);
 
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->arc(xc, yc, radius, angle1, angle2);
@@ -541,12 +527,11 @@ void CairoDart::arc(Dart_NativeArguments args)
 
 void CairoDart::arc_negative(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double xc = arg.doubleArg(1);
-    double yc = arg.doubleArg(2);
-    double radius = arg.doubleArg(3);
-    double angle1 = arg.doubleArg(4);
-    double angle2 = arg.doubleArg(5);
+    double xc = arg_get_double(&args, 1);
+    double yc = arg_get_double(&args, 2);
+    double radius = arg_get_double(&args, 3);
+    double angle1 = arg_get_double(&args, 4);
+    double angle2 = arg_get_double(&args, 5);
 
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->negativeArc(xc, yc, radius, angle1, angle2);
@@ -556,13 +541,12 @@ void CairoDart::arc_negative(Dart_NativeArguments args)
 
 void CairoDart::curve_to(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double x1 = arg.doubleArg(1);
-    double y1 = arg.doubleArg(2);
-    double x2 = arg.doubleArg(3);
-    double y2 = arg.doubleArg(4);
-    double x3 = arg.doubleArg(5);
-    double y3 = arg.doubleArg(6);
+    double x1 = arg_get_double(&args, 1);
+    double y1 = arg_get_double(&args, 2);
+    double x2 = arg_get_double(&args, 3);
+    double y2 = arg_get_double(&args, 4);
+    double x3 = arg_get_double(&args, 5);
+    double y3 = arg_get_double(&args, 6);
 
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->curveTo(x1, y1, x2, y2, x3, y3);
@@ -572,9 +556,8 @@ void CairoDart::curve_to(Dart_NativeArguments args)
 
 void CairoDart::rel_line_to(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->relLineTo(x, y);
 
@@ -583,9 +566,8 @@ void CairoDart::rel_line_to(Dart_NativeArguments args)
 
 void CairoDart::rel_move_to(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->relMoveTo(x, y);
 
@@ -594,13 +576,12 @@ void CairoDart::rel_move_to(Dart_NativeArguments args)
 
 void CairoDart::rel_curve_to(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double x1 = arg.doubleArg(1);
-    double y1 = arg.doubleArg(2);
-    double x2 = arg.doubleArg(3);
-    double y2 = arg.doubleArg(4);
-    double x3 = arg.doubleArg(5);
-    double y3 = arg.doubleArg(6);
+    double x1 = arg_get_double(&args, 1);
+    double y1 = arg_get_double(&args, 2);
+    double x2 = arg_get_double(&args, 3);
+    double y2 = arg_get_double(&args, 4);
+    double x3 = arg_get_double(&args, 5);
+    double y3 = arg_get_double(&args, 6);
 
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->relCurveTo(x1, y1, x2, y2, x3, y3);
@@ -610,8 +591,7 @@ void CairoDart::rel_curve_to(Dart_NativeArguments args)
 
 void CairoDart::text_path(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    std::string text = arg.stringArg(1);
+    std::string text(arg_get_string(&args, 1));
 
     Context* ctx = Utils::thisFromArg<Context>(args);
     ctx->textPath(text.c_str());
@@ -643,9 +623,8 @@ void CairoDart::get_antialias(Dart_NativeArguments args)
 
 void CairoDart::set_antialias(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    cairo_antialias_t antialias = static_cast<cairo_antialias_t>(arg.intArg(1));
+    cairo_antialias_t antialias = static_cast<cairo_antialias_t>(arg_get_int(&args, 1));
 
     ctx->setAntialias(antialias);
     Dart_SetReturnValue(args, Dart_Null());
@@ -660,9 +639,8 @@ void CairoDart::get_tolerance(Dart_NativeArguments args)
 
 void CairoDart::set_tolerance(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    double tolerance = arg.doubleArg(1);
+    double tolerance = arg_get_double(&args, 1);
     ctx->setTolerance(tolerance);
     Dart_SetReturnValue(args, Dart_Null());
 }
@@ -683,10 +661,9 @@ void CairoDart::clip_preserve(Dart_NativeArguments args)
 
 void CairoDart::in_clip(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
 
     bool result = ctx->inClip(x, y);
     Dart_SetReturnValue(args, Dart_NewBoolean(result));
@@ -745,10 +722,9 @@ void CairoDart::fill_extents(Dart_NativeArguments args)
 
 void CairoDart::in_fill(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
 
     bool result = ctx->inFill(x, y);
     Dart_SetReturnValue(args, Dart_NewBoolean(result));
@@ -757,8 +733,7 @@ void CairoDart::in_fill(Dart_NativeArguments args)
 
 void CairoDart::copy_clip_rectangle_list(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle context = arg.arg(0);
+    Dart_Handle context = arg_get(&args, 0);
     Context* ctx = Utils::thisFromArg<Context>(args);
 
     cairo_rectangle_list_t* rectList = ctx->copyClipRectangleList();
@@ -771,9 +746,8 @@ void CairoDart::copy_clip_rectangle_list(Dart_NativeArguments args)
 
 void CairoDart::rectangle_list_destroy(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    Dart_Handle rectList = arg.arg(1);
+    Dart_Handle rectList = arg_get(&args, 1);
 
     cairo_rectangle_list_t* list = Utils::bindingObject<cairo_rectangle_list_t>(rectList);
     ctx->destroyRectangleList(list);
@@ -783,9 +757,8 @@ void CairoDart::rectangle_list_destroy(Dart_NativeArguments args)
 
 void CairoDart::mask(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    Dart_Handle patternArg = arg.arg(1);
+    Dart_Handle patternArg = arg_get(&args, 1);
     Pattern* pattern = Utils::bindingObject<Pattern>(patternArg);
 
     ctx->mask(pattern);
@@ -795,11 +768,10 @@ void CairoDart::mask(Dart_NativeArguments args)
 
 void CairoDart::mask_surface(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    Dart_Handle surfaceArg = arg.arg(1);
-    double x = arg.doubleArg(2);
-    double y = arg.doubleArg(3);
+    Dart_Handle surfaceArg = arg_get(&args, 1);
+    double x = arg_get_double(&args, 2);
+    double y = arg_get_double(&args, 3);
     Surface* surface = Utils::bindingObject<Surface>(surfaceArg);
 
     ctx->maskSurface(surface, x, y);
@@ -809,9 +781,8 @@ void CairoDart::mask_surface(Dart_NativeArguments args)
 
 void CairoDart::paint_with_alpha(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    double alpha = arg.doubleArg(1);
+    double alpha = arg_get_double(&args, 1);
 
     ctx->paintWithAlpha(alpha);
 
@@ -838,10 +809,9 @@ void CairoDart::copy_page(Dart_NativeArguments args)
 
 void CairoDart::set_dash(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    Dart_Handle dashesList = arg.arg(1);
-    double offset = arg.doubleArg(2);
+    Dart_Handle dashesList = arg_get(&args, 1);
+    double offset = arg_get_double(&args, 2);;
 
     int num = Utils::listLength(dashesList);
 
@@ -900,10 +870,8 @@ void CairoDart::pop_group(Dart_NativeArguments args)
 
 void CairoDart::set_source(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-
     Context* ctx = Utils::thisFromArg<Context>(args);
-    Dart_Handle patternObj = arg.arg(1);
+    Dart_Handle patternObj = arg_get(&args, 1);
     Pattern* pattern = Utils::bindingObject<Pattern>(patternObj);
 
     ctx->setSource(pattern);
@@ -931,11 +899,10 @@ void CairoDart::get_source(Dart_NativeArguments args)
 
 void CairoDart::set_source_surface(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Context* ctx = Utils::thisFromArg<Context>(args);
-    Dart_Handle surfaceObj = arg.arg(1);
-    double x = arg.doubleArg(2);
-    double y = arg.doubleArg(3);
+    Dart_Handle surfaceObj = arg_get(&args, 1);
+    double x = arg_get_double(&args, 2);
+    double y = arg_get_double(&args, 3);
     Surface* surface = Utils::bindingObject<Surface>(surfaceObj);
 
     ctx->setSourceSurface(surface, x, y);
@@ -959,9 +926,8 @@ void CairoDart::get_group_target(Dart_NativeArguments args)
 
 void CairoDart::format_stride_for_width(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    int format = arg.intArg(1);
-    int width = arg.intArg(2);
+    int format = arg_get_int(&args, 1);
+    int width = arg_get_int(&args, 2);
 
     int stride = Format::strideForWidth(static_cast<cairo_format_t>(format), width);
 
@@ -973,11 +939,10 @@ void CairoDart::format_stride_for_width(Dart_NativeArguments args)
 
 void CairoDart::image_surface_create(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    int format = arg.intArg(1);
-    int64_t width = arg.intArg(2);
-    int64_t height = arg.intArg(3);
+    Dart_Handle obj = arg_get(&args, 0);
+    int format = arg_get_int(&args, 1);
+    int64_t width = arg_get_int(&args, 2);
+    int64_t height = arg_get_int(&args, 3);
 
     ImageSurface* surface = ImageSurface::create(static_cast<cairo_format_t>(format), width, height);
     Utils::setupBindingObject(obj, surface);
@@ -1040,11 +1005,10 @@ void CairoDart::surface_mark_dirty(Dart_NativeArguments args)
 void CairoDart::surface_mark_dirty_rectangle(Dart_NativeArguments args)
 {
     Surface* surface = Utils::thisFromArg<Surface>(args);
-    Arguments arg = args;
-    int x = arg.intArg(1);
-    int y = arg.intArg(2);
-    int width = arg.intArg(3);
-    int height = arg.intArg(4);
+    int x = arg_get_int(&args, 1);
+    int y = arg_get_int(&args, 2);
+    int width = arg_get_int(&args, 3);
+    int height = arg_get_int(&args, 4);
 
     surface->markDirtyRect(x, y, width, height);
     Dart_SetReturnValue(args, Dart_Null());
@@ -1067,9 +1031,8 @@ void CairoDart::surface_get_device_offset(Dart_NativeArguments args)
 void CairoDart::surface_set_device_offset(Dart_NativeArguments args)
 {
     Surface* surface = Utils::thisFromArg<Surface>(args);
-    Arguments arg = args;
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
 
     surface->setDeviceOffset(x, y);
 
@@ -1098,8 +1061,7 @@ void CairoDart::surface_show_page(Dart_NativeArguments args)
 void CairoDart::surface_supports_mime_type(Dart_NativeArguments args)
 {
     Surface* surface = Utils::thisFromArg<Surface>(args);
-    Arguments arg = args;
-    std::string mime = arg.stringArg(1);
+    std::string mime(arg_get_string(&args, 1));
 
     bool supports = surface->supportsMimeType(mime.c_str());
     Dart_SetReturnValue(args, Dart_NewBoolean(supports));
@@ -1139,9 +1101,8 @@ void CairoDart::surface_get_fallback_resolution(Dart_NativeArguments args)
 void CairoDart::surface_set_fallback_resolution(Dart_NativeArguments args)
 {
     Surface* surface = Utils::thisFromArg<Surface>(args);
-    Arguments arg = args;
-    double xRes = arg.doubleArg(1);
-    double yRes = arg.doubleArg(2);
+    double xRes = arg_get_double(&args, 1);
+    double yRes = arg_get_double(&args, 2);
 
     surface->setFallbackResolution(xRes, yRes);
 
@@ -1150,9 +1111,8 @@ void CairoDart::surface_set_fallback_resolution(Dart_NativeArguments args)
 
 void CairoDart::image_surface_create_from_png(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle surfaceObj = arg.arg(0);
-    std::string fileName = arg.stringArg(1);
+    Dart_Handle surfaceObj = arg_get(&args, 0);
+    std::string fileName(arg_get_string(&args, 1));
 
     ImageSurface* surface = ImageSurface::create(fileName.c_str());
 
@@ -1163,9 +1123,8 @@ void CairoDart::image_surface_create_from_png(Dart_NativeArguments args)
 
 void CairoDart::surface_write_to_png(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     ImageSurface* surface = Utils::thisFromArg<ImageSurface>(args);
-    std::string fileName = arg.stringArg(1);
+    std::string fileName(arg_get_string(&args, 1));
 
     surface->writeTo(fileName.c_str());
 
@@ -1174,9 +1133,8 @@ void CairoDart::surface_write_to_png(Dart_NativeArguments args)
 
 void CairoDart::surfaces_equals(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Surface* surface = Utils::thisFromArg<Surface>(args);
-    Dart_Handle otherObj = arg.arg(1);
+    Dart_Handle otherObj = arg_get(&args, 1);
     Surface* other = Utils::bindingObject<Surface>(otherObj);
 
     bool equals = *surface == *other;
@@ -1187,11 +1145,10 @@ void CairoDart::surfaces_equals(Dart_NativeArguments args)
 // cairo_pattern_t
 void CairoDart::pattern_create_rgb(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    double red = arg.doubleArg(1);
-    double green = arg.doubleArg(2);
-    double blue = arg.doubleArg(3);
+    Dart_Handle obj = arg_get(&args, 0);
+    double red = arg_get_double(&args, 1);
+    double green = arg_get_double(&args, 2);
+    double blue = arg_get_double(&args, 3);
 
     Pattern* pattern = Pattern::createPatternForRgb(red, green, blue);
     Utils::setupBindingObject<Pattern>(obj, pattern);
@@ -1201,12 +1158,11 @@ void CairoDart::pattern_create_rgb(Dart_NativeArguments args)
 
 void CairoDart::pattern_create_rgba(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    double red = arg.doubleArg(1);
-    double green = arg.doubleArg(2);
-    double blue = arg.doubleArg(3);
-    double alpha = arg.doubleArg(4);
+    Dart_Handle obj = arg_get(&args, 0);
+    double red = arg_get_double(&args, 1);
+    double green = arg_get_double(&args, 2);
+    double blue = arg_get_double(&args, 3);
+    double alpha = arg_get_double(&args, 4);
 
     Pattern* pattern = Pattern::createPatternForRgba(red, green, blue, alpha);
     Utils::setupBindingObject<Pattern>(obj, pattern);
@@ -1216,9 +1172,8 @@ void CairoDart::pattern_create_rgba(Dart_NativeArguments args)
 
 void CairoDart::pattern_create_for_surface(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    Dart_Handle surfaceObj = arg.arg(1);
+    Dart_Handle obj = arg_get(&args, 0);
+    Dart_Handle surfaceObj = arg_get(&args, 1);
 
     Surface* surface = Utils::bindingObject<Surface>(surfaceObj);
 
@@ -1230,12 +1185,11 @@ void CairoDart::pattern_create_for_surface(Dart_NativeArguments args)
 
 void CairoDart::pattern_create_linear(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    double x0 = arg.doubleArg(1);
-    double y0 = arg.doubleArg(2);
-    double x1 = arg.doubleArg(3);
-    double y1 = arg.doubleArg(4);
+    Dart_Handle obj = arg_get(&args, 0);
+    double x0 = arg_get_double(&args, 1);
+    double y0 = arg_get_double(&args, 2);
+    double x1 = arg_get_double(&args, 3);
+    double y1 = arg_get_double(&args, 4);
 
     Pattern* pattern = Pattern::createLinear(x0, y0, x1, y1);
     Utils::setupBindingObject<Pattern>(obj, pattern);
@@ -1245,14 +1199,13 @@ void CairoDart::pattern_create_linear(Dart_NativeArguments args)
 
 void CairoDart::pattern_create_radial(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    double cx0 = arg.doubleArg(1);
-    double cy0 = arg.doubleArg(2);
-    double radius0 = arg.doubleArg(3);
-    double cx1 = arg.doubleArg(4);
-    double cy1 = arg.doubleArg(5);
-    double radius1 = arg.doubleArg(6);
+    Dart_Handle obj = arg_get(&args, 0);
+    double cx0 = arg_get_double(&args, 1);
+    double cy0 = arg_get_double(&args, 2);
+    double radius0 = arg_get_double(&args, 3);
+    double cx1 = arg_get_double(&args, 4);
+    double cy1 = arg_get_double(&args, 5);
+    double radius1 = arg_get_double(&args, 6);
 
     Pattern* pattern = Pattern::createRadial(cx0, cy0, radius0, cx1, cy1, radius1);
     Utils::setupBindingObject<Pattern>(obj, pattern);
@@ -1262,8 +1215,7 @@ void CairoDart::pattern_create_radial(Dart_NativeArguments args)
 
 void CairoDart::pattern_create_mesh(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
+    Dart_Handle obj = arg_get(&args, 0);
 
     MeshPattern* pattern = Pattern::createMesh();
     Utils::setupBindingObject<MeshPattern>(obj, pattern);
@@ -1289,9 +1241,8 @@ void CairoDart::pattern_mesh_end_patch(Dart_NativeArguments args)
 
 void CairoDart::pattern_mesh_move_to(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
 
     MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
     pattern->moveTo(x, y);
@@ -1301,9 +1252,8 @@ void CairoDart::pattern_mesh_move_to(Dart_NativeArguments args)
 
 void CairoDart::pattern_mesh_line_to(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double x = arg.doubleArg(1);
-    double y = arg.doubleArg(2);
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
 
     MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
     pattern->lineTo(x, y);
@@ -1313,13 +1263,12 @@ void CairoDart::pattern_mesh_line_to(Dart_NativeArguments args)
 
 void CairoDart::pattern_mesh_curve_to(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double x1 = arg.doubleArg(1);
-    double y1 = arg.doubleArg(2);
-    double x2 = arg.doubleArg(3);
-    double y2 = arg.doubleArg(4);
-    double x3 = arg.doubleArg(5);
-    double y3 = arg.doubleArg(6);
+    double x1 = arg_get_double(&args, 1);
+    double y1 = arg_get_double(&args, 2);
+    double x2 = arg_get_double(&args, 3);
+    double y2 = arg_get_double(&args, 4);
+    double x3 = arg_get_double(&args, 5);
+    double y3 = arg_get_double(&args, 6);
 
     MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
     pattern->curveTo(x1, y1, x2, y2, x3, y3);
@@ -1329,9 +1278,8 @@ void CairoDart::pattern_mesh_curve_to(Dart_NativeArguments args)
 
 void CairoDart::pattern_mesh_get_control_point(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    unsigned int patchNum = (unsigned int) arg.intArg(1);
-    unsigned int pointNum = (unsigned int) arg.intArg(2);
+    unsigned int patchNum = (unsigned int) arg_get_int(&args, 1);;
+    unsigned int pointNum = (unsigned int) arg_get_int(&args, 2);
 
     double x = 0;
     double y = 0;
@@ -1347,10 +1295,9 @@ void CairoDart::pattern_mesh_get_control_point(Dart_NativeArguments args)
 
 void CairoDart::pattern_mesh_set_control_point(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    unsigned int pointNum = (unsigned int) arg.intArg(1);
-    double x = arg.doubleArg(2);
-    double y = arg.doubleArg(3);
+    unsigned int pointNum = (unsigned int) arg_get_int(&args, 1);
+    double x = arg_get_double(&args, 2);
+    double y = arg_get_double(&args, 3);
 
     MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
     pattern->setControlPoint(pointNum, x, y);
@@ -1360,9 +1307,8 @@ void CairoDart::pattern_mesh_set_control_point(Dart_NativeArguments args)
 
 void CairoDart::pattern_mesh_get_corner_color(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    unsigned int patchNum = (unsigned int) arg.intArg(1);
-    unsigned int pointNum = (unsigned int) arg.intArg(2);
+    unsigned int patchNum = (unsigned int) arg_get_int(&args, 1);
+    unsigned int pointNum = (unsigned int) arg_get_int(&args, 2);
     double red = 0;
     double green = 0;
     double blue = 0;
@@ -1379,12 +1325,11 @@ void CairoDart::pattern_mesh_get_corner_color(Dart_NativeArguments args)
 
 void CairoDart::pattern_mesh_set_corner_color(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    unsigned int pointNum = (unsigned int) arg.intArg(1);
-    double red = arg.doubleArg(2);
-    double green = arg.doubleArg(3);
-    double blue = arg.doubleArg(4);
-    double alpha = arg.doubleArg(5);
+    unsigned int pointNum = (unsigned int) arg_get_int(&args, 1);
+    double red = arg_get_double(&args, 2);
+    double green = arg_get_double(&args, 3);
+    double blue = arg_get_double(&args, 4);
+    double alpha = arg_get_double(&args, 5);
 
     MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
     pattern->setCornerColor(pointNum, red, green, blue, alpha);
@@ -1402,12 +1347,11 @@ void CairoDart::pattern_mesh_get_patch_count(Dart_NativeArguments args)
 
 void CairoDart::pattern_add_color_stop_rgb(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    double offset = arg.doubleArg(1);
-    double red = arg.doubleArg(2);
-    double green = arg.doubleArg(3);
-    double blue = arg.doubleArg(4);
+    double offset = arg_get_double(&args, 1);
+    double red = arg_get_double(&args, 2);
+    double green = arg_get_double(&args, 3);
+    double blue = arg_get_double(&args, 4);
 
     pattern->addColorStop(offset, red, green, blue);
 
@@ -1416,13 +1360,12 @@ void CairoDart::pattern_add_color_stop_rgb(Dart_NativeArguments args)
 
 void CairoDart::pattern_add_color_stop_rgba(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    double offset = arg.doubleArg(1);
-    double red = arg.doubleArg(2);
-    double green = arg.doubleArg(3);
-    double blue = arg.doubleArg(4);
-    double alpha = arg.doubleArg(5);
+    double offset = arg_get_double(&args, 1);
+    double red = arg_get_double(&args, 2);
+    double green = arg_get_double(&args, 3);
+    double blue = arg_get_double(&args, 4);
+    double alpha = arg_get_double(&args, 5);
 
     pattern->addColorStop(offset, red, green, blue, alpha);
 
@@ -1438,9 +1381,8 @@ void CairoDart::pattern_get_color_stop_count(Dart_NativeArguments args)
 
 void CairoDart::pattern_get_color_stop_rgba(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    int index = arg.intArg(1);
+    int index = arg_get_int(&args, 1);
     double offset = 0.0;
     double red = 0.0;
     double green = 0.0;
@@ -1511,9 +1453,8 @@ void CairoDart::pattern_get_extend(Dart_NativeArguments args)
 
 void CairoDart::pattern_set_extend(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    int val = arg.intArg(1);
+    int val = arg_get_int(&args, 1);
 
     pattern->setExtend(static_cast<cairo_extend_t>(val));
 
@@ -1531,9 +1472,8 @@ void CairoDart::pattern_get_filter(Dart_NativeArguments args)
 
 void CairoDart::pattern_set_filter(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    int val = arg.intArg(1);
+    int val = arg_get_int(&args, 1);
 
     pattern->setFilter(static_cast<cairo_filter_t>(val));
 
@@ -1559,9 +1499,8 @@ void CairoDart::pattern_get_matrix(Dart_NativeArguments args)
 
 void CairoDart::pattern_set_matrix(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    Dart_Handle matrixObj = arg.arg(1);
+    Dart_Handle matrixObj = arg_get(&args, 1);
     Matrix* matrix = Utils::bindingObject<Matrix>(matrixObj);
     pattern->setMatrix(matrix);
 
@@ -1570,9 +1509,8 @@ void CairoDart::pattern_set_matrix(Dart_NativeArguments args)
 
 void CairoDart::pattern_equals(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    Dart_Handle otherObj = arg.arg(1);
+    Dart_Handle otherObj = arg_get(&args, 1);
     Pattern* otherPattern = Utils::bindingObject<Pattern>(otherObj);
 
     bool equals = *pattern == *otherPattern;
@@ -1583,8 +1521,7 @@ void CairoDart::pattern_equals(Dart_NativeArguments args)
 
 void CairoDart::matrix_create(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
+    Dart_Handle obj = arg_get(&args, 0);
 
     cairo_matrix_t* m = new cairo_matrix_t;
     Matrix* matrix = new Matrix(m);
@@ -1632,13 +1569,12 @@ void CairoDart::matrix_y0(Dart_NativeArguments args)
 
 void CairoDart::matrix_init(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double xx = arg.doubleArg(1);
-    double yx = arg.doubleArg(2);
-    double xy = arg.doubleArg(3);
-    double yy = arg.doubleArg(4);
-    double x0 = arg.doubleArg(5);
-    double y0 = arg.doubleArg(6);
+    double xx = arg_get_double(&args, 1);
+    double yx = arg_get_double(&args, 2);
+    double xy = arg_get_double(&args, 3);
+    double yy = arg_get_double(&args, 4);
+    double x0 = arg_get_double(&args, 5);
+    double y0 = arg_get_double(&args, 6);
 
     Matrix* matrix = Utils::thisFromArg<Matrix>(args);
     matrix->init(xx, yx, xy, yy, x0, y0);
@@ -1655,9 +1591,8 @@ void CairoDart::matrix_init_identity(Dart_NativeArguments args)
 
 void CairoDart::matrix_init_translate(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double tx = arg.doubleArg(1);
-    double ty = arg.doubleArg(2);
+    double tx = arg_get_double(&args, 1);
+    double ty = arg_get_double(&args, 2);
 
     Matrix* matrix = Utils::thisFromArg<Matrix>(args);
     matrix->initTranslate(tx, ty);
@@ -1667,9 +1602,8 @@ void CairoDart::matrix_init_translate(Dart_NativeArguments args)
 
 void CairoDart::matrix_init_scale(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double sx = arg.doubleArg(1);
-    double sy = arg.doubleArg(2);
+    double sx = arg_get_double(&args, 1);
+    double sy = arg_get_double(&args, 2);
 
     Matrix* matrix = Utils::thisFromArg<Matrix>(args);
     matrix->initScale(sx, sy);
@@ -1679,8 +1613,7 @@ void CairoDart::matrix_init_scale(Dart_NativeArguments args)
 
 void CairoDart::matrix_init_rotate(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double radians = arg.doubleArg(1);
+    double radians = arg_get_double(&args, 1);
 
     Matrix* matrix = Utils::thisFromArg<Matrix>(args);
     matrix->initRotate(radians);
@@ -1690,9 +1623,8 @@ void CairoDart::matrix_init_rotate(Dart_NativeArguments args)
 
 void CairoDart::matrix_translate(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double tx = arg.doubleArg(1);
-    double ty = arg.doubleArg(2);
+    double tx = arg_get_double(&args, 1);
+    double ty = arg_get_double(&args, 2);
 
     Matrix* matrix = Utils::thisFromArg<Matrix>(args);
     matrix->translate(tx, ty);
@@ -1702,9 +1634,8 @@ void CairoDart::matrix_translate(Dart_NativeArguments args)
 
 void CairoDart::matrix_scale(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double sx = arg.doubleArg(1);
-    double sy = arg.doubleArg(2);
+    double sx = arg_get_double(&args, 1);
+    double sy = arg_get_double(&args, 2);
 
     Matrix* matrix = Utils::thisFromArg<Matrix>(args);
     matrix->scale(sx, sy);
@@ -1714,8 +1645,7 @@ void CairoDart::matrix_scale(Dart_NativeArguments args)
 
 void CairoDart::matrix_rotate(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    double radians = arg.doubleArg(1);
+    double radians = arg_get_double(&args, 1);
 
     Matrix* matrix = Utils::thisFromArg<Matrix>(args);
     matrix->rotate(radians);
@@ -1758,9 +1688,8 @@ void CairoDart::matrix_transform_distance(Dart_NativeArguments args)
 
 void CairoDart::matrix_multiply(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle matrix1Obj = arg.arg(0);
-    Dart_Handle matrix2Obj = arg.arg(1);
+    Dart_Handle matrix1Obj = arg_get(&args, 0);
+    Dart_Handle matrix2Obj = arg_get(&args, 1);
 
     Matrix* m1 = Utils::bindingObject<Matrix>(matrix1Obj);
     Matrix* m2 = Utils::bindingObject<Matrix>(matrix2Obj);
@@ -1778,8 +1707,7 @@ void CairoDart::matrix_multiply(Dart_NativeArguments args)
 
 void CairoDart::region_create(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
+    Dart_Handle obj = arg_get(&args, 0);
 
     cairo_region_t* reg = cairo_region_create();
     Region* region = Region::create(reg);
@@ -1791,12 +1719,11 @@ void CairoDart::region_create(Dart_NativeArguments args)
 
 void CairoDart::region_create_rectangle(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    int x = arg.intArg(1);
-    int y = arg.intArg(2);
-    int width = arg.intArg(3);
-    int height = arg.intArg(4);
+    Dart_Handle obj = arg_get(&args, 0);
+    int x = arg_get_int(&args, 1);
+    int y = arg_get_int(&args, 2);
+    int width = arg_get_int(&args, 3);
+    int height = arg_get_int(&args, 4);
 
     cairo_rectangle_int_t rect;
     rect.x = x;
@@ -1815,9 +1742,8 @@ void CairoDart::region_create_rectangle(Dart_NativeArguments args)
 
 void CairoDart::region_create_rectangles(Dart_NativeArguments args)
 {
-    Arguments arg = args;
-    Dart_Handle obj = arg.arg(0);
-    Dart_Handle areas = arg.arg(1);
+    Dart_Handle obj = arg_get(&args, 0);
+    Dart_Handle areas = arg_get(&args, 1);
 
     int length = Utils::listLength(areas);
 
@@ -1870,9 +1796,8 @@ void CairoDart::region_get_num_rectangles(Dart_NativeArguments args)
 
 void CairoDart::region_get_rectangle(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    int nth = arg.intArg(1);
+    int nth = arg_get_int(&args, 1);
     cairo_rectangle_int_t rect = region->getRectangle(nth);
     Dart_Handle res = Utils::newRectangle(rect.x, rect.y, rect.width, rect.height);
     Dart_SetReturnValue(args, res);
@@ -1887,22 +1812,20 @@ void CairoDart::region_is_empty(Dart_NativeArguments args)
 
 void CairoDart::region_contains_point(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    int x = arg.intArg(1);
-    int y = arg.intArg(2);
+    int x = arg_get_int(&args, 1);
+    int y = arg_get_int(&args, 1);
     bool res = region->containsPoint(x, y);
     Dart_SetReturnValue(args, Dart_NewBoolean(res));
 }
 
 void CairoDart::region_contains_rectangle(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    int x = arg.intArg(1);
-    int y = arg.intArg(2);
-    int width = arg.intArg(3);
-    int height = arg.intArg(4);
+    int x = arg_get_int(&args, 1);
+    int y = arg_get_int(&args, 2);
+    int width = arg_get_int(&args, 3);
+    int height = arg_get_int(&args, 4);
     cairo_region_overlap_t overlap = region->containsRectangle(x, y, width, height);
 
     Dart_Handle overlapArgs[] = { Dart_NewInteger(static_cast<int>(overlap)) };
@@ -1912,9 +1835,8 @@ void CairoDart::region_contains_rectangle(Dart_NativeArguments args)
 
 void CairoDart::region_equal(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    Dart_Handle otherObj = arg.arg(1);
+    Dart_Handle otherObj = arg_get(&args, 1);
     Region* other = Utils::bindingObject<Region>(otherObj);
     bool equal = *region == *other;
     Dart_SetReturnValue(args, Dart_NewBoolean(equal));
@@ -1922,10 +1844,9 @@ void CairoDart::region_equal(Dart_NativeArguments args)
 
 void CairoDart::region_translate(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    int dx = arg.intArg(1);
-    int dy = arg.intArg(2);
+    int dx = arg_get_int(&args, 1);
+    int dy = arg_get_int(&args, 2);
 
     region->translate(dx, dy);
 
@@ -1934,9 +1855,8 @@ void CairoDart::region_translate(Dart_NativeArguments args)
 
 void CairoDart::region_intersect(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    Dart_Handle otherObj = arg.arg(1);
+    Dart_Handle otherObj = arg_get(&args, 1);
     Region* other = Utils::bindingObject<Region>(otherObj);
 
     region->intersect(other);
@@ -1945,12 +1865,11 @@ void CairoDart::region_intersect(Dart_NativeArguments args)
 
 void CairoDart::region_intersect_rectangle(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    int x = arg.intArg(1);
-    int y = arg.intArg(2);
-    int width = arg.intArg(3);
-    int height = arg.intArg(4);
+    int x = arg_get_int(&args, 1);
+    int y = arg_get_int(&args, 2);
+    int width = arg_get_int(&args, 3);
+    int height = arg_get_int(&args, 4);
 
     region->intersectRectangle(x, y, width, height);
     Dart_SetReturnValue(args, Dart_Null());
@@ -1958,9 +1877,8 @@ void CairoDart::region_intersect_rectangle(Dart_NativeArguments args)
 
 void CairoDart::region_subtract(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    Dart_Handle otherObj = arg.arg(1);
+    Dart_Handle otherObj = arg_get(&args, 1);
     Region* other = Utils::bindingObject<Region>(otherObj);
 
     region->subtract(other);
@@ -1969,12 +1887,11 @@ void CairoDart::region_subtract(Dart_NativeArguments args)
 
 void CairoDart::region_subtract_rectangle(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    int x = arg.intArg(1);
-    int y = arg.intArg(2);
-    int width = arg.intArg(3);
-    int height = arg.intArg(4);
+    int x = arg_get_int(&args, 1);
+    int y = arg_get_int(&args, 2);
+    int width = arg_get_int(&args, 3);
+    int height = arg_get_int(&args, 4);
 
     region->subtractRectangle(x, y, width, height);
     Dart_SetReturnValue(args, Dart_Null());
@@ -1982,9 +1899,8 @@ void CairoDart::region_subtract_rectangle(Dart_NativeArguments args)
 
 void CairoDart::region_union(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    Dart_Handle otherObj = arg.arg(1);
+    Dart_Handle otherObj = arg_get(&args, 1);
     Region* other = Utils::bindingObject<Region>(otherObj);
 
     region->doUnion(other);
@@ -1993,12 +1909,11 @@ void CairoDart::region_union(Dart_NativeArguments args)
 
 void CairoDart::region_union_rectangle(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    int x = arg.intArg(1);
-    int y = arg.intArg(2);
-    int width = arg.intArg(3);
-    int height = arg.intArg(4);
+    int x = arg_get_int(&args, 1);
+    int y = arg_get_int(&args, 2);
+    int width = arg_get_int(&args, 3);
+    int height = arg_get_int(&args, 4);
 
     region->unionRectangle(x, y, width, height);
     Dart_SetReturnValue(args, Dart_Null());
@@ -2006,9 +1921,8 @@ void CairoDart::region_union_rectangle(Dart_NativeArguments args)
 
 void CairoDart::region_xor(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    Dart_Handle otherObj = arg.arg(1);
+    Dart_Handle otherObj = arg_get(&args, 1);
     Region* other = Utils::bindingObject<Region>(otherObj);
 
     region->doXor(other);
@@ -2017,12 +1931,11 @@ void CairoDart::region_xor(Dart_NativeArguments args)
 
 void CairoDart::region_xor_rectangle(Dart_NativeArguments args)
 {
-    Arguments arg = args;
     Region* region = Utils::thisFromArg<Region>(args);
-    int x = arg.intArg(1);
-    int y = arg.intArg(2);
-    int width = arg.intArg(3);
-    int height = arg.intArg(4);
+    int x = arg_get_int(&args, 1);
+    int y = arg_get_int(&args, 2);
+    int width = arg_get_int(&args, 3);
+    int height = arg_get_int(&args, 4);
 
     region->xorRectangle(x, y, width, height);
     Dart_SetReturnValue(args, Dart_Null());

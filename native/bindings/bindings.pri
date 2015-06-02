@@ -6,8 +6,7 @@ HEADERS += \
     bindings/context.h \
     bindings/pattern.h \
     bindings/meshpattern.h \
-    bindings/region.h \
-    bindings/fontface.h
+    bindings/region.h
 
 SOURCES += \
     bindings/cairodart.cpp \
@@ -18,4 +17,3 @@ SOURCES += \
     bindings/pattern.cpp \
     bindings/meshpattern.cpp \
     bindings/region.cpp \
-    bindings/fontface.cpp \

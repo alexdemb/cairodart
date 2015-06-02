@@ -159,9 +159,6 @@ void region_union_rectangle(Dart_NativeArguments args);
 void region_xor(Dart_NativeArguments args);
 void region_xor_rectangle(Dart_NativeArguments args);
 
-// cairo_font_face_t
-void font_face_get_type(Dart_NativeArguments args);
-
 #ifdef __cplusplus
 } // extern "C"
 #endif

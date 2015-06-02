@@ -5,18 +5,21 @@
 #include <cairo/cairo.h>
 
 #include "argument.h"
+#include "matrix.h"
 #include "cairodart.h"
+#include "bind.h"
 #include "infrastructure/infrastructure.h"
 #include "surface.h"
 #include "imagesurface.h"
 #include "context.h"
 #include "pattern.h"
 #include "meshpattern.h"
-#include "matrix.h"
 #include "region.h"
 #include "fontface.h"
 
+
 using namespace cairodart::infrastructure;
+
 
 struct DartFunctionMap {
     const char* name;
@@ -1487,9 +1490,14 @@ void pattern_get_type(Dart_NativeArguments args)
 void pattern_get_matrix(Dart_NativeArguments args)
 {
     Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    Matrix* matrix = pattern->getMatrix();
+    cairo_matrix_t* matrix = (cairo_matrix_t*) malloc(sizeof(cairo_matrix_t));
+
+    cairo_pattern_get_matrix(pattern->getHandle(), matrix);
+
     Dart_Handle matrixObj = Utils::newObject("_Matrix", "internal", 0, NULL);
-    Utils::setupBindingObject<Matrix>(matrixObj, matrix);
+
+    bind_setup((void*)matrix, matrixObj, matrix_destroy);
+
     Dart_SetReturnValue(args, matrixObj);
 }
 
@@ -1497,8 +1505,8 @@ void pattern_set_matrix(Dart_NativeArguments args)
 {
     Pattern* pattern = Utils::thisFromArg<Pattern>(args);
     Dart_Handle matrixObj = arg_get(&args, 1);
-    Matrix* matrix = Utils::bindingObject<Matrix>(matrixObj);
-    pattern->setMatrix(matrix);
+    cairo_matrix_t* matrix = (cairo_matrix_t*) bind_get(matrixObj);
+    cairo_pattern_set_matrix(pattern->getHandle(), matrix);
 
     Dart_SetReturnValue(args, Dart_Null());
 }
@@ -1511,192 +1519,6 @@ void pattern_equals(Dart_NativeArguments args)
 
     bool equals = *pattern == *otherPattern;
     Dart_SetReturnValue(args, Dart_NewBoolean(equals));
-}
-
-// cairo_matrix_t
-
-void matrix_create(Dart_NativeArguments args)
-{
-    Dart_Handle obj = arg_get(&args, 0);
-
-    cairo_matrix_t* m = new cairo_matrix_t;
-    Matrix* matrix = new Matrix(m);
-
-    Utils::setupBindingObject<Matrix>(obj, matrix);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void matrix_xx(Dart_NativeArguments args)
-{
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    Dart_SetReturnValue(args, Dart_NewDouble(matrix->xx()));
-}
-
-void matrix_yx(Dart_NativeArguments args)
-{
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    Dart_SetReturnValue(args, Dart_NewDouble(matrix->yx()));
-}
-
-void matrix_xy(Dart_NativeArguments args)
-{
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    Dart_SetReturnValue(args, Dart_NewDouble(matrix->xy()));
-}
-
-void matrix_yy(Dart_NativeArguments args)
-{
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    Dart_SetReturnValue(args, Dart_NewDouble(matrix->yy()));
-}
-
-void matrix_x0(Dart_NativeArguments args)
-{
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    Dart_SetReturnValue(args, Dart_NewDouble(matrix->x0()));
-}
-
-void matrix_y0(Dart_NativeArguments args)
-{
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    Dart_SetReturnValue(args, Dart_NewDouble(matrix->y0()));
-}
-
-void matrix_init(Dart_NativeArguments args)
-{
-    double xx = arg_get_double(&args, 1);
-    double yx = arg_get_double(&args, 2);
-    double xy = arg_get_double(&args, 3);
-    double yy = arg_get_double(&args, 4);
-    double x0 = arg_get_double(&args, 5);
-    double y0 = arg_get_double(&args, 6);
-
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    matrix->init(xx, yx, xy, yy, x0, y0);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void matrix_init_identity(Dart_NativeArguments args)
-{
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    matrix->initIdentify();
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void matrix_init_translate(Dart_NativeArguments args)
-{
-    double tx = arg_get_double(&args, 1);
-    double ty = arg_get_double(&args, 2);
-
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    matrix->initTranslate(tx, ty);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void matrix_init_scale(Dart_NativeArguments args)
-{
-    double sx = arg_get_double(&args, 1);
-    double sy = arg_get_double(&args, 2);
-
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    matrix->initScale(sx, sy);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void matrix_init_rotate(Dart_NativeArguments args)
-{
-    double radians = arg_get_double(&args, 1);
-
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    matrix->initRotate(radians);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void matrix_translate(Dart_NativeArguments args)
-{
-    double tx = arg_get_double(&args, 1);
-    double ty = arg_get_double(&args, 2);
-
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    matrix->translate(tx, ty);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void matrix_scale(Dart_NativeArguments args)
-{
-    double sx = arg_get_double(&args, 1);
-    double sy = arg_get_double(&args, 2);
-
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    matrix->scale(sx, sy);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void matrix_rotate(Dart_NativeArguments args)
-{
-    double radians = arg_get_double(&args, 1);
-
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    matrix->rotate(radians);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void matrix_invert(Dart_NativeArguments args)
-{
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    matrix->invert();
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void matrix_transform_point(Dart_NativeArguments args)
-{
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    double x = 0.0;
-    double y = 0.0;
-
-    matrix->getTransformPoint(&x, &y);
-
-    Dart_Handle pointObj = Utils::newPoint(x, y);
-
-    Dart_SetReturnValue(args, pointObj);
-}
-
-void matrix_transform_distance(Dart_NativeArguments args)
-{
-    Matrix* matrix = Utils::thisFromArg<Matrix>(args);
-    double dx = 0.0;
-    double dy = 0.0;
-
-    matrix->getTransformDistance(&dx, &dy);
-
-    Dart_Handle distanceObj = Utils::newDistance(dx, dy);
-
-    Dart_SetReturnValue(args, distanceObj);
-}
-
-void matrix_multiply(Dart_NativeArguments args)
-{
-    Dart_Handle matrix1Obj = arg_get(&args, 0);
-    Dart_Handle matrix2Obj = arg_get(&args, 1);
-
-    Matrix* m1 = Utils::bindingObject<Matrix>(matrix1Obj);
-    Matrix* m2 = Utils::bindingObject<Matrix>(matrix2Obj);
-
-    Matrix* result = Matrix::multiply(m1, m2);
-
-    Dart_Handle resultObj = Utils::newObject("_Matrix", "internal", 0, NULL);
-
-    Utils::setupBindingObject<Matrix>(resultObj, result);
-
-    Dart_SetReturnValue(args, resultObj);
 }
 
 // cairo_region_t

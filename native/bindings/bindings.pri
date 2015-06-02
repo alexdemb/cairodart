@@ -6,7 +6,6 @@ HEADERS += \
     bindings/context.h \
     bindings/pattern.h \
     bindings/meshpattern.h \
-    bindings/matrix.h \
     bindings/region.h \
     bindings/fontface.h
 
@@ -18,6 +17,5 @@ SOURCES += \
     bindings/context.cpp \
     bindings/pattern.cpp \
     bindings/meshpattern.cpp \
-    bindings/matrix.cpp \
     bindings/region.cpp \
     bindings/fontface.cpp \

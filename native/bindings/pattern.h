@@ -4,7 +4,6 @@
 #include <cairo/cairo.h>
 #include "cairoobject.h"
 #include "surface.h"
-#include "matrix.h"
 
 
 namespace cairodart
@@ -46,8 +45,6 @@ public:
     cairo_filter_t getFilter() const;
     void setFilter(const cairo_filter_t& filter) const;
     cairo_pattern_type_t getPatternType() const;
-    void setMatrix(const Matrix* matrix) const;
-    Matrix* getMatrix() const;
     cairo_pattern_t* getHandle() const;
 
     bool operator==(const Pattern& other);

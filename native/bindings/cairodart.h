@@ -137,27 +137,6 @@ void pattern_equals(Dart_NativeArguments args);
 // cairo_format_t
 void format_stride_for_width(Dart_NativeArguments args);
 
-// cairo_matrix_t
-void matrix_create(Dart_NativeArguments args);
-void matrix_xx(Dart_NativeArguments args);
-void matrix_yx(Dart_NativeArguments args);
-void matrix_xy(Dart_NativeArguments args);
-void matrix_yy(Dart_NativeArguments args);
-void matrix_x0(Dart_NativeArguments args);
-void matrix_y0(Dart_NativeArguments args);
-void matrix_init(Dart_NativeArguments args);
-void matrix_init_identity(Dart_NativeArguments args);
-void matrix_init_translate(Dart_NativeArguments args);
-void matrix_init_scale(Dart_NativeArguments args);
-void matrix_init_rotate(Dart_NativeArguments args);
-void matrix_translate(Dart_NativeArguments args);
-void matrix_scale(Dart_NativeArguments args);
-void matrix_rotate(Dart_NativeArguments args);
-void matrix_invert(Dart_NativeArguments args);
-void matrix_transform_point(Dart_NativeArguments args);
-void matrix_transform_distance(Dart_NativeArguments args);
-void matrix_multiply(Dart_NativeArguments args);
-
 // cairo_region_t
 void region_create(Dart_NativeArguments args);
 void region_create_rectangle(Dart_NativeArguments args);

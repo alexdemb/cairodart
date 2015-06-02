@@ -1,6 +1,5 @@
 #include "pattern.h"
 #include "meshpattern.h"
-#include "matrix.h"
 #include <cairo/cairo.h>
 #include <infrastructure/infrastructure.h>
 
@@ -164,18 +163,7 @@ cairo_pattern_type_t Pattern::getPatternType() const
     return type;
 }
 
-void Pattern::setMatrix(const Matrix* matrix) const
-{
-    cairo_pattern_set_matrix(this->pattern, matrix->getHandle());
-    verify();
-}
 
-Matrix* Pattern::getMatrix() const
-{
-    cairo_matrix_t matrix;
-    cairo_pattern_get_matrix(this->pattern, &matrix);
-    return new Matrix(matrix);
-}
 
 cairo_pattern_t* Pattern::getHandle() const
 {

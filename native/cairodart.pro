@@ -17,10 +17,16 @@ DESTDIR += "$$PWD/../cairodart/lib/src"
 HEADERS += \
     argument.h \
     error.h \
-    library.h
+    library.h \
+    bind.h \
+    matrix.h \
+    factory.h
 
 SOURCES += \
     argument.c \
     error.c \
     library.c \
-    extension.c
+    extension.c \
+    bind.c \
+    matrix.c \
+    factory.c

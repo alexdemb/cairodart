@@ -3,7 +3,6 @@ HEADERS += \
     bindings/surface.h \
     bindings/imagesurface.h \
     bindings/cairoobject.h \
-    bindings/format.h \
     bindings/context.h \
     bindings/pattern.h \
     bindings/meshpattern.h \
@@ -16,7 +15,6 @@ SOURCES += \
     bindings/surface.cpp \
     bindings/imagesurface.cpp \
     bindings/cairoobject.cpp \
-    bindings/format.cpp \
     bindings/context.cpp \
     bindings/pattern.cpp \
     bindings/meshpattern.cpp \

@@ -2,7 +2,6 @@
 #define IMAGESURFACE_H
 
 #include "surface.h"
-#include "format.h"
 
 namespace cairodart
 {

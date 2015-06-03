@@ -23,3 +23,15 @@ Dart_Handle factory_create_distance(const double dx, const double dy) {
     Dart_Handle args[] = { Dart_NewDouble(dx), Dart_NewDouble(dy) };
     return factory_create_object("Distance", "from", args, 2);
 }
+
+
+Dart_Handle factory_create_rectangle(const int x, const int y, const int width, const int height) {
+    Dart_Handle parameters[4] =
+    {
+        Dart_NewDouble(x),
+        Dart_NewDouble(y),
+        Dart_NewDouble(width),
+        Dart_NewDouble(height)
+    };
+    return factory_create_object("Rectangle", "", parameters, 4);
+}

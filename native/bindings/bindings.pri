@@ -5,8 +5,7 @@ HEADERS += \
     bindings/cairoobject.h \
     bindings/context.h \
     bindings/pattern.h \
-    bindings/meshpattern.h \
-    bindings/region.h
+    bindings/meshpattern.h
 
 SOURCES += \
     bindings/cairodart.cpp \
@@ -16,4 +15,3 @@ SOURCES += \
     bindings/context.cpp \
     bindings/pattern.cpp \
     bindings/meshpattern.cpp \
-    bindings/region.cpp \

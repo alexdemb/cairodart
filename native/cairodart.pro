@@ -20,7 +20,9 @@ HEADERS += \
     library.h \
     bind.h \
     matrix.h \
-    factory.h
+    factory.h \
+    list.h \
+    region.h
 
 SOURCES += \
     argument.c \
@@ -29,4 +31,6 @@ SOURCES += \
     extension.c \
     bind.c \
     matrix.c \
-    factory.c
+    factory.c \
+    list.c \
+    region.c

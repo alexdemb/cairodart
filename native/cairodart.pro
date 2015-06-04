@@ -22,7 +22,8 @@ HEADERS += \
     matrix.h \
     factory.h \
     list.h \
-    region.h
+    region.h \
+    surface.h
 
 SOURCES += \
     argument.c \
@@ -33,4 +34,5 @@ SOURCES += \
     matrix.c \
     factory.c \
     list.c \
-    region.c
+    region.c \
+    surface.c

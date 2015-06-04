@@ -231,11 +231,13 @@ Dart_Handle Utils::newPattern(const Pattern *pattern)
     return patternObj;
 }
 
-Dart_Handle Utils::newSurface(const Surface *surface)
+Dart_Handle Utils::newSurface(cairo_surface_t *surface)
 {
     Dart_Handle surfaceObj;
 
-    switch (surface->surfaceType())
+    cairo_surface_type_t type = cairo_surface_get_type(surface);
+
+    switch (type)
     {
     case CAIRO_SURFACE_TYPE_IMAGE:
         surfaceObj = Utils::newObject("_ImageSurface", "internal", 0, NULL);

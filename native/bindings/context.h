@@ -2,7 +2,6 @@
 #define CONTEXT_H
 
 #include "cairoobject.h"
-#include "surface.h"
 #include "pattern.h"
 #include <cairo/cairo.h>
 
@@ -18,8 +17,8 @@ private:
     cairo_t* c;
 
 public:
-    static Context* create(const Surface* surface);
-    Context(const Surface* c);
+    static Context* create(cairo_surface_t* surface);
+    Context(cairo_surface_t* c);
 
     virtual ~Context();
 
@@ -86,15 +85,15 @@ public:
     cairo_rectangle_list_t* copyClipRectangleList() const;
     void destroyRectangleList(cairo_rectangle_list_t* list) const;
     void mask(Pattern* pattern) const;
-    void maskSurface(const Surface* surface, const double& x, const double& y) const;
+    void maskSurface(cairo_surface_t* surface, const double& x, const double& y) const;
     void paintWithAlpha(const double& alpha) const;
     void copyPage() const;
     void showPage() const;
     void getDash(double* dashes, double* offset) const;
     void setDash(const double* dashes, const int& num, const double& offset) const;
     int getDashCount() const;
-    void setSourceSurface(const Surface* surface, const double& x, const double& y) const;
-    Surface* getGroupTarget() const;
+    void setSourceSurface(cairo_surface_t* surface, const double& x, const double& y) const;
+    cairo_surface_t* getGroupTarget() const;
 };
 
 } // bindings

@@ -13,14 +13,14 @@
 #include "list.h"
 #include "factory.h"
 #include "infrastructure/infrastructure.h"
-#include "surface.h"
-#include "imagesurface.h"
 #include "context.h"
 #include "pattern.h"
 #include "meshpattern.h"
+#include "surface.h"
 
 using namespace cairodart::infrastructure;
 
+void surface_destroy(void* handle);
 
 struct DartFunctionMap {
     const char* name;
@@ -208,7 +208,7 @@ void context_create(Dart_NativeArguments args)
     Dart_Handle obj = arg_get(&args, 0);
     Dart_Handle surfaceObj = arg_get(&args, 1);
 
-    Surface* surface = Utils::bindingObject<Surface>(surfaceObj);
+    cairo_surface_t* surface = (cairo_surface_t*) bind_get(surfaceObj);
 
     Context* ctx = Context::create(surface);
 
@@ -772,7 +772,7 @@ void mask_surface(Dart_NativeArguments args)
     Dart_Handle surfaceArg = arg_get(&args, 1);
     double x = arg_get_double(&args, 2);
     double y = arg_get_double(&args, 3);
-    Surface* surface = Utils::bindingObject<Surface>(surfaceArg);
+    cairo_surface_t* surface = (cairo_surface_t*) bind_get(surfaceArg);
 
     ctx->maskSurface(surface, x, y);
 
@@ -903,7 +903,7 @@ void set_source_surface(Dart_NativeArguments args)
     Dart_Handle surfaceObj = arg_get(&args, 1);
     double x = arg_get_double(&args, 2);
     double y = arg_get_double(&args, 3);
-    Surface* surface = Utils::bindingObject<Surface>(surfaceObj);
+    cairo_surface_t* surface = (cairo_surface_t*) bind_get(surfaceObj);
 
     ctx->setSourceSurface(surface, x, y);
 
@@ -913,10 +913,10 @@ void set_source_surface(Dart_NativeArguments args)
 void get_group_target(Dart_NativeArguments args)
 {
     Context* ctx = Utils::thisFromArg<Context>(args);
-    Surface* surface = ctx->getGroupTarget();
+    cairo_surface_t* surface = ctx->getGroupTarget();
     Dart_Handle res = Utils::newSurface(surface);
 
-    Utils::setupBindingObject<Surface>(res, surface, false);
+    bind_setup(surface, res, surface_destroy);
 
     Dart_SetReturnValue(args, res);
 }
@@ -935,211 +935,6 @@ void format_stride_for_width(Dart_NativeArguments args)
 }
 
 
-// cairo_surface_t
-
-void image_surface_create(Dart_NativeArguments args)
-{
-    Dart_Handle obj = arg_get(&args, 0);
-    int format = arg_get_int(&args, 1);
-    int64_t width = arg_get_int(&args, 2);
-    int64_t height = arg_get_int(&args, 3);
-
-    ImageSurface* surface = ImageSurface::create(static_cast<cairo_format_t>(format), width, height);
-    Utils::setupBindingObject(obj, surface);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void image_surface_get_width(Dart_NativeArguments args)
-{
-    ImageSurface* surface = Utils::thisFromArg<ImageSurface>(args);
-    int width = surface->width();
-
-    Dart_SetReturnValue(args, Dart_NewInteger(width));
-}
-
-void image_surface_get_height(Dart_NativeArguments args)
-{
-    ImageSurface* surface = Utils::thisFromArg<ImageSurface>(args);
-    int height = surface->height();
-
-    Dart_SetReturnValue(args, Dart_NewInteger(height));
-}
-
-void image_surface_get_stride(Dart_NativeArguments args)
-{
-    ImageSurface* surface = Utils::thisFromArg<ImageSurface>(args);
-    int stride = surface->stride();
-
-    Dart_SetReturnValue(args, Dart_NewInteger(stride));
-}
-
-void surface_finish(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    surface->finish();
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void surface_flush(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    surface->flush();
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void surface_get_content(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    int content = surface->content();
-    Dart_SetReturnValue(args, Dart_NewInteger(content));
-}
-
-void surface_mark_dirty(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    surface->markDirty();
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void surface_mark_dirty_rectangle(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    int x = arg_get_int(&args, 1);
-    int y = arg_get_int(&args, 2);
-    int width = arg_get_int(&args, 3);
-    int height = arg_get_int(&args, 4);
-
-    surface->markDirtyRect(x, y, width, height);
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void surface_get_device_offset(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    double x;
-    double y;
-    surface->getDeviceOffset(x, y);
-
-    Dart_Handle params[2] { Dart_NewDouble(x), Dart_NewDouble(y) };
-    Dart_Handle obj = Utils::newObject("Point", "from", 2, params);
-
-    Dart_SetReturnValue(args, obj);
-}
-
-
-void surface_set_device_offset(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    double x = arg_get_double(&args, 1);
-    double y = arg_get_double(&args, 2);
-
-    surface->setDeviceOffset(x, y);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-
-void surface_copy_page(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-
-    surface->copyPage();
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void surface_show_page(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-
-    surface->showPage();
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void surface_supports_mime_type(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    std::string mime(arg_get_string(&args, 1));
-
-    bool supports = surface->supportsMimeType(mime.c_str());
-    Dart_SetReturnValue(args, Dart_NewBoolean(supports));
-}
-
-
-void surface_has_show_text_glyphs(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-
-    bool res = surface->hasShowTextGlyphs();
-    Dart_SetReturnValue(args, Dart_NewBoolean(res));
-}
-
-void surface_get_type(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    int type = surface->surfaceType();
-    Dart_SetReturnValue(args, Dart_NewInteger(type));
-}
-
-
-void surface_get_fallback_resolution(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    double xRes;
-    double yRes;
-
-    surface->getFallbackResolution(xRes, yRes);
-
-    Dart_Handle resArgs[2] = { Dart_NewDouble(xRes), Dart_NewDouble(yRes) };
-    Dart_Handle resolutionObj = Utils::newObject("Resolution", "", 2, resArgs);
-
-    Dart_SetReturnValue(args, resolutionObj);
-}
-
-void surface_set_fallback_resolution(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    double xRes = arg_get_double(&args, 1);
-    double yRes = arg_get_double(&args, 2);
-
-    surface->setFallbackResolution(xRes, yRes);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void image_surface_create_from_png(Dart_NativeArguments args)
-{
-    Dart_Handle surfaceObj = arg_get(&args, 0);
-    std::string fileName(arg_get_string(&args, 1));
-
-    ImageSurface* surface = ImageSurface::create(fileName.c_str());
-
-    Utils::setupBindingObject<ImageSurface>(surfaceObj, surface);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void surface_write_to_png(Dart_NativeArguments args)
-{
-    ImageSurface* surface = Utils::thisFromArg<ImageSurface>(args);
-    std::string fileName(arg_get_string(&args, 1));
-
-    surface->writeTo(fileName.c_str());
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void surfaces_equals(Dart_NativeArguments args)
-{
-    Surface* surface = Utils::thisFromArg<Surface>(args);
-    Dart_Handle otherObj = arg_get(&args, 1);
-    Surface* other = Utils::bindingObject<Surface>(otherObj);
-
-    bool equals = *surface == *other;
-    Dart_SetReturnValue(args, Dart_NewBoolean(equals));
-}
 
 
 // cairo_pattern_t
@@ -1175,7 +970,7 @@ void pattern_create_for_surface(Dart_NativeArguments args)
     Dart_Handle obj = arg_get(&args, 0);
     Dart_Handle surfaceObj = arg_get(&args, 1);
 
-    Surface* surface = Utils::bindingObject<Surface>(surfaceObj);
+    cairo_surface_t* surface = (cairo_surface_t*)bind_get(surfaceObj);
 
     Pattern* pattern = Pattern::createForSurface(surface);
     Utils::setupBindingObject<Pattern>(obj, pattern);

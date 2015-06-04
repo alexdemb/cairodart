@@ -35,3 +35,8 @@ Dart_Handle factory_create_rectangle(const int x, const int y, const int width, 
     };
     return factory_create_object("Rectangle", "", parameters, 4);
 }
+
+Dart_Handle factory_create_resolution(const double xRes, const double yRes) {
+    Dart_Handle resArgs[2] = { Dart_NewDouble(xRes), Dart_NewDouble(yRes) };
+    return factory_create_object("Resolution", "", resArgs, 2);
+}

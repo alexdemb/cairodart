@@ -15,6 +15,8 @@ Dart_Handle factory_create_distance(const double dx, const double dy);
 
 Dart_Handle factory_create_rectangle(const int x, const int y, const int width, const int height);
 
+Dart_Handle factory_create_resolution(const double xRes, const double yRes);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

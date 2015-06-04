@@ -44,7 +44,7 @@ public:
     static Dart_Handle newRectangle(const double& x, const double& y, const double& width, const double& height);
     static Dart_Handle newRectangleList(const Dart_Handle& context, const cairo_rectangle_list_t* list);
     static Dart_Handle newPattern(const Pattern* pattern);
-    static Dart_Handle newSurface(const Surface* surface);
+    static Dart_Handle newSurface(cairo_surface_t* surface);
     static int listLength(const Dart_Handle& list);
     static int intAt(const Dart_Handle& list, const int& pos);
     static double doubleAt(const Dart_Handle& list, const int& pos);

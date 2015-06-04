@@ -69,9 +69,9 @@ Pattern* Pattern::createPatternForRgba(const double& red, const double& green, c
     return create(p);
 }
 
-Pattern* Pattern::createForSurface(const Surface* surface)
+Pattern* Pattern::createForSurface(cairo_surface_t* surface)
 {
-    cairo_pattern_t* p = cairo_pattern_create_for_surface(surface->getHandle());
+    cairo_pattern_t* p = cairo_pattern_create_for_surface(surface);
     return create(p);
 }
 

@@ -9,16 +9,16 @@ namespace cairodart
 namespace bindings
 {
 
-Context* Context::create(const Surface* surface)
+Context* Context::create(cairo_surface_t* surface)
 {
     Context* ctx = new Context(surface);
     BindingObjectCache::getInstance()->add(ctx->getHandle(), ctx);
     return ctx;
 }
 
-Context::Context(const Surface* surface)
+Context::Context(cairo_surface_t* surface)
 {
-    cairo_t* handle = cairo_create(surface->getHandle());
+    cairo_t* handle = cairo_create(surface);
     this->c = handle;
 }
 
@@ -390,9 +390,9 @@ void Context::mask(Pattern *pattern) const
     verify();
 }
 
-void Context::maskSurface(const Surface *surface, const double &x, const double &y) const
+void Context::maskSurface(cairo_surface_t *surface, const double &x, const double &y) const
 {
-    cairo_mask_surface(this->c, surface->getHandle(), x, y);
+    cairo_mask_surface(this->c, surface, x, y);
     verify();
 }
 
@@ -454,18 +454,17 @@ Pattern* Context::getSource() const
     return pattern;
 }
 
-void Context::setSourceSurface(const Surface *surface, const double& x, const double &y) const
+void Context::setSourceSurface(cairo_surface_t *surface, const double& x, const double &y) const
 {
-    cairo_set_source_surface(this->c, surface->getHandle(), x, y);
+    cairo_set_source_surface(this->c, surface, x, y);
     verify();
 }
 
-Surface* Context::getGroupTarget() const
+cairo_surface_t* Context::getGroupTarget() const
 {
     cairo_surface_t* s = cairo_get_group_target(this->c);
     verify();
-    Surface* surface = (Surface*) BindingObjectCache::getInstance()->get(s);
-    return surface;
+    return s;
 }
 
 const cairo_t* Context::getHandle() const

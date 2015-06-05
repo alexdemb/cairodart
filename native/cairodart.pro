@@ -23,7 +23,8 @@ HEADERS += \
     factory.h \
     list.h \
     region.h \
-    surface.h
+    surface.h \
+    pattern.h
 
 SOURCES += \
     argument.c \
@@ -35,4 +36,5 @@ SOURCES += \
     factory.c \
     list.c \
     region.c \
-    surface.c
+    surface.c \
+    pattern.c

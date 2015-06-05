@@ -2,7 +2,6 @@
 #define CONTEXT_H
 
 #include "cairoobject.h"
-#include "pattern.h"
 #include <cairo/cairo.h>
 
 namespace cairodart
@@ -31,9 +30,9 @@ public:
     void pushGroup() const;
     void pushGroupWithContent(const cairo_content_t& c) const;
     void popGroupToSource() const;
-    Pattern* popGroup() const;
-    void setSource(const Pattern* pattern) const;
-    Pattern* getSource() const;
+    cairo_pattern_t* popGroup() const;
+    void setSource(cairo_pattern_t* pattern) const;
+    cairo_pattern_t* getSource() const;
     void setSourceRgb(double& red, double& green, double& blue) const;
     void setSourceRgba(double& red, double& green, double& blue, double& alpha) const;
     void stroke() const;
@@ -84,7 +83,7 @@ public:
     void fillExtents(double* x1, double* y1, double* x2, double* y2) const;
     cairo_rectangle_list_t* copyClipRectangleList() const;
     void destroyRectangleList(cairo_rectangle_list_t* list) const;
-    void mask(Pattern* pattern) const;
+    void mask(cairo_pattern_t* pattern) const;
     void maskSurface(cairo_surface_t* surface, const double& x, const double& y) const;
     void paintWithAlpha(const double& alpha) const;
     void copyPage() const;

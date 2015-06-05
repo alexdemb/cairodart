@@ -14,13 +14,10 @@
 #include "factory.h"
 #include "infrastructure/infrastructure.h"
 #include "context.h"
-#include "pattern.h"
-#include "meshpattern.h"
 #include "surface.h"
+#include "pattern.h"
 
 using namespace cairodart::infrastructure;
-
-void surface_destroy(void* handle);
 
 struct DartFunctionMap {
     const char* name;
@@ -759,7 +756,7 @@ void mask(Dart_NativeArguments args)
 {
     Context* ctx = Utils::thisFromArg<Context>(args);
     Dart_Handle patternArg = arg_get(&args, 1);
-    Pattern* pattern = Utils::bindingObject<Pattern>(patternArg);
+    cairo_pattern_t* pattern = (cairo_pattern_t*)bind_get(patternArg);
 
     ctx->mask(pattern);
 
@@ -860,11 +857,11 @@ void get_dash_count(Dart_NativeArguments args)
 void pop_group(Dart_NativeArguments args)
 {
     Context* ctx = Utils::thisFromArg<Context>(args);
-    Pattern* pattern = ctx->popGroup();
+    cairo_pattern_t* pattern = ctx->popGroup();
 
     Dart_Handle patternObj = Utils::newPattern(pattern);
 
-    Utils::setupBindingObject<Pattern>(patternObj, pattern);
+    bind_setup(pattern, patternObj, pattern_destroy);
     Dart_SetReturnValue(args, patternObj);
 }
 
@@ -872,7 +869,7 @@ void set_source(Dart_NativeArguments args)
 {
     Context* ctx = Utils::thisFromArg<Context>(args);
     Dart_Handle patternObj = arg_get(&args, 1);
-    Pattern* pattern = Utils::bindingObject<Pattern>(patternObj);
+    cairo_pattern_t* pattern = (cairo_pattern_t*)bind_get(patternObj);
 
     ctx->setSource(pattern);
 
@@ -883,7 +880,7 @@ void get_source(Dart_NativeArguments args)
 {
     Context* ctx = Utils::thisFromArg<Context>(args);
 
-    Pattern* pattern = ctx->getSource();
+    cairo_pattern_t* pattern = ctx->getSource();
 
     if (pattern == nullptr)
     {
@@ -892,7 +889,7 @@ void get_source(Dart_NativeArguments args)
     }
 
     Dart_Handle patternObj = Utils::newPattern(pattern);
-    Utils::setupBindingObject<Pattern>(patternObj, pattern, false);
+    bind_setup(pattern, patternObj, pattern_destroy);
 
     Dart_SetReturnValue(args, patternObj);
 }
@@ -933,389 +930,5 @@ void format_stride_for_width(Dart_NativeArguments args)
 
     Dart_SetReturnValue(args, Dart_NewInteger(stride));
 }
-
-
-
-
-// cairo_pattern_t
-void pattern_create_rgb(Dart_NativeArguments args)
-{
-    Dart_Handle obj = arg_get(&args, 0);
-    double red = arg_get_double(&args, 1);
-    double green = arg_get_double(&args, 2);
-    double blue = arg_get_double(&args, 3);
-
-    Pattern* pattern = Pattern::createPatternForRgb(red, green, blue);
-    Utils::setupBindingObject<Pattern>(obj, pattern);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_create_rgba(Dart_NativeArguments args)
-{
-    Dart_Handle obj = arg_get(&args, 0);
-    double red = arg_get_double(&args, 1);
-    double green = arg_get_double(&args, 2);
-    double blue = arg_get_double(&args, 3);
-    double alpha = arg_get_double(&args, 4);
-
-    Pattern* pattern = Pattern::createPatternForRgba(red, green, blue, alpha);
-    Utils::setupBindingObject<Pattern>(obj, pattern);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_create_for_surface(Dart_NativeArguments args)
-{
-    Dart_Handle obj = arg_get(&args, 0);
-    Dart_Handle surfaceObj = arg_get(&args, 1);
-
-    cairo_surface_t* surface = (cairo_surface_t*)bind_get(surfaceObj);
-
-    Pattern* pattern = Pattern::createForSurface(surface);
-    Utils::setupBindingObject<Pattern>(obj, pattern);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_create_linear(Dart_NativeArguments args)
-{
-    Dart_Handle obj = arg_get(&args, 0);
-    double x0 = arg_get_double(&args, 1);
-    double y0 = arg_get_double(&args, 2);
-    double x1 = arg_get_double(&args, 3);
-    double y1 = arg_get_double(&args, 4);
-
-    Pattern* pattern = Pattern::createLinear(x0, y0, x1, y1);
-    Utils::setupBindingObject<Pattern>(obj, pattern);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_create_radial(Dart_NativeArguments args)
-{
-    Dart_Handle obj = arg_get(&args, 0);
-    double cx0 = arg_get_double(&args, 1);
-    double cy0 = arg_get_double(&args, 2);
-    double radius0 = arg_get_double(&args, 3);
-    double cx1 = arg_get_double(&args, 4);
-    double cy1 = arg_get_double(&args, 5);
-    double radius1 = arg_get_double(&args, 6);
-
-    Pattern* pattern = Pattern::createRadial(cx0, cy0, radius0, cx1, cy1, radius1);
-    Utils::setupBindingObject<Pattern>(obj, pattern);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_create_mesh(Dart_NativeArguments args)
-{
-    Dart_Handle obj = arg_get(&args, 0);
-
-    MeshPattern* pattern = Pattern::createMesh();
-    Utils::setupBindingObject<MeshPattern>(obj, pattern);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_mesh_begin_patch(Dart_NativeArguments args)
-{
-    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
-    pattern->beginPatch();
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_mesh_end_patch(Dart_NativeArguments args)
-{
-    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
-    pattern->endPatch();
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_mesh_move_to(Dart_NativeArguments args)
-{
-    double x = arg_get_double(&args, 1);
-    double y = arg_get_double(&args, 2);
-
-    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
-    pattern->moveTo(x, y);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_mesh_line_to(Dart_NativeArguments args)
-{
-    double x = arg_get_double(&args, 1);
-    double y = arg_get_double(&args, 2);
-
-    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
-    pattern->lineTo(x, y);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_mesh_curve_to(Dart_NativeArguments args)
-{
-    double x1 = arg_get_double(&args, 1);
-    double y1 = arg_get_double(&args, 2);
-    double x2 = arg_get_double(&args, 3);
-    double y2 = arg_get_double(&args, 4);
-    double x3 = arg_get_double(&args, 5);
-    double y3 = arg_get_double(&args, 6);
-
-    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
-    pattern->curveTo(x1, y1, x2, y2, x3, y3);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_mesh_get_control_point(Dart_NativeArguments args)
-{
-    unsigned int patchNum = (unsigned int) arg_get_int(&args, 1);;
-    unsigned int pointNum = (unsigned int) arg_get_int(&args, 2);
-
-    double x = 0;
-    double y = 0;
-
-    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
-    pattern->getControlPoint(patchNum, pointNum, &x, &y);
-
-    Dart_Handle pointArgs[2] = { Dart_NewDouble(x), Dart_NewDouble(y) };
-    Dart_Handle point = Utils::newObject("Point", "from", 2, pointArgs);
-
-    Dart_SetReturnValue(args, point);
-}
-
-void pattern_mesh_set_control_point(Dart_NativeArguments args)
-{
-    unsigned int pointNum = (unsigned int) arg_get_int(&args, 1);
-    double x = arg_get_double(&args, 2);
-    double y = arg_get_double(&args, 3);
-
-    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
-    pattern->setControlPoint(pointNum, x, y);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_mesh_get_corner_color(Dart_NativeArguments args)
-{
-    unsigned int patchNum = (unsigned int) arg_get_int(&args, 1);
-    unsigned int pointNum = (unsigned int) arg_get_int(&args, 2);
-    double red = 0;
-    double green = 0;
-    double blue = 0;
-    double alpha = 0;
-
-    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
-    pattern->getCornerColor(patchNum, pointNum, &red, &green, &blue, &alpha);
-
-    Dart_Handle colorArgs[4] = { Dart_NewDouble(red), Dart_NewDouble(green), Dart_NewDouble(blue), Dart_NewDouble(alpha) };
-    Dart_Handle color = Utils::newObject("Color", "rgba", 4, colorArgs);
-
-    Dart_SetReturnValue(args, color);
-}
-
-void pattern_mesh_set_corner_color(Dart_NativeArguments args)
-{
-    unsigned int pointNum = (unsigned int) arg_get_int(&args, 1);
-    double red = arg_get_double(&args, 2);
-    double green = arg_get_double(&args, 3);
-    double blue = arg_get_double(&args, 4);
-    double alpha = arg_get_double(&args, 5);
-
-    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
-    pattern->setCornerColor(pointNum, red, green, blue, alpha);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_mesh_get_patch_count(Dart_NativeArguments args)
-{
-    MeshPattern* pattern = Utils::thisFromArg<MeshPattern>(args);
-    unsigned int patchCount = pattern->getPatchCount();
-
-    Dart_SetReturnValue(args, Dart_NewInteger(patchCount));
-}
-
-void pattern_add_color_stop_rgb(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    double offset = arg_get_double(&args, 1);
-    double red = arg_get_double(&args, 2);
-    double green = arg_get_double(&args, 3);
-    double blue = arg_get_double(&args, 4);
-
-    pattern->addColorStop(offset, red, green, blue);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_add_color_stop_rgba(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    double offset = arg_get_double(&args, 1);
-    double red = arg_get_double(&args, 2);
-    double green = arg_get_double(&args, 3);
-    double blue = arg_get_double(&args, 4);
-    double alpha = arg_get_double(&args, 5);
-
-    pattern->addColorStop(offset, red, green, blue, alpha);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_get_color_stop_count(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    int count = pattern->colorStopCount();
-    Dart_SetReturnValue(args, Dart_NewInteger(count));
-}
-
-void pattern_get_color_stop_rgba(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    int index = arg_get_int(&args, 1);
-    double offset = 0.0;
-    double red = 0.0;
-    double green = 0.0;
-    double blue = 0.0;
-    double alpha = 0.0;
-
-    pattern->getColorStop(index, &offset, &red, &green, &blue, &alpha);
-
-    Dart_Handle colorArgs[4] = {
-      Dart_NewDouble(red),
-      Dart_NewDouble(green),
-      Dart_NewDouble(blue),
-      Dart_NewDouble(alpha)
-    };
-    Dart_Handle color = Utils::newObject("Color", "rgba", 4, colorArgs);
-
-    Dart_Handle colorStopArgs[2] = { color, Dart_NewDouble(offset) };
-    Dart_Handle colorStop = Utils::newObject("ColorStop", "", 2, colorStopArgs);
-
-    Dart_SetReturnValue(args, colorStop);
-}
-
-void pattern_get_linear_points(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    double x0 = 0.0;
-    double y0 = 0.0;
-    double x1 = 0.0;
-    double y1 = 0.0;
-
-    pattern->getLinearPoints(&x0, &y0, &x1, &y1);
-
-    Dart_Handle point1 = Utils::newPoint(x0, y0);
-    Dart_Handle point2 = Utils::newPoint(x1, y1);
-    Dart_Handle res = Utils::newList(2, point1, point2);
-
-    Dart_SetReturnValue(args, res);
-}
-
-void pattern_get_radial_circles(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    double x0 = 0.0;
-    double y0 = 0.0;
-    double r0 = 0.0;
-    double x1 = 0.0;
-    double y1 = 0.0;
-    double r1 = 0.0;
-
-    pattern->getRadialCircles(&x0, &y0, &r0, &x1, &y1, &r1);
-
-    Dart_Handle circle1 = Utils::newCircle(x0, y0, r0);
-    Dart_Handle circle2 = Utils::newCircle(x1, y1, r1);
-    Dart_Handle res = Utils::newList(2, circle1, circle2);
-
-    Dart_SetReturnValue(args, res);
-}
-
-
-void pattern_get_extend(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-
-    cairo_extend_t extend = pattern->getExtend();
-    int val = static_cast<int>(extend);
-    Dart_SetReturnValue(args, Dart_NewInteger(val));
-}
-
-void pattern_set_extend(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    int val = arg_get_int(&args, 1);
-
-    pattern->setExtend(static_cast<cairo_extend_t>(val));
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_get_filter(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-
-    cairo_filter_t filter = pattern->getFilter();
-    int val = static_cast<int>(filter);
-    Dart_SetReturnValue(args, Dart_NewInteger(val));
-}
-
-void pattern_set_filter(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    int val = arg_get_int(&args, 1);
-
-    pattern->setFilter(static_cast<cairo_filter_t>(val));
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_get_type(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    cairo_pattern_type_t type = pattern->getPatternType();
-
-    Dart_SetReturnValue(args, Dart_NewInteger(static_cast<int>(type)));
-}
-
-void pattern_get_matrix(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    cairo_matrix_t* matrix = (cairo_matrix_t*) malloc(sizeof(cairo_matrix_t));
-
-    cairo_pattern_get_matrix(pattern->getHandle(), matrix);
-
-    Dart_Handle matrixObj = Utils::newObject("_Matrix", "internal", 0, NULL);
-
-    bind_setup((void*)matrix, matrixObj, matrix_destroy);
-
-    Dart_SetReturnValue(args, matrixObj);
-}
-
-void pattern_set_matrix(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    Dart_Handle matrixObj = arg_get(&args, 1);
-    cairo_matrix_t* matrix = (cairo_matrix_t*) bind_get(matrixObj);
-    cairo_pattern_set_matrix(pattern->getHandle(), matrix);
-
-    Dart_SetReturnValue(args, Dart_Null());
-}
-
-void pattern_equals(Dart_NativeArguments args)
-{
-    Pattern* pattern = Utils::thisFromArg<Pattern>(args);
-    Dart_Handle otherObj = arg_get(&args, 1);
-    Pattern* otherPattern = Utils::bindingObject<Pattern>(otherObj);
-
-    bool equals = *pattern == *otherPattern;
-    Dart_SetReturnValue(args, Dart_NewBoolean(equals));
-}
-
 
 

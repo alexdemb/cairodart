@@ -216,10 +216,11 @@ Dart_Handle Utils::newRectangleList(const Dart_Handle& context, const cairo_rect
     return result;
 }
 
-Dart_Handle Utils::newPattern(const Pattern *pattern)
+Dart_Handle Utils::newPattern(cairo_pattern_t *pattern)
 {
     Dart_Handle patternObj;
-    if (CAIRO_PATTERN_TYPE_MESH == pattern->getPatternType())
+    cairo_pattern_type_t type = cairo_pattern_get_type(pattern);
+    if (CAIRO_PATTERN_TYPE_MESH == type)
     {
         patternObj = Utils::newObject("_MeshPattern", "", 0, NULL);
     }

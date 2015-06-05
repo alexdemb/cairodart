@@ -40,3 +40,28 @@ Dart_Handle factory_create_resolution(const double xRes, const double yRes) {
     Dart_Handle resArgs[2] = { Dart_NewDouble(xRes), Dart_NewDouble(yRes) };
     return factory_create_object("Resolution", "", resArgs, 2);
 }
+
+Dart_Handle factory_create_color(const double red, const double green, const double blue, const double alpha) {
+    Dart_Handle colorArgs[4] =
+    {
+        Dart_NewDouble(red),
+        Dart_NewDouble(green),
+        Dart_NewDouble(blue),
+        Dart_NewDouble(alpha)
+    };
+    return factory_create_object("Color", "rgba", colorArgs, 4);
+}
+
+Dart_Handle factory_create_color_stop(Dart_Handle color, double offset) {
+    Dart_Handle colorStopArgs[2] = { color, Dart_NewDouble(offset) };
+    return factory_create_object("ColorStop", "", colorStopArgs, 2);
+}
+
+Dart_Handle factory_create_circle(const double x, const double y, const double radius) {
+    Dart_Handle args[3] = { Dart_NewDouble(x), Dart_NewDouble(y), Dart_NewDouble(radius) };
+    return factory_create_object("Circle", "", args, 3);
+}
+
+Dart_Handle factory_create_matrix() {
+    return factory_create_object("_Matrix", "internal", NULL, 0);
+}

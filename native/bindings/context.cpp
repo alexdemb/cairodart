@@ -384,9 +384,9 @@ void Context::destroyRectangleList(cairo_rectangle_list_t *list) const
     verify();
 }
 
-void Context::mask(Pattern *pattern) const
+void Context::mask(cairo_pattern_t* pattern) const
 {
-    cairo_mask(this->c, pattern->getHandle());
+    cairo_mask(this->c, pattern);
     verify();
 }
 
@@ -432,26 +432,24 @@ int Context::getDashCount() const
     return count;
 }
 
-Pattern* Context::popGroup() const
+cairo_pattern_t* Context::popGroup() const
 {
     cairo_pattern_t* p = cairo_pop_group(this->c);
     verify();
-    Pattern* pattern = Pattern::getOrCreate(p);
-    return pattern;
+    return p;
 }
 
-void Context::setSource(const Pattern *pattern) const
+void Context::setSource(cairo_pattern_t *pattern) const
 {
-    cairo_set_source(this->c, pattern->getHandle());
+    cairo_set_source(this->c, pattern);
     verify();
 }
 
-Pattern* Context::getSource() const
+cairo_pattern_t* Context::getSource() const
 {
     cairo_pattern_t* p = cairo_get_source(this->c);
     verify();
-    Pattern* pattern = Pattern::getOrCreate(p);
-    return pattern;
+    return p;
 }
 
 void Context::setSourceSurface(cairo_surface_t *surface, const double& x, const double &y) const

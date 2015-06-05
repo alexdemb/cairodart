@@ -7,8 +7,6 @@
 #include <cstdint>
 #include "infrastructure.h"
 #include <cstdarg>
-#include "bindings/pattern.h"
-#include "bindings/meshpattern.h"
 #include "bindingobjectcache.h"
 #include "../argument.h"
 
@@ -43,7 +41,7 @@ public:
     static Dart_Handle newRectangle(const int& x, const int& y, const int& width, const int& height);
     static Dart_Handle newRectangle(const double& x, const double& y, const double& width, const double& height);
     static Dart_Handle newRectangleList(const Dart_Handle& context, const cairo_rectangle_list_t* list);
-    static Dart_Handle newPattern(const Pattern* pattern);
+    static Dart_Handle newPattern(cairo_pattern_t* pattern);
     static Dart_Handle newSurface(cairo_surface_t* surface);
     static int listLength(const Dart_Handle& list);
     static int intAt(const Dart_Handle& list, const int& pos);

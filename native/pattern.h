@@ -3,10 +3,6 @@
 
 #include "dart_api.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 void pattern_destroy(void* handle);
 void pattern_create_rgb(Dart_NativeArguments args);
 void pattern_create_rgba(Dart_NativeArguments args);
@@ -39,9 +35,5 @@ void pattern_get_matrix(Dart_NativeArguments args);
 void pattern_set_matrix(Dart_NativeArguments args);
 void pattern_equals(Dart_NativeArguments args);
 
-
-#ifdef __cplusplus
-} // extern "C"
-#endif
 
 #endif // PATTERN_H

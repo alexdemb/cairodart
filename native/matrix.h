@@ -3,10 +3,6 @@
 
 #include "dart_api.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 void matrix_destroy(void* matrix);
 
 void matrix_create(Dart_NativeArguments args);
@@ -29,8 +25,5 @@ void matrix_transform_point(Dart_NativeArguments args);
 void matrix_transform_distance(Dart_NativeArguments args);
 void matrix_multiply(Dart_NativeArguments args);
 
-#ifdef __cplusplus
-} // extern "C"
-#endif
 
 #endif // MATRIX_H

@@ -4,10 +4,6 @@
 #include "dart_api.h"
 #include <cairo/cairo.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 Dart_Handle factory_create_object(const char* className, const char* ctorName, Dart_Handle* args, int argc);
 
 Dart_Handle factory_create_point(const double x, const double y);
@@ -44,8 +40,5 @@ Dart_Handle factory_create_pattern(cairo_pattern_t* pattern);
 
 Dart_Handle factory_create_surface(cairo_surface_t* surface);
 
-#ifdef __cplusplus
-} // extern "C"
-#endif
 
 #endif // FACTORY_H

@@ -3,10 +3,6 @@
 
 #include "dart_api.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 void surface_destroy(void* handle);
 void image_surface_create(Dart_NativeArguments args);
 void image_surface_get_width(Dart_NativeArguments args);
@@ -30,8 +26,5 @@ void image_surface_create_from_png(Dart_NativeArguments args);
 void surface_write_to_png(Dart_NativeArguments args);
 void surfaces_equals(Dart_NativeArguments args);
 
-#ifdef __cplusplus
-} // extern "C"
-#endif
 
 #endif // SURFACE_H

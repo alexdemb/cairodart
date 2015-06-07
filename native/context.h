@@ -3,10 +3,6 @@
 
 #include "dart_api.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 void context_destroy(void* handle);
 void context_create(Dart_NativeArguments args);
 void save(Dart_NativeArguments args);
@@ -77,9 +73,5 @@ void get_dash(Dart_NativeArguments args);
 void get_dash_count(Dart_NativeArguments args);
 void set_source_surface(Dart_NativeArguments args);
 void get_group_target(Dart_NativeArguments args);
-
-#ifdef __cplusplus
-} // extern "C"
-#endif
 
 #endif // CONTEXT_H

@@ -12,8 +12,6 @@ Dart_NativeFunction resolve(const char* name);
 
 
 
-// cairo_format_t
-void format_stride_for_width(Dart_NativeArguments args);
 
 #ifdef __cplusplus
 } // extern "C"

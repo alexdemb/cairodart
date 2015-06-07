@@ -16,6 +16,7 @@
 #include "surface.h"
 #include "pattern.h"
 #include "context.h"
+#include "format.h"
 
 using namespace cairodart::infrastructure;
 
@@ -198,16 +199,5 @@ Dart_NativeFunction resolve(const char* name)
     return NULL;
 }
 
-// cairo_format_t
-
-void format_stride_for_width(Dart_NativeArguments args)
-{
-    cairo_format_t format = (cairo_format_t) arg_get_int(&args, 1);
-    int width = arg_get_int(&args, 2);
-
-    int stride = cairo_format_stride_for_width(format, width);
-
-    Dart_SetReturnValue(args, Dart_NewInteger(stride));
-}
 
 

@@ -25,7 +25,8 @@ HEADERS += \
     region.h \
     surface.h \
     pattern.h \
-    context.h
+    context.h \
+    format.h
 
 SOURCES += \
     argument.c \
@@ -39,4 +40,5 @@ SOURCES += \
     region.c \
     surface.c \
     pattern.c \
-    context.c
+    context.c \
+    format.c

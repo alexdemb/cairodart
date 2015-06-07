@@ -2,6 +2,7 @@
 #include <cairo/cairo.h>
 #include "dart_api.h"
 
+#include "list.h"
 #include "context.h"
 #include "error.h"
 #include "argument.h"
@@ -619,11 +620,8 @@ void set_dash(Dart_NativeArguments args) {
     double dashes[num];
     int i = 0;
     for (i = 0; i < num; i++) {
-       Dart_Handle dbl = Dart_ListGetAt(dashesList, i);
-       error_check_handle(dbl);
-       double value = 0.0;
-       error_check_handle(Dart_DoubleValue(dbl, &value));
-       dashes[i] =  value;
+       double val = list_double_at(dashesList, i);
+       dashes[i] = val;
     }
 
     cairo_set_dash(context, dashes, num, offset);

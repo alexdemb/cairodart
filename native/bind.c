@@ -39,14 +39,12 @@ void* bind_get_self(Dart_NativeArguments args) {
 }
 
 
-static void finalize(void* isolateCallbackData, Dart_WeakPersistentHandle weakHandle, void* peer)
-{
+static void finalize(void* isolateCallbackData, Dart_WeakPersistentHandle weakHandle, void* peer) {
     UNUSED(isolateCallbackData);
     UNUSED(weakHandle);
 
     BindInfo* info = (BindInfo*)peer;
-    if (info && info->handle && info->destroy_func)
-    {
+    if (info && info->handle && info->destroy_func) {
         info->destroy_func(info->handle);
     }
 }

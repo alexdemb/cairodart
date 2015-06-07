@@ -684,6 +684,8 @@ void get_source(Dart_NativeArguments args) {
     cairo_t* context = (cairo_t*)bind_get_self(args);
     cairo_pattern_t* pattern = cairo_get_source(context);
 
+    pattern = cairo_pattern_reference(pattern);
+
     Dart_Handle patternObj = pattern ? factory_create_pattern(pattern) : Dart_Null();
     bind_setup(pattern, patternObj, pattern_destroy);
 

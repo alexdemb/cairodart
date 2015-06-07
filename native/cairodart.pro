@@ -1,6 +1,3 @@
-include(infrastructure/infrastructure.pri)
-include(bindings/bindings.pri)
-
 DART_API_INCLUDE = "$$(DART_SDK)/include"
 
 INCLUDEPATH += $$DART_API_INCLUDE

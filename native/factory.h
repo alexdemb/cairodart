@@ -40,5 +40,7 @@ Dart_Handle factory_create_pattern(cairo_pattern_t* pattern);
 
 Dart_Handle factory_create_surface(cairo_surface_t* surface);
 
+Dart_Handle factory_create_font_type(cairo_font_type_t fontType);
+
 
 #endif // FACTORY_H

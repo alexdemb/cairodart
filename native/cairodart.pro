@@ -23,7 +23,8 @@ HEADERS += \
     surface.h \
     pattern.h \
     context.h \
-    format.h
+    format.h \
+    font_face.h
 
 SOURCES += \
     argument.c \
@@ -38,4 +39,5 @@ SOURCES += \
     surface.c \
     pattern.c \
     context.c \
-    format.c
+    format.c \
+    font_face.c

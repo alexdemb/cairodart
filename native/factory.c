@@ -150,3 +150,7 @@ Dart_Handle factory_create_surface(cairo_surface_t* surface) {
     return surfaceObj;
 }
 
+Dart_Handle factory_create_font_type(cairo_font_type_t fontType) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)fontType) };
+    return factory_create_object("_FontType", "", args, 1);
+}

@@ -13,6 +13,7 @@ part 'matrix_test.dart';
 part 'region_test.dart';
 part 'rectangle_test.dart';
 part 'test_utils.dart';
+part 'font_options_test.dart';
 
 main() {
   runUtilsTests();
@@ -24,4 +25,5 @@ main() {
   runMatrixTests();
   runRegionTests();
   runRectangleTests();
+  runFontOptionsTests();
 }

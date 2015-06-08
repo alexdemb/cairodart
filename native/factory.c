@@ -96,6 +96,21 @@ Dart_Handle factory_create_antialias(cairo_antialias_t antialias) {
     return factory_create_object("_Antialias", "", args, 1);
 }
 
+Dart_Handle factory_create_subpixel_order(cairo_subpixel_order_t order) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)order) };
+    return factory_create_object("_SubpixelOrder", "", args, 1);
+}
+
+Dart_Handle factory_create_hint_style(cairo_hint_style_t style) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)style) };
+    return factory_create_object("_HintStyle", "", args, 1);
+}
+
+Dart_Handle factory_create_hint_metrics(cairo_hint_metrics_t metrics) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)metrics) };
+    return factory_create_object("_HintMetrics", "", args, 1);
+}
+
 static Dart_Handle factory_create_dart_rectangle_list(Dart_Handle context, const cairo_rectangle_list_t* list, Dart_Handle rectsList) {
     Dart_Handle ctorArgs[] = { context, Dart_NewInteger((int)list->status), rectsList };
     return factory_create_object("_RectangleList", "", ctorArgs, 3);

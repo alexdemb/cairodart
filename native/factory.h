@@ -34,6 +34,12 @@ Dart_Handle factory_create_fill_rule(cairo_fill_rule_t rule);
 
 Dart_Handle factory_create_antialias(cairo_antialias_t antialias);
 
+Dart_Handle factory_create_subpixel_order(cairo_subpixel_order_t order);
+
+Dart_Handle factory_create_hint_style(cairo_hint_style_t style);
+
+Dart_Handle factory_create_hint_metrics(cairo_hint_metrics_t metrics);
+
 Dart_Handle factory_create_rectangle_list(const Dart_Handle context, const cairo_rectangle_list_t* list);
 
 Dart_Handle factory_create_pattern(cairo_pattern_t* pattern);

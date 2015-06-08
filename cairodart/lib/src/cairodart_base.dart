@@ -32,4 +32,7 @@ part 'rectangle_list.dart';
 part 'dash.dart';
 part 'font_type.dart';
 part 'font_face.dart';
-
+part 'hint_metrics.dart';
+part 'subpixel_order.dart';
+part 'hint_style.dart';
+part 'font_options.dart';

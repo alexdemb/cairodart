@@ -12,6 +12,8 @@
 #include "matrix.h"
 #include "region.h"
 #include "format.h"
+#include "font_face.h"
+#include "font_options.h"
 
 Dart_NativeFunction resolve(const char* name);
 Dart_NativeFunction ResolveName(Dart_Handle name, int argc, bool* auto_setup_scope);
@@ -212,7 +214,21 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "region_union", region_union },
   { "region_union_rectangle", region_union_rectangle },
   { "region_xor", region_xor },
-  { "region_xor_rectangle", region_xor_rectangle }
+  { "region_xor_rectangle", region_xor_rectangle },
+  { "font_face_get_type", font_face_get_type },
+  { "font_options_create", font_options_create },
+  { "font_options_copy", font_options_copy },
+  { "font_options_merge", font_options_merge },
+  { "font_options_hash", font_options_hash },
+  { "font_options_equal", font_options_equal },
+  { "font_options_set_antialias", font_options_set_antialias },
+  { "font_options_get_antialias", font_options_get_antialias },
+  { "font_options_set_subpixel_order", font_options_set_subpixel_order },
+  { "font_options_get_subpixel_order", font_options_get_subpixel_order },
+  { "font_options_set_hint_style", font_options_set_hint_style },
+  { "font_options_get_hint_style", font_options_get_hint_style },
+  { "font_options_set_hint_metrics", font_options_set_hint_metrics },
+  { "font_options_get_hint_metrics", font_options_get_hint_metrics }
 
 };
 

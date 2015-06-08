@@ -24,7 +24,8 @@ HEADERS += \
     pattern.h \
     context.h \
     format.h \
-    font_face.h
+    font_face.h \
+    font_options.h
 
 SOURCES += \
     argument.c \
@@ -40,4 +41,5 @@ SOURCES += \
     pattern.c \
     context.c \
     format.c \
-    font_face.c
+    font_face.c \
+    font_options.c

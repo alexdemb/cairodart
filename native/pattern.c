@@ -22,6 +22,7 @@ void pattern_destroy(void* handle) {
 }
 
 void pattern_create_rgb(Dart_NativeArguments args) {
+    Dart_EnterScope();
     Dart_Handle obj = arg_get(&args, 0);
     double red = arg_get_double(&args, 1);
     double green = arg_get_double(&args, 2);
@@ -32,9 +33,11 @@ void pattern_create_rgb(Dart_NativeArguments args) {
     bind_setup(pattern, obj, pattern_destroy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_create_rgba(Dart_NativeArguments args) {
+    Dart_EnterScope();
     Dart_Handle obj = arg_get(&args, 0);
     double red = arg_get_double(&args, 1);
     double green = arg_get_double(&args, 2);
@@ -46,9 +49,11 @@ void pattern_create_rgba(Dart_NativeArguments args) {
     bind_setup(pattern, obj, pattern_destroy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_create_for_surface(Dart_NativeArguments args) {
+    Dart_EnterScope();
     Dart_Handle obj = arg_get(&args, 0);
     Dart_Handle surfaceObj = arg_get(&args, 1);
 
@@ -59,9 +64,11 @@ void pattern_create_for_surface(Dart_NativeArguments args) {
     bind_setup(pattern, obj, pattern_destroy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_create_linear(Dart_NativeArguments args) {
+    Dart_EnterScope();
     Dart_Handle obj = arg_get(&args, 0);
     double x0 = arg_get_double(&args, 1);
     double y0 = arg_get_double(&args, 2);
@@ -73,9 +80,11 @@ void pattern_create_linear(Dart_NativeArguments args) {
     bind_setup(pattern, obj, pattern_destroy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_create_radial(Dart_NativeArguments args) {
+    Dart_EnterScope();
     Dart_Handle obj = arg_get(&args, 0);
     double cx0 = arg_get_double(&args, 1);
     double cy0 = arg_get_double(&args, 2);
@@ -89,9 +98,11 @@ void pattern_create_radial(Dart_NativeArguments args) {
     bind_setup(pattern, obj, pattern_destroy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_create_mesh(Dart_NativeArguments args) {
+    Dart_EnterScope();
     Dart_Handle obj = arg_get(&args, 0);
 
     cairo_pattern_t* pattern = cairo_pattern_create_mesh();
@@ -99,25 +110,31 @@ void pattern_create_mesh(Dart_NativeArguments args) {
     bind_setup(pattern, obj, pattern_destroy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_mesh_begin_patch(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
 
     cairo_mesh_pattern_begin_patch(pattern);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_mesh_end_patch(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
 
     cairo_mesh_pattern_end_patch(pattern);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_mesh_move_to(Dart_NativeArguments args) {
+    Dart_EnterScope();
     double x = arg_get_double(&args, 1);
     double y = arg_get_double(&args, 2);
 
@@ -126,9 +143,11 @@ void pattern_mesh_move_to(Dart_NativeArguments args) {
     cairo_mesh_pattern_move_to(pattern, x, y);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_mesh_line_to(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     double x = arg_get_double(&args, 1);
     double y = arg_get_double(&args, 2);
@@ -136,9 +155,11 @@ void pattern_mesh_line_to(Dart_NativeArguments args) {
     cairo_mesh_pattern_line_to(pattern, x, y);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_mesh_curve_to(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     double x1 = arg_get_double(&args, 1);
     double y1 = arg_get_double(&args, 2);
@@ -150,9 +171,11 @@ void pattern_mesh_curve_to(Dart_NativeArguments args) {
     cairo_mesh_pattern_curve_to(pattern, x1, y1, x2, y2, x3, y3);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_mesh_get_control_point(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     unsigned int patchNum = (unsigned int) arg_get_int(&args, 1);;
     unsigned int pointNum = (unsigned int) arg_get_int(&args, 2);
@@ -165,9 +188,11 @@ void pattern_mesh_get_control_point(Dart_NativeArguments args) {
     Dart_Handle point = factory_create_point(x, y);
 
     Dart_SetReturnValue(args, point);
+    Dart_ExitScope();
 }
 
 void pattern_mesh_set_control_point(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
 
     unsigned int pointNum = (unsigned int) arg_get_int(&args, 1);
@@ -177,9 +202,11 @@ void pattern_mesh_set_control_point(Dart_NativeArguments args) {
     cairo_mesh_pattern_set_control_point(pattern, pointNum, x, y);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_mesh_get_corner_color(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
 
     unsigned int patchNum = (unsigned int) arg_get_int(&args, 1);
@@ -194,9 +221,11 @@ void pattern_mesh_get_corner_color(Dart_NativeArguments args) {
     Dart_Handle color = factory_create_color(red, green, blue, alpha);
 
     Dart_SetReturnValue(args, color);
+    Dart_ExitScope();
 }
 
 void pattern_mesh_set_corner_color(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     unsigned int pointNum = (unsigned int) arg_get_int(&args, 1);
     double red = arg_get_double(&args, 2);
@@ -207,9 +236,11 @@ void pattern_mesh_set_corner_color(Dart_NativeArguments args) {
     cairo_mesh_pattern_set_corner_color_rgba(pattern, pointNum, red, green, blue, alpha);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_mesh_get_patch_count(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     unsigned int patchCount;
 
@@ -218,9 +249,11 @@ void pattern_mesh_get_patch_count(Dart_NativeArguments args) {
     error_verify(status);
 
     Dart_SetReturnValue(args, Dart_NewInteger(patchCount));
+    Dart_ExitScope();
 }
 
 void pattern_add_color_stop_rgb(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     double offset = arg_get_double(&args, 1);
     double red = arg_get_double(&args, 2);
@@ -230,9 +263,11 @@ void pattern_add_color_stop_rgb(Dart_NativeArguments args) {
     cairo_pattern_add_color_stop_rgb(pattern, offset, red, green, blue);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_add_color_stop_rgba(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     double offset = arg_get_double(&args, 1);
     double red = arg_get_double(&args, 2);
@@ -243,9 +278,11 @@ void pattern_add_color_stop_rgba(Dart_NativeArguments args) {
     cairo_pattern_add_color_stop_rgba(pattern, offset, red, green, blue, alpha);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_get_color_stop_count(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     int count = 0;
 
@@ -254,9 +291,11 @@ void pattern_get_color_stop_count(Dart_NativeArguments args) {
     error_verify(status);
 
     Dart_SetReturnValue(args, Dart_NewInteger(count));
+    Dart_ExitScope();
 }
 
 void pattern_get_color_stop_rgba(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     int index = arg_get_int(&args, 1);
     double offset = 0.0;
@@ -274,9 +313,11 @@ void pattern_get_color_stop_rgba(Dart_NativeArguments args) {
     Dart_Handle colorStop = factory_create_color_stop(color, offset);
 
     Dart_SetReturnValue(args, colorStop);
+    Dart_ExitScope();
 }
 
 void pattern_get_linear_points(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     double x0 = 0.0;
     double y0 = 0.0;
@@ -294,9 +335,11 @@ void pattern_get_linear_points(Dart_NativeArguments args) {
     Dart_ListSetAt(res, 1, point2);
 
     Dart_SetReturnValue(args, res);
+    Dart_ExitScope();
 }
 
 void pattern_get_radial_circles(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     double x0 = 0.0;
     double y0 = 0.0;
@@ -316,52 +359,64 @@ void pattern_get_radial_circles(Dart_NativeArguments args) {
     Dart_ListSetAt(res, 1, circle2);
 
     Dart_SetReturnValue(args, res);
+    Dart_ExitScope();
 }
 
 
 void pattern_get_extend(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
 
     int extend = (int)cairo_pattern_get_extend(pattern);
 
     Dart_SetReturnValue(args, Dart_NewInteger(extend));
+    Dart_ExitScope();
 }
 
 void pattern_set_extend(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     int val = arg_get_int(&args, 1);
 
     cairo_pattern_set_extend(pattern, (cairo_extend_t)val);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_get_filter(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
 
     int filter = (int)cairo_pattern_get_filter(pattern);
 
     Dart_SetReturnValue(args, Dart_NewInteger(filter));
+    Dart_ExitScope();
 }
 
 void pattern_set_filter(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     int filter = arg_get_int(&args, 1);
 
     cairo_pattern_set_filter(pattern, (cairo_filter_t)filter);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_get_type(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
 
     int type = (int) cairo_pattern_get_type(pattern);
 
     Dart_SetReturnValue(args, Dart_NewInteger(type));
+    Dart_ExitScope();
 }
 
 void pattern_get_matrix(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     cairo_matrix_t* matrix = (cairo_matrix_t*)malloc(sizeof(cairo_matrix_t));
 
@@ -372,9 +427,11 @@ void pattern_get_matrix(Dart_NativeArguments args) {
     bind_setup((void*)matrix, matrixObj, matrix_destroy);
 
     Dart_SetReturnValue(args, matrixObj);
+    Dart_ExitScope();
 }
 
 void pattern_set_matrix(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     Dart_Handle matrixObj = arg_get(&args, 1);
     cairo_matrix_t* matrix = (cairo_matrix_t*) bind_get(matrixObj);
@@ -382,14 +439,17 @@ void pattern_set_matrix(Dart_NativeArguments args) {
     cairo_pattern_set_matrix(pattern, matrix);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void pattern_equals(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
     Dart_Handle otherObj = arg_get(&args, 1);
     cairo_pattern_t* other = (cairo_pattern_t*) bind_get(otherObj);
 
     bool equals = pattern == other;
     Dart_SetReturnValue(args, Dart_NewBoolean(equals));
+    Dart_ExitScope();
 }
 

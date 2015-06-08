@@ -20,6 +20,7 @@ void region_destroy(void* handle) {
 }
 
 void region_create(Dart_NativeArguments args) {
+    Dart_EnterScope();
     Dart_Handle obj = arg_get(&args, 0);
 
     cairo_region_t* reg = cairo_region_create();
@@ -27,9 +28,11 @@ void region_create(Dart_NativeArguments args) {
     bind_setup(reg, obj, region_destroy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_create_rectangle(Dart_NativeArguments args) {
+    Dart_EnterScope();
     Dart_Handle obj = arg_get(&args, 0);
     int x = arg_get_int(&args, 1);
     int y = arg_get_int(&args, 2);
@@ -47,9 +50,11 @@ void region_create_rectangle(Dart_NativeArguments args) {
     bind_setup(reg, obj, region_destroy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_create_rectangles(Dart_NativeArguments args) {
+    Dart_EnterScope();
     Dart_Handle obj = arg_get(&args, 0);
     Dart_Handle areas = arg_get(&args, 1);
 
@@ -74,9 +79,11 @@ void region_create_rectangles(Dart_NativeArguments args) {
     bind_setup(reg, obj, region_destroy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_copy(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
 
     cairo_region_t* copy = cairo_region_copy(region);
@@ -86,9 +93,11 @@ void region_copy(Dart_NativeArguments args) {
     bind_setup(copy, copyObj, region_destroy);
 
     Dart_SetReturnValue(args, copyObj);
+    Dart_ExitScope();
 }
 
 void region_get_extents(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     cairo_rectangle_int_t extents;
 
@@ -97,15 +106,19 @@ void region_get_extents(Dart_NativeArguments args) {
     Dart_Handle rect = factory_create_rectangle(extents.x, extents.y, extents.width, extents.height);
 
     Dart_SetReturnValue(args, rect);
+    Dart_ExitScope();
 }
 
 void region_get_num_rectangles(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     int num = cairo_region_num_rectangles(region);
     Dart_SetReturnValue(args, Dart_NewInteger(num));
+    Dart_ExitScope();
 }
 
 void region_get_rectangle(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     int nth = arg_get_int(&args, 1);
     cairo_rectangle_int_t rect;
@@ -115,16 +128,20 @@ void region_get_rectangle(Dart_NativeArguments args) {
     Dart_Handle res = factory_create_rectangle(rect.x, rect.y, rect.width, rect.height);
 
     Dart_SetReturnValue(args, res);
+    Dart_ExitScope();
 }
 
 void region_is_empty(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     cairo_bool_t isEmpty = cairo_region_is_empty(region);
 
     Dart_SetReturnValue(args, Dart_NewBoolean(isEmpty != 0));
+    Dart_ExitScope();
 }
 
 void region_contains_point(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     int x = arg_get_int(&args, 1);
     int y = arg_get_int(&args, 1);
@@ -132,9 +149,11 @@ void region_contains_point(Dart_NativeArguments args) {
     cairo_bool_t res = cairo_region_contains_point(region, x, y);
 
     Dart_SetReturnValue(args, Dart_NewBoolean(res != 0));
+    Dart_ExitScope();
 }
 
 void region_contains_rectangle(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     cairo_rectangle_int_t rect;
     rect.x = arg_get_int(&args, 1);
@@ -148,9 +167,11 @@ void region_contains_rectangle(Dart_NativeArguments args) {
     Dart_Handle overlapObj = factory_create_object("_RegionOverlap", "", overlapArgs, 1);
 
     Dart_SetReturnValue(args, overlapObj);
+    Dart_ExitScope();
 }
 
 void region_equal(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     Dart_Handle otherObj = arg_get(&args, 1);
     cairo_region_t* other = (cairo_region_t*) bind_get(otherObj);
@@ -158,9 +179,11 @@ void region_equal(Dart_NativeArguments args) {
     cairo_bool_t equal = cairo_region_equal(region, other);
 
     Dart_SetReturnValue(args, Dart_NewBoolean(equal != 0));
+    Dart_ExitScope();
 }
 
 void region_translate(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     int dx = arg_get_int(&args, 1);
     int dy = arg_get_int(&args, 2);
@@ -168,9 +191,11 @@ void region_translate(Dart_NativeArguments args) {
     cairo_region_translate(region, dx, dy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_intersect(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     Dart_Handle otherObj = arg_get(&args, 1);
     cairo_region_t* other = (cairo_region_t*) bind_get(otherObj);
@@ -180,9 +205,11 @@ void region_intersect(Dart_NativeArguments args) {
     error_verify(status);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_intersect_rectangle(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     cairo_rectangle_int_t rect;
     rect.x = arg_get_int(&args, 1);
@@ -195,9 +222,11 @@ void region_intersect_rectangle(Dart_NativeArguments args) {
     error_verify(status);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_subtract(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     Dart_Handle otherObj = arg_get(&args, 1);
     cairo_region_t* other = (cairo_region_t*) bind_get(otherObj);
@@ -207,9 +236,11 @@ void region_subtract(Dart_NativeArguments args) {
     error_verify(status);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_subtract_rectangle(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     cairo_rectangle_int_t rect;
     rect.x = arg_get_int(&args, 1);
@@ -222,9 +253,11 @@ void region_subtract_rectangle(Dart_NativeArguments args) {
     error_verify(status);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_union(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     Dart_Handle otherObj = arg_get(&args, 1);
     cairo_region_t* other = (cairo_region_t*) bind_get(otherObj);
@@ -234,9 +267,11 @@ void region_union(Dart_NativeArguments args) {
     error_verify(status);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_union_rectangle(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     cairo_rectangle_int_t rect;
     rect.x = arg_get_int(&args, 1);
@@ -249,9 +284,11 @@ void region_union_rectangle(Dart_NativeArguments args) {
     error_verify(status);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_xor(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     Dart_Handle otherObj = arg_get(&args, 1);
     cairo_region_t* other = (cairo_region_t*) bind_get(otherObj);
@@ -261,9 +298,11 @@ void region_xor(Dart_NativeArguments args) {
     error_verify(status);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 
 void region_xor_rectangle(Dart_NativeArguments args) {
+    Dart_EnterScope();
     cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
     cairo_rectangle_int_t rect;
     rect.x = arg_get_int(&args, 1);
@@ -276,5 +315,6 @@ void region_xor_rectangle(Dart_NativeArguments args) {
     error_verify(status);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
 }
 

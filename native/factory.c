@@ -169,3 +169,31 @@ Dart_Handle factory_create_font_type(cairo_font_type_t fontType) {
     Dart_Handle args[1] = { Dart_NewInteger((int)fontType) };
     return factory_create_object("_FontType", "", args, 1);
 }
+
+Dart_Handle factory_create_font_extents(const cairo_font_extents_t* extents) {
+    Dart_Handle args[5] =
+    {
+        Dart_NewDouble(extents->ascent),
+        Dart_NewDouble(extents->descent),
+        Dart_NewDouble(extents->height),
+        Dart_NewDouble(extents->max_x_advance),
+        Dart_NewDouble(extents->max_y_advance)
+    };
+
+    return factory_create_object("_FontExtents", "", args, 5);
+}
+
+Dart_Handle factory_create_text_extents(const cairo_text_extents_t* extents) {
+    Dart_Handle args[6] =
+    {
+        Dart_NewDouble(extents->x_bearing),
+        Dart_NewDouble(extents->y_bearing),
+        Dart_NewDouble(extents->width),
+        Dart_NewDouble(extents->height),
+        Dart_NewDouble(extents->x_advance),
+        Dart_NewDouble(extents->y_advance)
+    };
+
+    return factory_create_object("_TextExtents", "", args, 6);
+}
+

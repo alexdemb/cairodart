@@ -36,3 +36,6 @@ part 'hint_metrics.dart';
 part 'subpixel_order.dart';
 part 'hint_style.dart';
 part 'font_options.dart';
+part 'font_extents.dart';
+part 'text_extents.dart';
+part 'scaled_font.dart';

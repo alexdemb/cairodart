@@ -5,6 +5,16 @@
 #include "bind.h"
 #include "factory.h"
 
+void font_face_destroy(void* handle) {
+    if (handle) {
+        cairo_font_face_t* fontFace = (cairo_font_face_t*) handle;
+        if (fontFace) {
+            cairo_font_face_destroy(fontFace);
+        }
+    }
+}
+
+
 void font_face_get_type(Dart_NativeArguments args) {
     Dart_EnterScope();
     cairo_font_face_t* fontFace = bind_get_self(args);

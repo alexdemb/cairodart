@@ -14,6 +14,7 @@
 #include "format.h"
 #include "font_face.h"
 #include "font_options.h"
+#include "scaled_font.h"
 
 Dart_NativeFunction resolve(const char* name);
 Dart_NativeFunction ResolveName(Dart_Handle name, int argc, bool* auto_setup_scope);
@@ -228,8 +229,18 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "font_options_set_hint_style", font_options_set_hint_style },
   { "font_options_get_hint_style", font_options_get_hint_style },
   { "font_options_set_hint_metrics", font_options_set_hint_metrics },
-  { "font_options_get_hint_metrics", font_options_get_hint_metrics }
-
+  { "font_options_get_hint_metrics", font_options_get_hint_metrics },
+  { "scaled_font_create", scaled_font_create },
+  { "scaled_font_extents", scaled_font_extents },
+  { "scaled_font_text_extents", scaled_font_text_extents },
+  { "scaled_font_glyph_extents", scaled_font_glyph_extents },
+  { "scaled_font_text_to_glyphs", scaled_font_text_to_glyphs },
+  { "scaled_font_get_font_face", scaled_font_get_font_face },
+  { "scaled_font_get_font_options", scaled_font_get_font_options },
+  { "scaled_font_get_font_matrix", scaled_font_get_font_matrix },
+  { "scaled_font_get_ctm", scaled_font_get_ctm },
+  { "scaled_font_get_scale_matrix", scaled_font_get_scale_matrix },
+  { "scaled_font_get_type", scaled_font_get_type },
 };
 
 Dart_NativeFunction resolve(const char* name) {

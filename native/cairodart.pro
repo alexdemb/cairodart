@@ -26,7 +26,8 @@ HEADERS += \
     format.h \
     font_face.h \
     font_options.h \
-    scaled_font.h
+    scaled_font.h \
+    glyphs.h
 
 SOURCES += \
     argument.c \
@@ -44,4 +45,5 @@ SOURCES += \
     format.c \
     font_face.c \
     font_options.c \
-    scaled_font.c
+    scaled_font.c \
+    glyphs.c

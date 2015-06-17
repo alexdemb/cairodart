@@ -3,6 +3,7 @@
 #include "factory.h"
 #include "error.h"
 #include "library.h"
+#include "glyphs.h"
 
 Dart_Handle factory_create_object(const char* className, const char* ctorName, Dart_Handle* args, int argc) {
     Dart_Handle constructorName = ctorName == NULL ? Dart_Null() : Dart_NewStringFromCString(ctorName);
@@ -197,3 +198,42 @@ Dart_Handle factory_create_text_extents(const cairo_text_extents_t* extents) {
     return factory_create_object("_TextExtents", "", args, 6);
 }
 
+
+
+Dart_Handle factory_create_glyphs(Glyphs* glyphs, int glyphNum, int clusterNum, cairo_text_cluster_flags_t flags) {
+    Dart_Handle glyphsList = Dart_NewList(glyphNum);
+    Dart_Handle clusterList = Dart_NewList(clusterNum);
+
+    int i;
+    for (i = 0; i < glyphNum; i++) {
+        cairo_glyph_t g = glyphs->glyphs[i];
+        Dart_Handle args[3] = {
+            Dart_NewInteger(g.index),
+            Dart_NewDouble(g.x),
+            Dart_NewDouble(g.y)
+        };
+        Dart_Handle gObj = factory_create_object("_Glyph", "", args, 3);
+        Dart_ListSetAt(glyphsList, i, gObj);
+    }
+
+    for (i = 0; i < clusterNum; i++) {
+        cairo_text_cluster_t c = glyphs->clusters[i];
+        Dart_Handle args[2] = {
+            Dart_NewInteger(c.num_bytes),
+            Dart_NewInteger(c.num_glyphs)
+        };
+        Dart_Handle cObj = factory_create_object("_TextCluster", "", args, 2);
+        Dart_ListSetAt(clusterList, i, cObj);
+    }
+
+    Dart_Handle fObjArgs[1] = { Dart_NewInteger((int)flags) };
+    Dart_Handle fObj = factory_create_object("_TextClusterFlags", "", fObjArgs, 1);
+
+    Dart_Handle glyphsArgs[3] = {
+        glyphsList,
+        clusterList,
+        fObj
+    };
+
+    return factory_create_object("_Glyphs", "", glyphsArgs, 3);
+}

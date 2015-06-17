@@ -1,6 +1,8 @@
 #include <stdlib.h>
+#include <string.h>
 #include <inttypes.h>
 #include <cairo/cairo.h>
+
 #include "dart_api.h"
 
 #include "scaled_font.h"
@@ -11,6 +13,7 @@
 #include "error.h"
 #include "font_options.h"
 #include "matrix.h"
+#include "glyphs.h"
 
 void scaled_font_destroy(void* handle) {
     if (handle) {
@@ -94,11 +97,39 @@ void scaled_font_glyph_extents(Dart_NativeArguments args) {
 
 void scaled_font_text_to_glyphs(Dart_NativeArguments args) {
     Dart_EnterScope();
-    //cairo_scaled_font_t* scaledFont = (cairo_scaled_font_t*)bind_get_self(args);
+    cairo_scaled_font_t* scaledFont = (cairo_scaled_font_t*)bind_get_self(args);
 
+    double x = arg_get_double(&args, 1);
+    double y = arg_get_double(&args, 2);
+    const char* utf8 = arg_get_string(&args, 3);
+    int utf8len = strlen(utf8);
+    cairo_glyph_t* glyphs = NULL;
+    int numGlyphs = 0;
+    cairo_text_cluster_t* clusters = NULL;
+    int numClusters = 0;
+    cairo_text_cluster_flags_t flags;
 
+    cairo_status_t status = cairo_scaled_font_text_to_glyphs(
+                scaledFont,
+                x,
+                y,
+                utf8,
+                utf8len,
+                &glyphs,
+                &numGlyphs,
+                &clusters,
+                &numClusters,
+                &flags);
 
-    Dart_SetReturnValue(args, Dart_Null());
+    error_verify(status);
+
+    Glyphs* g = glyphs_create(glyphs, clusters);
+
+    Dart_Handle res = factory_create_glyphs(g, numGlyphs, numClusters, flags);
+
+    bind_setup(g, res, glyphs_destroy);
+
+    Dart_SetReturnValue(args, res);
     Dart_ExitScope();
 }
 

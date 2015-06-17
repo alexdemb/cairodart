@@ -39,3 +39,7 @@ part 'font_options.dart';
 part 'font_extents.dart';
 part 'text_extents.dart';
 part 'scaled_font.dart';
+part 'glyph.dart';
+part 'glyphs.dart';
+part 'text_cluster.dart';
+part 'text_cluster_flags.dart';

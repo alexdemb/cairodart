@@ -32,6 +32,6 @@ runScaledFontTests() {
 
       expect(scaledFont.fontOptions, equals(opts));
     });
-
+    
   });
 }

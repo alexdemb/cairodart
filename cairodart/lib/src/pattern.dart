@@ -13,8 +13,6 @@ abstract class Pattern {
   factory Pattern.mesh() => new _MeshPattern();
   
 
-
-  List<Circle> get radialCircles;
   Extend get extend;
   void set extend(Extend extend);
   Filter get filter;
@@ -99,6 +97,24 @@ class _LinearGradient extends _Gradient implements LinearGradient {
   _createLinear(double x0, double y0, double x1, double y1) native 'pattern_create_linear';
 }
 
+abstract class RadialGradient implements Gradient {
+  factory RadialGradient(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) =>
+    new _RadialGradient(cx0, cy0, radius0, cx1, cy1, radius1);
+
+  List<Circle> get radialCircles;
+}
+
+class _RadialGradient extends _Gradient implements RadialGradient {
+
+  _RadialGradient(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) {
+    _createRadial(cx0, cy0, radius0, cx1, cy1, radius1);
+  }
+
+  _createRadial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) native 'pattern_create_radial';
+
+  List<Circle> get radialCircles native 'pattern_get_radial_circles';
+}
+
 
 abstract class MeshPattern implements Pattern {
   
@@ -121,29 +137,15 @@ abstract class MeshPattern implements Pattern {
 
 
 class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
-  
 
-  
   _Pattern.forSurface(Surface surface) {
     _createForSurface(surface);
-  }
-  
-
-  
-  _Pattern.radial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) {
-    _createRadial(cx0, cy0, radius0, cx1, cy1, radius1);
   }
   
   _Pattern();
   
   _createForSurface(Surface surface) native 'pattern_create_for_surface';
 
-  _createRadial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) native 'pattern_create_radial';
-  
-  
-
-
-  List<Circle> get radialCircles native 'pattern_get_radial_circles';
   Extend get extend => new _Extend(_getExtendValue());
       
   int _getExtendValue() native 'pattern_get_extend';

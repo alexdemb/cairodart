@@ -16,7 +16,7 @@ runPatternTests() {
       Pattern pattern = new LinearGradient(10.0, 20.0, 30.0, 40.0);
     });
     test('should be successfully created radial', () {
-      Pattern pattern = new Pattern.radial(10.0, 20.0, 5.0, 30.0, 40.0, 6.0);
+      Pattern pattern = new RadialGradient(10.0, 20.0, 5.0, 30.0, 40.0, 6.0);
     });
     test('should correctly set/get color stop', () {
       Pattern pattern = new LinearGradient(0.0, 0.0, 800.0, 800.0);
@@ -43,13 +43,6 @@ runPatternTests() {
                 stop.color.alpha == 0.3;
       });
       
-    });
-    test('should correctly obtain radial circles for radial pattern', () {
-      Pattern pattern = new Pattern.radial(10.0, 15.0, 20.0, 100.0, 150.0, 30.0);
-      List<Circle> circles = pattern.radialCircles;
-      
-      expect(circles[0], (Circle c) => c.x == 10.0 && c.y == 15.0 && c.radius == 20.0);
-      expect(circles[1], (Circle c) => c.x == 100.0 && c.y == 150.0 && c.radius == 30.0);
     });
     test('should correctly get/set extend', () {
       Pattern pattern = new LinearGradient(10.0, 10.0, 20.0, 20.0);
@@ -80,7 +73,7 @@ runPatternTests() {
       pattern = new LinearGradient(0.0, 0.0, 10.0, 10.0);
       expect(pattern.patternType, equals(PatternType.LINEAR));
       
-      pattern = new Pattern.radial(0.0, 0.0, 5.0, 10.0, 10.0, 10.0);
+      pattern = new RadialGradient(0.0, 0.0, 5.0, 10.0, 10.0, 10.0);
       expect(pattern.patternType, equals(PatternType.RADIAL));
       
       Surface surface = new ImageSurface(Format.ARGB32, 10, 10);
@@ -172,6 +165,15 @@ runPatternTests() {
 
       expect(points[0], (Point p) => p.x == 10.0 && p.y == 15.0);
       expect(points[1], (Point p) => p.x == 100.0 && p.y == 150.0);
+    });
+  });
+  group('Radial gradient', () {
+    test('should correctly obtain radial circles', () {
+      Pattern pattern = new RadialGradient(10.0, 15.0, 20.0, 100.0, 150.0, 30.0);
+      List<Circle> circles = pattern.radialCircles;
+
+      expect(circles[0], (Circle c) => c.x == 10.0 && c.y == 15.0 && c.radius == 20.0);
+      expect(circles[1], (Circle c) => c.x == 100.0 && c.y == 150.0 && c.radius == 30.0);
     });
   });
 }

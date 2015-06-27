@@ -6,19 +6,14 @@ abstract class Pattern {
   factory Pattern.forSurface(Surface surface) => 
       new _Pattern.forSurface(surface);
   
-  factory Pattern.linear(double x0, double y0, double x1, double y1) =>
-      new _Pattern.linear(x0, y0, x1, y1);
-  
+
   factory Pattern.radial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) =>
       new _Pattern.radial(cx0, cy0, radius0, cx1, cy1, radius1);
  
   factory Pattern.mesh() => new _MeshPattern();
   
-  void addColorStop(ColorStop stop);
-  ColorStop colorStopAt(int index);
-  int get colorStopCount;
-  
-  List<Point> get linearPoints;
+
+
   List<Circle> get radialCircles;
   Extend get extend;
   void set extend(Extend extend);
@@ -70,6 +65,41 @@ class _SolidPattern extends _Pattern implements SolidPattern {
   Color get color native 'pattern_get_rgba';
 }
 
+
+abstract class Gradient implements Pattern {
+  void addColorStop(ColorStop stop);
+  ColorStop colorStopAt(int index);
+  int get colorStopCount;
+}
+
+class _Gradient extends _Pattern implements Gradient {
+  void addColorStop(ColorStop stop) {
+    _addColorStop(stop.offset, stop.color.red, stop.color.green, stop.color.blue, stop.color.alpha);
+  }
+
+  _addColorStop(double offset, double red, double green, double blue, double alpha) native 'pattern_add_color_stop_rgba';
+
+  ColorStop colorStopAt(int index) native 'pattern_get_color_stop_rgba';
+  int get colorStopCount native 'pattern_get_color_stop_count';
+}
+
+abstract class LinearGradient implements Gradient {
+  factory LinearGradient(num x0, num y0, num x1, num y1) => new _LinearGradient(x0.toDouble(), y0.toDouble(), x1.toDouble(), y1.toDouble());
+
+  List<Point> get linearPoints;
+}
+
+class _LinearGradient extends _Gradient implements LinearGradient {
+  List<Point> get linearPoints native 'pattern_get_linear_points';
+
+  _LinearGradient(double x0, double y0, double x1, double y1) {
+    _createLinear(x0, y0, x1, y1);
+  }
+
+  _createLinear(double x0, double y0, double x1, double y1) native 'pattern_create_linear';
+}
+
+
 abstract class MeshPattern implements Pattern {
   
   factory MeshPattern() => new _MeshPattern();
@@ -98,9 +128,7 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
     _createForSurface(surface);
   }
   
-  _Pattern.linear(double x0, double y0, double x1, double y1) {
-    _createLinear(x0, y0, x1, y1);
-  }
+
   
   _Pattern.radial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) {
     _createRadial(cx0, cy0, radius0, cx1, cy1, radius1);
@@ -109,20 +137,12 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   _Pattern();
   
   _createForSurface(Surface surface) native 'pattern_create_for_surface';
-  _createLinear(double x0, double y0, double x1, double y1) native 'pattern_create_linear';
+
   _createRadial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) native 'pattern_create_radial';
   
   
-  void addColorStop(ColorStop stop) {
-    _addColorStop(stop.offset, stop.color.red, stop.color.green, stop.color.blue, stop.color.alpha);
-  }
-  
-  _addColorStop(double offset, double red, double green, double blue, double alpha) native 'pattern_add_color_stop_rgba';
-  
-  ColorStop colorStopAt(int index) native 'pattern_get_color_stop_rgba';
-  int get colorStopCount native 'pattern_get_color_stop_count';
-  
-  List<Point> get linearPoints native 'pattern_get_linear_points';
+
+
   List<Circle> get radialCircles native 'pattern_get_radial_circles';
   Extend get extend => new _Extend(_getExtendValue());
       

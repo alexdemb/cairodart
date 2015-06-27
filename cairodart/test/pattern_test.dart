@@ -13,13 +13,13 @@ runPatternTests() {
       Pattern pattern = new Pattern.forSurface(surface);
     });
     test('should be successfully created linear', () {
-      Pattern pattern = new Pattern.linear(10.0, 20.0, 30.0, 40.0);
+      Pattern pattern = new LinearGradient(10.0, 20.0, 30.0, 40.0);
     });
     test('should be successfully created radial', () {
       Pattern pattern = new Pattern.radial(10.0, 20.0, 5.0, 30.0, 40.0, 6.0);
     });
     test('should correctly set/get color stop', () {
-      Pattern pattern = new Pattern.linear(0.0, 0.0, 800.0, 800.0);
+      Pattern pattern = new LinearGradient(0.0, 0.0, 800.0, 800.0);
       pattern.addColorStop(new ColorStop(new Color.rgba(0.5, 0.6, 0.7, 0.5), 0.4));
       
       expect(pattern.colorStopCount, equals(1));
@@ -44,13 +44,6 @@ runPatternTests() {
       });
       
     });
-    test('should correctly obtain linear points for linear pattern', () {
-      Pattern pattern = new Pattern.linear(10.0, 15.0, 100.0, 150.0);
-      List<Point> points = pattern.linearPoints;
-      
-      expect(points[0], (Point p) => p.x == 10.0 && p.y == 15.0);
-      expect(points[1], (Point p) => p.x == 100.0 && p.y == 150.0);
-    });
     test('should correctly obtain radial circles for radial pattern', () {
       Pattern pattern = new Pattern.radial(10.0, 15.0, 20.0, 100.0, 150.0, 30.0);
       List<Circle> circles = pattern.radialCircles;
@@ -59,7 +52,7 @@ runPatternTests() {
       expect(circles[1], (Circle c) => c.x == 100.0 && c.y == 150.0 && c.radius == 30.0);
     });
     test('should correctly get/set extend', () {
-      Pattern pattern = new Pattern.linear(10.0, 10.0, 20.0, 20.0);
+      Pattern pattern = new LinearGradient(10.0, 10.0, 20.0, 20.0);
       expect(pattern.extend, equals(Extend.PAD));
       
       pattern.extend = Extend.REFLECT;
@@ -67,7 +60,7 @@ runPatternTests() {
       expect(pattern.extend, equals(Extend.REFLECT));
     });
     test('should correctly get/set filter', () {
-      Pattern pattern = new Pattern.linear(10.0, 10.0, 20.0, 20.0);
+      Pattern pattern = new LinearGradient(10.0, 10.0, 20.0, 20.0);
       expect(pattern.filter, equals(Filter.GOOD));
       
       pattern.filter = Filter.BEST;
@@ -84,7 +77,7 @@ runPatternTests() {
       pattern = new SolidPattern.fromRgba(0.0, 0.0, 0.0, 0.0);
       expect(pattern.patternType, equals(PatternType.SOLID));
       
-      pattern = new Pattern.linear(0.0, 0.0, 10.0, 10.0);
+      pattern = new LinearGradient(0.0, 0.0, 10.0, 10.0);
       expect(pattern.patternType, equals(PatternType.LINEAR));
       
       pattern = new Pattern.radial(0.0, 0.0, 5.0, 10.0, 10.0, 10.0);
@@ -95,7 +88,7 @@ runPatternTests() {
       expect(pattern.patternType, equals(PatternType.SURFACE));
     });
     test('should correctly get/set matrix', () {
-      Pattern pattern = new Pattern.linear(10.0, 10.0, 15.0, 15.0);
+      Pattern pattern = new LinearGradient(10.0, 10.0, 15.0, 15.0);
       pattern.matrix = new Matrix(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
       expect(pattern.matrix, (Matrix m) => m.xx == 1.0 && m.yx == 2.0 && m.xy == 3.0 && m.yy == 4.0 && m.x0 == 5.0 && m.y0 == 6.0);
     });
@@ -170,6 +163,15 @@ runPatternTests() {
     test('should correctly return pattern color', () {
       SolidPattern pattern = new SolidPattern.fromColor(new Color.rgba(0.5, 0.6, 0.7, 0.5));
       expect(pattern.color, equals(new Color.rgba(0.5, 0.6, 0.7, 0.5)));
+    });
+  });
+  group('Linear gradient', () {
+    test('should correctly obtain linear points', () {
+      LinearGradient pattern = new LinearGradient(10.0, 15.0, 100.0, 150.0);
+      List<Point> points = pattern.linearPoints;
+
+      expect(points[0], (Point p) => p.x == 10.0 && p.y == 15.0);
+      expect(points[1], (Point p) => p.x == 100.0 && p.y == 150.0);
     });
   });
 }

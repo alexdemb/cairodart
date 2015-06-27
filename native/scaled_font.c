@@ -95,44 +95,6 @@ void scaled_font_glyph_extents(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
-void scaled_font_text_to_glyphs(Dart_NativeArguments args) {
-    Dart_EnterScope();
-    cairo_scaled_font_t* scaledFont = (cairo_scaled_font_t*)bind_get_self(args);
-
-    double x = arg_get_double(&args, 1);
-    double y = arg_get_double(&args, 2);
-    const char* utf8 = arg_get_string(&args, 3);
-    int utf8len = strlen(utf8);
-    cairo_glyph_t* glyphs = NULL;
-    int numGlyphs = 0;
-    cairo_text_cluster_t* clusters = NULL;
-    int numClusters = 0;
-    cairo_text_cluster_flags_t flags;
-
-    cairo_status_t status = cairo_scaled_font_text_to_glyphs(
-                scaledFont,
-                x,
-                y,
-                utf8,
-                utf8len,
-                &glyphs,
-                &numGlyphs,
-                &clusters,
-                &numClusters,
-                &flags);
-
-    error_verify(status);
-
-    Glyphs* g = glyphs_create(glyphs, clusters);
-
-    Dart_Handle res = factory_create_glyphs(g, numGlyphs, numClusters, flags);
-
-    bind_setup(g, res, glyphs_destroy);
-
-    Dart_SetReturnValue(args, res);
-    Dart_ExitScope();
-}
-
 void scaled_font_get_font_face(Dart_NativeArguments args) {
     Dart_EnterScope();
     cairo_scaled_font_t* scaledFont = (cairo_scaled_font_t*)bind_get_self(args);

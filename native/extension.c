@@ -234,7 +234,6 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "scaled_font_extents", scaled_font_extents },
   { "scaled_font_text_extents", scaled_font_text_extents },
   { "scaled_font_glyph_extents", scaled_font_glyph_extents },
-  { "scaled_font_text_to_glyphs", scaled_font_text_to_glyphs },
   { "scaled_font_get_font_face", scaled_font_get_font_face },
   { "scaled_font_get_font_options", scaled_font_get_font_options },
   { "scaled_font_get_font_matrix", scaled_font_get_font_matrix },

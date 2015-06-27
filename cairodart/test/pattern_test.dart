@@ -10,7 +10,7 @@ runPatternTests() {
     });
     test('should be successfully created for surface', () {
       Surface surface = new ImageSurface(Format.ARGB32, 640, 480);
-      Pattern pattern = new Pattern.forSurface(surface);
+      Pattern pattern = new SurfacePattern(surface);
     });
     test('should be successfully created linear', () {
       Pattern pattern = new LinearGradient(10.0, 20.0, 30.0, 40.0);
@@ -52,14 +52,6 @@ runPatternTests() {
       
       expect(pattern.extend, equals(Extend.REFLECT));
     });
-    test('should correctly get/set filter', () {
-      Pattern pattern = new LinearGradient(10.0, 10.0, 20.0, 20.0);
-      expect(pattern.filter, equals(Filter.GOOD));
-      
-      pattern.filter = Filter.BEST;
-      
-      expect(pattern.filter, equals(Filter.BEST));
-    });
     test('should have correct pattern type', () {
       Pattern pattern = new Pattern.mesh();
       expect(pattern.patternType, equals(PatternType.MESH));
@@ -77,7 +69,7 @@ runPatternTests() {
       expect(pattern.patternType, equals(PatternType.RADIAL));
       
       Surface surface = new ImageSurface(Format.ARGB32, 10, 10);
-      pattern = new Pattern.forSurface(surface);
+      pattern = new SurfacePattern(surface);
       expect(pattern.patternType, equals(PatternType.SURFACE));
     });
     test('should correctly get/set matrix', () {
@@ -174,6 +166,16 @@ runPatternTests() {
 
       expect(circles[0], (Circle c) => c.x == 10.0 && c.y == 15.0 && c.radius == 20.0);
       expect(circles[1], (Circle c) => c.x == 100.0 && c.y == 150.0 && c.radius == 30.0);
+    });
+  });
+  group('Surface pattern', () {
+    test('should correctly get/set filter', () {
+      Pattern pattern = new SurfacePattern(new ImageSurface(Format.ARGB32, 640, 480));
+      expect(pattern.filter, equals(Filter.GOOD));
+
+      pattern.filter = Filter.BEST;
+
+      expect(pattern.filter, equals(Filter.BEST));
     });
   });
 }

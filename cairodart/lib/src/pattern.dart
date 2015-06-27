@@ -1,22 +1,12 @@
 part of cairodart.base;
 
 abstract class Pattern {
- 
 
-  factory Pattern.forSurface(Surface surface) => 
-      new _Pattern.forSurface(surface);
-  
-
-  factory Pattern.radial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) =>
-      new _Pattern.radial(cx0, cy0, radius0, cx1, cy1, radius1);
- 
   factory Pattern.mesh() => new _MeshPattern();
   
 
   Extend get extend;
   void set extend(Extend extend);
-  Filter get filter;
-  void set filter(Filter filter);
   PatternType get patternType;
   Matrix get matrix;
   void set matrix(Matrix matrix);
@@ -115,6 +105,32 @@ class _RadialGradient extends _Gradient implements RadialGradient {
   List<Circle> get radialCircles native 'pattern_get_radial_circles';
 }
 
+abstract class SurfacePattern implements Pattern {
+  Filter get filter;
+  void set filter(Filter filter);
+
+  factory SurfacePattern(Surface surface) => new _SurfacePattern(surface);
+}
+
+class _SurfacePattern extends _Pattern implements SurfacePattern {
+  _SurfacePattern(Surface surface) {
+    _createForSurface(surface);
+  }
+
+  _createForSurface(Surface surface) native 'pattern_create_for_surface';
+
+  Filter get filter => new _Filter(_getFilterValue());
+
+  int _getFilterValue() native 'pattern_get_filter';
+
+  void set filter(Filter filter) {
+    _setFilter(filter.value);
+  }
+
+  void _setFilter(int value) native 'pattern_set_filter';
+
+}
+
 
 abstract class MeshPattern implements Pattern {
   
@@ -137,15 +153,9 @@ abstract class MeshPattern implements Pattern {
 
 
 class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
-
-  _Pattern.forSurface(Surface surface) {
-    _createForSurface(surface);
-  }
   
   _Pattern();
   
-  _createForSurface(Surface surface) native 'pattern_create_for_surface';
-
   Extend get extend => new _Extend(_getExtendValue());
       
   int _getExtendValue() native 'pattern_get_extend';
@@ -156,16 +166,7 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   
   _setExtendValue(int value) native 'pattern_set_extend';
   
-  Filter get filter => new _Filter(_getFilterValue());
-  
-  int _getFilterValue() native 'pattern_get_filter';
-  
-  void set filter(Filter filter) {
-    _setFilter(filter.value);
-  }
-  
-  void _setFilter(int value) native 'pattern_set_filter';
-  
+
   PatternType get patternType => new _PatternType(_getPatternType());
   
   int _getPatternType() native 'pattern_get_type';

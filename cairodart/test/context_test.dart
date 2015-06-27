@@ -12,7 +12,7 @@ runContextTests() {
     });
     test('should successfully get/set source', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      Pattern p = new Pattern.forSurface(new ImageSurface(Format.ARGB32, 500, 500));
+      Pattern p = new SurfacePattern(new ImageSurface(Format.ARGB32, 500, 500));
       Pattern other = new Pattern.mesh();
       
       ctx.source = p;

@@ -216,7 +216,6 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "region_union_rectangle", region_union_rectangle },
   { "region_xor", region_xor },
   { "region_xor_rectangle", region_xor_rectangle },
-  { "user_font_face_create", user_font_face_create },
   { "font_face_get_type", font_face_get_type },
   { "font_options_create", font_options_create },
   { "font_options_copy", font_options_copy },

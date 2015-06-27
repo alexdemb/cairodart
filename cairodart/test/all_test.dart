@@ -14,7 +14,6 @@ part 'region_test.dart';
 part 'rectangle_test.dart';
 part 'test_utils.dart';
 part 'font_options_test.dart';
-part 'scaled_font_test.dart';
 
 main() {
   runUtilsTests();
@@ -27,5 +26,4 @@ main() {
   runRegionTests();
   runRectangleTests();
   runFontOptionsTests();
-  runScaledFontTests();
 }

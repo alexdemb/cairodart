@@ -453,3 +453,22 @@ void pattern_equals(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+void pattern_get_rgba(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
+
+    double red = 0.0;
+    double green = 0.0;
+    double blue = 0.0;
+    double alpha = 0.0;
+
+    cairo_status_t status = cairo_pattern_get_rgba(pattern, &red, &green, &blue, &alpha);
+
+    error_verify(status);
+
+    Dart_Handle color = factory_create_color(red, green, blue, alpha);
+
+    Dart_SetReturnValue(args, color);
+
+    Dart_ExitScope();
+}

@@ -2,12 +2,7 @@ part of cairodart.base;
 
 abstract class Pattern {
  
-  factory Pattern.fromRgb(double red, double green, double blue) => 
-      new _Pattern.fromRgb(red, green, blue);
-  
-  factory Pattern.fromRgba(double red, double green, double blue, double alpha) =>
-      new _Pattern.fromRgba(red, green, blue, alpha);
-  
+
   factory Pattern.forSurface(Surface surface) => 
       new _Pattern.forSurface(surface);
   
@@ -36,6 +31,45 @@ abstract class Pattern {
   operator==(Pattern pattern);
 }
 
+
+abstract class SolidPattern {
+  factory SolidPattern.fromRgb(double red, double green, double blue) =>
+    new _SolidPattern.fromRgb(red, green, blue);
+
+  factory SolidPattern.fromRgba(double red, double green, double blue, double alpha) =>
+    new _SolidPattern.fromRgba(red, green, blue, alpha);
+
+  factory SolidPattern.fromColor(Color color, [bool solid = false]) =>
+    new _SolidPattern.fromColor(color, solid);
+
+  Color get color;
+
+}
+
+class _SolidPattern extends _Pattern implements SolidPattern {
+
+  _SolidPattern.fromRgb(double red, double green, double blue) {
+    _createFromRgb(red, green, blue);
+  }
+
+  _SolidPattern.fromRgba(double red, double green, double blue, double alpha) {
+    _createFromRgba(red, green, blue, alpha);
+  }
+
+  _SolidPattern.fromColor(Color color, bool solid) {
+    if (solid)
+      _createFromRgb(color.red, color.green, color.blue);
+    else
+      _createFromRgba(color.red, color.green, color.blue, color.alpha);
+  }
+
+  _createFromRgb(double red, double green, double blue) native 'pattern_create_rgb';
+  _createFromRgba(double red, double green, double blue, double alpha) native 'pattern_create_rgba';
+
+
+  Color get color native 'pattern_get_rgba';
+}
+
 abstract class MeshPattern implements Pattern {
   
   factory MeshPattern() => new _MeshPattern();
@@ -58,13 +92,7 @@ abstract class MeshPattern implements Pattern {
 
 class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   
-  _Pattern.fromRgb(double red, double green, double blue) {
-    _createFromRgb(red, green, blue);
-  }
-  
-  _Pattern.fromRgba(double red, double green, double blue, double alpha) {
-    _createFromRgba(red, green, blue, alpha);
-  }
+
   
   _Pattern.forSurface(Surface surface) {
     _createForSurface(surface);
@@ -80,8 +108,6 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
   
   _Pattern();
   
-  _createFromRgb(double red, double green, double blue) native 'pattern_create_rgb';
-  _createFromRgba(double red, double green, double blue, double alpha) native 'pattern_create_rgba';
   _createForSurface(Surface surface) native 'pattern_create_for_surface';
   _createLinear(double x0, double y0, double x1, double y1) native 'pattern_create_linear';
   _createRadial(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) native 'pattern_create_radial';
@@ -159,3 +185,5 @@ class _MeshPattern extends _Pattern implements MeshPattern {
     
   int get patchCount native 'pattern_mesh_get_patch_count';
 }
+
+

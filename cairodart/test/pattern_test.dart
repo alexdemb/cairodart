@@ -3,10 +3,10 @@ part of cairodart.test;
 runPatternTests() {
   group('Pattern', () {
     test('should be successfully created from RGB', () {
-      Pattern pattern = new Pattern.fromRgb(200.0, 200.0, 200.0);
+      Pattern pattern = new SolidPattern.fromRgb(200.0, 200.0, 200.0);
     });
     test('should be successfully created from RGBA', () {
-      Pattern pattern = new Pattern.fromRgba(200.0, 200.0, 200.0, 0.5);
+      Pattern pattern = new SolidPattern.fromRgba(200.0, 200.0, 200.0, 0.5);
     });
     test('should be successfully created for surface', () {
       Surface surface = new ImageSurface(Format.ARGB32, 640, 480);
@@ -78,10 +78,10 @@ runPatternTests() {
       Pattern pattern = new Pattern.mesh();
       expect(pattern.patternType, equals(PatternType.MESH));
       
-      pattern = new Pattern.fromRgb(0.0, 0.0, 0.0);
+      pattern = new SolidPattern.fromRgb(0.0, 0.0, 0.0);
       expect(pattern.patternType, equals(PatternType.SOLID));
       
-      pattern = new Pattern.fromRgba(0.0, 0.0, 0.0, 0.0);
+      pattern = new SolidPattern.fromRgba(0.0, 0.0, 0.0, 0.0);
       expect(pattern.patternType, equals(PatternType.SOLID));
       
       pattern = new Pattern.linear(0.0, 0.0, 10.0, 10.0);
@@ -159,6 +159,17 @@ runPatternTests() {
       
       expect(0, equals(count));      
     });
+
     
+  });
+  group('Solid pattern', () {
+    test('should correctly return pattern color for solid pattern', () {
+      SolidPattern pattern = new SolidPattern.fromColor(new Color.rgba(0.5, 0.6, 0.7, 0.5), true);
+      expect(pattern.color, equals(new Color.rgba(0.5, 0.6, 0.7, 1.0)));
+    });
+    test('should correctly return pattern color', () {
+      SolidPattern pattern = new SolidPattern.fromColor(new Color.rgba(0.5, 0.6, 0.7, 0.5));
+      expect(pattern.color, equals(new Color.rgba(0.5, 0.6, 0.7, 0.5)));
+    });
   });
 }

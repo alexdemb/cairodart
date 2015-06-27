@@ -33,6 +33,7 @@ void pattern_get_filter(Dart_NativeArguments args);
 void pattern_get_type(Dart_NativeArguments args);
 void pattern_get_matrix(Dart_NativeArguments args);
 void pattern_set_matrix(Dart_NativeArguments args);
+void pattern_get_rgba(Dart_NativeArguments args);
 void pattern_equals(Dart_NativeArguments args);
 
 

@@ -169,6 +169,7 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "pattern_get_color_stop_rgba", pattern_get_color_stop_rgba },
   { "pattern_get_linear_points", pattern_get_linear_points },
   { "pattern_get_radial_circles", pattern_get_radial_circles },
+  { "pattern_get_rgba", pattern_get_rgba },
   { "pattern_get_extend", pattern_get_extend },
   { "pattern_set_extend", pattern_set_extend },
   { "pattern_get_filter", pattern_get_filter },

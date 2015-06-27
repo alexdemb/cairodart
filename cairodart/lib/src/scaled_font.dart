@@ -34,6 +34,6 @@ class _ScaledFont extends NativeFieldWrapperClass2 implements ScaledFont {
   Matrix get ctm native 'scaled_font_get_ctm';
   Matrix get scaleMatrix native 'scaled_font_get_scale_matrix';
   FontType get fontType native 'scaled_font_get_type';
-    
+
 }
 

@@ -2,48 +2,6 @@ part of cairodart.test;
 
 runPatternTests() {
   group('Pattern', () {
-    test('should be successfully created from RGB', () {
-      Pattern pattern = new SolidPattern.fromRgb(200.0, 200.0, 200.0);
-    });
-    test('should be successfully created from RGBA', () {
-      Pattern pattern = new SolidPattern.fromRgba(200.0, 200.0, 200.0, 0.5);
-    });
-    test('should be successfully created for surface', () {
-      Surface surface = new ImageSurface(Format.ARGB32, 640, 480);
-      Pattern pattern = new SurfacePattern(surface);
-    });
-    test('should be successfully created linear', () {
-      Pattern pattern = new LinearGradient(10.0, 20.0, 30.0, 40.0);
-    });
-    test('should be successfully created radial', () {
-      Pattern pattern = new RadialGradient(10.0, 20.0, 5.0, 30.0, 40.0, 6.0);
-    });
-    test('should correctly set/get color stop', () {
-      Pattern pattern = new LinearGradient(0.0, 0.0, 800.0, 800.0);
-      pattern.addColorStop(new ColorStop(new Color.rgba(0.5, 0.6, 0.7, 0.5), 0.4));
-      
-      expect(pattern.colorStopCount, equals(1));
-      pattern.addColorStop(new ColorStop(new Color.rgba(0.6, 0.5, 0.4, 0.3), 0.2));
-      expect(pattern.colorStopCount, equals(2));
-      
-      expect(pattern.colorStopAt(1), (ColorStop stop) {
-        return stop.offset == 0.4 &&
-                stop.color.red == 0.5 &&
-                stop.color.green == 0.6 &&
-                stop.color.blue == 0.7 &&
-                stop.color.alpha == 0.5;
-      });
-      
-      
-      expect(pattern.colorStopAt(0), (ColorStop stop) {
-        return stop.offset == 0.2 &&
-                stop.color.red == 0.6 &&
-                stop.color.green == 0.5 &&
-                stop.color.blue == 0.4 &&
-                stop.color.alpha == 0.3;
-      });
-      
-    });
     test('should correctly get/set extend', () {
       Pattern pattern = new LinearGradient(10.0, 10.0, 20.0, 20.0);
       expect(pattern.extend, equals(Extend.PAD));
@@ -53,7 +11,7 @@ runPatternTests() {
       expect(pattern.extend, equals(Extend.REFLECT));
     });
     test('should have correct pattern type', () {
-      Pattern pattern = new Pattern.mesh();
+      Pattern pattern = new MeshPattern();
       expect(pattern.patternType, equals(PatternType.MESH));
       
       pattern = new SolidPattern.fromRgb(0.0, 0.0, 0.0);
@@ -149,6 +107,35 @@ runPatternTests() {
       SolidPattern pattern = new SolidPattern.fromColor(new Color.rgba(0.5, 0.6, 0.7, 0.5));
       expect(pattern.color, equals(new Color.rgba(0.5, 0.6, 0.7, 0.5)));
     });
+  });
+  group('Gradient', () {
+    test('should correctly set/get color stop', () {
+      Pattern pattern = new LinearGradient(0.0, 0.0, 800.0, 800.0);
+      pattern.addColorStop(new ColorStop(new Color.rgba(0.5, 0.6, 0.7, 0.5), 0.4));
+
+      expect(pattern.colorStopCount, equals(1));
+      pattern.addColorStop(new ColorStop(new Color.rgba(0.6, 0.5, 0.4, 0.3), 0.2));
+      expect(pattern.colorStopCount, equals(2));
+
+      expect(pattern.colorStopAt(1), (ColorStop stop) {
+        return stop.offset == 0.4 &&
+        stop.color.red == 0.5 &&
+        stop.color.green == 0.6 &&
+        stop.color.blue == 0.7 &&
+        stop.color.alpha == 0.5;
+      });
+
+
+      expect(pattern.colorStopAt(0), (ColorStop stop) {
+        return stop.offset == 0.2 &&
+        stop.color.red == 0.6 &&
+        stop.color.green == 0.5 &&
+        stop.color.blue == 0.4 &&
+        stop.color.alpha == 0.3;
+      });
+
+    });
+
   });
   group('Linear gradient', () {
     test('should correctly obtain linear points', () {

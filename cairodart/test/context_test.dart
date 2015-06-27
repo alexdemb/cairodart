@@ -13,7 +13,7 @@ runContextTests() {
     test('should successfully get/set source', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       Pattern p = new SurfacePattern(new ImageSurface(Format.ARGB32, 500, 500));
-      Pattern other = new Pattern.mesh();
+      Pattern other = new MeshPattern();
       
       ctx.source = p;
       
@@ -543,7 +543,7 @@ runContextTests() {
     });
     test('should correctly add mask', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-      Pattern pattern = new Pattern.mesh();
+      Pattern pattern = new MeshPattern();
       
       ctx.mask(pattern); 
       

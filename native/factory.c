@@ -138,11 +138,30 @@ Dart_Handle factory_create_rectangle_list(const Dart_Handle context, const cairo
 Dart_Handle factory_create_pattern(cairo_pattern_t *pattern) {
     Dart_Handle patternObj;
     cairo_pattern_type_t type = cairo_pattern_get_type(pattern);
-    if (CAIRO_PATTERN_TYPE_MESH == type) {
-        patternObj = factory_create_object("_MeshPattern", "", NULL, 0);
-    }
-    else {
-        patternObj = factory_create_object("_Pattern", "", NULL, 0);
+    switch (type) {
+        case CAIRO_PATTERN_TYPE_MESH: {
+            patternObj = factory_create_object("_MeshPattern", "", NULL, 0);
+            break;
+        }
+        case CAIRO_PATTERN_TYPE_SOLID: {
+            patternObj = factory_create_object("_SolidPattern", "", NULL, 0);
+            break;
+        }
+        case CAIRO_PATTERN_TYPE_SURFACE: {
+            patternObj = factory_create_object("_SurfacePattern", "internal", NULL, 0);
+            break;
+        }
+        case CAIRO_PATTERN_TYPE_LINEAR: {
+            patternObj = factory_create_object("_LinearGradient", "internal", NULL, 0);
+            break;
+        }
+        case CAIRO_PATTERN_TYPE_RADIAL: {
+            patternObj = factory_create_object("_RadialGradient", "internal", NULL, 0);
+            break;
+        }
+        default: {
+            patternObj = factory_create_object("_Pattern", "", NULL, 0);
+        }
     }
 
     return patternObj;

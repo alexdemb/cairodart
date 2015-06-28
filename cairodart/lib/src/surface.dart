@@ -17,7 +17,8 @@ abstract class Surface {
   SurfaceType get surfaceType;
   Resolution get fallbackResolution;
   void set fallbackResolution(Resolution resolution);
-  
+  void writeTo(String fileName);
+
   operator==(Surface other);
 }
 
@@ -59,7 +60,9 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   }
   
   void _fallbackResolution(double x, double y) native 'surface_set_fallback_resolution';
-  
+
+  void writeTo(String fileName) native 'surface_write_to_png';
+
   operator==(Surface other) native 'surfaces_equals';
 }
 
@@ -76,7 +79,7 @@ abstract class ImageSurface implements Surface {
   Format get format;
   
   void write();
-  void writeTo(String fileName);
+
   
 }
 
@@ -109,7 +112,6 @@ class _ImageSurface extends _Surface implements ImageSurface {
     
   void write() => writeTo(this._fileName);
     
-  void writeTo(String fileName) native 'surface_write_to_png';
-  
+
 }
 

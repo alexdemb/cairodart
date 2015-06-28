@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <cairo/cairo.h>
+#include <cairo/cairo-pdf.h>
 
 #include "argument.h"
 #include "error.h"
@@ -89,6 +90,78 @@ void image_surface_get_data(Dart_NativeArguments args) {
     }
 
     Dart_SetReturnValue(args, result);
+    Dart_ExitScope();
+}
+
+void pdf_surface_create(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    Dart_Handle obj = arg_get(&args, 0);
+    Dart_Handle fileNameObj = arg_get(&args, 1);
+    const char* fileName = NULL;
+    if (!Dart_IsNull(fileNameObj)) {
+        fileName = arg_get_string(&args, 1);
+    }
+    double width = arg_get_double(&args, 2);
+    double height = arg_get_double(&args, 3);
+
+    cairo_surface_t* surface = cairo_pdf_surface_create(fileName, width, height);
+
+    bind_setup(surface, obj, surface_destroy);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void pdf_surface_set_size(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*) bind_get_self(args);
+    double width = arg_get_double(&args, 1);
+    double height = arg_get_double(&args, 2);
+
+    cairo_pdf_surface_set_size(surface, width, height);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void pdf_surface_restrict_to_version(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*) bind_get_self(args);
+    cairo_pdf_version_t version = (cairo_pdf_version_t) arg_get(&args, 1);
+
+    cairo_pdf_surface_restrict_to_version(surface, version);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void pdf_surface_get_versions(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    const cairo_pdf_version_t* versions;
+    int length;
+
+    cairo_pdf_get_versions(&versions, &length);
+
+    Dart_Handle list = Dart_NewList(length);
+
+    int i;
+    for (i = 0; i < length; i++) {
+        Dart_ListSetAt(list, i, factory_create_pdf_version(versions[i]));
+    }
+
+    Dart_SetReturnValue(args, list);
+    Dart_ExitScope();
+}
+
+void pdf_version_to_string(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_pdf_version_t version = (cairo_pdf_version_t)arg_get_int(&args, 1);
+
+    const char* ver = cairo_pdf_version_to_string(version);
+
+    Dart_Handle res = Dart_NewStringFromCString(ver);
+
+    Dart_SetReturnValue(args, res);
     Dart_ExitScope();
 }
 

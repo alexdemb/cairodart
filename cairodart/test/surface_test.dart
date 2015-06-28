@@ -61,4 +61,12 @@ runSurfaceTests() {
       expect(imgData, equals(data));
     });
   });
+  group('PDF surface', () {
+    test('should correctly return list of supported versions', () {
+      var pdfSurface = new PdfSurface(null, 640, 480);
+
+      List<PdfVersion> supportedVersions = pdfSurface.versions;
+      expect(supportedVersions, [PdfVersion.OnePointFour, PdfVersion.OnePointFive]);
+    });
+  });
 }

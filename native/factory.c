@@ -256,3 +256,8 @@ Dart_Handle factory_create_glyphs(Glyphs* glyphs, int glyphNum, int clusterNum, 
 
     return factory_create_object("_Glyphs", "", glyphsArgs, 3);
 }
+
+Dart_Handle factory_create_pdf_version(cairo_pdf_version_t version) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)version) };
+    return factory_create_object("_PdfVersion", "", args, 1);
+}

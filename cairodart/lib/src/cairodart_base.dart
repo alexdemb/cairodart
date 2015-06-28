@@ -43,3 +43,4 @@ part 'glyph.dart';
 part 'glyphs.dart';
 part 'text_cluster.dart';
 part 'text_cluster_flags.dart';
+part 'pdf_version.dart';

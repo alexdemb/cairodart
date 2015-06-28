@@ -4,6 +4,7 @@
 #include "dart_api.h"
 #include "glyphs.h"
 #include <cairo/cairo.h>
+#include <cairo/cairo-pdf.h>
 
 Dart_Handle factory_create_object(const char* className, const char* ctorName, Dart_Handle* args, int argc);
 
@@ -54,5 +55,7 @@ Dart_Handle factory_create_font_extents(const cairo_font_extents_t* extents);
 Dart_Handle factory_create_text_extents(const cairo_text_extents_t* extents);
 
 Dart_Handle factory_create_glyphs(Glyphs* glyphs, int glyphNum, int clusterNum, cairo_text_cluster_flags_t flags);
+
+Dart_Handle factory_create_pdf_version(cairo_pdf_version_t version);
 
 #endif // FACTORY_H

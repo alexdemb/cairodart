@@ -22,6 +22,19 @@ abstract class Surface {
   operator==(Surface other);
 }
 
+abstract class PdfSurface implements Surface {
+
+  factory PdfSurface(String fileName, num widthInPoints, num heightInPoints) =>
+    new _PdfSurface(fileName, widthInPoints, heightInPoints);
+
+  void setSize(num widthInPoints, num heightInPoints);
+
+  void restrictToVersion(PdfVersion version);
+
+  List<PdfVersion> get versions;
+
+}
+
 abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   
   void finish() native 'surface_finish';
@@ -124,3 +137,26 @@ class _ImageSurface extends _Surface implements ImageSurface {
 
 }
 
+class _PdfSurface extends _Surface implements PdfSurface {
+
+  _PdfSurface(String fileName, num widthInPoints, num heightInPoints) {
+    _createPdfSurface(fileName, widthInPoints.toDouble(), heightInPoints.toDouble());
+  }
+
+  void _createPdfSurface(String fileName, double widthInPoints, double heightInPoints) native 'pdf_surface_create';
+
+  void setSize(num widthInPoints, num heightInPoints) {
+    _setSize(widthInPoints.toDouble(), heightInPoints.toDouble());
+  }
+
+  void _setSize(double width, double height) native 'pdf_surface_set_size';
+
+  void restrictToVersion(PdfVersion version) {
+    _restrictToVersion(version.value);
+  }
+
+  void _restrictToVersion(int version) native 'pdf_surface_restrict_to_version';
+
+  List<PdfVersion> get versions native 'pdf_surface_get_versions';
+
+}

@@ -26,6 +26,11 @@ void surface_get_fallback_resolution(Dart_NativeArguments args);
 void surface_set_fallback_resolution(Dart_NativeArguments args);
 void image_surface_create_from_png(Dart_NativeArguments args);
 void surface_write_to_png(Dart_NativeArguments args);
+void pdf_surface_create(Dart_NativeArguments args);
+void pdf_surface_set_size(Dart_NativeArguments args);
+void pdf_version_to_string(Dart_NativeArguments args);
+void pdf_surface_restrict_to_version(Dart_NativeArguments args);
+void pdf_surface_get_versions(Dart_NativeArguments args);
 void surfaces_equals(Dart_NativeArguments args);
 
 

@@ -66,7 +66,7 @@ runSurfaceTests() {
       var pdfSurface = new PdfSurface(null, 640, 480);
 
       List<PdfVersion> supportedVersions = pdfSurface.versions;
-      expect(supportedVersions, [PdfVersion.OnePointFour, PdfVersion.OnePointFive]);
+      expect(supportedVersions, unorderedEquals([PdfVersion.OnePointFour, PdfVersion.OnePointFive]));
     });
   });
   group('PostScript surface', () {
@@ -81,6 +81,13 @@ runSurfaceTests() {
       var psSurface = new PostScriptSurface(null, 640, 480);
       psSurface.encapsulated = true;
       expect(psSurface.encapsulated, isTrue);
+    });
+  });
+  group('SVG surface', () {
+    test('should correctly return list of supported versions', () {
+      var svg = new SvgSurface(null, 640, 480);
+
+      expect(svg.versions, unorderedEquals([SvgVersion.OnePointOne, SvgVersion.OnePointTwo]));
     });
   });
 }

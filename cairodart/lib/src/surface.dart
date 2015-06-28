@@ -56,6 +56,17 @@ abstract class PostScriptSurface implements Surface {
 
 }
 
+abstract class SvgSurface {
+
+  factory SvgSurface(String fileName, num widthInPoints, num heightInPoints) =>
+    new _SvgSurface(fileName, widthInPoints, heightInPoints);
+
+  void restrictToVersion(SvgVersion version);
+
+  List<SvgVersion> get versions;
+
+}
+
 abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   
   void finish() native 'surface_finish';
@@ -212,5 +223,23 @@ class _PostScriptSurface extends _Surface implements PostScriptSurface {
   void beginSetup() native 'ps_surface_dsc_begin_setup';
 
   void dscComment(String comment) native 'ps_surface_dsc_comment';
+
+}
+
+class _SvgSurface extends _Surface implements SvgSurface {
+
+  _SvgSurface(String fileName, num widthInPoints, num heightInPoints) {
+    _createSvgSurface(fileName, widthInPoints.toDouble(), heightInPoints.toDouble());
+  }
+
+  void _createSvgSurface(String fileName, double width, double height) native 'svg_surface_create';
+
+  void restrictToVersion(SvgVersion version) {
+    _restrictToVersion(version.value);
+  }
+
+  void _restrictToVersion(int version) native 'svg_surface_restrict_to_version';
+
+  List<SvgVersion> get versions native 'svg_get_versions';
 
 }

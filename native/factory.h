@@ -6,6 +6,7 @@
 #include <cairo/cairo.h>
 #include <cairo/cairo-pdf.h>
 #include <cairo/cairo-ps.h>
+#include <cairo/cairo-svg.h>
 
 Dart_Handle factory_create_object(const char* className, const char* ctorName, Dart_Handle* args, int argc);
 
@@ -60,5 +61,7 @@ Dart_Handle factory_create_glyphs(Glyphs* glyphs, int glyphNum, int clusterNum, 
 Dart_Handle factory_create_pdf_version(cairo_pdf_version_t version);
 
 Dart_Handle factory_create_ps_level(cairo_ps_level_t level);
+
+Dart_Handle factory_create_svg_version(cairo_svg_version_t version);
 
 #endif // FACTORY_H

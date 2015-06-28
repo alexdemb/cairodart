@@ -2,6 +2,7 @@
 #include <cairo/cairo.h>
 #include <cairo/cairo-pdf.h>
 #include <cairo/cairo-ps.h>
+#include <cairo/cairo-svg.h>
 
 #include "argument.h"
 #include "error.h"
@@ -505,7 +506,64 @@ void ps_surface_dsc_comment(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+void svg_surface_create(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    Dart_Handle obj = arg_get(&args, 0);
+    Dart_Handle fileNameObj = arg_get(&args, 1);
+    const char* fileName = NULL;
+    if (!Dart_IsNull(fileNameObj)) {
+        fileName = arg_get_string(&args, 1);
+    }
+    double width = arg_get_double(&args, 2);
+    double height = arg_get_double(&args, 3);
 
+    cairo_surface_t* surface = cairo_svg_surface_create(fileName, width, height);
+
+    bind_setup(surface, obj, surface_destroy);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void svg_version_to_string(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_svg_version_t version = (cairo_svg_version_t) arg_get_int(&args, 1);
+
+    const char* str = cairo_svg_version_to_string(version);
+
+    Dart_SetReturnValue(args, Dart_NewStringFromCString(str));
+    Dart_ExitScope();
+}
+
+void svg_surface_restrict_to_version(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*)bind_get_self(args);
+    cairo_svg_version_t version = (cairo_svg_version_t) arg_get_int(&args, 1);
+
+    cairo_svg_surface_restrict_to_version(surface, version);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void svg_get_versions(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    const cairo_svg_version_t* versions;
+    int length = 0;
+
+    cairo_svg_get_versions(&versions, &length);
+
+    Dart_Handle list = Dart_NewList(length);
+
+    int i;
+
+    for (i = 0; i < length; i++) {
+        Dart_ListSetAt(list, i, factory_create_svg_version(versions[i]));
+    }
+
+    Dart_SetReturnValue(args, list);
+    Dart_ExitScope();
+}
 
 void surfaces_equals(Dart_NativeArguments args) {
     Dart_EnterScope();

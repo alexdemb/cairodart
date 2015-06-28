@@ -41,6 +41,10 @@ void ps_surface_set_size(Dart_NativeArguments args);
 void ps_surface_dsc_begin_setup(Dart_NativeArguments args);
 void ps_surface_dsc_begin_page_setup(Dart_NativeArguments args);
 void ps_surface_dsc_comment(Dart_NativeArguments args);
+void svg_surface_create(Dart_NativeArguments args);
+void svg_version_to_string(Dart_NativeArguments args);
+void svg_surface_restrict_to_version(Dart_NativeArguments args);
+void svg_get_versions(Dart_NativeArguments args);
 void surfaces_equals(Dart_NativeArguments args);
 
 

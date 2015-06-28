@@ -6,7 +6,10 @@
 #include "bind.h"
 #include "factory.h"
 #include "surface.h"
+#include "list.h"
 
+
+static cairo_user_data_key_t surfaceKey;
 
 void surface_destroy(void* handle) {
     if (handle) {
@@ -18,6 +21,11 @@ void surface_destroy(void* handle) {
         }
 
     }
+}
+
+void surface_data_destroy(void* handle) {
+    if (handle)
+        free(handle);
 }
 
 void image_surface_create(Dart_NativeArguments args) {
@@ -32,6 +40,55 @@ void image_surface_create(Dart_NativeArguments args) {
     bind_setup(surface, obj, surface_destroy);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void image_surface_create_for_data(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    Dart_Handle obj = arg_get(&args, 0);
+    Dart_Handle bytesList = arg_get(&args, 1);
+    cairo_format_t format = (cairo_format_t)arg_get_int(&args, 2);
+    int64_t width = arg_get_int(&args, 3);
+    int64_t height = arg_get_int(&args, 4);
+    int64_t stride = arg_get_int(&args, 5);
+
+    int length = list_length(bytesList);
+
+    unsigned char* arr = (unsigned char*)malloc(sizeof(unsigned char) * length);
+    int i;
+    for (i = 0; i < length; i++) {
+        unsigned char b = (unsigned char)list_int_at(bytesList, i);
+        arr[i] = b;
+    }
+
+    cairo_surface_t* surface = cairo_image_surface_create_for_data(arr, format, width, height, stride);
+
+    cairo_surface_set_user_data(surface, &surfaceKey, arr, surface_data_destroy);
+
+    bind_setup(surface, obj, surface_destroy);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void image_surface_get_data(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*)bind_get_self(args);
+
+    unsigned char* data = cairo_image_surface_get_data(surface);
+
+    Dart_Handle result = Dart_Null();
+
+    if (data) {
+        int length = sizeof(data) / sizeof(data[0]);
+        result = Dart_NewList(length);
+        int i;
+        for (i = 0; i < length; i++) {
+            Dart_ListSetAt(result, i, Dart_NewInteger(data[i]));
+        }
+    }
+
+    Dart_SetReturnValue(args, result);
     Dart_ExitScope();
 }
 

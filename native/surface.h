@@ -5,9 +5,11 @@
 
 void surface_destroy(void* handle);
 void image_surface_create(Dart_NativeArguments args);
+void image_surface_create_for_data(Dart_NativeArguments args);
 void image_surface_get_width(Dart_NativeArguments args);
 void image_surface_get_height(Dart_NativeArguments args);
 void image_surface_get_stride(Dart_NativeArguments args);
+void image_surface_get_data(Dart_NativeArguments args);
 void surface_finish(Dart_NativeArguments args);
 void surface_flush(Dart_NativeArguments args);
 void surface_get_content(Dart_NativeArguments args);

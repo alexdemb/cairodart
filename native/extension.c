@@ -126,6 +126,8 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "set_source_surface", set_source_surface },
   { "get_group_target", get_group_target },
   { "image_surface_create", image_surface_create },
+  { "image_surface_create_for_data", image_surface_create_for_data },
+  { "image_surface_get_data", image_surface_get_data },
   { "image_surface_get_width", image_surface_get_width },
   { "image_surface_get_height", image_surface_get_height },
   { "format_stride_for_width", format_stride_for_width },

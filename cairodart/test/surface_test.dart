@@ -53,5 +53,12 @@ runSurfaceTests() {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);
       expect(surface.surfaceType, equals(SurfaceType.IMAGE));
     });
+    test('should correctly get/set data byte array', () {
+      List<int> data = new List<int>.from([30,40,50,60,70,80,90,100]);
+      var surface = new ImageSurface.forData(data, Format.ARGB32, 640, 480, Format.ARGB32.strideForWidth(640));
+
+      List<int> imgData = surface.data;
+      expect(imgData, equals(data));
+    });
   });
 }

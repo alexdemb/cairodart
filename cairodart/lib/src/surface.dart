@@ -35,6 +35,27 @@ abstract class PdfSurface implements Surface {
 
 }
 
+abstract class PostScriptSurface implements Surface {
+
+  factory PostScriptSurface(String fileName, num widthInPoints, num heightInPoints) =>
+    new _PostScriptSurface(fileName, widthInPoints, heightInPoints);
+
+  bool encapsulated;
+
+  void restrictToLevel(PostScriptLevel level);
+
+  List<PostScriptLevel> get levels;
+
+  void setSize(num width, num height);
+
+  void beginPageSetup();
+
+  void beginSetup();
+
+  void dscComment(String comment);
+
+}
+
 abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   
   void finish() native 'surface_finish';
@@ -158,5 +179,38 @@ class _PdfSurface extends _Surface implements PdfSurface {
   void _restrictToVersion(int version) native 'pdf_surface_restrict_to_version';
 
   List<PdfVersion> get versions native 'pdf_surface_get_versions';
+
+}
+
+class _PostScriptSurface extends _Surface implements PostScriptSurface {
+
+  _PostScriptSurface(String fileName, num widthInPoints, num heightInPoints) {
+    _createPostScriptSurface(fileName, widthInPoints.toDouble(), heightInPoints.toDouble());
+  }
+
+  void _createPostScriptSurface(String fileName, double width, double height) native 'ps_surface_create';
+
+  bool get encapsulated native 'ps_surface_get_eps';
+  void set encapsulated(bool value) native 'ps_surface_set_eps';
+
+  void restrictToLevel(PostScriptLevel level) {
+    _restrictToLevel(level.value);
+  }
+
+  void _restrictToLevel(int level) native 'ps_surface_restrict_to_level';
+
+  List<PostScriptLevel> get levels native 'ps_get_levels';
+
+  void setSize(num width, num height) {
+    _setSize(width.toDouble(), height.toDouble());
+  }
+
+  void _setSize(double width, double height) native 'ps_surface_set_size';
+
+  void beginPageSetup() native 'ps_surface_dsc_begin_page_setup';
+
+  void beginSetup() native 'ps_surface_dsc_begin_setup';
+
+  void dscComment(String comment) native 'ps_surface_dsc_comment';
 
 }

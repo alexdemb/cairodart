@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <cairo/cairo.h>
 #include <cairo/cairo-pdf.h>
+#include <cairo/cairo-ps.h>
 
 #include "argument.h"
 #include "error.h"
@@ -381,6 +382,130 @@ void surface_write_to_png(Dart_NativeArguments args) {
     Dart_SetReturnValue(args, Dart_Null());
     Dart_ExitScope();
 }
+
+void ps_surface_create(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    Dart_Handle obj = arg_get(&args, 0);
+    Dart_Handle fileNameObj = arg_get(&args, 1);
+    const char* fileName = NULL;
+    if (!Dart_IsNull(fileNameObj)) {
+        fileName = arg_get_string(&args, 1);
+    }
+    double width = arg_get_double(&args, 2);
+    double height = arg_get_double(&args, 3);
+
+    cairo_surface_t* surface = cairo_ps_surface_create(fileName, width, height);
+
+    bind_setup(surface, obj, surface_destroy);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void ps_level_to_string(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_ps_level_t level = (cairo_ps_level_t) arg_get_int(&args, 1);
+
+    const char* str = cairo_ps_level_to_string(level);
+
+    Dart_SetReturnValue(args, Dart_NewStringFromCString(str));
+    Dart_ExitScope();
+}
+
+void ps_surface_set_eps(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*) bind_get_self(args);
+    bool eps = arg_get_bool(&args, 1);
+
+    cairo_ps_surface_set_eps(surface, eps);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void ps_surface_get_eps(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*) bind_get_self(args);
+
+    cairo_bool_t eps = cairo_ps_surface_get_eps(surface);
+
+    Dart_SetReturnValue(args, Dart_NewBoolean(eps != 0));
+    Dart_ExitScope();
+}
+
+void ps_surface_restrict_to_level(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*) bind_get_self(args);
+    cairo_ps_level_t level = (cairo_ps_level_t) arg_get_int(&args, 1);
+
+    cairo_ps_surface_restrict_to_level(surface, level);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void ps_get_levels(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    const cairo_ps_level_t* levels;
+    int length = 0;
+
+    cairo_ps_get_levels(&levels, &length);
+
+    Dart_Handle list = Dart_NewList(length);
+
+    int i;
+    for (i = 0; i < length; i++) {
+        Dart_ListSetAt(list, i, factory_create_ps_level(levels[i]));
+    }
+
+    Dart_SetReturnValue(args, list);
+    Dart_ExitScope();
+}
+
+void ps_surface_set_size(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*)bind_get_self(args);
+    double width = arg_get_double(&args, 1);
+    double height = arg_get_double(&args, 2);
+
+    cairo_ps_surface_set_size(surface, width, height);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void ps_surface_dsc_begin_setup(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*)bind_get_self(args);
+
+    cairo_ps_surface_dsc_begin_setup(surface);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void ps_surface_dsc_begin_page_setup(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*)bind_get_self(args);
+
+    cairo_ps_surface_dsc_begin_page_setup(surface);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void ps_surface_dsc_comment(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*)bind_get_self(args);
+    const char* comment = arg_get_string(&args, 1);
+
+    cairo_ps_surface_dsc_comment(surface, comment);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+
 
 void surfaces_equals(Dart_NativeArguments args) {
     Dart_EnterScope();

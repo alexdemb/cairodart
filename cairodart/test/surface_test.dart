@@ -69,4 +69,18 @@ runSurfaceTests() {
       expect(supportedVersions, [PdfVersion.OnePointFour, PdfVersion.OnePointFive]);
     });
   });
+  group('PostScript surface', () {
+    test('should correctly return list of supported levels', () {
+      var psSurface = new PostScriptSurface(null, 640, 480);
+
+      List<PostScriptLevel> levels = psSurface.levels;
+
+      expect(levels, unorderedEquals([PostScriptLevel.LevelTwo, PostScriptLevel.LevelThree]));
+    });
+    test('should correctly get/set encapsulated post script', () {
+      var psSurface = new PostScriptSurface(null, 640, 480);
+      psSurface.encapsulated = true;
+      expect(psSurface.encapsulated, isTrue);
+    });
+  });
 }

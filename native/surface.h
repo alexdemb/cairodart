@@ -31,6 +31,16 @@ void pdf_surface_set_size(Dart_NativeArguments args);
 void pdf_version_to_string(Dart_NativeArguments args);
 void pdf_surface_restrict_to_version(Dart_NativeArguments args);
 void pdf_surface_get_versions(Dart_NativeArguments args);
+void ps_surface_create(Dart_NativeArguments args);
+void ps_level_to_string(Dart_NativeArguments args);
+void ps_surface_set_eps(Dart_NativeArguments args);
+void ps_surface_get_eps(Dart_NativeArguments args);
+void ps_surface_restrict_to_level(Dart_NativeArguments args);
+void ps_get_levels(Dart_NativeArguments args);
+void ps_surface_set_size(Dart_NativeArguments args);
+void ps_surface_dsc_begin_setup(Dart_NativeArguments args);
+void ps_surface_dsc_begin_page_setup(Dart_NativeArguments args);
+void ps_surface_dsc_comment(Dart_NativeArguments args);
 void surfaces_equals(Dart_NativeArguments args);
 
 

@@ -261,3 +261,8 @@ Dart_Handle factory_create_pdf_version(cairo_pdf_version_t version) {
     Dart_Handle args[1] = { Dart_NewInteger((int)version) };
     return factory_create_object("_PdfVersion", "", args, 1);
 }
+
+Dart_Handle factory_create_ps_level(cairo_ps_level_t level) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)level) };
+    return factory_create_object("_PostScriptLevel", "", args, 1);
+}

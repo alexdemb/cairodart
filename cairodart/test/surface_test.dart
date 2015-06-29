@@ -90,4 +90,19 @@ runSurfaceTests() {
       expect(svg.versions, unorderedEquals([SvgVersion.OnePointOne, SvgVersion.OnePointTwo]));
     });
   });
+  group('Recording surface', () {
+    test('should correctly return if surface is bound to extents', () {
+      var extents = <Rectangle>[new Rectangle(0, 0, 20, 20), new Rectangle(20, 20, 30, 30)];
+      var surface = new RecordingSurface(Content.COLOR_ALPHA, extents);
+
+      bool isBounded = surface.getExtents(extents);
+
+      expect(isBounded, isTrue);
+    });
+    test('should correctly return ink extents', () {
+      var surface = new RecordingSurface(Content.COLOR_ALPHA, null);
+      Rectangle res = surface.inkExtents;
+      expect(res, equals(new Rectangle(0,0,0,0)));
+    });
+  });
 }

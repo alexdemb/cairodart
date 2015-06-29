@@ -565,6 +565,80 @@ void svg_get_versions(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+void recording_surface_create(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    Dart_Handle obj = arg_get(&args, 0);
+    cairo_content_t content = (cairo_content_t) arg_get_int(&args, 1);
+    Dart_Handle rectList = arg_get(&args, 2);
+
+    cairo_surface_t* surface;
+
+    if (!Dart_IsNull(rectList)) {
+        int length = list_length(rectList);
+        cairo_rectangle_t rects[length];
+        int i;
+        for (i = 0; i < length; i++) {
+            Dart_Handle rect = list_at(rectList, i);
+            cairo_rectangle_t r;
+            r.x = list_double_at(rect, 0);
+            r.y = list_double_at(rect, 1);
+            r.width = list_double_at(rect, 2);
+            r.height = list_double_at(rect, 3);
+            rects[i] = r;
+        }
+
+        surface = cairo_recording_surface_create(content, rects);
+    } else {
+        surface = cairo_recording_surface_create(content, NULL);
+    }
+
+    bind_setup(surface, obj, surface_destroy);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void recording_surface_ink_extents(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*)bind_get_self(args);
+    double x = 0.0;
+    double y = 0.0;
+    double width = 0.0;
+    double height = 0.0;
+
+    cairo_recording_surface_ink_extents(surface, &x, &y, &width, &height);
+
+    Dart_Handle result = factory_create_rectangle_double(x, y, width, height);
+
+    Dart_SetReturnValue(args, result);
+    Dart_ExitScope();
+}
+
+void recording_surface_get_extents(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*)bind_get_self(args);
+    Dart_Handle rectList = arg_get(&args, 1);
+
+    int length = list_length(rectList);
+    cairo_rectangle_t rects[length];
+    int i;
+    for (i = 0; i < length; i++) {
+        Dart_Handle rect = list_at(rectList, i);
+        cairo_rectangle_t r;
+        r.x = list_double_at(rect, 0);
+        r.y = list_double_at(rect, 1);
+        r.width = list_double_at(rect, 2);
+        r.height = list_double_at(rect, 3);
+        rects[i] = r;
+    }
+
+    cairo_bool_t bound = cairo_recording_surface_get_extents(surface, rects);
+
+
+    Dart_SetReturnValue(args, Dart_NewBoolean(bound != 0));
+    Dart_ExitScope();
+}
+
 void surfaces_equals(Dart_NativeArguments args) {
     Dart_EnterScope();
     cairo_surface_t* surface = (cairo_surface_t*) bind_get_self(args);

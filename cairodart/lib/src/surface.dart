@@ -1,7 +1,7 @@
 part of cairodart.base;
 
 abstract class Surface {
-  
+
   void finish();
   void flush();
   void markDirty();
@@ -9,7 +9,7 @@ abstract class Surface {
   void copyPage();
   void showPage();
   bool supportsMimeType(String mimeType);
-  
+
   Content get content;
   Point get deviceOffset;
   void set deviceOffset(Point offset);
@@ -67,43 +67,53 @@ abstract class SvgSurface {
 
 }
 
+abstract class RecordingSurface implements Surface {
+
+  factory RecordingSurface(Content content, List<Rectangle> extents) => new _RecordingSurface(content, extents);
+
+  Rectangle get inkExtents;
+
+  bool getExtents(List<Rectangle> extents);
+
+}
+
 abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
-  
+
   void finish() native 'surface_finish';
   void flush() native 'surface_flush';
   Content get content {
     int c = _getContent();
     return new _Content(c);
   }
-  
+
   SurfaceType get surfaceType {
     int type = _getSurfaceType();
     return new _SurfaceType(type);
   }
-  
+
   void markDirty() native 'surface_mark_dirty';
   void markDirtyRect(int x, int y, int width, int height) native 'surface_mark_dirty_rectangle';
-  
+
   int _getContent() native 'surface_get_content';
   int _getSurfaceType() native 'surface_get_type';
-  
+
   Point get deviceOffset native 'surface_get_device_offset';
   void set deviceOffset(Point offset) {
     _deviceOffset(offset.x, offset.y);
   }
-  
+
   void _deviceOffset(double x, double y) native 'surface_set_device_offset';
-  
+
   void copyPage() native 'surface_copy_page';
   void showPage() native 'surface_show_page';
   bool get hasShowTextGlyphs native 'surface_has_show_text_glyphs';
   bool supportsMimeType(String mimeType) native 'surface_supports_mime_type';
-  
+
   Resolution get fallbackResolution native 'surface_get_fallback_resolution';
   void set fallbackResolution(Resolution resolution) {
     _fallbackResolution(resolution.xResolution, resolution.yResolution);
   }
-  
+
   void _fallbackResolution(double x, double y) native 'surface_set_fallback_resolution';
 
   void writeTo(String fileName) native 'surface_write_to_png';
@@ -112,13 +122,13 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
 }
 
 abstract class ImageSurface implements Surface {
-  
+
   factory ImageSurface(Format format, int width, int height) => new _ImageSurface(format, width, height);
   factory ImageSurface.forData(List<int> data, Format format, int width, int height, int stride) =>
     new _ImageSurface.forData(data, format, width, height, stride);
-  
+
   factory ImageSurface.fromPng(String fileName) => new _ImageSurface.fromPng(fileName);
-  
+
   int get width;
   int get height;
   int get stride;
@@ -127,14 +137,14 @@ abstract class ImageSurface implements Surface {
 
   void write();
 
-  
+
 }
 
 
 class _ImageSurface extends _Surface implements ImageSurface {
-  
+
   Format _format;
-  
+
   _ImageSurface(Format format, int width, int height) {
     _createImageSurface(format.value, width, height);
     _format = format;
@@ -143,29 +153,29 @@ class _ImageSurface extends _Surface implements ImageSurface {
   _ImageSurface.forData(List<int> data, Format format, int width, int height, int stride) {
     _createImageSurfaceForData(data, format.value, width, height, stride);
   }
-  
+
   _ImageSurface.internal(){}
 
   void _createImageSurfaceForData(List<int> data, int format, int width, int height, int stride) native 'image_surface_create_for_data';
 
   void _createImageSurface(int format, int width, int height) native 'image_surface_create';
-  
+
   int get width native 'image_surface_get_width';
   int get height native 'image_surface_get_height';
   int get stride native 'image_surface_get_stride';
   Format get format => _format;
   List<int> get data native 'image_surface_get_data';
-  
+
   String _fileName;
-    
+
   _ImageSurface.fromPng(this._fileName) {
     _createPngSurface(_fileName);
   }
-    
+
   void _createPngSurface(String fileName) native 'image_surface_create_from_png';
-    
+
   void write() => writeTo(this._fileName);
-    
+
 
 }
 
@@ -241,5 +251,27 @@ class _SvgSurface extends _Surface implements SvgSurface {
   void _restrictToVersion(int version) native 'svg_surface_restrict_to_version';
 
   List<SvgVersion> get versions native 'svg_get_versions';
+
+}
+
+class _RecordingSurface extends _Surface implements RecordingSurface {
+
+  List<List<double>> extentsPoints(List<Rectangle> extents) => extents.map((r) => <double>[r.x.toDouble(), r.y.toDouble(), r.width.toDouble(), r.height.toDouble()]).toList();
+
+  _RecordingSurface(Content content, List<Rectangle> extents) {
+    if (extents != null) {
+      _createRecordingSurface(content.value, extentsPoints(extents));
+    } else {
+      _createRecordingSurface(content.value, null);
+    }
+  }
+
+  void _createRecordingSurface(int content, List<List<double>> rect) native 'recording_surface_create';
+
+  Rectangle get inkExtents native 'recording_surface_ink_extents';
+
+  bool getExtents(List<Rectangle> extents) => _getExtents(extentsPoints(extents));
+
+  bool _getExtents(List<List<double>> rect) native 'recording_surface_get_extents';
 
 }

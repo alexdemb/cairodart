@@ -45,6 +45,10 @@ void svg_surface_create(Dart_NativeArguments args);
 void svg_version_to_string(Dart_NativeArguments args);
 void svg_surface_restrict_to_version(Dart_NativeArguments args);
 void svg_get_versions(Dart_NativeArguments args);
+void recording_surface_create(Dart_NativeArguments args);
+void recording_surface_ink_extents(Dart_NativeArguments args);
+void recording_surface_get_extents(Dart_NativeArguments args);
+
 void surfaces_equals(Dart_NativeArguments args);
 
 

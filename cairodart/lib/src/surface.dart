@@ -18,6 +18,7 @@ abstract class Surface {
   Resolution get fallbackResolution;
   void set fallbackResolution(Resolution resolution);
   void writeTo(String fileName);
+  Device get device;
 
   operator==(Surface other);
 }
@@ -117,6 +118,8 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   void _fallbackResolution(double x, double y) native 'surface_set_fallback_resolution';
 
   void writeTo(String fileName) native 'surface_write_to_png';
+
+  Device get device native 'surface_get_device';
 
   operator==(Surface other) native 'surfaces_equals';
 }

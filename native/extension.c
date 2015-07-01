@@ -15,6 +15,7 @@
 #include "font_face.h"
 #include "font_options.h"
 #include "scaled_font.h"
+#include "device.h"
 
 Dart_NativeFunction resolve(const char* name);
 Dart_NativeFunction ResolveName(Dart_Handle name, int argc, bool* auto_setup_scope);
@@ -146,6 +147,7 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "surface_get_type", surface_get_type },
   { "surface_get_fallback_resolution", surface_get_fallback_resolution },
   { "surface_set_fallback_resolution", surface_set_fallback_resolution },
+  { "surface_get_device", surface_get_device },
   { "surfaces_equals", surfaces_equals },
   { "pdf_surface_create", pdf_surface_create },
   { "pdf_surface_set_size", pdf_surface_set_size },

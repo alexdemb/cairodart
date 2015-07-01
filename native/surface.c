@@ -9,6 +9,7 @@
 #include "bind.h"
 #include "factory.h"
 #include "surface.h"
+#include "device.h"
 #include "list.h"
 
 
@@ -355,6 +356,22 @@ void surface_set_fallback_resolution(Dart_NativeArguments args) {
     cairo_surface_set_fallback_resolution(surface, xRes, yRes);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void surface_get_device(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*) bind_get_self(args);
+
+    cairo_device_t* device = cairo_surface_get_device(surface);
+
+    Dart_Handle result = Dart_Null();
+    if (device != NULL) {
+        result = factory_create_object("_Device", "", NULL, 0);
+        bind_setup(device, result, device_destroy);
+    }
+
+    Dart_SetReturnValue(args, result);
     Dart_ExitScope();
 }
 

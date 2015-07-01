@@ -24,6 +24,7 @@ void surface_has_show_text_glyphs(Dart_NativeArguments args);
 void surface_get_type(Dart_NativeArguments args);
 void surface_get_fallback_resolution(Dart_NativeArguments args);
 void surface_set_fallback_resolution(Dart_NativeArguments args);
+void surface_get_device(Dart_NativeArguments args);
 void image_surface_create_from_png(Dart_NativeArguments args);
 void surface_write_to_png(Dart_NativeArguments args);
 void pdf_surface_create(Dart_NativeArguments args);
@@ -48,7 +49,6 @@ void svg_get_versions(Dart_NativeArguments args);
 void recording_surface_create(Dart_NativeArguments args);
 void recording_surface_ink_extents(Dart_NativeArguments args);
 void recording_surface_get_extents(Dart_NativeArguments args);
-
 void surfaces_equals(Dart_NativeArguments args);
 
 

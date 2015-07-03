@@ -267,6 +267,12 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "scaled_font_get_ctm", scaled_font_get_ctm },
   { "scaled_font_get_scale_matrix", scaled_font_get_scale_matrix },
   { "scaled_font_get_type", scaled_font_get_type },
+  { "device_finish", device_finish },
+  { "device_flush", device_flush },
+  { "device_acquire", device_acquire },
+  { "device_release", device_release },
+  { "device_get_type", device_get_type },
+  { "script_create", script_create }
 };
 
 Dart_NativeFunction resolve(const char* name) {

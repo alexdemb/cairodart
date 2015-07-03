@@ -271,3 +271,8 @@ Dart_Handle factory_create_svg_version(cairo_svg_version_t version) {
     Dart_Handle args[1] = { Dart_NewInteger((int)version) };
     return factory_create_object("_SvgVersion", "", args, 1);
 }
+
+Dart_Handle factory_create_device_type(cairo_device_type_t type) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)type) };
+    return factory_create_object("_DeviceType", "", args, 1);
+}

@@ -47,3 +47,4 @@ part 'pdf_version.dart';
 part 'postscript_level.dart';
 part 'svg_version.dart';
 part 'device.dart';
+part 'device_type.dart';

@@ -64,4 +64,6 @@ Dart_Handle factory_create_ps_level(cairo_ps_level_t level);
 
 Dart_Handle factory_create_svg_version(cairo_svg_version_t version);
 
+Dart_Handle factory_create_device_type(cairo_device_type_t type);
+
 #endif // FACTORY_H

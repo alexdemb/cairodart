@@ -272,7 +272,9 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "device_acquire", device_acquire },
   { "device_release", device_release },
   { "device_get_type", device_get_type },
-  { "script_create", script_create }
+  { "script_create", script_create },
+  { "script_surface_create", script_surface_create },
+  { "script_surface_create_for_target", script_surface_create_for_target }
 };
 
 Dart_NativeFunction resolve(const char* name) {

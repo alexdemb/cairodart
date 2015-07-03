@@ -143,6 +143,12 @@ abstract class ImageSurface implements Surface {
 
 }
 
+abstract class ScriptSurface implements Surface {
+
+  factory ScriptSurface(Device script, Content content, num width, num height) => new _ScriptSurface(script, content, width, height);
+  factory ScriptSurface.forTarget(Device script, Surface target) => new _ScriptSurface(script, target);
+
+}
 
 class _ImageSurface extends _Surface implements ImageSurface {
 
@@ -276,5 +282,20 @@ class _RecordingSurface extends _Surface implements RecordingSurface {
   bool getExtents(List<Rectangle> extents) => _getExtents(extentsPoints(extents));
 
   bool _getExtents(List<List<double>> rect) native 'recording_surface_get_extents';
+
+}
+
+class _ScriptSurface extends _Surface implements ScriptSurface {
+
+  _ScriptSurface(Device script, Content content, num width, num height) {
+    _createScriptSurface(script, content.value, width.toDouble(), height.toDouble());
+  }
+
+  _ScriptSurface.forTarget(Device script, Surface target) {
+    _createScriptSurfaceForTarget(script, target);
+  }
+
+  void _createScriptSurface(Device script, int content, double width, double height) native 'script_surface_create';
+  void _createScriptSurfaceForTarget(Device script, Surface target) native 'script_surface_create_for_target';
 
 }

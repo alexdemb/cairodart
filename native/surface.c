@@ -3,6 +3,7 @@
 #include <cairo/cairo-pdf.h>
 #include <cairo/cairo-ps.h>
 #include <cairo/cairo-svg.h>
+#include <cairo/cairo-script.h>
 
 #include "argument.h"
 #include "error.h"
@@ -667,3 +668,32 @@ void surfaces_equals(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+void script_surface_create(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    Dart_Handle obj = arg_get(&args, 0);
+    cairo_device_t* device = (cairo_device_t*) bind_get(arg_get(&args, 1));
+    cairo_content_t content = (cairo_content_t) arg_get_int(&args, 2);
+    double width = arg_get_double(&args, 3);
+    double height = arg_get_double(&args, 4);
+
+    cairo_surface_t* surface = cairo_script_surface_create(device, content, width, height);
+
+    bind_setup(surface, obj, device_destroy);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void script_surface_create_for_target(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    Dart_Handle obj = arg_get(&args, 0);
+    cairo_device_t* device = (cairo_device_t*) bind_get(arg_get(&args, 1));
+    cairo_surface_t* target = (cairo_surface_t*) bind_get(arg_get(&args, 2));
+
+    cairo_surface_t* surface = cairo_script_surface_create_for_target(device, target);
+
+    bind_setup(surface, obj, device_destroy);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}

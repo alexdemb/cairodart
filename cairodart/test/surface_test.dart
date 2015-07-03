@@ -105,4 +105,5 @@ runSurfaceTests() {
       expect(res, equals(new Rectangle(0,0,0,0)));
     });
   });
+
 }

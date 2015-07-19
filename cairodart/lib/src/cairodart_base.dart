@@ -3,6 +3,7 @@ library cairodart.base;
 import 'dart-ext:cairodart';
 import 'dart:nativewrappers';
 
+part 'ref_object.dart';
 part 'context.dart';
 part 'surface.dart';
 part 'format.dart';

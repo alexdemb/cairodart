@@ -26,3 +26,16 @@ void font_face_get_type(Dart_NativeArguments args) {
     Dart_SetReturnValue(args, res);
     Dart_ExitScope();
 }
+
+
+void font_face_status(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_font_face_t* fontFace = bind_get_self(args);
+
+    cairo_status_t status = cairo_font_face_status(fontFace);
+
+    Dart_Handle ret = factory_create_status(status);
+
+    Dart_SetReturnValue(args, ret);
+    Dart_ExitScope();
+}

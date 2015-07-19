@@ -9,6 +9,11 @@ runFontOptionsTests() {
       expect(opts.hintStyle, equals(HintStyle.Default));
       expect(opts.antialias, equals(Antialias.Default));
     });
+    test('should have Sucseess status when created', () {
+      FontOptions opts = new FontOptions();
+
+      expect(opts.status, equals(CairoStatus.Success));
+    });
     test('should correctly get/set antialias', () {
       FontOptions opts = new FontOptions();
        

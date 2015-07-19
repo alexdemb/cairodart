@@ -1,6 +1,6 @@
 part of cairodart.base;
 
-abstract class ScaledFont {
+abstract class ScaledFont implements RefObject {
   
   factory ScaledFont(FontFace fontFace, Matrix fontMatrix, Matrix ctm, FontOptions options) =>
       new _ScaledFont(fontFace, fontMatrix, ctm, options);
@@ -34,6 +34,7 @@ class _ScaledFont extends NativeFieldWrapperClass2 implements ScaledFont {
   Matrix get ctm native 'scaled_font_get_ctm';
   Matrix get scaleMatrix native 'scaled_font_get_scale_matrix';
   FontType get fontType native 'scaled_font_get_type';
+  CairoStatus get status native 'scaled_font_status';
 
 }
 

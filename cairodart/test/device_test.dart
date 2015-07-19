@@ -2,7 +2,12 @@ part of cairodart.test;
 
 runDeviceTests() {
   group('Device', () {
-    test('should return corret device type for script', () {
+    test('should have success status when created', () {
+      var device = new Device.script( './test.tmp');
+
+      expect(device.status, equals(CairoStatus.Success));
+    });
+    test('should return correct device type for script', () {
       var device = new Device.script( './test.tmp');
 
       DeviceType devType = device.type;

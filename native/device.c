@@ -84,3 +84,14 @@ void script_create(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+void device_status(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_device_t* device = (cairo_device_t*)bind_get_self(args);
+
+    cairo_status_t status = cairo_device_status(device);
+
+    Dart_Handle ret = factory_create_status(status);
+
+    Dart_SetReturnValue(args, ret);
+    Dart_ExitScope();
+}

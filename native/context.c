@@ -851,3 +851,15 @@ void get_group_target(Dart_NativeArguments args) {
     Dart_SetReturnValue(args, res);
     Dart_ExitScope();
 }
+
+void status(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    cairo_status_t status = cairo_status(context);
+
+    Dart_Handle res = factory_create_status(status);
+
+    Dart_SetReturnValue(args, res);
+    Dart_ExitScope();
+}
+

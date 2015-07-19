@@ -318,3 +318,16 @@ void region_xor_rectangle(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+
+void region_status(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_region_t* region = (cairo_region_t*) bind_get_self(args);
+
+    cairo_status_t status = cairo_region_status(region);
+
+    Dart_Handle ret = factory_create_status(status);
+
+    Dart_SetReturnValue(args, ret);
+    Dart_ExitScope();
+
+}

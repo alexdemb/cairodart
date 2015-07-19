@@ -1,6 +1,6 @@
 part of cairodart.base;
 
-abstract class Pattern {
+abstract class Pattern implements RefObject {
 
   Extend get extend;
   void set extend(Extend extend);
@@ -96,6 +96,8 @@ class _Pattern extends NativeFieldWrapperClass2 implements Pattern {
 
   Matrix get matrix native 'pattern_get_matrix';
   void set matrix(Matrix matrix) native 'pattern_set_matrix';
+
+  CairoStatus get status native 'pattern_status';
 
   @override
   operator==(Pattern pattern) native 'pattern_equals';

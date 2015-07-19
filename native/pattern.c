@@ -472,3 +472,15 @@ void pattern_get_rgba(Dart_NativeArguments args) {
 
     Dart_ExitScope();
 }
+
+void pattern_status(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_pattern_t* pattern = (cairo_pattern_t*) bind_get_self(args);
+
+    cairo_status_t status = cairo_pattern_status(pattern);
+
+    Dart_Handle ret = factory_create_status(status);
+
+    Dart_SetReturnValue(args, ret);
+    Dart_ExitScope();
+}

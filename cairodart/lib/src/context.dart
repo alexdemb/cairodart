@@ -1,6 +1,6 @@
 part of cairodart.base;
 
-abstract class Context {
+abstract class Context implements RefObject {
   
   factory Context(Surface surface) {
     return new _Context(surface);
@@ -287,4 +287,6 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void _setSourceSurface(Surface surface, double x, double y) native 'set_source_surface';
   
   Surface get groupTarget native 'get_group_target';
+
+  CairoStatus get status native 'status';
 }

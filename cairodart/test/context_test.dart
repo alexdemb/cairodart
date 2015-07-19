@@ -10,6 +10,10 @@ runContextTests() {
       ctx.save();
       ctx.restore();
     });
+    test('should have success status when created', () {
+      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
+      expect(ctx.status, equals(CairoStatus.Success));
+    });
     test('should successfully get/set source', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       Pattern p = new SurfacePattern(new ImageSurface(Format.ARGB32, 500, 500));

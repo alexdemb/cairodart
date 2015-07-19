@@ -1,14 +1,14 @@
 part of cairodart.base;
 
 abstract class RectangleList {
-  int get status;
+  CairoStatus get status;
   List<Rectangle> get rectangles;
   void destroy();
 }
 
 class _RectangleList extends NativeFieldWrapperClass2 implements RectangleList {
-  int _status;
-  int get status => _status;
+  CairoStatus _status;
+  CairoStatus get status => _status;
   _Context _context;
     
   List<Rectangle> _rectangles;

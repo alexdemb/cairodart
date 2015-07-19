@@ -1,6 +1,6 @@
 part of cairodart.base;
 
-abstract class FontOptions {
+abstract class FontOptions implements RefObject {
   
   factory FontOptions() => new _FontOptions();
   factory FontOptions._internal() => new _FontOptions._internal();
@@ -50,7 +50,9 @@ class _FontOptions extends NativeFieldWrapperClass2 implements FontOptions {
   void set hintMetrics(HintMetrics metrics) => _setHintMetrics(metrics.value);
   
   void _setHintMetrics(int value) native 'font_options_set_hint_metrics';
-  
+
+  CairoStatus get status native 'font_options_status';
+
   @override
   operator==(FontOptions other) native 'font_options_equal';
   

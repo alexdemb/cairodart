@@ -33,6 +33,19 @@ void surface_data_destroy(void* handle) {
         free(handle);
 }
 
+void surface_status(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_surface_t* surface = (cairo_surface_t*)bind_get_self(args);
+
+    cairo_status_t status = cairo_surface_status(surface);
+
+    Dart_Handle ret = factory_create_status(status);
+
+    Dart_SetReturnValue(args, ret);
+    Dart_ExitScope();
+}
+
+
 void image_surface_create(Dart_NativeArguments args) {
     Dart_EnterScope();
     Dart_Handle obj = arg_get(&args, 0);

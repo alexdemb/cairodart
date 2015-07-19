@@ -4,6 +4,7 @@
 #include "dart_api.h"
 
 void surface_destroy(void* handle);
+void surface_status(Dart_NativeArguments args);
 void image_surface_create(Dart_NativeArguments args);
 void image_surface_create_for_data(Dart_NativeArguments args);
 void image_surface_get_width(Dart_NativeArguments args);

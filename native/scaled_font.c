@@ -181,3 +181,15 @@ void scaled_font_get_type(Dart_NativeArguments args) {
     Dart_SetReturnValue(args, res);
     Dart_ExitScope();
 }
+
+void scaled_font_status(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_scaled_font_t* scaledFont = (cairo_scaled_font_t*)bind_get_self(args);
+
+    cairo_status_t status = cairo_scaled_font_status(scaledFont);
+
+    Dart_Handle res = factory_create_status(status);
+
+    Dart_SetReturnValue(args, res);
+    Dart_ExitScope();
+}

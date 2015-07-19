@@ -7,6 +7,10 @@ runSurfaceTests() {
       Content content = surface.content;
       expect(content, equals(Content.ColorAndAlpha));
     });
+    test('should have Success status when created', () {
+      var surface = new ImageSurface(Format.ARGB32, 640, 480);
+      expect(surface.status, equals(CairoStatus.Success));
+    });
     test('should correctly get/set device offset', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);
       surface.deviceOffset = new Point.from(20.0, 25.0);

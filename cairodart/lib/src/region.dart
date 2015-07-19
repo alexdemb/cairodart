@@ -1,6 +1,6 @@
 part of cairodart.base;
 
-abstract class Region {
+abstract class Region implements RefObject {
   
   factory Region() => new _Region();
   factory Region.fromArea(int x, int y, int width, int height) => new _Region.fromArea(x, y, width, height);
@@ -109,7 +109,8 @@ class _Region extends NativeFieldWrapperClass2 implements Region {
   void xorRectangle(Rectangle rect) => xorRectangleWithCoords(rect.x.toInt(),  rect.y.toInt(), rect.width.toInt(), rect.height.toInt());
   
   void xorRectangleWithCoords(int x, int y, int width, int height) native 'region_xor_rectangle';
-  
+
+  CairoStatus get status native 'region_status';
   
   @override
   operator==(Region other) native 'region_equal';

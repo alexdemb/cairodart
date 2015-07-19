@@ -126,6 +126,7 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "get_dash_count", get_dash_count },
   { "set_source_surface", set_source_surface },
   { "get_group_target", get_group_target },
+  { "status", status },
   { "image_surface_create", image_surface_create },
   { "image_surface_create_for_data", image_surface_create_for_data },
   { "image_surface_get_data", image_surface_get_data },
@@ -173,6 +174,7 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "recording_surface_get_extents", recording_surface_get_extents },
   { "image_surface_create_from_png", image_surface_create_from_png },
   { "surface_write_to_png", surface_write_to_png },
+  { "pattern_status", pattern_status },
   { "pattern_create_rgb", pattern_create_rgb },
   { "pattern_create_rgba", pattern_create_rgba },
   { "pattern_create_for_surface", pattern_create_for_surface },
@@ -224,6 +226,7 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "matrix_transform_distance", matrix_transform_distance },
   { "matrix_multiply", matrix_multiply },
   { "region_create", region_create },
+  { "region_status", region_status },
   { "region_create_rectangle", region_create_rectangle },
   { "region_create_rectangles", region_create_rectangles },
   { "region_copy", region_copy },
@@ -244,7 +247,9 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "region_xor", region_xor },
   { "region_xor_rectangle", region_xor_rectangle },
   { "font_face_get_type", font_face_get_type },
+  { "font_face_status", font_face_status },
   { "font_options_create", font_options_create },
+  { "font_options_status", font_options_status },
   { "font_options_copy", font_options_copy },
   { "font_options_merge", font_options_merge },
   { "font_options_hash", font_options_hash },
@@ -258,6 +263,7 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "font_options_set_hint_metrics", font_options_set_hint_metrics },
   { "font_options_get_hint_metrics", font_options_get_hint_metrics },
   { "scaled_font_create", scaled_font_create },
+  { "scaled_font_status", scaled_font_status },
   { "scaled_font_extents", scaled_font_extents },
   { "scaled_font_text_extents", scaled_font_text_extents },
   { "scaled_font_glyph_extents", scaled_font_glyph_extents },
@@ -272,9 +278,11 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "device_acquire", device_acquire },
   { "device_release", device_release },
   { "device_get_type", device_get_type },
+  { "device_status", device_status },
   { "script_create", script_create },
   { "script_surface_create", script_surface_create },
-  { "script_surface_create_for_target", script_surface_create_for_target }
+  { "script_surface_create_for_target", script_surface_create_for_target },
+  { "surface_status", surface_status }
 };
 
 Dart_NativeFunction resolve(const char* name) {

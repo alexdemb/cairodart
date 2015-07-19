@@ -1,6 +1,6 @@
 part of cairodart.base;
 
-abstract class Device {
+abstract class Device implements RefObject {
 
   factory Device.script(String fileName) => new _Device.script(fileName);
 
@@ -27,5 +27,6 @@ class _Device extends NativeFieldWrapperClass2 implements Device {
   void acquire() native 'device_acquire';
   void release() native 'device_release';
   DeviceType get type native 'device_get_type';
+  CairoStatus get status native 'device_status';
 
 }

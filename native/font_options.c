@@ -168,3 +168,15 @@ void font_options_get_hint_metrics(Dart_NativeArguments args) {
     Dart_SetReturnValue(args, res);
     Dart_ExitScope();
 }
+
+void font_options_status(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_font_options_t* opts = (cairo_font_options_t*) bind_get_self(args);
+
+    cairo_status_t status = cairo_font_options_status(opts);
+
+    Dart_Handle ret = factory_create_status(status);
+
+    Dart_SetReturnValue(args, ret);
+    Dart_ExitScope();
+}

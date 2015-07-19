@@ -113,7 +113,7 @@ Dart_Handle factory_create_hint_metrics(cairo_hint_metrics_t metrics) {
 }
 
 static Dart_Handle factory_create_dart_rectangle_list(Dart_Handle context, const cairo_rectangle_list_t* list, Dart_Handle rectsList) {
-    Dart_Handle ctorArgs[] = { context, Dart_NewInteger((int)list->status), rectsList };
+    Dart_Handle ctorArgs[] = { context, factory_create_status(list->status), rectsList };
     return factory_create_object("_RectangleList", "", ctorArgs, 3);
 }
 
@@ -275,4 +275,9 @@ Dart_Handle factory_create_svg_version(cairo_svg_version_t version) {
 Dart_Handle factory_create_device_type(cairo_device_type_t type) {
     Dart_Handle args[1] = { Dart_NewInteger((int)type) };
     return factory_create_object("_DeviceType", "", args, 1);
+}
+
+Dart_Handle factory_create_status(cairo_status_t status) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)status) };
+    return factory_create_object("CairoStatus", "", args, 1);
 }

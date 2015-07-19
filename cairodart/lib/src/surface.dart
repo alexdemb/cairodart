@@ -1,6 +1,6 @@
 part of cairodart.base;
 
-abstract class Surface {
+abstract class Surface implements RefObject {
 
   void finish();
   void flush();
@@ -120,6 +120,8 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
   void writeTo(String fileName) native 'surface_write_to_png';
 
   Device get device native 'surface_get_device';
+
+  CairoStatus get status native 'surface_status';
 
   operator==(Surface other) native 'surfaces_equals';
 }

@@ -5,6 +5,7 @@
 
 void scaled_font_destroy(void* handle);
 void scaled_font_create(Dart_NativeArguments args);
+void scaled_font_status(Dart_NativeArguments args);
 void scaled_font_extents(Dart_NativeArguments args);
 void scaled_font_text_extents(Dart_NativeArguments args);
 void scaled_font_glyph_extents(Dart_NativeArguments args);

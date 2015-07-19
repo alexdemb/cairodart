@@ -73,5 +73,6 @@ void get_dash(Dart_NativeArguments args);
 void get_dash_count(Dart_NativeArguments args);
 void set_source_surface(Dart_NativeArguments args);
 void get_group_target(Dart_NativeArguments args);
+void status(Dart_NativeArguments args);
 
 #endif // CONTEXT_H

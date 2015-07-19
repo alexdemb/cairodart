@@ -17,5 +17,6 @@ void font_options_set_hint_style(Dart_NativeArguments args);
 void font_options_get_hint_style(Dart_NativeArguments args);
 void font_options_set_hint_metrics(Dart_NativeArguments args);
 void font_options_get_hint_metrics(Dart_NativeArguments args);
+void font_options_status(Dart_NativeArguments args);
 
 #endif // FONT_OPTIONS_H

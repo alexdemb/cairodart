@@ -2,6 +2,10 @@ part of cairodart.test;
 
 runPatternTests() {
   group('Pattern', () {
+    test('should have Success status when created', () {
+      Pattern pattern = new LinearGradient(10.0, 10.0, 20.0, 20.0);
+      expect(pattern.status, equals(CairoStatus.Success));
+    });
     test('should correctly get/set extend', () {
       Pattern pattern = new LinearGradient(10.0, 10.0, 20.0, 20.0);
       expect(pattern.extend, equals(Extend.Pad));

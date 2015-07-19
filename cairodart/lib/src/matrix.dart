@@ -11,10 +11,10 @@ abstract class Matrix {
   
   factory Matrix.zero() => new _Matrix(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
   
-  factory Matrix(double xx, double yx, double xy, double yy, double x0, double y0) =>
-      new _Matrix(xx, yx, xy, yy, x0, y0);
+  factory Matrix(num xx, num yx, num xy, num yy, num x0, num y0) =>
+      new _Matrix(xx.toDouble(), yx.toDouble(), xy.toDouble(), yy.toDouble(), x0.toDouble(), y0.toDouble());
   
-  void init(double xx, double yx, double xy, double yy, double x0, double y0);
+  void init(num xx, num yx, num xy, num yy, num x0, num y0);
   
   void initIdentity();
   void initTranslate(double tx, double ty);
@@ -51,7 +51,9 @@ class _Matrix extends NativeFieldWrapperClass2 implements Matrix {
   
   void _create() native 'matrix_create';
   
-  void init(double xx, double yx, double xy, double yy, double x0, double y0) native 'matrix_init';
+  void init(num xx, num yx, num xy, num yy, num x0, num y0) => _init(xx.toDouble(), yx.toDouble(), xy.toDouble(), yy.toDouble(), x0.toDouble(), y0.toDouble());
+
+  void _init(double xx, double yx, double xy, double yy, double x0, double y0) native 'matrix_init';
   
   void initIdentity() native 'matrix_init_identity';
   void initTranslate(double tx, double ty) native 'matrix_init_translate';

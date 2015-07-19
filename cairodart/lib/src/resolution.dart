@@ -2,20 +2,20 @@ part of cairodart.base;
 
 abstract class Resolution {
   
-  factory Resolution(double xRes, double yRes) => new _Resolution(xRes, yRes);
+  factory Resolution(num xRes, num yRes) => new _Resolution(xRes, yRes);
   
-  double get xResolution;
-  double get yResolution;
+  num get xResolution;
+  num get yResolution;
   
 }
 
 class _Resolution implements Resolution {
-  
-  double _xResolution;
-  double _yResolution;
+
+  num _xResolution;
+  num _yResolution;
   
   _Resolution(this._xResolution, this._yResolution);
-  
-  double get xResolution => _xResolution;
-  double get yResolution => _yResolution;
+
+  num get xResolution => _xResolution;
+  num get yResolution => _yResolution;
 }

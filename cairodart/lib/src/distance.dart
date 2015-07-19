@@ -3,21 +3,21 @@ part of cairodart.base;
 abstract class Distance {
   
   factory Distance() => new _Distance(0.0, 0.0);
-  factory Distance.from(double dx, double dy) => new _Distance(dx, dy);
+  factory Distance.from(num dx, num dy) => new _Distance(dx.toDouble(), dy.toDouble());
     
-  double get dx;
-  double get dy;
+  num get dx;
+  num get dy;
 }
 
 class _Distance implements Distance {
   
-  double _dx;
-  double _dy;
+  num _dx;
+  num _dy;
   
   _Distance(this._dx, this._dy);
   
-  double get dx => _dx;
-  double get dy => _dy;
+  num get dx => _dx;
+  num get dy => _dy;
   
   @override
   operator==(Distance other) => dx == other.dx && dy == other.dy;  

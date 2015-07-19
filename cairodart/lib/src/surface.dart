@@ -146,7 +146,7 @@ abstract class ImageSurface implements Surface {
 abstract class ScriptSurface implements Surface {
 
   factory ScriptSurface(Device script, Content content, num width, num height) => new _ScriptSurface(script, content, width, height);
-  factory ScriptSurface.forTarget(Device script, Surface target) => new _ScriptSurface(script, target);
+  factory ScriptSurface.forTarget(Device script, Surface target) => new _ScriptSurface.forTarget(script, target);
 
 }
 

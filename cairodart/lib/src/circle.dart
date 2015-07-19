@@ -6,7 +6,7 @@ abstract class Circle {
   double get y;
   double get radius;
   
-  factory Circle(double x, double y, double radius) => new _Circle(x, y, radius);
+  factory Circle(num x, num y, num radius) => new _Circle(x.toDouble(), y.toDouble(), radius.toDouble());
   
 }
 

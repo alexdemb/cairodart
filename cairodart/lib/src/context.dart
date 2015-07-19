@@ -12,8 +12,8 @@ abstract class Context {
   void pushGroupWithContent(Content content);
   void popGroupToSource();
   Pattern popGroup();
-  void setSourceRgb(double red, double green, double blue);
-  void setSourceRgba(double red, double green, double blue, double alpha);
+  void setSourceRgb(num red, num green, num blue);
+  void setSourceRgba(num red, num green, num blue, num alpha);
   void stroke();
   void strokePreserve();
   bool inStroke(num x, num y);
@@ -21,23 +21,23 @@ abstract class Context {
   Rectangle get strokeExtents;
   void paint();
   void paintWithAlpha(double alpha);
-  void moveTo(double x, double y);
-  void relativeMoveTo(double x, double y);
+  void moveTo(num x, num y);
+  void relativeMoveTo(num x, num y);
   void moveToPoint(Point p);
   void relativeMoveToPoint(Point p);
-  void lineTo(double x, double y);
-  void relativeLineTo(double x, double y);
+  void lineTo(num x, num y);
+  void relativeLineTo(num x, num y);
   void lineToPoint(Point p);
   void relativeLineToPoint(Point p);
-  void rectangleByCoords(double x, double y, double width, double height);
+  void rectangleByCoords(num x, num y, num width, num height);
   void rectangle(Rectangle rect);
   void newPath();
   void newSubpath();
   void closePath();
-  void arc(double xc, double yc, double radius, double angle1, double angle2);
-  void negativeArc(double xc, double yc, double radius, double angle1, double angle2);
-  void curveTo(double x1, double y1, double x2, double y2, double x3, double y3);
-  void relativeCurveTo(double x1, double y1, double x2, double y2, double x3, double y3);
+  void arc(num xc, num yc, num radius, num angle1, num angle2);
+  void negativeArc(num xc, num yc, num radius, num angle1, num angle2);
+  void curveTo(num x1, num y1, num x2, num y2, num x3, num y3);
+  void relativeCurveTo(num x1, num y1, num x2, num y2, num x3, num y3);
   void textPath(String text);
   void clip();
   void clipPreserve();
@@ -52,7 +52,7 @@ abstract class Context {
   void maskSurface(Surface surface, Point point);
   void showPage();
   void copyPage();
-  void setSourceSurface(Surface surface, double x, double y);
+  void setSourceSurface(Surface surface, num x, num y);
   
   LineCap lineCap;
   LineJoin lineJoin;
@@ -99,10 +99,14 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void _pushGroupWithContent(int value) native 'push_group_with_content';
   
   void popGroupToSource() native 'pop_group_to_source';
-  
-  void setSourceRgb(double red, double green, double blue) native 'set_source_rgb';
-  
-  void setSourceRgba(double red, double green, double blue, double alpha) native 'set_source_rgba';
+
+  void setSourceRgb(num red, num green, num blue) => _setSourceRgb(red.toDouble(), green.toDouble(), blue.toDouble());
+
+  void _setSourceRgb(double red, double green, double blue) native 'set_source_rgb';
+
+  void setSourceRgba(num red, num green, num blue, num alpha) => _setSourceRgba(red.toDouble(), green.toDouble(), blue.toDouble(), alpha.toDouble());
+
+  void _setSourceRgba(double red, double green, double blue, double alpha) native 'set_source_rgba';
   
   void stroke() native 'stroke';
   
@@ -159,16 +163,22 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void _setAntialias(int val) native 'set_antialias';
   
   bool get hasCurrentPoint native 'has_current_point';
-  
-  void moveTo(double x, double y) native 'move_to';
+
+  void moveTo(num x, num y) => _moveTo(x.toDouble(), y.toDouble());
+
+  void _moveTo(double x, double y) native 'move_to';
   
   void moveToPoint(Point p) => moveTo(p.x, p.y);
-  
-  void lineTo(double x, double y) native 'line_to';
+
+  void lineTo(num x, num y) => _lineTo(x.toDouble(), y.toDouble());
+
+  void _lineTo(double x, double y) native 'line_to';
   
   void lineToPoint(Point p) => lineTo(p.x, p.y);
-  
-  void rectangleByCoords(double x, double y, double width, double height) native 'rectangle';
+
+  void rectangleByCoords(num x, num y, num width, num height) => _rectangleByCoords(x.toDouble(), y.toDouble(), width.toDouble(), height.toDouble());
+
+  void _rectangleByCoords(double x, double y, double width, double height) native 'rectangle';
   
   void rectangle(Rectangle rect) => rectangleByCoords(rect.x.toDouble(), rect.y.toDouble(), rect.width.toDouble(), rect.height.toDouble());
   
@@ -179,20 +189,32 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void newSubpath() native 'new_sub_path';
   
   void closePath() native 'close_path';
-  
-  void arc(double xc, double yc, double radius, double angle1, double angle2) native 'arc';
-  
-  void negativeArc(double xc, double yc, double radius, double angle1, double angle2) native 'arc_negative';
-    
-  void curveTo(double x1, double y1, double x2, double y2, double x3, double y3) native 'curve_to';
-  
-  void relativeCurveTo(double x1, double y1, double x2, double y2, double x3, double y3) native 'rel_curve_to';
-  
-  void relativeMoveTo(double x, double y) native 'rel_move_to';
+
+  void arc(num xc, num yc, num radius, num angle1, num angle2) => _arc(xc.toDouble(), yc.toDouble(), radius.toDouble(), angle1.toDouble(), angle2.toDouble());
+
+  void _arc(double xc, double yc, double radius, double angle1, double angle2) native 'arc';
+
+  void negativeArc(num xc, num yc, num radius, num angle1, num angle2) => _negativeArc(xc.toDouble(), yc.toDouble(), radius.toDouble(), angle1.toDouble(), angle2.toDouble());
+
+  void _negativeArc(double xc, double yc, double radius, double angle1, double angle2) native 'arc_negative';
+
+  void curveTo(num x1, num y1, num x2, num y2, num x3, num y3) => _curveTo(x1.toDouble(), y1.toDouble(), x2.toDouble(), y2.toDouble(), x3.toDouble(), y3.toDouble());
+
+  void _curveTo(double x1, double y1, double x2, double y2, double x3, double y3) native 'curve_to';
+
+  void relativeCurveTo(num x1, num y1, num x2, num y2, num x3, num y3) => _relativeCurveTo(x1.toDouble(), y1.toDouble(), x2.toDouble(), y2.toDouble(), x3.toDouble(), y3.toDouble());
+
+  void _relativeCurveTo(double x1, double y1, double x2, double y2, double x3, double y3) native 'rel_curve_to';
+
+  void relativeMoveTo(num x, num y) => _relativeMoveTo(x.toDouble(), y.toDouble());
+
+  void _relativeMoveTo(double x, double y) native 'rel_move_to';
   
   void relativeMoveToPoint(Point p) => relativeMoveTo(p.x, p.y);
   
-  void relativeLineTo(double x, double y) native 'rel_line_to';
+  void relativeLineTo(num x, num y) => _relativeLineTo(x.toDouble(), y.toDouble());
+
+  void _relativeLineTo(double x, double y) native 'rel_line_to';
   
   void relativeLineToPoint(Point p) => relativeLineTo(p.x, p.y);
   
@@ -259,8 +281,10 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   Pattern get source native 'get_source';
   
   void set source(Pattern pattern) native 'set_source';
-  
-  void setSourceSurface(Surface surface, double x, double y) native 'set_source_surface';
+
+  void setSourceSurface(Surface surface, num x, num y) => _setSourceSurface(surface, x.toDouble(), y.toDouble());
+
+  void _setSourceSurface(Surface surface, double x, double y) native 'set_source_surface';
   
   Surface get groupTarget native 'get_group_target';
 }

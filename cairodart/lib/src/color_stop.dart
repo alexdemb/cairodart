@@ -5,7 +5,7 @@ abstract class ColorStop {
   Color get color;
   double get offset;
   
-  factory ColorStop(Color color, double offset) => new _ColorStop(color, offset); 
+  factory ColorStop(Color color, num offset) => new _ColorStop(color, offset.toDouble());
   
 }
 

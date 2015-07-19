@@ -13,11 +13,11 @@ abstract class Pattern {
 
 
 abstract class SolidPattern implements Pattern {
-  factory SolidPattern.fromRgb(double red, double green, double blue) =>
-    new _SolidPattern.fromRgb(red, green, blue);
+  factory SolidPattern.fromRgb(num red, num green, num blue) =>
+    new _SolidPattern.fromRgb(red.toDouble(), green.toDouble(), blue.toDouble());
 
-  factory SolidPattern.fromRgba(double red, double green, double blue, double alpha) =>
-    new _SolidPattern.fromRgba(red, green, blue, alpha);
+  factory SolidPattern.fromRgba(num red, num green, num blue, num alpha) =>
+    new _SolidPattern.fromRgba(red.toDouble(), green.toDouble(), blue.toDouble(), alpha.toDouble());
 
   factory SolidPattern.fromColor(Color color, [bool solid = false]) =>
     new _SolidPattern.fromColor(color, solid);
@@ -40,8 +40,8 @@ abstract class LinearGradient implements Gradient {
 }
 
 abstract class RadialGradient implements Gradient {
-  factory RadialGradient(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1) =>
-  new _RadialGradient(cx0, cy0, radius0, cx1, cy1, radius1);
+  factory RadialGradient(num cx0, num cy0, num radius0, num cx1, num cy1, num radius1) =>
+  new _RadialGradient(cx0.toDouble(), cy0.toDouble(), radius0.toDouble(), cx1.toDouble(), cy1.toDouble(), radius1.toDouble());
 
   List<Circle> get radialCircles;
 }
@@ -60,9 +60,9 @@ abstract class MeshPattern implements Pattern {
 
   void beginPatch();
   void endPatch();
-  void moveTo(double x, double y);
-  void lineTo(double x, double y);
-  void curveTo(double x1, double y1, double x2, double y2, double x3, double y3);
+  void moveTo(num x, num y);
+  void lineTo(num x, num y);
+  void curveTo(num x1, num y1, num x2, num y2, num x3, num y3);
 
   Point getControlPoint(int patchNum, int pointNum);
   void setControlPoint(int pointNum, Point p);
@@ -200,9 +200,15 @@ class _MeshPattern extends _Pattern implements MeshPattern {
   
   void beginPatch() native 'pattern_mesh_begin_patch';
   void endPatch() native 'pattern_mesh_end_patch';
-  void moveTo(double x, double y) native 'pattern_mesh_move_to';
-  void lineTo(double x, double y) native 'pattern_mesh_line_to';
-  void curveTo(double x1, double y1, double x2, double y2, double x3, double y3) native 'pattern_mesh_curve_to';
+  void moveTo(num x, num y) => _moveTo(x.toDouble(), y.toDouble());
+  void lineTo(num x, num y) => _lineTo(x.toDouble(), y.toDouble());
+  void curveTo(num x1, num y1, num x2, num y2, num x3, num y3) =>
+    _curveTo(x1.toDouble(), y1.toDouble(), x2.toDouble(), y2.toDouble(), x3.toDouble(), y3.toDouble());
+
+
+  void _moveTo(double x, double y) native 'pattern_mesh_move_to';
+  void _lineTo(double x, double y) native 'pattern_mesh_line_to';
+  void _curveTo(double x1, double y1, double x2, double y2, double x3, double y3) native 'pattern_mesh_curve_to';
     
   Point getControlPoint(int patchNum, int pointNum) native 'pattern_mesh_get_control_point';
   void setControlPoint(int pointNum, Point p) {

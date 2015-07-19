@@ -1,9 +1,9 @@
 part of cairodart.base;
 
 abstract class LineJoin {
-  static final LineJoin MITER = new _LineJoin(0);
-  static final LineJoin ROUND = new _LineJoin(1);
-  static final LineJoin BEVEL = new _LineJoin(2);
+  static final LineJoin Miter = new _LineJoin(0);
+  static final LineJoin Round = new _LineJoin(1);
+  static final LineJoin Bevel = new _LineJoin(2);
   
   int get value;
 }

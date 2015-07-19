@@ -1,9 +1,9 @@
 part of cairodart.base;
 
 abstract class Content extends NativeFieldWrapperClass2 {
-  static Content COLOR = new _Content(0x1000);
-  static Content ALPHA = new _Content(0x2000);
-  static Content COLOR_ALPHA = new _Content(0x3000);
+  static Content Color = new _Content(0x1000);
+  static Content Alpha = new _Content(0x2000);
+  static Content ColorAndAlpha = new _Content(0x3000);
   
   int get value;
 }

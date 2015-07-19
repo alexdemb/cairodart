@@ -1,8 +1,8 @@
 part of cairodart.base;
 
 abstract class FillRule {
-  static final FillRule WINDING = new _FillRule(0);
-  static final FillRule EVEN_ODD = new _FillRule(1);  
+  static final FillRule Winding = new _FillRule(0);
+  static final FillRule EvenOdd = new _FillRule(1);
   
   int get value;
 }

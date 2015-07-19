@@ -4,31 +4,31 @@ runPatternTests() {
   group('Pattern', () {
     test('should correctly get/set extend', () {
       Pattern pattern = new LinearGradient(10.0, 10.0, 20.0, 20.0);
-      expect(pattern.extend, equals(Extend.PAD));
+      expect(pattern.extend, equals(Extend.Pad));
       
-      pattern.extend = Extend.REFLECT;
+      pattern.extend = Extend.Reflect;
       
-      expect(pattern.extend, equals(Extend.REFLECT));
+      expect(pattern.extend, equals(Extend.Reflect));
     });
     test('should have correct pattern type', () {
       Pattern pattern = new MeshPattern();
-      expect(pattern.patternType, equals(PatternType.MESH));
+      expect(pattern.patternType, equals(PatternType.Mesh));
       
       pattern = new SolidPattern.fromRgb(0.0, 0.0, 0.0);
-      expect(pattern.patternType, equals(PatternType.SOLID));
+      expect(pattern.patternType, equals(PatternType.Solid));
       
       pattern = new SolidPattern.fromRgba(0.0, 0.0, 0.0, 0.0);
-      expect(pattern.patternType, equals(PatternType.SOLID));
+      expect(pattern.patternType, equals(PatternType.Solid));
       
       pattern = new LinearGradient(0.0, 0.0, 10.0, 10.0);
-      expect(pattern.patternType, equals(PatternType.LINEAR));
+      expect(pattern.patternType, equals(PatternType.Linear));
       
       pattern = new RadialGradient(0.0, 0.0, 5.0, 10.0, 10.0, 10.0);
-      expect(pattern.patternType, equals(PatternType.RADIAL));
+      expect(pattern.patternType, equals(PatternType.Radial));
       
       Surface surface = new ImageSurface(Format.ARGB32, 10, 10);
       pattern = new SurfacePattern(surface);
-      expect(pattern.patternType, equals(PatternType.SURFACE));
+      expect(pattern.patternType, equals(PatternType.Surface));
     });
     test('should correctly get/set matrix', () {
       Pattern pattern = new LinearGradient(10.0, 10.0, 15.0, 15.0);
@@ -110,7 +110,7 @@ runPatternTests() {
   });
   group('Gradient', () {
     test('should correctly set/get color stop', () {
-      Pattern pattern = new LinearGradient(0.0, 0.0, 800.0, 800.0);
+      var pattern = new LinearGradient(0.0, 0.0, 800.0, 800.0);
       pattern.addColorStop(new ColorStop(new Color.rgba(0.5, 0.6, 0.7, 0.5), 0.4));
 
       expect(pattern.colorStopCount, equals(1));
@@ -148,7 +148,7 @@ runPatternTests() {
   });
   group('Radial gradient', () {
     test('should correctly obtain radial circles', () {
-      Pattern pattern = new RadialGradient(10.0, 15.0, 20.0, 100.0, 150.0, 30.0);
+      var pattern = new RadialGradient(10.0, 15.0, 20.0, 100.0, 150.0, 30.0);
       List<Circle> circles = pattern.radialCircles;
 
       expect(circles[0], (Circle c) => c.x == 10.0 && c.y == 15.0 && c.radius == 20.0);
@@ -157,12 +157,12 @@ runPatternTests() {
   });
   group('Surface pattern', () {
     test('should correctly get/set filter', () {
-      Pattern pattern = new SurfacePattern(new ImageSurface(Format.ARGB32, 640, 480));
-      expect(pattern.filter, equals(Filter.GOOD));
+      var pattern = new SurfacePattern(new ImageSurface(Format.ARGB32, 640, 480));
+      expect(pattern.filter, equals(Filter.Good));
 
-      pattern.filter = Filter.BEST;
+      pattern.filter = Filter.Best;
 
-      expect(pattern.filter, equals(Filter.BEST));
+      expect(pattern.filter, equals(Filter.Best));
     });
   });
 }

@@ -12,7 +12,7 @@ abstract class Pattern {
 }
 
 
-abstract class SolidPattern {
+abstract class SolidPattern implements Pattern {
   factory SolidPattern.fromRgb(double red, double green, double blue) =>
     new _SolidPattern.fromRgb(red, green, blue);
 

@@ -1,12 +1,12 @@
 part of cairodart.base;
 
 abstract class Filter {
-  static final Filter FAST = new _Filter(0);
-  static final Filter GOOD = new _Filter(1);
-  static final Filter BEST = new _Filter(2);
-  static final Filter NEAREST = new _Filter(3);
-  static final Filter BILINEAR = new _Filter(4);
-  static final Filter GAUSSIAN = new _Filter(5);
+  static final Filter Fast = new _Filter(0);
+  static final Filter Good = new _Filter(1);
+  static final Filter Best = new _Filter(2);
+  static final Filter Nearest = new _Filter(3);
+  static final Filter Bilinear = new _Filter(4);
+  static final Filter Gaussian = new _Filter(5);
   
   int get value;
 }

@@ -93,19 +93,19 @@ runRegionTests() {
       Rectangle rect = new Rectangle(10, 10, 100, 100);
       Region region = new Region.fromRectangle(rect);
       Rectangle smaller = new Rectangle(15, 15, 80, 80);
-      expect(region.containsRectangle(smaller), equals(RegionOverlap.OVERLAP_IN));
+      expect(region.containsRectangle(smaller), equals(RegionOverlap.OverlapIn));
     });
     test('should not contain smaller rectangle in larger', () {
       Rectangle rect = new Rectangle(10, 10, 100, 100);
       Region region = new Region.fromRectangle(rect);
       Rectangle smaller = new Rectangle(1, 1, 5, 5);
-      expect(region.containsRectangle(smaller), equals(RegionOverlap.OVERLAP_OUT));
+      expect(region.containsRectangle(smaller), equals(RegionOverlap.OverlapOut));
     });
     test('should overlap with smaller rectangle', () {
       Rectangle rect = new Rectangle(10, 10, 100, 100);
       Region region = new Region.fromRectangle(rect);
       Rectangle smaller = new Rectangle(1, 1, 12, 12);
-      expect(region.containsRectangle(smaller), equals(RegionOverlap.OVERLAP_PART));
+      expect(region.containsRectangle(smaller), equals(RegionOverlap.OverlapPart));
     });
     test('should be equal to another region with the same rectangle(s)', () {
       Rectangle rect = new Rectangle(10, 10, 100, 100);

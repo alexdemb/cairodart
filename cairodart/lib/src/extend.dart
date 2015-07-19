@@ -1,10 +1,10 @@
 part of cairodart.base;
 
 abstract class Extend {
-  static Extend NONE = new _Extend(0);
-  static Extend REPEAT = new _Extend(1);
-  static Extend REFLECT = new _Extend(2);
-  static Extend PAD = new _Extend(3);
+  static Extend None = new _Extend(0);
+  static Extend Repeat = new _Extend(1);
+  static Extend Reflect = new _Extend(2);
+  static Extend Pad = new _Extend(3);
   
   int get value;
 }

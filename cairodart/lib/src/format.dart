@@ -1,7 +1,7 @@
 part of cairodart.base;
 
 abstract class Format {
-  static final Format INVALID = new _Format(-1);
+  static final Format Invalid = new _Format(-1);
   static final Format ARGB32 = new _Format(0);
   static final Format RGB24 = new _Format(1);
   static final Format A8 = new _Format(2);

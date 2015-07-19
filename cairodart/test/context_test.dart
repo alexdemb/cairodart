@@ -28,7 +28,7 @@ runContextTests() {
     });
     test('should successfully perform push group with content/pop group', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.pushGroupWithContent(Content.COLOR_ALPHA);
+      ctx.pushGroupWithContent(Content.ColorAndAlpha);
       ctx.popGroupToSource();
     });
     test('should successfully set RGB', () {
@@ -110,25 +110,25 @@ runContextTests() {
     });
     test('should correctly get/set line cap', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.lineCap = LineCap.BUTT;
-      expect(ctx.lineCap, equals(LineCap.BUTT));
+      ctx.lineCap = LineCap.Butt;
+      expect(ctx.lineCap, equals(LineCap.Butt));
 
-      ctx.lineCap = LineCap.ROUND;
-      expect(ctx.lineCap, equals(LineCap.ROUND));
+      ctx.lineCap = LineCap.Round;
+      expect(ctx.lineCap, equals(LineCap.Round));
 
-      ctx.lineCap = LineCap.SQUARE;
-      expect(ctx.lineCap, equals(LineCap.SQUARE));
+      ctx.lineCap = LineCap.Square;
+      expect(ctx.lineCap, equals(LineCap.Square));
     });
     test('should correctly get/set line join', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.lineJoin = LineJoin.MITER;
-      expect(ctx.lineJoin, equals(LineJoin.MITER));
+      ctx.lineJoin = LineJoin.Miter;
+      expect(ctx.lineJoin, equals(LineJoin.Miter));
 
-      ctx.lineJoin = LineJoin.ROUND;
-      expect(ctx.lineJoin, equals(LineJoin.ROUND));
+      ctx.lineJoin = LineJoin.Round;
+      expect(ctx.lineJoin, equals(LineJoin.Round));
 
-      ctx.lineJoin = LineJoin.BEVEL;
-      expect(ctx.lineJoin, equals(LineJoin.BEVEL));
+      ctx.lineJoin = LineJoin.Bevel;
+      expect(ctx.lineJoin, equals(LineJoin.Bevel));
     });
     test('should correctly get/set line width', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
@@ -143,101 +143,101 @@ runContextTests() {
     test('should correctly get/set operator', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
 
-      ctx.operator = Operator.ADD;
-      expect(ctx.operator, equals(Operator.ADD));
+      ctx.operator = Operator.Add;
+      expect(ctx.operator, equals(Operator.Add));
 
-      ctx.operator = Operator.ATOP;
-      expect(ctx.operator, equals(Operator.ATOP));
+      ctx.operator = Operator.Atop;
+      expect(ctx.operator, equals(Operator.Atop));
 
-      ctx.operator = Operator.CLEAR;
-      expect(ctx.operator, equals(Operator.CLEAR));
+      ctx.operator = Operator.Clear;
+      expect(ctx.operator, equals(Operator.Clear));
 
-      ctx.operator = Operator.COLOR_BURN;
-      expect(ctx.operator, equals(Operator.COLOR_BURN));
+      ctx.operator = Operator.ColorBurn;
+      expect(ctx.operator, equals(Operator.ColorBurn));
 
-      ctx.operator = Operator.COLOR_DODGE;
-      expect(ctx.operator, equals(Operator.COLOR_DODGE));
+      ctx.operator = Operator.ColorDodge;
+      expect(ctx.operator, equals(Operator.ColorDodge));
 
-      ctx.operator = Operator.DARKEN;
-      expect(ctx.operator, equals(Operator.DARKEN));
+      ctx.operator = Operator.Darken;
+      expect(ctx.operator, equals(Operator.Darken));
 
-      ctx.operator = Operator.DEST;
-      expect(ctx.operator, equals(Operator.DEST));
+      ctx.operator = Operator.Dest;
+      expect(ctx.operator, equals(Operator.Dest));
 
-      ctx.operator = Operator.DEST_ATOP;
-      expect(ctx.operator, equals(Operator.DEST_ATOP));
+      ctx.operator = Operator.DestAtop;
+      expect(ctx.operator, equals(Operator.DestAtop));
 
-      ctx.operator = Operator.DEST_IN;
-      expect(ctx.operator, equals(Operator.DEST_IN));
+      ctx.operator = Operator.DestIn;
+      expect(ctx.operator, equals(Operator.DestIn));
 
-      ctx.operator = Operator.DEST_OUT;
-      expect(ctx.operator, equals(Operator.DEST_OUT));
+      ctx.operator = Operator.DestOut;
+      expect(ctx.operator, equals(Operator.DestOut));
 
-      ctx.operator = Operator.DEST_OVER;
-      expect(ctx.operator, equals(Operator.DEST_OVER));
+      ctx.operator = Operator.DestOver;
+      expect(ctx.operator, equals(Operator.DestOver));
 
-      ctx.operator = Operator.DIFFERENCE;
-      expect(ctx.operator, equals(Operator.DIFFERENCE));
+      ctx.operator = Operator.Difference;
+      expect(ctx.operator, equals(Operator.Difference));
 
-      ctx.operator = Operator.EXCLUSION;
-      expect(ctx.operator, equals(Operator.EXCLUSION));
+      ctx.operator = Operator.Exclusion;
+      expect(ctx.operator, equals(Operator.Exclusion));
 
-      ctx.operator = Operator.HARD_LIGHT;
-      expect(ctx.operator, equals(Operator.HARD_LIGHT));
+      ctx.operator = Operator.HardLight;
+      expect(ctx.operator, equals(Operator.HardLight));
 
-      ctx.operator = Operator.HSL_COLOR;
-      expect(ctx.operator, equals(Operator.HSL_COLOR));
+      ctx.operator = Operator.HSLColor;
+      expect(ctx.operator, equals(Operator.HSLColor));
 
-      ctx.operator = Operator.HSL_HUE;
-      expect(ctx.operator, equals(Operator.HSL_HUE));
+      ctx.operator = Operator.HSLHUE;
+      expect(ctx.operator, equals(Operator.HSLHUE));
 
-      ctx.operator = Operator.HSL_LUMINOSITY;
-      expect(ctx.operator, equals(Operator.HSL_LUMINOSITY));
+      ctx.operator = Operator.HSLLuminosity;
+      expect(ctx.operator, equals(Operator.HSLLuminosity));
 
-      ctx.operator = Operator.HSL_SATURATION;
-      expect(ctx.operator, equals(Operator.HSL_SATURATION));
+      ctx.operator = Operator.HSLSaturation;
+      expect(ctx.operator, equals(Operator.HSLSaturation));
 
-      ctx.operator = Operator.IN;
-      expect(ctx.operator, equals(Operator.IN));
+      ctx.operator = Operator.In;
+      expect(ctx.operator, equals(Operator.In));
 
-      ctx.operator = Operator.LIGHTEN;
-      expect(ctx.operator, equals(Operator.LIGHTEN));
+      ctx.operator = Operator.Lighten;
+      expect(ctx.operator, equals(Operator.Lighten));
 
-      ctx.operator = Operator.MULTIPLY;
-      expect(ctx.operator, equals(Operator.MULTIPLY));
+      ctx.operator = Operator.Multiply;
+      expect(ctx.operator, equals(Operator.Multiply));
 
-      ctx.operator = Operator.OUT;
-      expect(ctx.operator, equals(Operator.OUT));
+      ctx.operator = Operator.Out;
+      expect(ctx.operator, equals(Operator.Out));
 
-      ctx.operator = Operator.OVER;
-      expect(ctx.operator, equals(Operator.OVER));
+      ctx.operator = Operator.Over;
+      expect(ctx.operator, equals(Operator.Over));
 
-      ctx.operator = Operator.OVERLAY;
-      expect(ctx.operator, equals(Operator.OVERLAY));
+      ctx.operator = Operator.Overlay;
+      expect(ctx.operator, equals(Operator.Overlay));
 
-      ctx.operator = Operator.SATURATE;
-      expect(ctx.operator, equals(Operator.SATURATE));
+      ctx.operator = Operator.Saturate;
+      expect(ctx.operator, equals(Operator.Saturate));
 
-      ctx.operator = Operator.SCREEN;
-      expect(ctx.operator, equals(Operator.SCREEN));
+      ctx.operator = Operator.Screen;
+      expect(ctx.operator, equals(Operator.Screen));
 
-      ctx.operator = Operator.SOFT_LIGHT;
-      expect(ctx.operator, equals(Operator.SOFT_LIGHT));
+      ctx.operator = Operator.SoftLight;
+      expect(ctx.operator, equals(Operator.SoftLight));
 
-      ctx.operator = Operator.SOURCE;
-      expect(ctx.operator, equals(Operator.SOURCE));
+      ctx.operator = Operator.Source;
+      expect(ctx.operator, equals(Operator.Source));
 
-      ctx.operator = Operator.XOR;
-      expect(ctx.operator, equals(Operator.XOR));
+      ctx.operator = Operator.Xor;
+      expect(ctx.operator, equals(Operator.Xor));
     });
     test('should successfully get/set fill rule', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
 
-      ctx.fillRule = FillRule.WINDING;
-      expect(ctx.fillRule, equals(FillRule.WINDING));
+      ctx.fillRule = FillRule.Winding;
+      expect(ctx.fillRule, equals(FillRule.Winding));
 
-      ctx.fillRule = FillRule.EVEN_ODD;
-      expect(ctx.fillRule, equals(FillRule.EVEN_ODD));
+      ctx.fillRule = FillRule.EvenOdd;
+      expect(ctx.fillRule, equals(FillRule.EvenOdd));
     });
     test('should correctly determine if current path contains current point', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
@@ -397,8 +397,8 @@ runContextTests() {
     test('should correctly get/set antialias', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
 
-      ctx.antialias = Antialias.GRAY;
-      expect(ctx.antialias, equals(Antialias.GRAY));
+      ctx.antialias = Antialias.Gray;
+      expect(ctx.antialias, equals(Antialias.Gray));
     });
     test('should correctly get/set tolerance', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
@@ -532,7 +532,7 @@ runContextTests() {
       ctx.clip();
       
       RectangleList rectList = ctx.copyClipRectangleList();
-      expect(rectList.status, equals(CairoStatus.SUCCESS));
+      expect(rectList.status, equals(CairoStatus.Success));
       expect(rectList.rectangles.length, equals(3));
       
       expect(rectList.rectangles[0], equals(new Rectangle(0, 0, 20, 10)));

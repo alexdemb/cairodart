@@ -5,7 +5,7 @@ runSurfaceTests() {
     test('should have correct value of content', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);
       Content content = surface.content;
-      expect(content, equals(Content.COLOR_ALPHA));
+      expect(content, equals(Content.ColorAndAlpha));
     });
     test('should correctly get/set device offset', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);
@@ -51,7 +51,7 @@ runSurfaceTests() {
     });
     test('should have IMAGE surface type', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);
-      expect(surface.surfaceType, equals(SurfaceType.IMAGE));
+      expect(surface.surfaceType, equals(SurfaceType.Image));
     });
     test('should correctly get/set data byte array', () {
       List<int> data = new List<int>.from([30,40,50,60,70,80,90,100]);
@@ -93,14 +93,14 @@ runSurfaceTests() {
   group('Recording surface', () {
     test('should correctly return if surface is bound to extents', () {
       var extents = <Rectangle>[new Rectangle(0, 0, 20, 20), new Rectangle(20, 20, 30, 30)];
-      var surface = new RecordingSurface(Content.COLOR_ALPHA, extents);
+      var surface = new RecordingSurface(Content.ColorAndAlpha, extents);
 
       bool isBounded = surface.getExtents(extents);
 
       expect(isBounded, isTrue);
     });
     test('should correctly return ink extents', () {
-      var surface = new RecordingSurface(Content.COLOR_ALPHA, null);
+      var surface = new RecordingSurface(Content.ColorAndAlpha, null);
       Rectangle res = surface.inkExtents;
       expect(res, equals(new Rectangle(0,0,0,0)));
     });

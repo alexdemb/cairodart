@@ -177,6 +177,15 @@ Dart_Handle factory_create_surface(cairo_surface_t* surface) {
     case CAIRO_SURFACE_TYPE_IMAGE:
         surfaceObj = factory_create_object("_ImageSurface", "internal", NULL, 0);
         break;
+    case CAIRO_SURFACE_TYPE_PDF:
+        surfaceObj = factory_create_object("_PdfSurface", "internal", NULL, 0);
+        break;
+    case CAIRO_SURFACE_TYPE_PS:
+        surfaceObj = factory_create_object("_PostScriptSurface", "internal", NULL, 0);
+        break;
+    case CAIRO_SURFACE_TYPE_SVG:
+        surfaceObj = factory_create_object("_SvgSurface", "internal", NULL, 0);
+        break;
     default:
         surfaceObj = factory_create_object("_Surface", "", NULL, 0);
         break;

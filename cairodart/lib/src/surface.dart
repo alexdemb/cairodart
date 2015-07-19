@@ -196,6 +196,8 @@ class _PdfSurface extends _Surface implements PdfSurface {
     _createPdfSurface(fileName, widthInPoints.toDouble(), heightInPoints.toDouble());
   }
 
+  _PdfSurface.internal(){}
+
   void _createPdfSurface(String fileName, double widthInPoints, double heightInPoints) native 'pdf_surface_create';
 
   void setSize(num widthInPoints, num heightInPoints) {
@@ -219,6 +221,8 @@ class _PostScriptSurface extends _Surface implements PostScriptSurface {
   _PostScriptSurface(String fileName, num widthInPoints, num heightInPoints) {
     _createPostScriptSurface(fileName, widthInPoints.toDouble(), heightInPoints.toDouble());
   }
+
+  _PostScriptSurface.internal(){}
 
   void _createPostScriptSurface(String fileName, double width, double height) native 'ps_surface_create';
 
@@ -252,6 +256,8 @@ class _SvgSurface extends _Surface implements SvgSurface {
   _SvgSurface(String fileName, num widthInPoints, num heightInPoints) {
     _createSvgSurface(fileName, widthInPoints.toDouble(), heightInPoints.toDouble());
   }
+
+  _SvgSurface.internal(){}
 
   void _createSvgSurface(String fileName, double width, double height) native 'svg_surface_create';
 

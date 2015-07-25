@@ -5,4 +5,4 @@ version: 0.0.1
 author: Alexander Dembinsky <alexander.dembinsky@gmail.com>
 homepage: https://github.com/alexander-dembinsky/cairodart
 dev_dependencies:
-  unittest: any
+  test: any

@@ -1,7 +1,7 @@
 library cairodart.test;
 
 import 'package:cairodart/cairodart.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import 'dart:core' hide Pattern;
 
 part 'surface_test.dart';

@@ -17,10 +17,21 @@
 
 part of cairodart.base;
 
+///
+/// Represents a circle.
+///
+/// Circle position can be obtained by [x] and [y] property.
+/// Radius can be obtained by [radius] property.
+///
 abstract class Circle {
-  
+
+  /// Circle X-coordinate
   double get x;
+
+  /// Circle Y-coordinate
   double get y;
+
+  /// Circle radius
   double get radius;
   
   factory Circle(num x, num y, num radius) => new _Circle(x.toDouble(), y.toDouble(), radius.toDouble());

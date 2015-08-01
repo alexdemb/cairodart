@@ -1,15 +1,15 @@
 library cairodart.example;
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cairodart/cairodart.dart';
 
 main() {
   Directory dir = Directory.systemTemp.createTempSync('cairodart');
 
-  //var filePath = '${dir.path}${Platform.pathSeparator}captcha.png';
-  var filePath = '/home/alexander/captcha.png';
-
+  var filePath = '${dir.path}${Platform.pathSeparator}captcha.png';
+  
   File file = new File(filePath);
   file.createSync();
 
@@ -31,18 +31,23 @@ void generateCaptcha(Context ctx, String text) {
   );
   ctx.transform(matrix);
 
+  String firstPart = text.substring(0, 3);
+  String secondPart = text.substring(3);
+
   ctx
     ..selectFontFace('Arial', FontSlant.Italic, FontWeight.Bold)
     ..setFontSize(36);
 
 
-  ctx.setSourceRgb(0, 0, 0);
+  ctx.setSourceRgb(1, 0, 0);
   ctx..moveTo(20, 50)
-     ..showText(text);
+     ..showText(firstPart);
 
-  ctx.setSourceRgb(0.5, 0.5, 0.5);
+  matrix.rotate(-PI / 4);
+  ctx.transform(matrix);
 
-  ctx..moveTo(23, 53)
-     ..showText(text);
+  ctx..moveTo(40, 80)
+     ..showText(secondPart);
 
 }
+

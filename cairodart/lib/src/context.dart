@@ -55,11 +55,14 @@ abstract class Context implements RefObject {
   void showPage();
   void copyPage();
   void setSourceSurface(Surface surface, num x, num y);
-  
+  void selectFontFace(String family, FontSlant slant, FontWeight weight);
+  void showText(String text);
+
   LineCap lineCap;
   LineJoin lineJoin;
   double lineWidth;
   double miterLimit;
+  void setFontSize(num size);
   
   Operator operator;
   FillRule fillRule;
@@ -295,6 +298,16 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void _setSourceSurface(Surface surface, double x, double y) native 'set_source_surface';
   
   Surface get groupTarget native 'get_group_target';
+
+  void selectFontFace(String family, FontSlant slant, FontWeight weight) => _selectFontFace(family, slant.value, weight.value);
+
+  void _selectFontFace(String family, int slant, int weight) native 'select_font_face';
+
+  void setFontSize(num s) => _setFontSize(s.toDouble());
+
+  void _setFontSize(double s) native 'set_font_size';
+
+  void showText(String text) native 'show_text';
 
   CairoStatus get status native 'status';
 }

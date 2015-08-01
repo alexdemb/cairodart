@@ -887,3 +887,41 @@ void status(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+
+void select_font_face(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    const char* family = arg_get_string(&args, 1);
+    cairo_font_slant_t slant = (cairo_font_slant_t)arg_get_int(&args, 2);
+    cairo_font_weight_t weight = (cairo_font_weight_t)arg_get_int(&args, 3);
+
+    cairo_select_font_face(context, family, slant, weight);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+
+void set_font_size(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    double size = arg_get_double(&args, 1);
+
+    cairo_set_font_size(context, size);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+
+void show_text(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    const char* text = arg_get_string(&args, 1);
+
+    cairo_show_text(context, text);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+

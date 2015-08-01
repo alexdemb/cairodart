@@ -49,3 +49,5 @@ part 'postscript_level.dart';
 part 'svg_version.dart';
 part 'device.dart';
 part 'device_type.dart';
+part 'font_slant.dart';
+part 'font_weight.dart';

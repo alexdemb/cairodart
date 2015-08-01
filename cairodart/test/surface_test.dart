@@ -67,8 +67,8 @@ runSurfaceTests() {
       expect(surface.format, equals(Format.ARGB32));
     });
     test('should have correct value of stride', () {
-       var surface = new ImageSurface(Format.ARGB32, 640, 480);
-       expect(surface.stride, equals(2560));
+      var surface = new ImageSurface(Format.ARGB32, 640, 480);
+      expect(surface.stride, equals(2560));
     });
     test('should have IMAGE surface type', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);

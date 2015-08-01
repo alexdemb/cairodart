@@ -19,14 +19,6 @@ part of cairodart.test;
 
 runContextTests() {
   group('Context', () {
-    test('should be successfully created from ImageSurface', () {
-      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-    });
-    test('should successfully perform saving/restoring', () {
-      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.save();
-      ctx.restore();
-    });
     test('should have success status when created', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
       expect(ctx.status, equals(CairoStatus.Success));
@@ -46,19 +38,6 @@ runContextTests() {
       ctx.pushGroup();
       Pattern p = ctx.popGroup();
       expect(p, isNotNull);
-    });
-    test('should successfully perform push group with content/pop group', () {
-      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.pushGroupWithContent(Content.ColorAndAlpha);
-      ctx.popGroupToSource();
-    });
-    test('should successfully set RGB', () {
-      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.setSourceRgb(255.0, 255.0, 255.0);
-    });
-    test('should successfully set RGBA', () {
-      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.setSourceRgba(255.0, 255.0, 255.0, 0.5);
     });
     test('should successfully stroke', () {
       Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
@@ -115,14 +94,6 @@ runContextTests() {
       expect(actual.y, closeTo(expectedRect.y, 0.01));
       expect(actual.width, closeTo(expectedRect.width, 0.01));
       expect(actual.height, closeTo(expectedRect.height, 0.01));
-    });    
-    test('should successfully paint', () {
-      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.paint();
-    });
-    test('should successfully paint with alpha', () {
-      Context ctx = new Context(new ImageSurface(Format.ARGB32, 640, 480));
-      ctx.paintWithAlpha(0.5);
     });    
     test('should return correct target', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);
@@ -561,30 +532,6 @@ runContextTests() {
       expect(rectList.rectangles[2], equals(new Rectangle(10, 20, 20, 10)));
       
       rectList.destroy();
-    });
-    test('should correctly add mask', () {
-      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-      Pattern pattern = new MeshPattern();
-      
-      ctx.mask(pattern); 
-      
-      // TODO: Implement correct assertions.
-    });
-    test('should correctly add surface mask', () {
-      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-      Surface surface = new ImageSurface(Format.ARGB32, 30, 40);
-      Point p = new Point.from(10, 10);
-      
-      ctx.maskSurface(surface, p);
-      
-      // TODO: Implement correct assertions.
-    });
-    test('should successfully copy and show pages', () {
-      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
-      ctx.copyPage();
-      ctx.showPage();
-      
-      // TODO: Implement correct assertions.
     });
     test('should successfully get/set dash', () {
       var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));

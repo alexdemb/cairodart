@@ -58,36 +58,6 @@ runPatternTests() {
     });
   });
   group('Mesh pattern', () {
-    test('should be successfully created', () {
-      MeshPattern pattern = new MeshPattern();
-    });
-    test('begin patch', () {
-      MeshPattern pattern = new MeshPattern();
-      pattern.beginPatch();
-    });
-    test('moveTo', () {
-      MeshPattern pattern = new MeshPattern();
-      pattern.beginPatch();
-      pattern.moveTo(20.0, 30.0);
-      pattern.endPatch();
-    });
-    test('lineTo', () {
-      MeshPattern pattern = new MeshPattern();
-      pattern.beginPatch();
-      pattern.lineTo(20.0, 30.0);
-      pattern.endPatch();
-    });    
-    test('curveTo', () {
-      MeshPattern pattern = new MeshPattern();
-      pattern.beginPatch();
-      pattern.curveTo(10.0, 10.0, 20.0, 20.0, 30.0, 30.0);
-      pattern.endPatch();
-    });    
-    test('set control point', () {
-      MeshPattern pattern = new MeshPattern();
-      pattern.beginPatch();
-      pattern.setControlPoint(0, new Point.from(20.0, 10.0));
-    });    
     test('get control point', () {
       MeshPattern pattern = new MeshPattern();
       pattern.beginPatch();
@@ -97,12 +67,6 @@ runPatternTests() {
       expect(0.0, equals(p.x));
       expect(0.0, equals(p.y));
     });    
-    test('set corner color', () {
-      MeshPattern pattern = new MeshPattern();
-      pattern.beginPatch();
-      pattern.setCornerColor(0, new Color.rgb(30.0, 10.0, 50.0));
-      
-    });
     test('get corner color', () {
       MeshPattern pattern = new MeshPattern();
       pattern.beginPatch();

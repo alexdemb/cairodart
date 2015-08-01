@@ -16,6 +16,7 @@ abstract class Context implements RefObject {
   void setSourceRgba(num red, num green, num blue, num alpha);
   void stroke();
   void translate(num tx, num ty);
+  void transform(Matrix matrix);
   void strokePreserve();
   bool inStroke(num x, num y);
   bool pointInStroke(Point p);
@@ -259,6 +260,8 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
 
   void _translate(double tx, double ty) native 'translate';
 
+  void transform(Matrix matrix) native 'transform';
+
   void _destroyRectangleList(RectangleList rectList) native 'rectangle_list_destroy';
   
   void mask(Pattern pattern) native 'mask';
@@ -295,3 +298,4 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
 
   CairoStatus get status native 'status';
 }
+

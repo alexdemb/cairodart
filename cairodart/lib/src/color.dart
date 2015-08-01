@@ -20,7 +20,7 @@ class _Color implements Color {
   double red = 0.0;
   double green = 0.0;
   double blue = 0.0;
-  double alpha = 0.0;
+  double alpha = 1.0;
     
   _Color.rgb(this.red, this.green, this.blue);  
   _Color.rgba(this.red, this.green, this.blue, this.alpha);

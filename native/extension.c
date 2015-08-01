@@ -111,6 +111,7 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "reset_clip", reset_clip },
   { "clip_extents", clip_extents },
   { "fill", fill },
+  { "translate", translate },
   { "fill_preserve", fill_preserve },
   { "fill_extents", fill_extents },
   { "in_fill", in_fill },

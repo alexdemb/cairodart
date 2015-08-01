@@ -852,6 +852,18 @@ void get_group_target(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+void translate(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    double tx = arg_get_double(&args, 1);
+    double ty = arg_get_double(&args, 2);
+
+    cairo_translate(context, tx, ty);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
 void status(Dart_NativeArguments args) {
     Dart_EnterScope();
     cairo_t* context = (cairo_t*)bind_get_self(args);

@@ -15,6 +15,7 @@ abstract class Context implements RefObject {
   void setSourceRgb(num red, num green, num blue);
   void setSourceRgba(num red, num green, num blue, num alpha);
   void stroke();
+  void translate(num tx, num ty);
   void strokePreserve();
   bool inStroke(num x, num y);
   bool pointInStroke(Point p);
@@ -253,7 +254,11 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   bool _inFill(double x, double y) native 'in_fill';
   
   RectangleList copyClipRectangleList() native 'copy_clip_rectangle_list';
-  
+
+  void translate(num tx, num ty) => _translate(tx.toDouble(), ty.toDouble());
+
+  void _translate(double tx, double ty) native 'translate';
+
   void _destroyRectangleList(RectangleList rectList) native 'rectangle_list_destroy';
   
   void mask(Pattern pattern) native 'mask';

@@ -7,7 +7,7 @@ class CairoException implements Exception {
   CairoException(this.cause, this.status);
   
   @override
-  String toString() => 'Cause: $cause, Status: $status';
+  String toString() => 'Cause: $cause, Status: ${status.statusCode}';
 }
 
 class CairoStatus {

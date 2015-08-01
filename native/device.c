@@ -11,7 +11,8 @@
 void device_destroy(void* handle) {
     if (handle) {
         cairo_device_t* device = (cairo_device_t*) handle;
-        if (device) {
+        unsigned int refCount = cairo_device_get_reference_count(device);
+        if (device && refCount == 1) {
             cairo_device_destroy(device);
         }
     }

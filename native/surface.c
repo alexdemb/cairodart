@@ -20,7 +20,7 @@ void surface_destroy(void* handle) {
     if (handle) {
         cairo_surface_t* surface = (cairo_surface_t*) handle;
         unsigned int refCount = cairo_surface_get_reference_count(surface);
-        if (surface && refCount > 0) {
+        if (surface && refCount == 1) {
             cairo_surface_destroy(surface);
             surface = NULL;
         }

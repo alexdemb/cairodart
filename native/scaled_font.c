@@ -18,7 +18,8 @@
 void scaled_font_destroy(void* handle) {
     if (handle) {
         cairo_scaled_font_t* font = (cairo_scaled_font_t*) handle;
-        if (font) {
+        unsigned int refCount = cairo_scaled_font_get_reference_count(font);
+        if (font && refCount == 1) {
             cairo_scaled_font_destroy(font);
         }
     }

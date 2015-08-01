@@ -15,7 +15,7 @@ void context_destroy(void* handle) {
     if (handle) {
         cairo_t* context = (cairo_t*) handle;
         unsigned int refCount = cairo_get_reference_count(context);
-        if (context && refCount > 0) {
+        if (context && refCount == 1) {
             cairo_destroy(context);
         }
     }

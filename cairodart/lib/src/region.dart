@@ -17,36 +17,156 @@
 
 part of cairodart.base;
 
+///
+/// Represents a set of integer-aligned rectangles.
+///
+/// It allows set-theoretical operations like [union()] and [intersect()] to be performed on them.
+///
 abstract class Region implements RefObject {
-  
+
+  ///
+  /// Allocates a new empty region object.
+  ///
   factory Region() => new _Region();
+
+  ///
+  /// See [fromRectangle()].
+  ///
   factory Region.fromArea(int x, int y, int width, int height) => new _Region.fromArea(x, y, width, height);
+
+  ///
+  /// Allocates a new region object containing rectangle [rect].
+  ///
   factory Region.fromRectangle(Rectangle rect) => new _Region.fromRectangle(rect);
+
+  ///
+  /// Allocates a new region object containing the union of all given rectangles.
+  ///
   factory Region.fromRectangles(List<Rectangle> rectangles) => new _Region.fromRectangles(rectangles);
+
   factory Region._internal() => new _Region._internal();
-  
+
+  ///
+  /// Allocates a new region object copying the area from this.
+  ///
   Region copy();
+
+  ///
+  /// Gets the bounding rectangle of a region.
+  ///
   Rectangle getExtents();
+
+  ///
+  /// Returns the number of rectangles contained in region.
+  ///
   int get countOfRectangles;
+
+  ///
+  /// Returns the [nth] rectangle from the region.
+  ///
   Rectangle rectangleAt(int nth);
+
+  ///
+  /// Checks whether region is empty.
+  ///
   bool get isEmpty;
+
+  ///
+  /// See [containsPointWithCoords()]
+  ///
   bool containsPoint(Point point);
+
+  ///
+  /// Checks whether (x, y) is contained in region.
+  ///
   bool containsPointWithCoords(int x, int y);
+
+  ///
+  /// Checks whether rectangle is inside, outside or partially contained in region.
+  ///
   RegionOverlap containsRectangle(Rectangle rect);
+
+  ///
+  /// See [containsRectangle()]
+  ///
   RegionOverlap containsRectangleWithCoords(int x, int y, int width, int height);
+
+  ///
+  /// Translates region by (dx , dy).
+  ///
   void translate(int dx, int dy);
+
+  ///
+  /// See [translate()].
+  ///
   void translateToDistance(Distance dist);
+
+  ///
+  /// Computes the intersection of the region with [other] and places the result into region.
+  ///
   void intersect(Region other);
+
+
+  ///
+  /// Subtracts [other] from region and places the result into region.
+  ///
   void subtract(Region other);
+
+
+  ///
+  /// Computes the union of the region with [other] and places the result into region.
+  ///
   void union(Region other);
+
+  ///
+  /// Computes the exclusive difference of the region with other and places the result in region.
+  ///
+  /// That is, dst will be set to contain all areas that are either in dst or in other, but not in both.
+  ///
   void xor(Region other);
+
+  ///
+  /// Computes the intersection of the region with rectangle and places the result into region.
+  ///
   void intersectRectangle(Rectangle rect);
+
+  ///
+  /// See [intersectsRectangle()].
+  ///
   void intersectRectangleWithCoords(int x, int y, int width, int height);
+
+
+  ///
+  /// Subtracts rectangle from [rect] and places the result into region.
+  ///
   void subtractRectangle(Rectangle rect);
+
+  ///
+  /// See [subtractRectangle()].
+  ///
   void subtractRectangleWithCoords(int x, int y, int width, int height);
+
+  ///
+  /// Computes the union of the region with rectangle [rect] and places the result into region.
+  ///
   void unionRectangle(Rectangle rect);
+
+  ///
+  /// See [unionRectangle()].
+  ///
   void unionRectangleWithCoords(int x, int y, int width, int height);
+
+
+  ///
+  /// Computes the exclusive difference of the region with rectangle [rect] and places the result into the region.
+  ///
+  /// That is, region will be set to contain all areas that are either in dst or in rectangle, but not in both.
+  ///
   void xorRectangle(Rectangle rect);
+
+  ///
+  /// See [xorRectangle()].
+  ///
   void xorRectangleWithCoords(int x, int y, int width, int height);
 }
 

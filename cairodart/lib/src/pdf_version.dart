@@ -17,8 +17,15 @@
 
 part of cairodart.base;
 
+///
+/// Used to describe the version number of the PDF specification that a generated PDF file will conform to.
+///
 abstract class PdfVersion {
+
+  /// The version 1.4 of the PDF specification
   static final PdfVersion OnePointFour = new _PdfVersion(0);
+
+  /// The version 1.5 of the PDF specification
   static final PdfVersion OnePointFive = new _PdfVersion(1);
 
   int get value;

@@ -17,12 +17,37 @@
 
 part of cairodart.base;
 
+///
+/// Used to describe the type of a given pattern.
+///
+/// The type of a pattern is determined by the function used to create it.
+/// The pattern type can be queried with [Pattern.type].
+///
+/// Most pattern methods can be called with a pattern of any type,
+/// (though trying to change the extend or filter for a solid pattern will have no effect).
+/// A notable exception is [addColorStop()] which must only be called with gradient patterns (either Linear or Radial).
+/// Otherwise the pattern will be shutdown and put into an error state.
+///
+/// New entries may be added in future versions.
+///
 abstract class PatternType {
+
+  /// The pattern is a solid (uniform) color. It may be opaque or translucent
   static final PatternType Solid = new _PatternType(0);
+
+  /// The pattern is a based on a surface
   static final PatternType Surface = new _PatternType(1);
+
+  /// The pattern is a linear gradient
   static final PatternType Linear = new _PatternType(2);
+
+  /// The pattern is a radial gradient
   static final PatternType Radial = new _PatternType(3);
+
+  /// The pattern is a mesh
   static final PatternType Mesh = new _PatternType(4);
+
+  /// The pattern is a user pattern providing raster data
   static final PatternType RasterSource = new _PatternType(5);
   
   int get value;

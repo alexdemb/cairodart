@@ -17,13 +17,27 @@
 
 part of cairodart.base;
 
+///
+/// Represents a rectangle.
+///
 abstract class Rectangle {
-  
+
+  /// X coordinate of top left corner
   num x;
+
+  /// Y coordinate of top left corner
   num y;
+
+  /// Rectangle width
   num width;
+
+  /// Rectangle height
   num height;
-  
+
+  ///
+  /// Creates new rectangle using specified coordinates of top left corner (x, y),
+  /// width and height.
+  ///
   factory Rectangle(num x, num y, num width, num height) => new _Rectangle(x, y, width, height);
   
 }

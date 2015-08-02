@@ -17,8 +17,15 @@
 
 part of cairodart.base;
 
+///
+/// Used to describe the version number of the SVG specification that a generated SVG file will conform to.
+///
 abstract class SvgVersion {
+
+  /// The version 1.1 of the SVG specification
   static final SvgVersion OnePointOne = new _SvgVersion(0);
+
+  /// The version 1.2 of the SVG specification
   static final SvgVersion OnePointTwo = new _SvgVersion(1);
 
   int get value;

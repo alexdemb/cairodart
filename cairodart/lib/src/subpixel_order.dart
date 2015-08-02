@@ -17,11 +17,25 @@
 
 part of cairodart.base;
 
+///
+/// The subpixel order specifies the order of color elements within each pixel on the display
+/// device when rendering with an antialiasing mode of [Antialias.Subpixel].
+///
 abstract class SubpixelOrder {
+
+  /// Use the default subpixel order for for the target device
   static final SubpixelOrder Default = new _SubpixelOrder(0);
+
+  /// Subpixel elements are arranged horizontally with red at the left
   static final SubpixelOrder Rgb = new _SubpixelOrder(1);
+
+  /// Subpixel elements are arranged horizontally with blue at the left
   static final SubpixelOrder Bgr = new _SubpixelOrder(2);
+
+  /// Subpixel elements are arranged vertically with red at the top
   static final SubpixelOrder Vrgb = new _SubpixelOrder(3);
+
+  /// Subpixel elements are arranged vertically with blue at the top
   static final SubpixelOrder Vbgr = new _SubpixelOrder(4);
   
   int get value;

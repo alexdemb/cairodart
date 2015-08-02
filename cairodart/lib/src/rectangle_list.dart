@@ -17,9 +17,14 @@
 
 part of cairodart.base;
 
-abstract class RectangleList {
-  CairoStatus get status;
+///
+/// A data structure for holding a dynamically allocated list of rectangles.
+///
+abstract class RectangleList extends RefObject {
+
+  /// An actual list of rectangles
   List<Rectangle> get rectangles;
+
   void destroy();
 }
 

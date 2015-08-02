@@ -17,11 +17,20 @@
 
 part of cairodart.base;
 
+///
+/// Represents a resolution (pixels per inch).
+///
 abstract class Resolution {
-  
+
+  ///
+  /// Creates new Resolution object using specified X-resolution and Y-resolution.
+  ///
   factory Resolution(num xRes, num yRes) => new _Resolution(xRes, yRes);
-  
+
+  /// Gets X resolution
   num get xResolution;
+
+  /// Gets Y resolution
   num get yResolution;
   
 }

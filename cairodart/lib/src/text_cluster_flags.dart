@@ -17,7 +17,12 @@
 
 part of cairodart.base;
 
+///
+/// Specifies properties of a text cluster mapping.
+///
 abstract class TextClusterFlags {
+
+  /// The clusters in the cluster array map to glyphs in the glyph array from end to start
   static final TextClusterFlags Backward = new _TextClusterFlags(0x00000001);
 
   int get value;

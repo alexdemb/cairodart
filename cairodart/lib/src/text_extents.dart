@@ -17,12 +17,44 @@
 
 part of cairodart.base;
 
+///
+/// The [TextExtents] structure stores the extents of a single glyph or a string of glyphs in
+/// user-space coordinates.
+///
+/// Because text extents are in user-space coordinates, they are mostly, but not entirely, independent of
+/// the current transformation matrix.
+///
+/// They will change slightly due to hinting (so you can't assume that metrics are independent of
+/// the transformation matrix), but otherwise will remain unchanged.
+///
+///
 abstract class TextExtents {
+
+  ///
+  /// The horizontal distance from the origin to the leftmost part of the glyphs as drawn.
+  /// Positive if the glyphs lie entirely to the right of the origin.
+  ///
   double xBearing;
+
+  ///
+  /// The vertical distance from the origin to the topmost part of the glyphs as drawn.
+  /// Positive only if the glyphs lie completely below the origin; will usually be negative.
+  ///
   double yBearing;
+
+  /// Width of the glyphs as drawn
   double width;
+
+  /// Height of the glyphs as drawn
   double height;
+
+  /// Distance to advance in the X direction after drawing these glyphs
   double xAdvance;
+
+  ///
+  /// Distance to advance in the Y direction after drawing these glyphs.
+  /// Will typically be zero except for vertical text layout as found in East-Asian languages.
+  /// 
   double yAdvance;  
 }
 

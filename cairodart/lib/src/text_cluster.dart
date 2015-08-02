@@ -17,11 +17,28 @@
 
 part of cairodart.base;
 
+
+///
+/// The [TextCluster] structure holds information about a single text cluster.
+///
+/// A text cluster is a minimal mapping of some glyphs corresponding to some UTF-8 text.
+/// For a cluster to be valid, both numBytes and numGlyphs should be non-negative,
+/// and at least one should be non-zero.
+///
+/// Note that clusters with zero glyphs are not as well supported as normal clusters.
+/// For example, PDF rendering applications typically ignore those clusters when PDF text is being selected.
+///
 abstract class TextCluster {
 
+  /// The number of bytes of UTF-8 text covered by cluster
   int get numBytes;
+
+  /// The number of glyphs covered by cluster
   int get numGlyphs;
 
+  ///
+  /// Creates a [TextCluster] object using specified number of bytes and number of glyphs.
+  ///
   factory TextCluster(int numBytes, int numGlyphs) => new _TextCluster(numBytes, numGlyphs);
 
 }

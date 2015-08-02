@@ -17,80 +17,319 @@
 
 part of cairodart.base;
 
+///
+/// Base class for surfaces.
+///
 abstract class Surface implements RefObject {
 
+
+  ///
+  /// This function finishes the surface and drops all references to external resources.
+  ///
+  /// After calling [finish()] the only valid operations on a surface are destroying, flushing and finishing it.
+  ///
+  /// Further drawing to the surface will not affect the surface but will instead
+  /// trigger a [CairoStatus.SurfaceFinished] error.
+  ///
   void finish();
+
+  ///
+  /// Do any pending drawing for the surface and also restore any temporary modifications cairo
+  /// has made to the surface's state.
+  ///
+  /// This function must be called before switching from drawing on the surface with cairo to drawing on
+  /// it directly with native APIs.
+  /// If the surface doesn't support direct access, then this function does nothing.
+  ///
   void flush();
+
+  ///
+  /// Tells cairo that drawing has been done to surface using means other than cairo,
+  /// and that cairo should reread any cached areas.
+  ///
+  /// Note that you must call [flush()] before doing such drawing.
+  ///
   void markDirty();
+
+  ///
+  /// Like [markDirty()], but drawing has been done only to the specified rectangle,
+  /// so that cairo can retain cached contents for other parts of the surface.
+  ///
+  /// Any cached clip set on the surface will be reset by this method,
+  /// to make sure that future cairo calls have the clip set that they expect.
+  ///
   void markDirtyRect(int x, int y, int width, int height);
+
+  ///
+  /// Emits the current page for backends that support multiple pages, but doesn't clear it,
+  /// so that the contents of the current page will be retained for the next page.
+  ///
+  /// Use [showPage()] if you want to get an empty page after the emission.
+  ///
   void copyPage();
+
+  ///
+  /// Emits and clears the current page for backends that support multiple pages.
+  ///
+  /// Use [copyPage()] if you don't want to clear the page.
+  ///
   void showPage();
+
+  ///
+  /// Return whether surface supports [mimeType].
+  ///
   bool supportsMimeType(String mimeType);
 
+  ///
+  /// Gets the content type of surface which indicates whether the surface contains color and/or alpha information.
+  ///
   Content get content;
-  Point get deviceOffset;
-  void set deviceOffset(Point offset);
+
+  ///
+  /// Gets or sets the device offset.
+  ///
+  Point deviceOffset;
+
   bool get hasShowTextGlyphs;
+
+  ///
+  /// Gets the type of the backend used to create a surface.
+  ///
   SurfaceType get surfaceType;
-  Resolution get fallbackResolution;
-  void set fallbackResolution(Resolution resolution);
+
+  ///
+  /// Gets or sets the fallback resolution.
+  ///
+  Resolution fallbackResolution;
+
+
+  ///
+  /// Writes the contents of surface to a new file filename as a PNG image.
+  ///
   void writeTo(String fileName);
+
+  ///
+  /// Gets the device for a surface.
+  ///
   Device get device;
 
   operator==(Surface other);
 }
 
+///
+/// Rendering PDF documents.
+///
 abstract class PdfSurface implements Surface {
 
+  ///
+  /// Creates a PDF surface of the specified size in points to be written to filename.
+  ///
   factory PdfSurface(String fileName, num widthInPoints, num heightInPoints) =>
     new _PdfSurface(fileName, widthInPoints, heightInPoints);
 
+  ///
+  /// Changes the size of a PDF surface for the current (and subsequent) pages.
+  ///
+  /// This method should only be called before any drawing operations have been performed on the current page.
+  /// The simplest way to do this is to call this method immediately after creating the surface or immediately
+  /// after completing a page with either [showPage()] or [copyPage()].
+  ///
   void setSize(num widthInPoints, num heightInPoints);
 
+  ///
+  /// Restricts the generated PDF file to version.
+  ///
+  /// See [versions] for a list of available version values that can be used here.
+  /// This method should only be called before any drawing operations have been performed on the given surface.
+  /// The simplest way to do this is to call this method immediately after creating the surface.
+  ///
   void restrictToVersion(PdfVersion version);
 
+  ///
+  /// Used to retrieve the list of supported versions.
+  ///
   List<PdfVersion> get versions;
 
 }
 
+///
+/// Rendering PostScript documents.
+///
 abstract class PostScriptSurface implements Surface {
 
+  ///
+  /// Creates a PostScript surface of the specified size in points to be written to filename.
+  ///
   factory PostScriptSurface(String fileName, num widthInPoints, num heightInPoints) =>
     new _PostScriptSurface(fileName, widthInPoints, heightInPoints);
 
+  ///
+  /// Gets or sets whether the PostScript surface will output Encapsulated PostScript.
+  ///
   bool encapsulated;
 
+
+  ///
+  /// Restricts the generated PostSript file to level .
+  ///
+  /// See [levels] for a list of available level values that can be used here.
+  ///
+  /// This method should only be called before any drawing operations have been performed on the given surface.
+  /// The simplest way to do this is to call this method immediately after creating the surface.
+  ///
   void restrictToLevel(PostScriptLevel level);
 
+  ///
+  /// Used to retrieve the list of supported levels.
+  ///
   List<PostScriptLevel> get levels;
 
+  ///
+  /// Changes the size of a PostScript surface for the current (and subsequent) pages.
+  ///
+  /// This method should only be called before any drawing operations have been performed on the current page.
+  /// The simplest way to do this is to call this method immediately after creating the surface or immediately
+  /// after completing a page with either [showPage()] or [copyPage()].
+  ///
   void setSize(num width, num height);
 
+  ///
+  /// This method indicates that subsequent calls to [dscComment()] should direct comments to the PageSetup
+  /// section of the PostScript output.
+  ///
+  /// This method call is only needed for the first page of a surface.
+  /// It should be called after any call to [beginSetup()] and before any drawing is performed to the surface.
+  ///
   void beginPageSetup();
 
+  ///
+  /// This method indicates that subsequent calls to [dscComment()] should direct comments to the Setup section
+  /// of the PostScript output.
+  ///
+  /// This method should be called at most once per surface, and must be called before any call to
+  /// [beginPageSetup()] and before any drawing is performed to the surface.
+  ///
   void beginSetup();
 
+  ///
+  /// Emit a comment into the PostScript output for the given surface.
+  ///
+  /// The comment is expected to conform to the PostScript Language Document Structuring Conventions (DSC).
+  /// Please see that manual for details on the available comments and their meanings.
+  ///
+  /// In particular, the %%IncludeFeature comment allows a device-independent means of controlling printer device
+  /// features. So the PostScript Printer Description Files Specification will also be a useful reference.
+  ///
+  /// The comment string must begin with a percent character (%) and the total length of the string
+  /// (including any initial percent characters) must not exceed 255 characters.
+  /// Violating either of these conditions will place surface into an error state. But beyond these two conditions,
+  /// this method will not enforce conformance of the comment with any particular specification.
+  ///
+  /// The comment string should not have a trailing newline.
+  ///
+  /// The DSC specifies different sections in which particular comments can appear.
+  /// This method provides for comments to be emitted within three sections: the header, the Setup section,
+  /// and the PageSetup section. Comments appearing in the first two sections apply to the entire document while
+  /// comments in the BeginPageSetup section apply only to a single page.
+  ///
+  /// For comments to appear in the header section, this method should be called after the surface is created,
+  /// but before a call to [beginSetup()].
+  ///
+  /// For comments to appear in the Setup section, this method should be called after a call to [beginSetup()]
+  /// but before a call to [beginPageSetup()].
+  ///
+  /// For comments to appear in the PageSetup section, this function should be called after
+  /// a call to [beginPageSetup()].
+  ///
+  /// Note that it is only necessary to call [beginPageSetup()] for the first page of any surface.
+  /// After a call to [Surfafce.showPage()] or [Surface.copyPage()] comments are unambiguously directed to the
+  /// PageSetup section of the current page.
+  /// But it doesn't hurt to call this function at the beginning of every page as that consistency may make the
+  /// calling code simpler.
+  ///
+  /// As a final note, cairo automatically generates several comments on its own. As such,
+  /// applications must not manually generate any of the following comments:
+  ///
+  /// Header section: %!PS-Adobe-3.0, %%Creator, %%CreationDate, %%Pages, %%BoundingBox, %%DocumentData,
+  /// %%LanguageLevel, %%EndComments.
+  ///
+  /// Setup section: %%BeginSetup, %%EndSetup
+  ///
+  /// PageSetup section: %%BeginPageSetup, %%PageBoundingBox, %%EndPageSetup.
+  ///
+  /// Other sections: %%BeginProlog, %%EndProlog, %%Page, %%Trailer, %%EOF
+  ///
   void dscComment(String comment);
 
 }
 
+///
+/// Rendering SVG documents.
+///
 abstract class SvgSurface {
 
+  ///
+  /// Creates a SVG surface of the specified size in points to be written to filename.
+  ///
+  /// The SVG surface backend recognizes the following MIME types for the data attached to a surface
+  /// when it is used as a source pattern for drawing on this surface: JPEG, PNG, URI.
+  ///
+  /// If any of them is specified, the SVG backend emits a href with the content of MIME data instead of a
+  /// surface snapshot (PNG, Base64-encoded) in the corresponding image tag.
+  ///
+  /// The unofficial MIME type URI is examined first.
+  /// If present, the URI is emitted as is: assuring the correctness of URI is left to the client code.
+  ///
+  /// If URI is not present, but JPEG or PNG is specified, the corresponding data is Base64-encoded and emitted.
+  ///
   factory SvgSurface(String fileName, num widthInPoints, num heightInPoints) =>
     new _SvgSurface(fileName, widthInPoints, heightInPoints);
 
+  ///
+  /// Restricts the generated SVG file to version.
+  ///
+  /// See [versions] for a list of available version values that can be used here.
+  /// This function should only be called before any drawing operations have been performed on the given surface.
+  /// The simplest way to do this is to call this function immediately after creating the surface.
+  ///
   void restrictToVersion(SvgVersion version);
 
+  ///
+  /// Used to retrieve the list of supported versions.
+  ///
   List<SvgVersion> get versions;
 
 }
 
+///
+/// Records all drawing operations.
+///
 abstract class RecordingSurface implements Surface {
 
+  ///
+  /// Creates a recording-surface which can be used to record all drawing operations at the highest level
+  /// (that is, the level of paint, mask, stroke and fill).
+  ///
+  /// The recording surface can then be "replayed" against any target surface by
+  /// using it as a source to drawing operations.
+  ///
+  /// The recording phase of the recording surface is careful to snapshot all necessary objects
+  /// (paths, patterns, etc.),
+  /// in order to achieve accurate replay.
+  ///
   factory RecordingSurface(Content content, List<Rectangle> extents) => new _RecordingSurface(content, extents);
 
+  ///
+  /// Measures the extents of the operations stored within the recording-surface.
+  ///
+  /// This is useful to compute the required size of an image surface (or equivalent) into which to replay the
+  /// full sequence of drawing operations.
+  ///
   Rectangle get inkExtents;
 
+  ///
+  /// Get the extents of the recording-surface.
+  ///
   bool getExtents(List<Rectangle> extents);
 
 }

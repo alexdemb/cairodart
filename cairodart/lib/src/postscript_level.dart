@@ -17,10 +17,17 @@
 
 part of cairodart.base;
 
+///
+/// Used to describe the language level of the PostScript Language Reference
+/// that a generated PostScript file will conform to.
+///
 abstract class PostScriptLevel {
-  static final PostScriptLevel LevelTwo = new _PostScriptLevel(0);
-  static final PostScriptLevel LevelThree = new _PostScriptLevel(1);
 
+  /// The language level 2 of the PostScript specification
+  static final PostScriptLevel LevelTwo = new _PostScriptLevel(0);
+
+  /// The language level 3 of the PostScript specification
+  static final PostScriptLevel LevelThree = new _PostScriptLevel(1);
 
   int get value;
 

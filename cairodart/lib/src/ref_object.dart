@@ -17,6 +17,9 @@
 
 part of cairodart.base;
 
+///
+/// A base class for all "reference" objects.
+///
 abstract class RefObject {
   CairoStatus get status;
 }

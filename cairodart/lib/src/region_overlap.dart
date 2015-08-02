@@ -17,9 +17,18 @@
 
 part of cairodart.base;
 
+///
+/// Used to describe if rectangle is inside, outside or partially contained in region.
+///
 abstract class RegionOverlap {
+
+  /// The contents are entirely inside the region
   static final RegionOverlap OverlapIn = new _RegionOverlap(0);
+
+  /// The contents are entirely outside the region
   static final RegionOverlap OverlapOut = new _RegionOverlap(1);
+
+  /// The contents are partially inside and partially outside the region
   static final RegionOverlap OverlapPart = new _RegionOverlap(2);
   
   int get value;

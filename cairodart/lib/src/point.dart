@@ -17,12 +17,25 @@
 
 part of cairodart.base;
 
+///
+/// Represents a point.
+///
 abstract class Point {
-  
+
+  ///
+  /// Creates a point with (0, 0) coordinates.
+  ///
   factory Point() => new _Point(0.0, 0.0);
+
+  ///
+  /// Creates a point using specified x and y coordinates.
+  ///
   factory Point.from(num x, num y) => new _Point(x, y);
-    
+
+  /// Gets point X coordinate
   num get x;
+
+  /// Gets point Y coordinate
   num get y;
 }
 

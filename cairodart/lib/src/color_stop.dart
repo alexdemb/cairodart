@@ -17,11 +17,18 @@
 
 part of cairodart.base;
 
+///
+/// Represents [Gradient] color stop point.
+///
 abstract class ColorStop {
-  
+
+  /// [Color] object for a given color stop
   Color get color;
+
+  /// An offset in the range 0.0..1.0
   double get offset;
-  
+
+  /// Creates a [ColorStop] instance with specified color and offset
   factory ColorStop(Color color, num offset) => new _ColorStop(color, offset.toDouble());
   
 }

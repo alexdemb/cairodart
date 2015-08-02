@@ -17,9 +17,19 @@
 
 part of cairodart.base;
 
+///
+/// Content class describes the content that a surface will contain, whether color
+/// information, alpha information (translucence vs. opacity), or both.
+///
 abstract class Content {
+
+  /// The surface will hold color content only
   static Content Color = new _Content(0x1000);
+
+  /// The surface will hold color content only.
   static Content Alpha = new _Content(0x2000);
+
+  /// The surface will hold color and alpha content
   static Content ColorAndAlpha = new _Content(0x3000);
   
   int get value;

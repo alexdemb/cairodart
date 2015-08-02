@@ -17,18 +17,34 @@
 
 part of cairodart.base;
 
+///
+/// Represents an RGBA color.
+///
 abstract class Color {
-  
+
+
+  ///
+  /// Creates color using [red], [green] and [blue] components.
+  ///
+  /// The [alpha] component will be set to 1.0.
+  ///
   factory Color.rgb(num red, num green, num blue) => new _Color.rgb(red.toDouble(), green.toDouble(), blue.toDouble());
-  
+
+  ///
+  /// Creates color using [red], [green], [blue] and [alpha] components.
+  ///
   factory Color.rgba(num red, num green, num blue, num alpha) => new _Color.rgba(red.toDouble(), green.toDouble(), blue.toDouble(), alpha.toDouble());
-  
+
+  /// Red component. Valid values are 0.0 - 1.0
   double get red;
-  
+
+  /// Green component. Valid values are 0.0 - 1.0
   double get green;
-  
+
+  /// Blue component. Valid values are 0.0 - 1.0
   double get blue;
-  
+
+  /// Alpha component. Valid values are 0.0 - 1.0
   double get alpha;
 }
 

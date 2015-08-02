@@ -12,8 +12,7 @@
 void pattern_destroy(void* handle) {
     if (handle) {
         cairo_pattern_t* pattern = (cairo_pattern_t*)handle;
-        int refCount = cairo_pattern_get_reference_count(pattern);
-        if (pattern && refCount == 1) {
+        if (pattern) {
             cairo_pattern_destroy(pattern);
             pattern = NULL;
         }

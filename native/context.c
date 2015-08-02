@@ -14,8 +14,7 @@
 void context_destroy(void* handle) {
     if (handle) {
         cairo_t* context = (cairo_t*) handle;
-        unsigned int refCount = cairo_get_reference_count(context);
-        if (context && refCount == 1) {
+        if (context) {
             cairo_destroy(context);
         }
     }
@@ -844,6 +843,8 @@ void get_group_target(Dart_NativeArguments args) {
     Dart_EnterScope();
     cairo_t* context = (cairo_t*)bind_get_self(args);
     cairo_surface_t* surface = cairo_get_group_target(context);
+    surface = cairo_surface_reference(surface);
+
     Dart_Handle res = factory_create_surface(surface);
 
     bind_setup(surface, res, surface_destroy);

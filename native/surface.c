@@ -19,8 +19,7 @@ static cairo_user_data_key_t surfaceKey;
 void surface_destroy(void* handle) {
     if (handle) {
         cairo_surface_t* surface = (cairo_surface_t*) handle;
-        unsigned int refCount = cairo_surface_get_reference_count(surface);
-        if (surface && refCount == 1) {
+        if (surface) {
             cairo_surface_destroy(surface);
             surface = NULL;
         }

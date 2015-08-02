@@ -8,8 +8,7 @@
 void font_face_destroy(void* handle) {
     if (handle) {
         cairo_font_face_t* fontFace = (cairo_font_face_t*) handle;
-        unsigned int refCount = cairo_font_face_get_reference_count(fontFace);
-        if (fontFace && refCount == 1) {
+        if (fontFace) {
             cairo_font_face_destroy(fontFace);
         }
     }

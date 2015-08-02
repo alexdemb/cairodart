@@ -17,18 +17,55 @@
 
 part of cairodart.base;
 
+///
+/// How a font should be rendered.
+///
 abstract class FontOptions implements RefObject {
   
   factory FontOptions() => new _FontOptions();
   factory FontOptions._internal() => new _FontOptions._internal();
-  
+
+  ///
+  /// Allocates a new font options object copying the option values from this one.
+  ///
   FontOptions copy();
+
+  ///
+  /// Merges non-default options from other into options, replacing existing values.
+  ///
+  /// This operation can be thought of as somewhat similar to compositing other onto options with the
+  /// operation of [Operator.Over].
+  ///
   void merge(FontOptions other);
+
+  ///
+  /// Compute a hash for the font options object; this value will be useful when storing an object containing
+  /// a [FontOptions] in a hash table.
+  ///
   int get hash;
-  
+
+  /// Gets or sets the antialiasing mode for the font options object
   Antialias antialias;
+
+  ///
+  /// Gets or sets the subpixel order for the font options object.
+  ///
+  /// The subpixel order specifies the order of color elements within each pixel on the display device when
+  /// rendering with an antialiasing mode of [Antialias.Subpixel].
+  ///
   SubpixelOrder subpixelOrder;
+
+  ///
+  /// Gets or sets the hint style for font outlines for the font options object.
+  /// This controls whether to fit font outlines to the pixel grid, and if so,
+  /// whether to optimize for fidelity or contrast.
+  ///
   HintStyle hintStyle;
+
+  ///
+  /// Gets or sets the metrics hinting mode for the font options object.
+  /// This controls whether metrics are quantized to integer values in device units.
+  ///
   HintMetrics hintMetrics;
   
 }

@@ -17,15 +17,38 @@
 
 part of cairodart.base;
 
+///
+/// Used to describe the type of a given device. The devices types are also known as "backends" within cairo.
+///
+/// The device type can be queried with [Device.type].
+///
 abstract class DeviceType {
+
+  /// The device is of type Direct Render Manager
   static final DeviceType Drm = new _DeviceType(0);
+
+  /// The device is of type OpenGL
   static final DeviceType Gl = new _DeviceType(1);
+
+  /// The device is of type script
   static final DeviceType Script = new _DeviceType(2);
+
+  /// The device is of type xcb
   static final DeviceType Xcb = new _DeviceType(3);
+
+  /// The device is of type xlib
   static final DeviceType Xlib = new _DeviceType(4);
+
+  /// The device is of type XML
   static final DeviceType Xml = new _DeviceType(5);
+
+  /// The device is of type cogl
   static final DeviceType Cogl = new _DeviceType(6);
+
+  /// The device is of type win32
   static final DeviceType Win32 = new _DeviceType(7);
+
+  /// The device is invalid
   static final DeviceType Invalid = new _DeviceType(8);
 
   int get value;

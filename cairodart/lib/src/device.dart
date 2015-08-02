@@ -17,14 +17,50 @@
 
 part of cairodart.base;
 
+///
+/// Interface to underlying rendering system.
+///
 abstract class Device implements RefObject {
+
 
   factory Device.script(String fileName) => new _Device.script(fileName);
 
+
+  ///
+  /// This function finishes the device and drops all references to external resources.
+  ///
+  /// All surfaces, fonts and other objects created for this device will be finished, too.
+  /// Further operations on the device will not affect the device but will instead
+  /// trigger a [CairoStatus.DeviceFinished] error.
+  ///
   void finish();
+
+  ///
+  /// Finish any pending operations for the device and also restore any temporary modifications cairo
+  /// has made to the device's state.
+  ///
+  /// This function must be called before switching from using the device with Cairo to operating on it directly
+  /// with native APIs. If the device doesn't support direct access, then this function does nothing.
+  ///
+  /// This function may acquire devices.
+  ///
   void flush();
+
+  ///
+  /// Acquires the device for the current thread.
+  ///
+  /// This function will block until no other thread has acquired the device.
+  ///
   void acquire();
+
+  ///
+  /// Releases a device previously acquired using [acquire()] method.
+  ///
   void release();
+
+  ///
+  /// This function returns the type of the device.
+  ///
   DeviceType get type;
 
 }

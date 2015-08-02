@@ -17,8 +17,14 @@
 
 part of cairodart.base;
 
+///
+/// Represents a dash rule for drawing context.
+///
 abstract class Dash {
+
+  /// Dash offset
   double get offset;
+
   List<double> get dashes;
  
   factory Dash(List<double> dashes, double offset) => new _Dash(dashes, offset);

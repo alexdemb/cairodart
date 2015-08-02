@@ -17,11 +17,26 @@
 
 part of cairodart.base;
 
+///
+/// Used to describe the type of a given font face or scaled font.
+///
+/// The font types are also known as "font backends" within cairo.
+///
 abstract class FontType {
+
+  /// The font was created using cairo's toy font api
   static final FontType Toy = new _FontType(0);
+
+  /// The font is of type FreeType
   static final FontType FreeType = new _FontType(1);
+
+  /// The font is of type Win32
   static final FontType Win32 = new _FontType(2);
+
+  /// The font is of type Quartz
   static final FontType Quartz = new _FontType(3);
+
+  /// The font was create using cairo's user font api
   static final FontType User = new _FontType(4);
   
   int get value;

@@ -17,9 +17,18 @@
 
 part of cairodart.base;
 
+///
+/// Used to describe font slant.
+///
 abstract class FontSlant {
+
+  /// Normal font with no slant
   static final FontSlant Normal = new _FontSlant(0);
+
+  /// An italic font
   static final FontSlant Italic = new _FontSlant(1);
+
+  /// An oblique font
   static final FontSlant Oblique = new _FontSlant(2);
 
   int get value;

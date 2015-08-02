@@ -17,12 +17,34 @@
 
 part of cairodart.base;
 
+///
+/// Holds information about a single glyph when drawing or measuring text.
+///
+/// A font is (in simple terms) a collection of shapes used to draw text.
+/// A glyph is one of these shapes.
+/// There can be multiple glyphs for a single character (alternates to be used in different contexts, for example),
+/// or a glyph can be a ligature of multiple characters.
+///
+/// Note that the offsets given by x and y are not cumulative. When drawing or measuring text, each glyph is
+/// individually positioned with respect to the overall origin.
+///
 abstract class Glyph {
 
   factory Glyph(int index, num x, num y) => new _Glyph(index, x, y);
 
+  /// Glyph index in the font. The exact interpretation of the glyph index depends on the font technology being used.
   int get index;
+
+  ///
+  /// The offset in the X direction between the origin used for drawing or measuring the string and the
+  /// origin of this glyph.
+  ///
   num get x;
+
+  ///
+  /// The offset in the Y direction between the origin used for drawing or measuring the string and the
+  /// origin of this glyph.
+  ///
   num get y;
 
 }

@@ -17,9 +17,18 @@
 
 part of cairodart.base;
 
+///
+/// Specifies how to render the endpoints of the path when stroking.
+///
 abstract class LineCap {
+
+  /// Start(stop) the line exactly at the start(end) point
   static final LineCap Butt = new _LineCap(0);
+
+  /// Use a round ending, the center of the circle is the end point
   static final LineCap Round = new _LineCap(1);
+
+  /// Use squared ending, the center of the square is the end point
   static final LineCap Square = new _LineCap(2);
   
   int get value;

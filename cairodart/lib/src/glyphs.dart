@@ -17,6 +17,9 @@
 
 part of cairodart.base;
 
+///
+/// A structure that holds glyphs, text clusters and cluster flags.
+///
 abstract class Glyphs {
   List<Glyph> get glyphs;
   List<TextCluster> get clusters;

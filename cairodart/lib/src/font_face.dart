@@ -17,10 +17,14 @@
 
 part of cairodart.base;
 
+///
+/// Base class for font faces
+///
 abstract class FontFace implements RefObject {
 
   factory FontFace._internal() => new _FontFace();
 
+  /// Gets the type of the backend used to create a font face.
   FontType get type;
   
 }

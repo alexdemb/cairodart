@@ -17,9 +17,18 @@
 
 part of cairodart.base;
 
+///
+/// Specifies how to render the junction of two lines when stroking.
+///
 abstract class LineJoin {
+
+  /// Use a sharp (angled) corner
   static final LineJoin Miter = new _LineJoin(0);
+
+  /// Use a rounded join, the center of the circle is the joint point
   static final LineJoin Round = new _LineJoin(1);
+
+  /// Use a cut-off join, the join is cut off at half the line width from the joint point
   static final LineJoin Bevel = new _LineJoin(2);
   
   int get value;

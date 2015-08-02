@@ -17,12 +17,18 @@
 
 part of cairodart.base;
 
+///
+/// Represents the distance between two points.
+///
 abstract class Distance {
   
   factory Distance() => new _Distance(0.0, 0.0);
   factory Distance.from(num dx, num dy) => new _Distance(dx.toDouble(), dy.toDouble());
-    
+
+  /// X-axis distance
   num get dx;
+
+  /// Y-axis distance
   num get dy;
 }
 

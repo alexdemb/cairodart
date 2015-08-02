@@ -17,12 +17,27 @@
 
 part of cairodart.base;
 
+///
+/// Used to indicate what filtering should be applied when reading pixel values from patterns.
+///
 abstract class Filter {
+
+  /// A high-performance filter, with quality similar to [Nearest]
   static final Filter Fast = new _Filter(0);
+
+  /// A reasonable-performance filter, with quality similar to [Bilinear]
   static final Filter Good = new _Filter(1);
+
+  /// The highest-quality available, performance may not be suitable for interactive use
   static final Filter Best = new _Filter(2);
+
+  /// Nearest-neighbor filtering
   static final Filter Nearest = new _Filter(3);
+
+  /// Linear interpolation in two dimensions
   static final Filter Bilinear = new _Filter(4);
+
+  /// This filter value is currently unimplemented, and should not be used in current code
   static final Filter Gaussian = new _Filter(5);
   
   int get value;

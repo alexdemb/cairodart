@@ -17,8 +17,15 @@
 
 part of cairodart.base;
 
+///
+/// Used to desribe font weight.
+///
 abstract class FontWeight {
+
+  /// Normal font
   static final FontWeight Normal = new _FontWeight(0);
+
+  /// Bold font
   static final FontWeight Bold = new _FontWeight(1);
 
   int get value;

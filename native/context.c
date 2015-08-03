@@ -1004,6 +1004,8 @@ void get_font_face(Dart_NativeArguments args) {
 
     cairo_font_face_t* fontFace = cairo_get_font_face(context);
 
+    fontFace = cairo_font_face_reference(fontFace);
+
     Dart_Handle fontObj = factory_create_object("FontFace", "_internal", NULL, 0);
 
     bind_setup(fontFace, fontObj, font_face_destroy);
@@ -1029,6 +1031,8 @@ void get_scaled_font(Dart_NativeArguments args) {
     cairo_t* context = (cairo_t*)bind_get_self(args);
 
     cairo_scaled_font_t* font = cairo_get_scaled_font(context);
+
+    font = cairo_scaled_font_reference(font);
 
     Dart_Handle fontObj = factory_create_object("ScaledFont", "_internal", NULL, 0);
 

@@ -29,6 +29,9 @@ abstract class ScaledFont implements RefObject {
   factory ScaledFont(FontFace fontFace, Matrix fontMatrix, Matrix ctm, FontOptions options) =>
       new _ScaledFont(fontFace, fontMatrix, ctm, options);
 
+
+  factory ScaledFont._internal() => new _ScaledFont._internal();
+
   ///
   /// Gets the metrics for a font.
   ///
@@ -107,7 +110,9 @@ class _ScaledFont extends NativeFieldWrapperClass2 implements ScaledFont {
   _ScaledFont(FontFace fontFace, Matrix fontMatrix, Matrix ctm, FontOptions options) {
     _createScaledFont(fontFace, fontMatrix, ctm, options);
   }
-  
+
+  _ScaledFont._internal(){}
+
   void _createScaledFont(FontFace fontFace, Matrix fontMatrix, Matrix ctm, FontOptions options) native 'scaled_font_create';
   
   FontExtents get fontExtents native 'scaled_font_extents';

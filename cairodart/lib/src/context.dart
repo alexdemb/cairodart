@@ -694,6 +694,39 @@ abstract class Context implements RefObject {
   /// group as started by the most recent call to [pushGroup()] or [pushGroupWithContent()].
   ///
   Surface get groupTarget;
+
+  ///
+  /// Sets the current font matrix to matrix .
+  ///
+  /// The font matrix gives a transformation from the design space of the font
+  /// (in this space, the em-square is 1 unit by 1 unit) to user space.
+  ///
+  /// Normally, a simple scale is used (see [setFontSize()]), but a more complex font matrix
+  /// can be used to shear the font or stretch it unequally along the two axes.
+  ///
+  Matrix fontMatrix;
+
+  ///
+  /// Gets or sets a set of custom font rendering options for the context.
+  ///
+  /// Rendering options are derived by merging these options with the options derived from underlying surface;
+  /// if the value in options has a default value, then the value from the surface is used.
+  ///
+  FontOptions fontOptions;
+
+  ///
+  /// Gets or sets the current [FontFace] object in the context.
+  ///
+  FontFace fontFace;
+
+  ///
+  /// Gets or sets the current font face, font matrix, and font options in the context with
+  /// those of the [ScaledFont].
+  ///
+  /// Except for some translation, the current CTM of the context should be the same as that of the [ScaledFont],
+  /// which can be accessed using [ctm].
+  ///
+  ScaledFont scaledFont;
 }
 
 
@@ -924,6 +957,22 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void _setFontSize(double s) native 'set_font_size';
 
   void showText(String text) native 'show_text';
+
+  Matrix get fontMatrix native 'get_font_matrix';
+
+  void set fontMatrix(Matrix fontMatrix) native 'set_font_matrix';
+
+  FontOptions get fontOptions native 'get_font_options';
+
+  void set fontOptions(FontOptions fontOptions) native 'set_font_options';
+
+  FontFace get fontFace native 'get_font_face';
+
+  void set fontFace(FontFace fontFace) native 'set_font_face';
+
+  ScaledFont get scaledFont native 'get_scaled_font';
+
+  void set scaledFont(ScaledFont scaledFont) native 'set_scaled_font';
 
   CairoStatus get status native 'status';
 }

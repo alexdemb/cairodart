@@ -555,5 +555,34 @@ runContextTests() {
       
       expect(ctx.groupTarget, equals(original));
     });
+    test('should correctly get/set font matrix', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      var matrix = new Matrix(
+         0, 0, 1,
+         1, 0, 0
+      );
+
+      ctx.fontMatrix = matrix;
+
+      expect(ctx.fontMatrix, equals(matrix));
+    });
+    test('should correctly get/set font options', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      var opts = new FontOptions()
+                     ..antialias = Antialias.Best
+                     ..hintMetrics = HintMetrics.On
+                     ..hintStyle = HintStyle.Full
+                     ..subpixelOrder = SubpixelOrder.Rgb;
+
+      ctx.fontOptions = opts;
+
+      expect(ctx.fontOptions.antialias, equals(opts.antialias));
+      expect(ctx.fontOptions.hintMetrics, equals(opts.hintMetrics));
+      expect(ctx.fontOptions.hintStyle, equals(opts.hintStyle));
+      expect(ctx.fontOptions.subpixelOrder, equals(opts.subpixelOrder));
+
+    });
   });
 }

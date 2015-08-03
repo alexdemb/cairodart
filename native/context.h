@@ -79,6 +79,15 @@ void transform(Dart_NativeArguments args);
 void select_font_face(Dart_NativeArguments args);
 void set_font_size(Dart_NativeArguments args);
 void show_text(Dart_NativeArguments args);
+void set_font_matrix(Dart_NativeArguments args);
+void get_font_matrix(Dart_NativeArguments args);
+void get_font_options(Dart_NativeArguments args);
+void set_font_options(Dart_NativeArguments args);
+void get_font_face(Dart_NativeArguments args);
+void set_font_face(Dart_NativeArguments args);
+void get_scaled_font(Dart_NativeArguments args);
+void set_scaled_font(Dart_NativeArguments args);
+
 
 
 #endif // CONTEXT_H

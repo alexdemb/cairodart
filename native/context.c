@@ -10,6 +10,10 @@
 #include "factory.h"
 #include "pattern.h"
 #include "surface.h"
+#include "matrix.h"
+#include "font_options.h"
+#include "font_face.h"
+#include "scaled_font.h"
 
 void context_destroy(void* handle) {
     if (handle) {
@@ -923,6 +927,114 @@ void show_text(Dart_NativeArguments args) {
     cairo_show_text(context, text);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void set_font_matrix(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    Dart_Handle matrixObj = arg_get(&args, 1);
+    cairo_matrix_t* matrix = (cairo_matrix_t*)bind_get(matrixObj);
+
+    cairo_set_font_matrix(context, matrix);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void get_font_matrix(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    cairo_matrix_t* fontMatrix = (cairo_matrix_t*) malloc(sizeof(cairo_matrix_t));
+
+    cairo_get_font_matrix(context, fontMatrix);
+
+    Dart_Handle matrix = factory_create_matrix();
+
+    bind_setup(fontMatrix, matrix, matrix_destroy);
+
+    Dart_SetReturnValue(args, matrix);
+    Dart_ExitScope();
+}
+
+void set_font_options(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    Dart_Handle optsObj = arg_get(&args, 1);
+    cairo_font_options_t* opts = bind_get(optsObj);
+
+    cairo_set_font_options(context, opts);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void get_font_options(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    cairo_font_options_t* opts = cairo_font_options_create();
+
+    cairo_get_font_options(context, opts);
+
+    Dart_Handle optsObj = factory_create_object("FontOptions", "_internal", NULL, 0);
+
+    bind_setup(opts, optsObj, font_options_destroy);
+
+    Dart_SetReturnValue(args, optsObj);
+    Dart_ExitScope();
+}
+
+void set_font_face(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    Dart_Handle fontFaceObj = arg_get(&args, 1);
+    cairo_font_face_t* fontFace = (cairo_font_face_t*) bind_get(fontFaceObj);
+
+    cairo_set_font_face(context, fontFace);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void get_font_face(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    cairo_font_face_t* fontFace = cairo_get_font_face(context);
+
+    Dart_Handle fontObj = factory_create_object("FontFace", "_internal", NULL, 0);
+
+    bind_setup(fontFace, fontObj, font_face_destroy);
+
+    Dart_SetReturnValue(args, fontObj);
+    Dart_ExitScope();
+}
+
+void set_scaled_font(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    Dart_Handle fontObj = arg_get(&args, 1);
+    cairo_scaled_font_t* font = (cairo_scaled_font_t*) bind_get(fontObj);
+
+    cairo_set_scaled_font(context, font);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void get_scaled_font(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    cairo_scaled_font_t* font = cairo_get_scaled_font(context);
+
+    Dart_Handle fontObj = factory_create_object("ScaledFont", "_internal", NULL, 0);
+
+    bind_setup(font, fontObj, scaled_font_destroy);
+
+    Dart_SetReturnValue(args, fontObj);
     Dart_ExitScope();
 }
 

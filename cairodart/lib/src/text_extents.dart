@@ -54,7 +54,7 @@ abstract class TextExtents {
   ///
   /// Distance to advance in the Y direction after drawing these glyphs.
   /// Will typically be zero except for vertical text layout as found in East-Asian languages.
-  /// 
+  ///
   double yAdvance;  
 }
 

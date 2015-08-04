@@ -52,6 +52,10 @@ Dart_Handle factory_create_surface(cairo_surface_t* surface);
 
 Dart_Handle factory_create_font_type(cairo_font_type_t fontType);
 
+Dart_Handle factory_create_font_slant(cairo_font_slant_t fontSlant);
+
+Dart_Handle factory_create_font_weight(cairo_font_weight_t fontWeight);
+
 Dart_Handle factory_create_font_extents(const cairo_font_extents_t* extents);
 
 Dart_Handle factory_create_text_extents(const cairo_text_extents_t* extents);

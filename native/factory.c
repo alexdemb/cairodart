@@ -199,6 +199,16 @@ Dart_Handle factory_create_font_type(cairo_font_type_t fontType) {
     return factory_create_object("_FontType", "", args, 1);
 }
 
+Dart_Handle factory_create_font_slant(cairo_font_slant_t fontSlant) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)fontSlant) };
+    return factory_create_object("_FontSlant", "", args, 1);
+}
+
+Dart_Handle factory_create_font_weight(cairo_font_weight_t fontWeight) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)fontWeight) };
+    return factory_create_object("_FontWeight", "", args, 1);
+}
+
 Dart_Handle factory_create_font_extents(const cairo_font_extents_t* extents) {
     Dart_Handle args[5] =
     {

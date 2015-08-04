@@ -15,36 +15,16 @@
 /// MA 02110-1301  USA
 ///
 
-library cairodart.test;
+part of cairodart.test;
 
-import 'package:cairodart/cairodart.dart';
-import 'package:test/test.dart';
-import 'dart:core' hide Pattern;
+runFontFaceTests() {
+  group('Font Face', () {
+    test('should correctly create toy font face', () {
+      FontFace font = new FontFace.toy('Arial', FontSlant.Italic, FontWeight.Bold);
 
-part 'surface_test.dart';
-part 'format_test.dart';
-part 'point_test.dart';
-part 'context_test.dart';
-part 'pattern_test.dart';
-part 'matrix_test.dart';
-part 'region_test.dart';
-part 'rectangle_test.dart';
-part 'test_utils.dart';
-part 'font_options_test.dart';
-part 'device_test.dart';
-part 'font_face_test.dart';
-
-main() {
-  runUtilsTests();
-  runFormatTests();
-  runSurfaceTests();
-  runPointTests();
-  runContextTests();
-  runPatternTests();
-  runMatrixTests();
-  runRegionTests();
-  runRectangleTests();
-  runFontOptionsTests();
-  runDeviceTests();
-  runFontFaceTests();
+      expect(font.family, equals('Arial'));
+      expect(font.slant, equals(FontSlant.Italic));
+      expect(font.weight, equals(FontWeight.Bold));
+    });
+  });
 }

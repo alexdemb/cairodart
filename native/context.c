@@ -1067,6 +1067,27 @@ static void list_of_glyphs_to_cairo_glyphs(Dart_Handle glyphList, cairo_glyph_t*
     }
 }
 
+static void list_of_clusters_to_cairo_clusters(Dart_Handle clusterList, cairo_text_cluster_t* clusters, int numClusters) {
+    int i = 0;
+    for (i = 0; i < numClusters; i++) {
+        Dart_Handle clusterObj = list_at(clusterList, i);
+        Dart_Handle numBytesField = Dart_GetField(clusterObj, Dart_NewStringFromCString("numBytes"));
+        Dart_Handle numGlyphsField = Dart_GetField(clusterObj, Dart_NewStringFromCString("numGlyphs"));
+
+        int64_t numBytes = 0;
+        int64_t numGlyphs = 0;
+
+        Dart_IntegerToInt64(numBytesField, &numBytes);
+        Dart_IntegerToInt64(numGlyphsField, &numGlyphs);
+
+        cairo_text_cluster_t cluster;
+        cluster.num_bytes = numBytes;
+        cluster.num_glyphs = numGlyphs;
+
+        clusters[i] = cluster;
+    }
+}
+
 void show_glyphs(Dart_NativeArguments args) {
     Dart_EnterScope();
     cairo_t* context = (cairo_t*)bind_get_self(args);
@@ -1129,5 +1150,33 @@ void glyph_extents(Dart_NativeArguments args) {
     Dart_Handle extentsObj = factory_create_text_extents(&extents);
 
     Dart_SetReturnValue(args, extentsObj);
+    Dart_ExitScope();
+}
+
+void show_text_glyphs(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    const char* utf8 = arg_get_string(&args, 1);
+    int utf8len = -1; // NUL-terminated string
+
+    Dart_Handle glyphList = arg_get(&args, 2);
+    int numGlyphs = list_length(glyphList);
+
+    Dart_Handle clusterList = arg_get(&args, 3);
+    int numClusters = list_length(clusterList);
+
+    cairo_text_cluster_flags_t flags = (cairo_text_cluster_flags_t) arg_get_int(&args, 4);
+
+    cairo_glyph_t glyphs[numGlyphs];
+
+    list_of_glyphs_to_cairo_glyphs(glyphList, glyphs, numGlyphs);
+
+    cairo_text_cluster_t clusters[numClusters];
+
+    list_of_clusters_to_cairo_clusters(clusterList, clusters, numClusters);
+
+    cairo_show_text_glyphs(context, utf8, utf8len, glyphs, numGlyphs, clusters, numClusters, flags);
+
+    Dart_SetReturnValue(args, Dart_Null());
     Dart_ExitScope();
 }

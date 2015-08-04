@@ -769,7 +769,27 @@ abstract class Context implements RefObject {
   ///
   /// Note that whitespace glyphs do not contribute to the size of the rectangle (extents.width and extents.height).
   ///
-  TextExtents glyphExtents(List<Glyph> glyphs);
+  TextExtents glyphsExtents(List<Glyph> glyphs);
+
+
+  ///
+  /// This operation has rendering effects similar to [showGlyphs()] but,
+  /// if the target surface supports it, uses the provided text and cluster mapping to embed the text for the
+  /// glyphs shown in the output.
+  ///
+  /// If the target does not support the extended attributes, this function acts like the basic [showGlyphs()] as
+  /// if it had been passed glyphs.
+  ///
+  /// The mapping between text and glyphs is provided by an list of clusters. Each cluster covers a number of text
+  /// bytes and glyphs, and neighboring clusters cover neighboring areas of text and glyphs .
+  /// The clusters should collectively cover text and glyphs in entirety.
+  ///
+  /// The first cluster always covers bytes from the beginning of text. If cluster_flags do not have
+  /// the [TextClusterFlags.Backward] set, the first cluster also covers the beginning of glyphs,
+  /// otherwise it covers the end of the glyphs array and following clusters move backward.
+  /// See [TextCluster] for constraints on valid clusters.
+  ///
+  void showTextGlyphs(String text, List<Glyph> glyphs, List<TextCluster> clusters, TextClusterFlags flags);
 }
 
 
@@ -1023,7 +1043,13 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
 
   TextExtents textExtents(String text) native 'text_extents';
 
-  TextExtents glyphExtents(List<Glyph> glyphs) native 'glyph_extents';
+  TextExtents glyphsExtents(List<Glyph> glyphs) native 'glyph_extents';
+
+  void showTextGlyphs(String text, List<Glyph> glyphs, List<TextCluster> clusters, TextClusterFlags flags) {
+    _showTextGlyphs(text, glyphs, clusters, flags.value);
+  }
+
+  void _showTextGlyphs(String text, List<Glyph> glyphs, List<TextCluster> clusters, int flags) native 'show_text_glyphs';
 
   CairoStatus get status native 'status';
 }

@@ -91,5 +91,6 @@ void show_glyphs(Dart_NativeArguments args);
 void font_extents(Dart_NativeArguments args);
 void text_extents(Dart_NativeArguments args);
 void glyph_extents(Dart_NativeArguments args);
+void show_text_glyphs(Dart_NativeArguments args);
 
 #endif // CONTEXT_H

@@ -87,7 +87,7 @@ void get_font_face(Dart_NativeArguments args);
 void set_font_face(Dart_NativeArguments args);
 void get_scaled_font(Dart_NativeArguments args);
 void set_scaled_font(Dart_NativeArguments args);
-
+void show_glyphs(Dart_NativeArguments args);
 
 
 #endif // CONTEXT_H

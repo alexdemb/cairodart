@@ -30,7 +30,7 @@ part of cairodart.base;
 ///
 abstract class Glyph {
 
-  factory Glyph(int index, num x, num y) => new _Glyph(index, x, y);
+  factory Glyph(int index, num x, num y) => new _Glyph(index, x.toDouble(), y.toDouble());
 
   /// Glyph index in the font. The exact interpretation of the glyph index depends on the font technology being used.
   int get index;
@@ -39,27 +39,27 @@ abstract class Glyph {
   /// The offset in the X direction between the origin used for drawing or measuring the string and the
   /// origin of this glyph.
   ///
-  num get x;
+  double get x;
 
   ///
   /// The offset in the Y direction between the origin used for drawing or measuring the string and the
   /// origin of this glyph.
   ///
-  num get y;
+  double get y;
 
 }
 
 class _Glyph implements Glyph {
 
   int _index;
-  int _x;
-  int _y;
+  double _x;
+  double _y;
 
   _Glyph(this._index, this._x, this._y);
 
   int get index => _index;
-  num get x => _x;
-  num get y => _y;
+  double get x => _x;
+  double get y => _y;
 
   @override
   operator==(Glyph other) => index == other.index && x == other.x && y == other.y;

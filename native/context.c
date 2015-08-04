@@ -1042,3 +1042,39 @@ void get_scaled_font(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+void show_glyphs(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    Dart_Handle glyphList = arg_get(&args, 1);
+
+    int numGlyphs = list_length(glyphList);
+    cairo_glyph_t glyphs[numGlyphs];
+
+    int i = 0;
+    for (i = 0; i < numGlyphs; i++) {
+        Dart_Handle glyphObj = list_at(glyphList, i);
+        Dart_Handle idxField = Dart_GetField(glyphObj, Dart_NewStringFromCString("index"));
+        Dart_Handle xField = Dart_GetField(glyphObj, Dart_NewStringFromCString("x"));
+        Dart_Handle yField = Dart_GetField(glyphObj, Dart_NewStringFromCString("y"));
+
+        int64_t index = 0;
+        double x = 0.0;
+        double y = 0.0;
+
+        Dart_IntegerToInt64(idxField, &index);
+        Dart_DoubleValue(xField, &x);
+        Dart_DoubleValue(yField, &y);
+
+        cairo_glyph_t glyph;
+        glyph.index = index;
+        glyph.x = x;
+        glyph.y = y;
+
+        glyphs[i] = glyph;
+    }
+
+    cairo_show_glyphs(context, glyphs, numGlyphs);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}

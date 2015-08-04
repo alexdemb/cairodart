@@ -496,6 +496,12 @@ abstract class Context implements RefObject {
   void showText(String text);
 
   ///
+  /// A drawing operator that generates the shape from an array of glyphs, rendered according to the
+  /// current font face, font size (font matrix), and font options.
+  ///
+  void showGlyphs(List<Glyph> glyphs);
+
+  ///
   /// Gets or sets the current line cap style within the context.
   ///
   /// See [LineCap] for details about how the available line cap styles are drawn.
@@ -973,6 +979,8 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   ScaledFont get scaledFont native 'get_scaled_font';
 
   void set scaledFont(ScaledFont scaledFont) native 'set_scaled_font';
+
+  void showGlyphs(List<Glyph> glyphs) native 'show_glyphs';
 
   CairoStatus get status native 'status';
 }

@@ -140,6 +140,7 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "get_font_face", get_font_face },
   { "get_scaled_font", get_scaled_font },
   { "set_scaled_font", set_scaled_font },
+  { "show_glyphs", show_glyphs },
   { "image_surface_create", image_surface_create },
   { "image_surface_create_for_data", image_surface_create_for_data },
   { "image_surface_get_data", image_surface_get_data },

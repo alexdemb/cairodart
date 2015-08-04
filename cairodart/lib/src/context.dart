@@ -733,6 +733,43 @@ abstract class Context implements RefObject {
   /// which can be accessed using [ctm].
   ///
   ScaledFont scaledFont;
+
+  ///
+  /// Gets the font extents for the currently selected font.
+  ///
+  FontExtents get fontExtents;
+
+  ///
+  /// Gets the extents for a string of text.
+  ///
+  /// The extents describe a user-space rectangle that encloses the "inked" portion of the text,
+  /// (as it would be drawn by [showText()]).
+  ///
+  /// Additionally, the x_advance and y_advance values indicate the amount by which the current point
+  /// would be advanced by [showText()].
+  ///
+  /// Note that whitespace characters do not directly contribute to the size of the rectangle
+  /// (extents.width and extents.height).
+  /// They do contribute indirectly by changing the position of non-whitespace characters.
+  ///
+  /// In particular, trailing whitespace characters are likely to not affect the size of the rectangle,
+  /// though they will affect the x_advance and y_advance values.
+  ///
+  TextExtents textExtents(String text);
+
+
+  ///
+  /// Gets the extents for a list of glyphs.
+  ///
+  /// The extents describe a user-space rectangle that encloses the "inked" portion of the glyphs,
+  /// (as they would be drawn by [showGlyphs()]).
+  ///
+  /// Additionally, the x_advance and y_advance values indicate the amount by which the current point would be
+  /// advanced by [showGlyphs()].
+  ///
+  /// Note that whitespace glyphs do not contribute to the size of the rectangle (extents.width and extents.height).
+  ///
+  TextExtents glyphExtents(List<Glyph> glyphs);
 }
 
 
@@ -981,6 +1018,12 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void set scaledFont(ScaledFont scaledFont) native 'set_scaled_font';
 
   void showGlyphs(List<Glyph> glyphs) native 'show_glyphs';
+
+  FontExtents get fontExtents native 'font_extents';
+
+  TextExtents textExtents(String text) native 'text_extents';
+
+  TextExtents glyphExtents(List<Glyph> glyphs) native 'glyph_extents';
 
   CairoStatus get status native 'status';
 }

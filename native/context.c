@@ -1042,14 +1042,7 @@ void get_scaled_font(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
-void show_glyphs(Dart_NativeArguments args) {
-    Dart_EnterScope();
-    cairo_t* context = (cairo_t*)bind_get_self(args);
-    Dart_Handle glyphList = arg_get(&args, 1);
-
-    int numGlyphs = list_length(glyphList);
-    cairo_glyph_t glyphs[numGlyphs];
-
+static void list_of_glyphs_to_cairo_glyphs(Dart_Handle glyphList, cairo_glyph_t* glyphs, int numGlyphs) {
     int i = 0;
     for (i = 0; i < numGlyphs; i++) {
         Dart_Handle glyphObj = list_at(glyphList, i);
@@ -1072,9 +1065,69 @@ void show_glyphs(Dart_NativeArguments args) {
 
         glyphs[i] = glyph;
     }
+}
+
+void show_glyphs(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    Dart_Handle glyphList = arg_get(&args, 1);
+
+    int numGlyphs = list_length(glyphList);
+    cairo_glyph_t glyphs[numGlyphs];
+
+    list_of_glyphs_to_cairo_glyphs(glyphList, glyphs, numGlyphs);
 
     cairo_show_glyphs(context, glyphs, numGlyphs);
 
     Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void font_extents(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    cairo_font_extents_t extents;
+
+    cairo_font_extents(context, &extents);
+
+    Dart_Handle extentsObj = factory_create_font_extents(&extents);
+
+    Dart_SetReturnValue(args, extentsObj);
+    Dart_ExitScope();
+}
+
+void text_extents(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    const char* utf8 = arg_get_string(&args, 1);
+
+    cairo_text_extents_t extents;
+
+    cairo_text_extents(context, utf8, &extents);
+
+    Dart_Handle extentsObj = factory_create_text_extents(&extents);
+
+    Dart_SetReturnValue(args, extentsObj);
+    Dart_ExitScope();
+}
+
+void glyph_extents(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    Dart_Handle glyphList = arg_get(&args, 1);
+
+    int numGlyphs = list_length(glyphList);
+    cairo_glyph_t glyphs[numGlyphs];
+
+    list_of_glyphs_to_cairo_glyphs(glyphList, glyphs, numGlyphs);
+
+    cairo_text_extents_t extents;
+
+    cairo_glyph_extents(context, glyphs, numGlyphs, &extents);
+
+    Dart_Handle extentsObj = factory_create_text_extents(&extents);
+
+    Dart_SetReturnValue(args, extentsObj);
     Dart_ExitScope();
 }

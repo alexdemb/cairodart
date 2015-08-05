@@ -112,6 +112,7 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "clip_extents", clip_extents },
   { "fill", fill },
   { "translate", translate },
+  { "scale", scale },
   { "transform", transform },
   { "select_font_face", select_font_face },
   { "set_font_size", set_font_size },

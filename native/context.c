@@ -869,6 +869,19 @@ void translate(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+void scale(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    double sx = arg_get_double(&args, 1);
+    double sy = arg_get_double(&args, 2);
+
+    cairo_scale(context, sx, sy);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+
 void transform(Dart_NativeArguments args) {
     Dart_EnterScope();
     cairo_t* context = (cairo_t*)bind_get_self(args);

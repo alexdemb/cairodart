@@ -75,6 +75,7 @@ void set_source_surface(Dart_NativeArguments args);
 void get_group_target(Dart_NativeArguments args);
 void status(Dart_NativeArguments args);
 void translate(Dart_NativeArguments args);
+void scale(Dart_NativeArguments args);
 void transform(Dart_NativeArguments args);
 void select_font_face(Dart_NativeArguments args);
 void set_font_size(Dart_NativeArguments args);

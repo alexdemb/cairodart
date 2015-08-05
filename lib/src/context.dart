@@ -145,6 +145,15 @@ abstract class Context implements RefObject {
   ///
   void translate(num tx, num ty);
 
+
+  ///
+  /// Modifies the current transformation matrix (CTM) by scaling the X and Y
+  /// user-space axes by sx and sy respectively.
+  ///
+  /// The scaling of the axes takes place after any existing transformation of user space.
+  ///
+  void scale(num sx, num sy);
+
   ///
   /// Applies transformation described by specified [Matrix].
   ///
@@ -1050,6 +1059,10 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   }
 
   void _showTextGlyphs(String text, List<Glyph> glyphs, List<TextCluster> clusters, int flags) native 'show_text_glyphs';
+
+  void scale(num sx, num sy) => _scale(sx.toDouble(), sy.toDouble());
+
+  void _scale(double sx, double sy) native 'scale';
 
   CairoStatus get status native 'status';
 }

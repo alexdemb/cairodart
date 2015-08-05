@@ -9,7 +9,7 @@ CONFIG += shared
 CONFIG += c++11
 CONFIG -= qt
 LIBS += -lcairo
-DESTDIR += "$$PWD/../cairodart/lib/src"
+DESTDIR += "$$PWD/../lib/src"
 
 HEADERS += \
     argument.h \

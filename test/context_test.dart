@@ -584,5 +584,54 @@ runContextTests() {
       expect(ctx.fontOptions.subpixelOrder, equals(opts.subpixelOrder));
 
     });
+    test('should correctly modify CTM by translate()', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      var expected = new Matrix( 1,  0,
+                                 0,  1,
+                                10, 10);
+
+      ctx.translate(10, 10);
+
+      expect(ctx.matrix, equals(expected));
+    });
+    test('should correctly modify CTM by scale()', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      var expected = new Matrix( 5,  0,
+                                 0,  5,
+                                 0,  0);
+
+      ctx.scale(5, 5);
+
+      expect(ctx.matrix, equals(expected));
+    });
+    test('should correctly modify CTM by transform()', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      var expected = new Matrix( 5,  0,
+                                 0,  5,
+                                 0,  0);
+
+      ctx.transform(expected);
+
+      expect(ctx.matrix, equals(expected));
+    });
+    test('should correctly init ctm by identityMatrix()', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+      ctx.identityMatrix();
+
+      expect(ctx.matrix, equals(new Matrix(1, 0, 0, 1, 0, 0)));
+    });
+    test('should correctly get/set ctm matrix', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      var expected = new Matrix( 5,  0,
+                                 0,  5,
+                                 0,  0);
+
+      ctx.matrix = expected;
+      expect(ctx.matrix, equals(expected));
+    });
   });
 }

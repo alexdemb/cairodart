@@ -154,6 +154,15 @@ abstract class Context implements RefObject {
   ///
   void scale(num sx, num sy);
 
+
+  ///
+  /// Modifies the current transformation matrix (CTM) by rotating the user-space axes by angle radians.
+  ///
+  /// The rotation of the axes takes places after any existing transformation of user space.
+  /// The rotation direction for positive angles is from the positive X axis toward the positive Y axis.
+  ///
+  void rotate(num angle);
+
   ///
   /// Applies transformation described by specified [Matrix].
   ///
@@ -799,6 +808,21 @@ abstract class Context implements RefObject {
   /// See [TextCluster] for constraints on valid clusters.
   ///
   void showTextGlyphs(String text, List<Glyph> glyphs, List<TextCluster> clusters, TextClusterFlags flags);
+
+
+  ///
+  /// Gets or sets the current transformation matrix (CTM).
+  ///
+  Matrix matrix;
+
+
+  ///
+  /// Resets the current transformation matrix (CTM) by setting it equal to the identity matrix.
+  ///
+  /// That is, the user-space and device-space axes will be aligned and one user-space unit will transform to
+  /// one device-space unit.
+  ///
+  void identityMatrix();
 }
 
 
@@ -1063,6 +1087,16 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void scale(num sx, num sy) => _scale(sx.toDouble(), sy.toDouble());
 
   void _scale(double sx, double sy) native 'scale';
+
+  void rotate(num angle) => _rotate(angle.toDouble());
+
+  void _rotate(double angle) native 'rotate';
+
+  Matrix get matrix native 'get_matrix';
+
+  void set matrix(Matrix matrix) native 'set_matrix';
+
+  void identityMatrix() native 'identity_matrix';
 
   CairoStatus get status native 'status';
 }

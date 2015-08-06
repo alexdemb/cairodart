@@ -881,6 +881,17 @@ void scale(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+void rotate(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    double angle = arg_get_double(&args, 1);
+
+    cairo_rotate(context, angle);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
 
 void transform(Dart_NativeArguments args) {
     Dart_EnterScope();
@@ -893,6 +904,43 @@ void transform(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+
+void set_matrix(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    cairo_matrix_t* matrix = (cairo_matrix_t*) bind_get(arg_get(&args, 1));
+
+    cairo_set_matrix(context, matrix);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void get_matrix(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    cairo_matrix_t* matrix = (cairo_matrix_t*)malloc(sizeof(cairo_matrix_t));
+
+    cairo_get_matrix(context, matrix);
+
+    Dart_Handle matrixObj = factory_create_matrix();
+
+    bind_setup(matrix, matrixObj, matrix_destroy);
+
+    Dart_SetReturnValue(args, matrixObj);
+    Dart_ExitScope();
+}
+
+void identity_matrix(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    cairo_identity_matrix(context);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
 
 void status(Dart_NativeArguments args) {
     Dart_EnterScope();

@@ -1241,3 +1241,64 @@ void show_text_glyphs(Dart_NativeArguments args) {
     Dart_SetReturnValue(args, Dart_Null());
     Dart_ExitScope();
 }
+
+void user_to_device(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    double x = 0;
+    double y = 0;
+
+    cairo_user_to_device(context, &x, &y);
+
+    Dart_Handle pointObj = factory_create_point(x, y);
+
+    Dart_SetReturnValue(args, pointObj);
+    Dart_ExitScope();
+}
+
+void user_to_device_distance(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    double dx = 0;
+    double dy = 0;
+
+    cairo_user_to_device_distance(context, &dx, &dy);
+
+    Dart_Handle distObj = factory_create_distance(dx, dy);
+
+    Dart_SetReturnValue(args, distObj);
+    Dart_ExitScope();
+}
+
+
+void device_to_user(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    double x = 0;
+    double y = 0;
+
+    cairo_device_to_user(context, &x, &y);
+
+    Dart_Handle pointObj = factory_create_point(x, y);
+
+    Dart_SetReturnValue(args, pointObj);
+    Dart_ExitScope();
+}
+
+void device_to_user_distance(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    double dx = 0;
+    double dy = 0;
+
+    cairo_device_to_user_distance(context, &dx, &dy);
+
+    Dart_Handle distObj = factory_create_distance(dx, dy);
+
+    Dart_SetReturnValue(args, distObj);
+    Dart_ExitScope();
+}

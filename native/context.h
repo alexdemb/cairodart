@@ -97,5 +97,11 @@ void font_extents(Dart_NativeArguments args);
 void text_extents(Dart_NativeArguments args);
 void glyph_extents(Dart_NativeArguments args);
 void show_text_glyphs(Dart_NativeArguments args);
+void user_to_device(Dart_NativeArguments args);
+void user_to_device_distance(Dart_NativeArguments args);
+void device_to_user(Dart_NativeArguments args);
+void device_to_user_distance(Dart_NativeArguments args);
+
+
 
 #endif // CONTEXT_H

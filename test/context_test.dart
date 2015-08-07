@@ -633,5 +633,33 @@ runContextTests() {
       ctx.matrix = expected;
       expect(ctx.matrix, equals(expected));
     });
+    test('should return correct device coords using userToDevice()', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      ctx.translate(10, 15);
+
+      expect(ctx.userToDevice(), equals(new Point.from(10.0, 15.0)));
+    });
+    test('should return correct distance using userToDeviceDistance()', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      ctx.translate(10, 15);
+
+      expect(ctx.userToDeviceDistance(), equals(new Distance.from(0, 0)));
+    });
+    test('should return correct user coords using deviceToUser()', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      ctx.translate(10, 15);
+
+      expect(ctx.deviceToUser(), equals(new Point.from(-10.0, -15.0)));
+    });
+    test('should return correct distance using deviceToUserDistance()', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      ctx.translate(10, 15);
+
+      expect(ctx.deviceToUserDistance(), equals(new Distance.from(0, 0)));
+    });
   });
 }

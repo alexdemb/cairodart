@@ -823,6 +823,36 @@ abstract class Context implements RefObject {
   /// one device-space unit.
   ///
   void identityMatrix();
+
+
+  ///
+  /// Transform a coordinate from user space to device space by multiplying the given
+  /// point by the current transformation matrix (CTM).
+  ///
+  Point userToDevice();
+
+  ///
+  /// Transform a distance vector from user space to device space.
+  ///
+  /// This function is similar to [userToDevice()] except that the translation components of the CTM
+  /// will be ignored when transforming (dx, dy).
+  ///
+  Distance userToDeviceDistance();
+
+  ///
+  /// Transform a coordinate from device space to user space by multiplying the given point
+  /// by the inverse of the current transformation matrix (CTM).
+  ///
+  Point deviceToUser();
+
+  ///
+  /// Transform a distance vector from device space to user space.
+  ///
+  /// This function is similar to [deviceToUser()] except that the translation components of the inverse CTM
+  /// will be ignored when transforming (dx, dy).
+  ///
+  Distance deviceToUserDistance();
+
 }
 
 
@@ -1097,6 +1127,14 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void set matrix(Matrix matrix) native 'set_matrix';
 
   void identityMatrix() native 'identity_matrix';
+
+  Point userToDevice() native 'user_to_device';
+
+  Distance userToDeviceDistance() native 'user_to_device_distance';
+
+  Point deviceToUser() native 'device_to_user';
+
+  Distance deviceToUserDistance() native 'device_to_user_distance';
 
   CairoStatus get status native 'status';
 }

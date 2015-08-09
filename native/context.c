@@ -16,6 +16,54 @@
 #include "scaled_font.h"
 #include "path.h"
 
+
+static void list_of_glyphs_to_cairo_glyphs(Dart_Handle glyphList, cairo_glyph_t* glyphs, int numGlyphs) {
+    int i = 0;
+    for (i = 0; i < numGlyphs; i++) {
+        Dart_Handle glyphObj = list_at(glyphList, i);
+        Dart_Handle idxField = Dart_GetField(glyphObj, Dart_NewStringFromCString("index"));
+        Dart_Handle xField = Dart_GetField(glyphObj, Dart_NewStringFromCString("x"));
+        Dart_Handle yField = Dart_GetField(glyphObj, Dart_NewStringFromCString("y"));
+
+        int64_t index = 0;
+        double x = 0.0;
+        double y = 0.0;
+
+        Dart_IntegerToInt64(idxField, &index);
+        Dart_DoubleValue(xField, &x);
+        Dart_DoubleValue(yField, &y);
+
+        cairo_glyph_t glyph;
+        glyph.index = index;
+        glyph.x = x;
+        glyph.y = y;
+
+        glyphs[i] = glyph;
+    }
+}
+
+static void list_of_clusters_to_cairo_clusters(Dart_Handle clusterList, cairo_text_cluster_t* clusters, int numClusters) {
+    int i = 0;
+    for (i = 0; i < numClusters; i++) {
+        Dart_Handle clusterObj = list_at(clusterList, i);
+        Dart_Handle numBytesField = Dart_GetField(clusterObj, Dart_NewStringFromCString("numBytes"));
+        Dart_Handle numGlyphsField = Dart_GetField(clusterObj, Dart_NewStringFromCString("numGlyphs"));
+
+        int64_t numBytes = 0;
+        int64_t numGlyphs = 0;
+
+        Dart_IntegerToInt64(numBytesField, &numBytes);
+        Dart_IntegerToInt64(numGlyphsField, &numGlyphs);
+
+        cairo_text_cluster_t cluster;
+        cluster.num_bytes = numBytes;
+        cluster.num_glyphs = numGlyphs;
+
+        clusters[i] = cluster;
+    }
+}
+
+
 void context_destroy(void* handle) {
     if (handle) {
         cairo_t* context = (cairo_t*) handle;
@@ -486,6 +534,23 @@ void text_path(Dart_NativeArguments args) {
     const char* text = arg_get_string(&args, 1);
 
     cairo_text_path(context, text);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
+
+void glyph_path(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    Dart_Handle glyphList = arg_get(&args, 1);
+
+    int numGlyphs = list_length(glyphList);
+
+    cairo_glyph_t glyphs[numGlyphs];
+
+    list_of_glyphs_to_cairo_glyphs(glyphList, glyphs, numGlyphs);
+
+    cairo_glyph_path(context, glyphs, numGlyphs);
 
     Dart_SetReturnValue(args, Dart_Null());
     Dart_ExitScope();
@@ -1104,51 +1169,7 @@ void get_scaled_font(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
-static void list_of_glyphs_to_cairo_glyphs(Dart_Handle glyphList, cairo_glyph_t* glyphs, int numGlyphs) {
-    int i = 0;
-    for (i = 0; i < numGlyphs; i++) {
-        Dart_Handle glyphObj = list_at(glyphList, i);
-        Dart_Handle idxField = Dart_GetField(glyphObj, Dart_NewStringFromCString("index"));
-        Dart_Handle xField = Dart_GetField(glyphObj, Dart_NewStringFromCString("x"));
-        Dart_Handle yField = Dart_GetField(glyphObj, Dart_NewStringFromCString("y"));
 
-        int64_t index = 0;
-        double x = 0.0;
-        double y = 0.0;
-
-        Dart_IntegerToInt64(idxField, &index);
-        Dart_DoubleValue(xField, &x);
-        Dart_DoubleValue(yField, &y);
-
-        cairo_glyph_t glyph;
-        glyph.index = index;
-        glyph.x = x;
-        glyph.y = y;
-
-        glyphs[i] = glyph;
-    }
-}
-
-static void list_of_clusters_to_cairo_clusters(Dart_Handle clusterList, cairo_text_cluster_t* clusters, int numClusters) {
-    int i = 0;
-    for (i = 0; i < numClusters; i++) {
-        Dart_Handle clusterObj = list_at(clusterList, i);
-        Dart_Handle numBytesField = Dart_GetField(clusterObj, Dart_NewStringFromCString("numBytes"));
-        Dart_Handle numGlyphsField = Dart_GetField(clusterObj, Dart_NewStringFromCString("numGlyphs"));
-
-        int64_t numBytes = 0;
-        int64_t numGlyphs = 0;
-
-        Dart_IntegerToInt64(numBytesField, &numBytes);
-        Dart_IntegerToInt64(numGlyphsField, &numGlyphs);
-
-        cairo_text_cluster_t cluster;
-        cluster.num_bytes = numBytes;
-        cluster.num_glyphs = numGlyphs;
-
-        clusters[i] = cluster;
-    }
-}
 
 void show_glyphs(Dart_NativeArguments args) {
     Dart_EnterScope();

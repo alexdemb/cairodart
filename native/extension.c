@@ -101,6 +101,7 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "rel_line_to", rel_line_to },
   { "rel_move_to", rel_move_to },
   { "text_path", text_path },
+  { "glyph_path", glyph_path },
   { "path_extents", path_extents },
   { "get_antialias", get_antialias },
   { "set_antialias", set_antialias },

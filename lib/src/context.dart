@@ -386,6 +386,12 @@ abstract class Context implements RefObject {
   void textPath(String text);
 
   ///
+  /// Adds closed paths for the glyphs to the current path. The generated path if filled, achieves an effect similar
+  /// to that of [showGlyphs()].
+  ///
+  void glyphPath(List<Glyph> glyphs);
+
+  ///
   /// Establishes a new clip region by intersecting the current clip region with the current path as it would be
   /// filled by [fill()] and according to the current fill rule (see [fillRule]).
   ///
@@ -1168,6 +1174,8 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   Path copyPathFlat() native 'copy_path_flat';
 
   void appendPath(Path path) native 'append_path';
+
+  void glyphPath(List<Glyph> glyphs) native 'glyph_path';
 
   CairoStatus get status native 'status';
 }

@@ -104,6 +104,7 @@ void device_to_user_distance(Dart_NativeArguments args);
 void copy_path(Dart_NativeArguments args);
 void copy_path_flat(Dart_NativeArguments args);
 void append_path(Dart_NativeArguments args);
+void glyph_path(Dart_NativeArguments args);
 
 
 #endif // CONTEXT_H

@@ -16,6 +16,7 @@
 #include "font_options.h"
 #include "scaled_font.h"
 #include "device.h"
+#include "path.h"
 
 Dart_NativeFunction resolve(const char* name);
 Dart_NativeFunction ResolveName(Dart_Handle name, int argc, bool* auto_setup_scope);
@@ -137,6 +138,9 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "copy_page", copy_page },
   { "get_dash", get_dash },
   { "set_dash", set_dash },
+  { "copy_path", copy_path },
+  { "copy_path_flat", copy_path_flat },
+  { "append_path", append_path },
   { "get_dash_count", get_dash_count },
   { "set_source_surface", set_source_surface },
   { "get_group_target", get_group_target },
@@ -313,7 +317,12 @@ static DartFunctionMap FUNCTIONS_MAP[] = {
   { "script_create", script_create },
   { "script_surface_create", script_surface_create },
   { "script_surface_create_for_target", script_surface_create_for_target },
-  { "surface_status", surface_status }
+  { "surface_status", surface_status },
+  { "create_path_iterator", create_path_iterator },
+  { "path_element_get_type", path_element_get_type },
+  { "path_element_get_point", path_element_get_point },
+  { "path_iterator_move_next", path_iterator_move_next },
+  { "path_iterator_current", path_iterator_current }
 };
 
 Dart_NativeFunction resolve(const char* name) {

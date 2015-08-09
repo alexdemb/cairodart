@@ -68,3 +68,6 @@ part 'device.dart';
 part 'device_type.dart';
 part 'font_slant.dart';
 part 'font_weight.dart';
+part 'path_element_type.dart';
+part 'path_element.dart';
+part 'path.dart';

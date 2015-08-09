@@ -661,5 +661,53 @@ runContextTests() {
 
       expect(ctx.deviceToUserDistance(), equals(new Distance.from(0, 0)));
     });
+    test('should correctly copy path using copyPath()', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      ctx.moveTo(20, 30);
+      ctx.lineTo(40, 50);
+
+      Path path = ctx.copyPath();
+
+      Iterator<PathElement> iter = path.iterator();
+
+      if (iter.moveNext()) {
+        PathElement pathElement = iter.current;
+        expect(pathElement.type, equals(PathElementType.MoveTo));
+      }
+
+      if (iter.moveNext()) {
+        PathElement pathElement = iter.current;
+        expect(pathElement.type, equals(PathElementType.LineTo));
+      }
+
+    });
+    test('should correctly append path to context', () {
+      var ctx = new Context(new ImageSurface(Format.ARGB32, 100, 100));
+
+      ctx.moveTo(20, 30);
+      ctx.lineTo(40, 50);
+
+      Path path = ctx.copyPath();
+      ctx.appendPath(path);
+
+      Iterator<PathElement> iter = ctx.copyPath().iterator();
+
+      if (iter.moveNext()) {
+        PathElement pathElement = iter.current;
+        expect(pathElement.type, equals(PathElementType.MoveTo));
+      }
+
+      if (iter.moveNext()) {
+        PathElement pathElement = iter.current;
+        expect(pathElement.type, equals(PathElementType.LineTo));
+      }
+
+      if (iter.moveNext()) {
+        PathElement pathElement = iter.current;
+        expect(pathElement.type, equals(PathElementType.LineTo));
+      }
+
+    });
   });
 }

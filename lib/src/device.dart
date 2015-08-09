@@ -63,6 +63,8 @@ abstract class Device implements RefObject {
   ///
   DeviceType get type;
 
+
+
 }
 
 class _Device extends NativeFieldWrapperClass2 implements Device {

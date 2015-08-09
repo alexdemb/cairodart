@@ -47,4 +47,5 @@ static void finalize(void* isolateCallbackData, Dart_WeakPersistentHandle weakHa
     if (info && info->handle && info->destroy_func) {
         info->destroy_func(info->handle);
     }
+    free(info);
 }

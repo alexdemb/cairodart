@@ -853,6 +853,33 @@ abstract class Context implements RefObject {
   ///
   Distance deviceToUserDistance();
 
+
+  ///
+  /// Creates a copy of the current path and returns it to the user as a [Path].
+  ///
+  Path copyPath();
+
+
+  ///
+  /// Gets a flattened copy of the current path and returns it to the user as a [Path].
+  ///
+  /// See [PathElement] for hints on how to iterate over the returned object.
+  /// This method is like [path()] except that any curves in the path will be approximated with piecewise-linear
+  /// approximations,
+  /// (accurate to within the current tolerance value).
+  /// That is, the result is guaranteed to not have any elements of type [PathElementType.CurveTo] which will
+  /// instead be replaced by a series of [PathElementType.LineTo] elements.
+  ///
+  Path copyPathFlat();
+
+
+  ///
+  /// Append the path onto the current path.
+  ///
+  /// The path may be either the return value from one of [copyPath()] or [copyPathFlat()].
+  ///
+  void appendPath(Path path);
+
 }
 
 
@@ -1135,6 +1162,12 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   Point deviceToUser() native 'device_to_user';
 
   Distance deviceToUserDistance() native 'device_to_user_distance';
+
+  Path copyPath() native 'copy_path';
+
+  Path copyPathFlat() native 'copy_path_flat';
+
+  void appendPath(Path path) native 'append_path';
 
   CairoStatus get status native 'status';
 }

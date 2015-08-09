@@ -14,6 +14,7 @@
 #include "font_options.h"
 #include "font_face.h"
 #include "scaled_font.h"
+#include "path.h"
 
 void context_destroy(void* handle) {
     if (handle) {
@@ -1300,5 +1301,46 @@ void device_to_user_distance(Dart_NativeArguments args) {
     Dart_Handle distObj = factory_create_distance(dx, dy);
 
     Dart_SetReturnValue(args, distObj);
+    Dart_ExitScope();
+}
+
+void copy_path(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    cairo_path_t* path = cairo_copy_path(context);
+
+    Dart_Handle pathObj = factory_create_object("Path", "_internal", NULL, 0);
+
+    bind_setup(path, pathObj, path_destroy);
+
+    Dart_SetReturnValue(args, pathObj);
+    Dart_ExitScope();
+}
+
+
+void copy_path_flat(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+
+    cairo_path_t* path = cairo_copy_path_flat(context);
+
+    Dart_Handle pathObj = factory_create_object("Path", "_internal", NULL, 0);
+
+    bind_setup(path, pathObj, path_destroy);
+
+    Dart_SetReturnValue(args, pathObj);
+    Dart_ExitScope();
+}
+
+void append_path(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    cairo_t* context = (cairo_t*)bind_get_self(args);
+    Dart_Handle pathObj = arg_get(&args, 1);
+    cairo_path_t* path = (cairo_path_t*)bind_get(pathObj);
+
+    cairo_append_path(context, path);
+
+    Dart_SetReturnValue(args, Dart_Null());
     Dart_ExitScope();
 }

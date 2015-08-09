@@ -28,7 +28,8 @@ HEADERS += \
     font_options.h \
     scaled_font.h \
     glyphs.h \
-    device.h
+    device.h \
+    path.h
 
 SOURCES += \
     argument.c \
@@ -48,4 +49,5 @@ SOURCES += \
     font_options.c \
     scaled_font.c \
     glyphs.c \
-    device.c
+    device.c \
+    path.c

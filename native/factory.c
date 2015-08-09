@@ -300,3 +300,8 @@ Dart_Handle factory_create_status(cairo_status_t status) {
     Dart_Handle args[1] = { Dart_NewInteger((int)status) };
     return factory_create_object("CairoStatus", "", args, 1);
 }
+
+Dart_Handle factory_create_path_element_type(cairo_path_data_type_t dataType) {
+    Dart_Handle args[1] = { Dart_NewInteger((int)dataType) };
+    return factory_create_object("_PathElementType", "", args, 1);
+}

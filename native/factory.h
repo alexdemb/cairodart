@@ -72,4 +72,6 @@ Dart_Handle factory_create_device_type(cairo_device_type_t type);
 
 Dart_Handle factory_create_status(cairo_status_t status);
 
+Dart_Handle factory_create_path_element_type(cairo_path_data_type_t dataType);
+
 #endif // FACTORY_H

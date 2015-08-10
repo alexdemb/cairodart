@@ -25,7 +25,7 @@ import 'package:cairodart/cairodart.dart';
 main() {
   Directory dir = Directory.systemTemp.createTempSync('cairodart');
 
-  var filePath = '${dir.path}${Platform.pathSeparator}filled_shapes.png';
+  var filePath = 'example${Platform.pathSeparator}filled_shapes.png';
 
   File file = new File(filePath);
   file.createSync();

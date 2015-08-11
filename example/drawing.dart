@@ -22,7 +22,6 @@ import 'dart:io';
 import 'package:cairodart/cairodart.dart';
 
 main() {
-  Directory dir = Directory.systemTemp.createTempSync('cairodart');
 
   var filePath = 'example${Platform.pathSeparator}star.png';
 

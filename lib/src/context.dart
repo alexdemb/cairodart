@@ -628,7 +628,7 @@ abstract class Context implements RefObject {
   Surface get target;
 
   ///
-  /// Gets or sets the source pattern within cr to source.
+  /// Gets or sets the source pattern within context to source.
   ///
   /// This pattern will then be used for any subsequent drawing operation until a new source pattern is set.
   ///

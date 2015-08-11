@@ -127,7 +127,7 @@ abstract class Gradient implements Pattern {
 abstract class LinearGradient implements Gradient {
 
   ///
-  /// Create a new linear gradient cairo_pattern_t along the line defined by (x0, y0) and (x1, y1).
+  /// Create a new linear gradient pattern along the line defined by (x0, y0) and (x1, y1).
   ///
   /// Before using the gradient pattern, a number of color stops should be defined using [Gradient.addColorStop()].
   ///

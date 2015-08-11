@@ -25,7 +25,7 @@ import 'package:cairodart/cairodart.dart';
 main() {
   Directory dir = Directory.systemTemp.createTempSync('cairodart');
 
-  var filePath = '${dir.path}${Platform.pathSeparator}captcha.png';
+  var filePath = 'example${Platform.pathSeparator}captcha.png';
 
   File file = new File(filePath);
   file.createSync();

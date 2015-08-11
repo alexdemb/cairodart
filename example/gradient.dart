@@ -24,7 +24,7 @@ import 'package:cairodart/cairodart.dart';
 main() {
   Directory dir = Directory.systemTemp.createTempSync('cairodart');
 
-  var filePath = '${dir.path}${Platform.pathSeparator}gradient.png';
+  var filePath = 'example${Platform.pathSeparator}gradient.png';
 
   File file = new File(filePath);
   file.createSync();

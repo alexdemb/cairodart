@@ -135,6 +135,9 @@ main() {
 
 ### Not implemented features
 
+The first version of CairoDart provides binaries for Linux only.
+Binries for Windows and Mac OS will be available in future versions.
+
 The first version of CairoDart does not provide bindings for the following features:
 - Xlib Surfaces
 - Win32 Surfaces

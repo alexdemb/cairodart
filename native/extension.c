@@ -59,6 +59,8 @@ typedef struct _DartFunctionMap DartFunctionMap;
 
 static DartFunctionMap FUNCTIONS_MAP[] = {
   { "context_create", context_create },
+  { "context_create_from_native", context_create_from_native },
+  { "context_equals", context_equals },
   { "save", save },
   { "restore", restore },
   { "push_group", push_group },

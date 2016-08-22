@@ -88,6 +88,33 @@ void context_create(Dart_NativeArguments args) {
     Dart_ExitScope();
 }
 
+void context_equals(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    Dart_Handle obj = arg_get(&args, 0);
+    Dart_Handle other = arg_get(&args, 1);
+
+    cairo_t* selfPtr = (cairo_t*)bind_get(obj);
+    cairo_t* otherPtr = (cairo_t*)bind_get(other);
+
+    Dart_SetReturnValue(args, Dart_NewBoolean(selfPtr == otherPtr));
+    Dart_ExitScope();
+}
+
+void context_create_from_native(Dart_NativeArguments args) {
+    Dart_EnterScope();
+    Dart_Handle obj = arg_get(&args, 0);
+    Dart_Handle nativeObj = arg_get(&args, 1);
+
+    intptr_t ptr;
+    error_check_handle(Dart_GetNativeInstanceField(nativeObj, 0, &ptr));
+
+    cairo_t* context = (cairo_t*)ptr;
+
+    bind_setup(context, obj, NULL);
+
+    Dart_SetReturnValue(args, Dart_Null());
+    Dart_ExitScope();
+}
 
 void save(Dart_NativeArguments args) {
     Dart_EnterScope();

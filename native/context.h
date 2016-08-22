@@ -105,6 +105,7 @@ void copy_path(Dart_NativeArguments args);
 void copy_path_flat(Dart_NativeArguments args);
 void append_path(Dart_NativeArguments args);
 void glyph_path(Dart_NativeArguments args);
-
+void context_create_from_native(Dart_NativeArguments args);
+void context_equals(Dart_NativeArguments args);
 
 #endif // CONTEXT_H

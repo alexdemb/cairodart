@@ -35,6 +35,16 @@ abstract class Context implements RefObject {
   }
 
   ///
+  /// Creates a new [Context] using existing native wrapper.
+  /// The native wrapper should have pointer to cairo_t as it's first field.
+  ///
+  /// The caller is responsible to call native function cairo_destory().
+  ///
+  factory Context.fromNative(NativeFieldWrapperClass2 nativeObj) {
+    return new _Context.fromNative(nativeObj);
+  }
+
+  ///
   /// Makes a copy of the current state of context and saves it on an internal stack of saved states.
   /// When [restore()] is called, cr will be restored to the saved state.
   /// Multiple calls to [save()] and [restore()] can be nested.
@@ -896,7 +906,13 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   _Context(this._surface) {
     _create(_surface);
   }
-  
+
+  _Context.fromNative(NativeFieldWrapperClass2 nativeObj) {
+    _createFromNative(nativeObj);
+  }
+
+  void _createFromNative(NativeFieldWrapperClass2 nativeObj) native 'context_create_from_native';
+
   void _create(Surface surface) native 'context_create';
   
   void save() native 'save';
@@ -1176,6 +1192,9 @@ class _Context extends NativeFieldWrapperClass2 implements Context {
   void appendPath(Path path) native 'append_path';
 
   void glyphPath(List<Glyph> glyphs) native 'glyph_path';
+
+  @override
+  operator==(Context other) native 'context_equals';
 
   CairoStatus get status native 'status';
 }

@@ -1,7 +1,7 @@
 name: cairodart
 description: >
   Dart bindings for Cairo library.
-version: 0.1.0
+version: 0.2.0
 author: Alexander Dembinsky <alexander.dembinsky@gmail.com>
 homepage: https://github.com/alexander-dembinsky/cairodart
 dev_dependencies:

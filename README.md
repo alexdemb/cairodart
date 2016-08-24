@@ -10,6 +10,10 @@ For installation details see (http://cairographics.org/download/)
 
 CairoDart provides API around native library, so the "glue" code should be compiled before start working with CairoDart.
 
+QMake is used for building native part of cairodart, so it should be installed prior to building.
+
+Also environment variable DART_SDK should be set to location of installed Dart SDK.
+
 ```
 $ cd native
 $ qmake

@@ -38,7 +38,7 @@ abstract class Context implements RefObject {
   /// Creates a new [Context] using existing native wrapper.
   /// The native wrapper should have pointer to cairo_t as it's first field.
   ///
-  /// The caller is responsible to call native function cairo_destory().
+  /// The caller is responsible to call native function cairo_destroy().
   ///
   factory Context.fromNative(NativeFieldWrapperClass2 nativeObj) {
     return new _Context.fromNative(nativeObj);

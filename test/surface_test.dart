@@ -31,7 +31,7 @@ runSurfaceTests() {
     test('should correctly get/set device offset', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);
       surface.deviceOffset = new Point.from(20.0, 25.0);
-      
+
       Point offset = surface.deviceOffset;
       expect(offset.x, equals(20.0));
       expect(offset.y, equals(25.0));
@@ -48,7 +48,7 @@ runSurfaceTests() {
     test('should correctly get/set fallback resolution', () {
       var surface = new ImageSurface(Format.ARGB32, 640, 480);
       surface.fallbackResolution = new Resolution(250.0, 120.0);
-      
+
       expect(surface.fallbackResolution.xResolution, equals(250.0));
       expect(surface.fallbackResolution.yResolution, equals(120.0));
     });
@@ -75,10 +75,11 @@ runSurfaceTests() {
       expect(surface.surfaceType, equals(SurfaceType.Image));
     });
     test('should correctly get/set data byte array', () {
-      List<int> data = new List<int>.from([30,40,50,60,70,80,90,100]);
-      var surface = new ImageSurface.forData(data, Format.ARGB32, 640, 480, Format.ARGB32.strideForWidth(640));
+      final data = new Uint8List.fromList([0, 0, 0, 255]);
+      final surface = new ImageSurface.forData(
+        data, Format.ARGB32, 1, 1, Format.ARGB32.strideForWidth(1));
 
-      List<int> imgData = surface.data;
+      Uint8List imgData = surface.data;
       expect(imgData, equals(data));
     });
   });

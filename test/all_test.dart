@@ -20,6 +20,7 @@ library cairodart.test;
 import 'package:cairodart/cairodart.dart';
 import 'package:test/test.dart';
 import 'dart:core' hide Pattern;
+import 'dart:typed_data';
 
 part 'surface_test.dart';
 part 'format_test.dart';

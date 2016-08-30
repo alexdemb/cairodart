@@ -69,16 +69,18 @@ void image_surface_create_for_data(Dart_NativeArguments args) {
     int64_t height = arg_get_int(&args, 4);
     int64_t stride = arg_get_int(&args, 5);
 
-    int length = list_length(bytesList);
+    int64_t length = list_length(bytesList);
+    void *data;
+    Dart_TypedData_Type uint8type = Dart_TypedData_kUint8;
+    error_check_handle(Dart_TypedDataAcquireData(bytesList, &uint8type, &data, &length));
+    error_check_handle(Dart_TypedDataReleaseData(bytesList));
 
-    unsigned char* arr = (unsigned char*)malloc(sizeof(unsigned char) * length);
-    int i;
-    for (i = 0; i < length; i++) {
-        unsigned char b = (unsigned char)list_int_at(bytesList, i);
-        arr[i] = b;
-    }
+    // The memcpy step seems to be required to safely allocate the memory block.
+    uint8_t *arr = (uint8_t*)malloc(length);
+    memcpy(arr, data, length);
 
-    cairo_surface_t* surface = cairo_image_surface_create_for_data(arr, format, width, height, stride);
+    cairo_surface_t* surface = cairo_image_surface_create_for_data(
+      arr, format, width, height, stride);
 
     cairo_surface_set_user_data(surface, &surfaceKey, arr, surface_data_destroy);
 

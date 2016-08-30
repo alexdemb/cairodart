@@ -1,6 +1,7 @@
 #ifndef SURFACE_H
 #define SURFACE_H
 
+#include <string.h>
 #include "dart_api.h"
 
 void surface_destroy(void* handle);

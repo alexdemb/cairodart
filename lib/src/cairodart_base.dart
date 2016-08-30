@@ -19,6 +19,7 @@ library cairodart.base;
 
 import 'dart-ext:cairodart';
 import 'dart:nativewrappers';
+import 'dart:typed_data';
 
 part 'ref_object.dart';
 part 'context.dart';

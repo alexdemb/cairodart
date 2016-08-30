@@ -385,7 +385,7 @@ abstract class _Surface extends NativeFieldWrapperClass2 implements Surface {
 abstract class ImageSurface implements Surface {
 
   factory ImageSurface(Format format, int width, int height) => new _ImageSurface(format, width, height);
-  factory ImageSurface.forData(List<int> data, Format format, int width, int height, int stride) =>
+  factory ImageSurface.forData(Uint8List data, Format format, int width, int height, int stride) =>
     new _ImageSurface.forData(data, format, width, height, stride);
 
   factory ImageSurface.fromPng(String fileName) => new _ImageSurface.fromPng(fileName);
@@ -394,7 +394,7 @@ abstract class ImageSurface implements Surface {
   int get height;
   int get stride;
   Format get format;
-  List<int> get data;
+  Uint8List get data;
 
   void write();
 
@@ -417,13 +417,13 @@ class _ImageSurface extends _Surface implements ImageSurface {
     _format = format;
   }
 
-  _ImageSurface.forData(List<int> data, Format format, int width, int height, int stride) {
+  _ImageSurface.forData(Uint8List data, Format format, int width, int height, int stride) {
     _createImageSurfaceForData(data, format.value, width, height, stride);
   }
 
   _ImageSurface.internal(){}
 
-  void _createImageSurfaceForData(List<int> data, int format, int width, int height, int stride) native 'image_surface_create_for_data';
+  void _createImageSurfaceForData(Uint8List data, int format, int width, int height, int stride) native 'image_surface_create_for_data';
 
   void _createImageSurface(int format, int width, int height) native 'image_surface_create';
 
@@ -431,7 +431,7 @@ class _ImageSurface extends _Surface implements ImageSurface {
   int get height native 'image_surface_get_height';
   int get stride native 'image_surface_get_stride';
   Format get format => _format;
-  List<int> get data native 'image_surface_get_data';
+  Uint8List get data native 'image_surface_get_data';
 
   String _fileName;
 

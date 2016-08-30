@@ -5,8 +5,6 @@
 build/
 packages
 pubspec.lock
-*.so.*
-*.so
 *.tmp
 native/*.pro.user
 *.iml

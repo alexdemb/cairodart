@@ -394,7 +394,7 @@ abstract class ImageSurface implements Surface {
   int get height;
   int get stride;
   Format get format;
-  List<int> get data;
+  Uint8List get data;
 
   void write();
 
@@ -431,7 +431,7 @@ class _ImageSurface extends _Surface implements ImageSurface {
   int get height native 'image_surface_get_height';
   int get stride native 'image_surface_get_stride';
   Format get format => _format;
-  List<int> get data native 'image_surface_get_data';
+  Uint8List get data native 'image_surface_get_data';
 
   String _fileName;
 

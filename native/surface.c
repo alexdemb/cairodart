@@ -97,12 +97,20 @@ void image_surface_get_data(Dart_NativeArguments args) {
     Dart_Handle result = Dart_Null();
 
     if (data) {
-        int length = sizeof(data) / sizeof(data[0]);
-        result = Dart_NewList(length);
-        int i;
-        for (i = 0; i < length; i++) {
-            Dart_ListSetAt(result, i, Dart_NewInteger(data[i]));
-        }
+        // Compute data length, it is not clear what ammount of bytes cairo
+        // uses per pixel but it turns out it's for for both ARGB32 and RGB24.
+        // Reading A1 and A8 formats is a bit more tedious and not yet
+        // implemented here.
+        intptr_t length =
+          cairo_image_surface_get_width(surface) *
+          cairo_image_surface_get_height(surface) * 4;
+
+        // Get surface data.
+        unsigned char *data = cairo_image_surface_get_data(surface);
+
+        // Create Uint8List with surface data.
+        result = Dart_NewTypedData(Dart_TypedData_kUint8, length);
+        Dart_ListSetAsBytes(result, 0, data, length);
     }
 
     Dart_SetReturnValue(args, result);
